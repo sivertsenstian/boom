@@ -1,46 +1,209 @@
 <html>
 <body>
+<div id="container"></div>
 
+<script type="text/javascript" src="lib/script/jquery-2.1.1.min.js" ></script>
+<script type="text/javascript" src="lib/script/Stats.js" ></script>
 <script type="text/javascript" src="lib/script/three.min.js" ></script>
+<script type="text/javascript" src='lib/script/threex/keyboardstate/threex.keyboardstate.js'></script>
+<script type="text/javascript" src='lib/script/threex/skymap/threex.skymap.js'></script>
+<script type="text/javascript" src='lib/script/threex/skymap/threex.texturecube.js'></script>
+<script type="text/javascript" src='lib/script/threex/skymap/threex.cubetexturehcross.js'></script>
+
 <script>
+	var $container, scene, camera, renderer, controls, stats, skybox;
+	var keyboard = new THREEx.KeyboardState();
+	var clock = new THREE.Clock();
 
-    var scene, camera, renderer;
-    var geometry, material, mesh;
+	init();
+	animate();
+	
+	function init(){
+		// set some constants
+	 	var VIEW_DISTANCE = 5000
 
-    init();
-    animate();
+	    // set the scene size
+		var WIDTH = 480,
+		    HEIGHT = 320;
 
-    function init() {
+		// set some camera attributes
+		var VIEW_ANGLE = 45,
+		    ASPECT = WIDTH / HEIGHT,
+		    NEAR = 0.1,
+		    FAR = VIEW_DISTANCE*2;
 
-        scene = new THREE.Scene();
+		// get the DOM element to attach to
+		// - assume we've got jQuery to hand
+		$container = $('#container');
 
-        camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
-        camera.position.z = 1000;
+		// create a WebGL renderer, camera
+		// and a scene
+		renderer = new THREE.WebGLRenderer({antialias:true});
+		camera = new THREE.PerspectiveCamera(
+		                   VIEW_ANGLE,
+		                   ASPECT,
+		                   NEAR,
+		                   FAR );
 
-        geometry = new THREE.BoxGeometry( 200, 200, 200 );
-        material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
+		scene = new THREE.Scene();
 
-        mesh = new THREE.Mesh( geometry, material );
-        scene.add( mesh );
+		// start the renderer
+		renderer.setSize(WIDTH, HEIGHT);
 
-        renderer = new THREE.WebGLRenderer();
-        renderer.setSize( window.innerWidth, window.innerHeight );
+		// attach the render-supplied DOM element
+		$container.append(renderer.domElement);
 
-        document.body.appendChild( renderer.domElement );
+		// STATS
+		stats = new Stats();
+		stats.domElement.style.position = 'absolute';
+		stats.domElement.style.bottom = '0px';
+		stats.domElement.style.zIndex = 100;
+		container.appendChild( stats.domElement );
 
-    }
+		// LIGHT
+		var light = new THREE.PointLight(0xffffff);
+		light.position.set(0,250,0);
+		scene.add(light);
 
-    function animate() {
+		// FLOOR
+		var floorTexture = new THREE.ImageUtils.loadTexture( 'lib/resources/dirt.jpg' );
+		floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
+		floorTexture.repeat.set( 50, 50 );
 
-        requestAnimationFrame( animate );
+		var floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture, side: THREE.DoubleSide } );
+		var floorGeometry = new THREE.PlaneBufferGeometry (VIEW_DISTANCE, VIEW_DISTANCE, 50, 50);
+		var floor = new THREE.Mesh(floorGeometry, floorMaterial);
+		floor.position.y = -0.5;
+		floor.rotation.x = Math.PI / 2;
+		scene.add(floor);
 
-        mesh.rotation.x += 0.01;
-        mesh.rotation.y += 0.02;
+		// SKYBOX/FOG
+		skybox = THREEx.createSkymap({
+			textureCube: THREEx.createTextureCube('mars'), 
+			cubeW: VIEW_DISTANCE, 
+			cubeH: VIEW_DISTANCE, 
+			cubeD: VIEW_DISTANCE
+		});
+		scene.add( skybox );
 
-        renderer.render( scene, camera );
+		////////////
+		// CUSTOM //
+		////////////
+		
+		// create an array with six textures for a cool cube
+		var materialArray = [];
+		materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'lib/resources/xpos.png' ) }));
+		materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'lib/resources/xneg.png' ) }));
+		materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'lib/resources/ypos.png' ) }));
+		materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'lib/resources/yneg.png' ) }));
+		materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'lib/resources/zpos.png' ) }));
+		materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'lib/resources/zneg.png' ) }));
 
-    }
+		var loader = new THREE.JSONLoader();
+		loader.load("/lib/resources/pistol/Pistol.js", function ( geometry ) {
+ 	 		
+ 	 		var material = new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( "lib/resources/pistol/Pistol.jpg" ), shading: THREE.NoShading, color: 0xffffff, morphTargets: true } );
+		  	
+		  	Pistol = new THREE.MorphAnimMesh( geometry, material );
+			Pistol.rotation.y = - (Math.PI / 2);
+			Pistol.scale.set(.5,.5,.5);
+			Pistol.position.set(25, 100, 0);
+			Pistol.castShadow = true;
+			Pistol.receiveShadow = false;
+		});
 
+		loader.onLoadComplete = function(){
+			console.log("LOAD COMPLETE!")
+			console.log(Pistol)
+			scene.add( Pistol );
+		} 
+
+		//Wireframe
+		var MovingCubeMat = new THREE.MeshBasicMaterial( { color: 0x00ee00, wireframe: false, transparent: true } ); //new THREE.MeshFaceMaterial(materialArray);
+		var MovingCubeGeom = new THREE.BoxGeometry(50, 50, 50);
+		MovingCube = new THREE.Mesh( MovingCubeGeom, MovingCubeMat );
+		MovingCube.position.set(0, 100, 0);
+		scene.add( MovingCube );
+	};
+
+	function animate() 
+	{
+	    requestAnimationFrame( animate );
+		render();		
+		update();
+	};
+
+	function update()
+	{
+		var delta = clock.getDelta(); // seconds.
+		var moveDistance = 200 * delta; // 200 pixels per second
+		var rotateAngle = Math.PI / 2 * delta;   // pi/2 radians (90 degrees) per second
+		
+		// local transformations
+
+		// move forwards/backwards/left/right
+		if ( keyboard.pressed("W") ){
+			MovingCube.translateZ( -moveDistance );
+			if (Pistol){
+				Pistol.translateX( -moveDistance );
+			}
+		}
+		if ( keyboard.pressed("S") ){
+			MovingCube.translateZ(  moveDistance );
+			if (Pistol){
+				Pistol.translateX( moveDistance );
+			}
+		}
+
+		if ( keyboard.pressed("Q") )
+			MovingCube.translateX( -moveDistance );
+		if ( keyboard.pressed("E") )
+			MovingCube.translateX(  moveDistance );	
+
+		// rotate left/right/up/down
+		var rotation_matrix = new THREE.Matrix4().identity();
+		if ( keyboard.pressed("A") ){
+			MovingCube.rotateOnAxis( new THREE.Vector3(0,1,0), rotateAngle);
+			if (Pistol){
+				Pistol.rotateOnAxis( new THREE.Vector3(0,1,0), rotateAngle);
+			}
+		}
+		if ( keyboard.pressed("D") ){
+			MovingCube.rotateOnAxis( new THREE.Vector3(0,1,0), -rotateAngle);
+			if (Pistol){
+				Pistol.rotateOnAxis( new THREE.Vector3(0,1,0), -rotateAngle);
+			}
+		}
+		if ( keyboard.pressed("R") )
+			MovingCube.rotateOnAxis( new THREE.Vector3(1,0,0), rotateAngle);
+		if ( keyboard.pressed("F") )
+			MovingCube.rotateOnAxis( new THREE.Vector3(1,0,0), -rotateAngle);
+		
+		if ( keyboard.pressed("Z") )
+		{
+			MovingCube.position.set(0,25.1,0);
+			MovingCube.rotation.set(0,0,0);
+		}
+		
+		var relativeCameraOffset = new THREE.Vector3(0,0,1);
+
+		var cameraOffset = relativeCameraOffset.applyMatrix4( MovingCube.matrixWorld );
+
+		camera.position.x = cameraOffset.x;
+		camera.position.y = cameraOffset.y;
+		camera.position.z = cameraOffset.z;
+		camera.lookAt( MovingCube.position );
+		
+		//camera.updateMatrix();
+		//camera.updateProjectionMatrix();
+		
+		stats.update();
+	};
+
+	function render() 
+	{
+		renderer.render( scene, camera );
+	}
 </script>
 </body> 
 </html>
