@@ -4,7 +4,8 @@
 
 <script type="text/javascript" src="lib/script/jquery-2.1.1.min.js" ></script>
 <script type="text/javascript" src="lib/script/Stats.js" ></script>
-<script type="text/javascript" src="lib/script/three.min.js" ></script>
+<script type="text/javascript" src="lib/script/three.js" ></script>
+<script type="text/javascript" src="lib/script/three/ColladaLoader.js" ></script>
 <script type="text/javascript" src='lib/script/threex/keyboardstate/threex.keyboardstate.js'></script>
 <script type="text/javascript" src='lib/script/threex/skymap/threex.skymap.js'></script>
 <script type="text/javascript" src='lib/script/threex/skymap/threex.texturecube.js'></script>
@@ -17,8 +18,32 @@
 	var clock = new THREE.Clock();
 	var shotlife = 10;
 
-	init();
-	animate();
+	var dae;
+
+	var loader = new THREE.ColladaLoader();
+	loader.options.convertUpAxis = true;
+	loader.load( '/models/gun.dae', function ( collada ) {
+
+		dae = collada.scene;
+
+		dae.traverse( function ( child ) {
+
+			if ( child instanceof THREE.SkinnedMesh ) {
+
+				var animation = new THREE.Animation( child, child.geometry.animation );
+				animation.play();
+
+			}
+
+		} );
+
+		dae.scale.x = dae.scale.y = dae.scale.z = 0.02;
+		dae.updateMatrix();
+
+		init();
+		animate();
+
+	} );
 	
 	function init(){
 		// set some constants
@@ -127,7 +152,7 @@
 		materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'lib/resources/zpos.png' ) }));
 		materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'lib/resources/zneg.png' ) }));
 
-		var loader = new THREE.JSONLoader();
+		/*var loader = new THREE.JSONLoader();
 		loader.load("/lib/resources/pistol/Pistol.js", function ( geometry ) {
  	 		
  	 		var material = new THREE.MeshBasicMaterial( {map: THREE.ImageUtils.loadTexture( "lib/resources/pistol/Pistol.jpg" ), shading: THREE.NoShading, color: 0xffffff, morphTargets: true } );
@@ -143,7 +168,19 @@
 		loader.onLoadComplete = function(){
 			console.log("LOAD COMPLETE!")
 			scene.add( Pistol );
-		} 
+		} */
+
+		//ADD COLLADA
+		Pistol = dae;
+		Pistol.rotation.y = - (Math.PI / 2);
+		//Pistol.rotation.z += 10;
+		//Pistol.rotation.y = - (Math.PI / 2);
+
+		Pistol.scale.set(.15,.15,.15);
+		//Pistol.position.set(25, 50, -50);
+		Pistol.castShadow = true;
+		Pistol.receiveShadow = false;
+		scene.add( dae );
 
 		//Wireframe
 		var MovingCubeMat = new THREE.MeshBasicMaterial( { color: 0x00ee00, wireframe: false, transparent: true } );
@@ -243,7 +280,7 @@
 		camera.lookAt( MovingCube.position );
 		
 		if(typeof(Pistol) !== "undefined"){
-			Pistol.position.set(MovingCube.position.x, MovingCube.position.y, MovingCube.position.z);
+			Pistol.position.set(MovingCube.position.x + 1.5, MovingCube.position.y - 2.5, MovingCube.position.z - 8);
 		}
 
 		if(shots.length > 0){

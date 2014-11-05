@@ -1,15 +1,31 @@
 <html>
 <body>
-
-<h1> Boom!</h1>
-<hr>
-
-<div id="container"></div>
-
-<script type="text/javascript" src="lib/script/vendor/jquery-2.1.1.min.js" ></script>
+<script type="text/javascript" src="lib/script/vendor/jquery-2.1.1.min.js" >
+</script>
 <script type="text/javascript" src="lib/script/vendor/Stats.js" ></script>
 <script type="text/javascript" src="lib/script/vendor/three.min.js" ></script>
-<script type="text/javascript" src="lib/script/ss/script.js" ></script>
+<script type="text/javascript" src="lib/script/vendor/three/FirstPersonControls.js" ></script>
+<script type="text/javascript" src="lib/script/vendor/pointerlock.js" ></script>
 
+<script type="text/javascript" src="lib/script/vendor/physi.js"></script>
+
+<script type="text/javascript" src="lib/script/ss/base.js" ></script>
+
+<script type="text/javascript" src="lib/script/ss/world.js" ></script>
+
+<script type="text/javascript" src="lib/script/ss/game.js" ></script>
+
+
+  <style>
+  
+    body { margin: 0; padding: 0; overflow: hidden; background-color: #000; }
+    canvas { position: fixed; }
+  
+  </style>
+
+<script>
+  GAME = new Boom.Game();
+  GAME.init();
+</script>
 </body> 
 </html>

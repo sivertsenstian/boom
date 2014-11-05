@@ -7,6 +7,17 @@
 THREE.FirstPersonControls = function ( object, domElement ) {
 
 	this.object = object;
+
+	var material = new THREE.MeshPhongMaterial({overdraw: true, color: 0xFF00FF});
+	this.item = new Physijs.BoxMesh(
+    new THREE.BoxGeometry( 6 , 6 , 12 ),
+    Physijs.createMaterial(material, 0, 0), 75000
+  );
+  this.item.position.set(200,50,200);
+
+
+  this.item.add( this.object );
+
 	this.target = new THREE.Vector3( 0, 0, 0 );
 
 	this.domElement = ( domElement !== undefined ) ? domElement : document;
@@ -136,6 +147,29 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 
 	};
 
+	this.onKeyPress = function ( event ){
+		switch ( event.keyCode ) {
+
+			case 119: /*up*/
+			case 119: /*W*/ this.moveForward = true; break;
+
+			case 37: /*left*/
+			case 65: /*A*/ this.moveLeft = true; break;
+
+			case 40: /*down*/
+			case 83: /*S*/ this.moveBackward = true; break;
+
+			case 39: /*right*/
+			case 68: /*D*/ this.moveRight = true; break;
+
+			case 82: /*R*/ this.moveUp = true; break;
+			case 70: /*F*/ this.moveDown = true; break;
+
+			case 69: /*E*/ this.zoomOut = true; break;
+			case 81: /*Q*/ this.zoomIn = true; break;
+		}
+	};
+
 	this.onKeyDown = function ( event ) {
 
 		//event.preventDefault();
@@ -157,6 +191,8 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 			case 82: /*R*/ this.moveUp = true; break;
 			case 70: /*F*/ this.moveDown = true; break;
 
+			case 69: /*E*/ this.zoomOut = true; break;
+			case 81: /*Q*/ this.zoomIn = true; break;
 		}
 
 	};
@@ -166,7 +202,10 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 		switch( event.keyCode ) {
 
 			case 38: /*up*/
-			case 87: /*W*/ this.moveForward = false; break;
+			case 87: /*W*/ 
+				this.moveForward = false; 
+				this.item.setDamping(0.8, 1.0);
+				break;
 
 			case 37: /*left*/
 			case 65: /*A*/ this.moveLeft = false; break;
@@ -180,12 +219,14 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 			case 82: /*R*/ this.moveUp = false; break;
 			case 70: /*F*/ this.moveDown = false; break;
 
+			case 69: /*E*/ this.zoomOut = false; break;
+			case 81: /*Q*/ this.zoomIn = false; break;
+
 		}
 
 	};
 
 	this.update = function( delta ) {
-
 		if ( this.enabled === false ) return;
 
 		if ( this.heightSpeed ) {
@@ -203,11 +244,40 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 
 		var actualMoveSpeed = delta * this.movementSpeed;
 
-		if ( this.moveForward || ( this.autoForward && !this.moveBackward ) ) this.object.translateZ( - ( actualMoveSpeed + this.autoSpeedFactor ) );
-		if ( this.moveBackward ) this.object.translateZ( actualMoveSpeed );
+		if ( this.moveForward || ( this.autoForward && !this.moveBackward ) ){
+			var vector = new THREE.Vector3( 0, 0, -1 );
+			vector.applyQuaternion( this.object.quaternion );
+			vector.multiplyScalar(20);
+			vector.y = 0;
+			this.item.setLinearVelocity(vector);
 
-		if ( this.moveLeft ) this.object.translateX( - actualMoveSpeed );
-		if ( this.moveRight ) this.object.translateX( actualMoveSpeed );
+		}
+
+		if ( this.moveBackward ) {
+			var vector = new THREE.Vector3( 0, 0, 1 );
+			vector.applyQuaternion( this.object.quaternion );
+			vector.multiplyScalar(20);
+			vector.y = 0;
+			this.item.setLinearVelocity(vector);
+		}
+
+		if ( this.moveLeft ) {
+			//Strafe left
+		}
+
+		if ( this.moveRight ) {
+		//Strafe right
+		}
+
+		if ( this.zoomOut ) {
+			this.object.position.z = -50;
+			this.object.position.y = 25;
+		}
+
+		if ( this.zoomIn ) {
+			this.object.position.z = 0;
+			this.object.position.y = 0;
+		}
 
 		if ( this.moveUp ) this.object.translateY( actualMoveSpeed );
 		if ( this.moveDown ) this.object.translateY( - actualMoveSpeed );
@@ -261,6 +331,7 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 	this.domElement.addEventListener( 'mouseup', bind( this, this.onMouseUp ), false );
 
 	window.addEventListener( 'keydown', bind( this, this.onKeyDown ), false );
+	//window.addEventListener( 'keypress', bind( this, this.onKeyPress ), false );
 	window.addEventListener( 'keyup', bind( this, this.onKeyUp ), false );
 
 	function bind( scope, fn ) {
