@@ -65,17 +65,6 @@ Boom.Base = function() {
 
   Physijs.scripts.worker = '/boom/lib/script/vendor/physijs_worker.js';
   Physijs.scripts.ammo = '/boom/lib/script/vendor/ammo.js';
-
-  //STATS
-  this.stats = new Stats();
-  this.stats.setMode(0); // 0: fps, 1: ms
-  // align top-left
-  this.stats.domElement.style.position = 'absolute';
-  this.stats.domElement.style.left = '0px';
-  this.stats.domElement.style.top = '0px';
-  this.stats.domElement.style.zIndex = '1';
-
-  document.body.appendChild( this.stats.domElement );
 };
 
 Boom.Base.prototype = {

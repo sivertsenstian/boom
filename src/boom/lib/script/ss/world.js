@@ -74,14 +74,14 @@ Boom.World.prototype = {
     );
 
     //Fog
-    this.fog = new THREE.FogExp2(new THREE.Color().setRGB(0, 0, 0).getHex(), 0.0045);
+    this.fog = new THREE.FogExp2(0xFFFFFF, 0.002);
 
     //Lights
     this.lights = [];
-    var hemishphere_light = new THREE.HemisphereLight( 0xffffbb, 0x080820, 1 );
-    hemishphere_light.position.set( - 1, 1, - 1 );
-    hemishphere_light.castShadow = true;
-    this.lights.push(hemishphere_light);
+    var directional_light = new THREE.DirectionalLight(0xFFFFFF);
+    directional_light.position.set( -1,  1, -1 );
+    directional_light.castShadow = true;
+    this.lights.push(directional_light);
 
     //Map
     this.map = [

@@ -26,8 +26,8 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
     Boom.Base.prototype.init.call(this);
 
     //TODO SETUP DEBUG with log, visual debug (x,y,z and GRID and colors etc.)
-    // Boom.DebugUI.init();
-    //Boom.DebugUI.visible = false;
+    //Boom.Debug.init();
+    //Boom.Debug.visible = false;
   },
 
   update: function(){
