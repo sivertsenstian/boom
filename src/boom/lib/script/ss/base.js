@@ -7,11 +7,41 @@ Boom.Constants = {
     WIDTH: 32,
     HEIGHT: 32,
     SIZE: 24,
+    GRAVITY: new THREE.Vector3(0, -100, 0)
+
+  },
+  
+  Objects:{
+    FLOOR: 0,
+    SKYBOX: 1,
+    WALL: 2,
+    COLLECTION: 3,
+    FOG: 66,
+    GRAVITY: 77,
+    LIGHT: 88,
+    DEBUG: 99,
+    RENDERER: 198,
+    CAMERA: 199,
+    SCENE: 200
 
   },
 
+  Debug:{
+    FLOOR: function(){ 
+      var t = new THREE.ImageUtils.loadTexture( '/boom/lib/resources/DEBUG/floor.png' );
+      t.wrapS = t.wrapT = THREE.RepeatWrapping;
+      t.repeat.set( Boom.Constants.World.WIDTH, Boom.Constants.World.HEIGHT );
+      return new THREE.MeshBasicMaterial( { map: t, side: THREE.DoubleSide });
+    },
+    WALL: function(){ return new THREE.MeshBasicMaterial({color: 0xFF00FF, wireframe: true})},
+    SKYBOX: function(){ return new THREE.MeshBasicMaterial({color: 0x00FFFF, wireframe: true})}
+  },
+
   Colors:{
-    DEFAULT: 0x00FF00
+    DEFAULT: 0x00FF00,
+    X: 0xFF0000,
+    Y: 0x00FF00,
+    Z: 0x0000FF,
   },
 
 
@@ -37,6 +67,20 @@ Boom.inherit = function(classObj, members) {
   return base;
 };
 
+Boom.bind = function( scope, fn ) {
+
+  return function () {
+
+    fn.apply( scope, arguments );
+
+  };
+
+};
+
+Boom.getCurrentTime = function(){
+  return Date.now();
+};
+
 Boom.msToFrames = function(ms) {
   return Math.round(ms / 16.66);
 };
@@ -53,18 +97,7 @@ Boom.Base = function() {
   this.cameraFar = 1000;
   this.timeStep = 0.01666;
 
-  this.fpsCounter = {
-    updateRate: 0,
-    frameRate: 0,
-    updates: 0,
-    frames: 0,
-    currentTime: this.getCurrentTime(),
-  };
-
   this.requestAnimationFrameId = null;
-
-  Physijs.scripts.worker = '/boom/lib/script/vendor/physijs_worker.js';
-  Physijs.scripts.ammo = '/boom/lib/script/vendor/ammo.js';
 };
 
 Boom.Base.prototype = {
@@ -83,7 +116,13 @@ Boom.Base.prototype = {
     this.renderer.domElement.id = "game-canvas";
   
     this.camera = new THREE.PerspectiveCamera(this.cameraFov, this.width / this.height, this.cameraNear, this.cameraFar);
+    this.camera.name = Boom.Constants.Objects.CAMERA;
+
     this.scene = new Physijs.Scene();
+    this.scene.name = Boom.Constants.Objects.SCENE;
+
+    this.debug = new Boom.Debug(this.scene);
+    this.debug.init();
 
     window.addEventListener("resize", function() { self.onResize(); }, false);
     this.onResize();
@@ -98,7 +137,7 @@ Boom.Base.prototype = {
       cancelAnimationFrame(this.requestAnimationFrameId);
     }
 
-    this.currentTime = this.getCurrentTime();
+    this.currentTime = Boom.getCurrentTime();
     this.accumulator = 0.0;
 
     this.gameLoop();
@@ -114,9 +153,8 @@ Boom.Base.prototype = {
 
   gameLoop: function(){
     var self = this;
-    this.stats.begin();
 
-    var newTime = this.getCurrentTime();
+    var newTime = Boom.getCurrentTime();
     var frameTime = (newTime - this.currentTime) / 1000;
     if (frameTime > 0.33) {
       frameTime = 0.33;
@@ -126,24 +164,23 @@ Boom.Base.prototype = {
 
     while (this.accumulator >= this.timeStep) {
       this.update();
-      this.fpsCounter.updates++;
+      this.debug.fpsCounter.updates++;
 
       this.accumulator -= this.timeStep;
     }
     this.draw();
-    this.fpsCounter.frames++;
+    this.debug.fpsCounter.frames++;
 
-    if (newTime - this.fpsCounter.currentTime >= 1000) {
-      this.fpsCounter.updateRate = this.fpsCounter.updates;
-      this.fpsCounter.frameRate = this.fpsCounter.frames;
-      this.fpsCounter.updates = 0;
-      this.fpsCounter.frames = 0;
-      this.fpsCounter.currentTime = newTime;
+    if (newTime - this.debug.fpsCounter.currentTime >= 1000) {
+      this.debug.fpsCounter.updateRate = this.debug.fpsCounter.updates;
+      this.debug.fpsCounter.frameRate = this.debug.fpsCounter.frames;
+      this.debug.fpsCounter.updates = 0;
+      this.debug.fpsCounter.frames = 0;
+      this.debug.fpsCounter.currentTime = newTime;
 
-      //Boom.DebugUI.trackNumericValue("fps", this.fpsCounter.frameRate);
+      this.debug.update();
     }
 
-    this.stats.end();
     this.requestAnimationFrameId = requestAnimationFrame(function() { self.gameLoop(); });
   },
 
@@ -152,19 +189,6 @@ Boom.Base.prototype = {
     this.camera.updateProjectionMatrix();
 
     this.renderer.setSize(this.width, this.height);
-  },
-
-  getCurrentTime: function(){
-    return Date.now();
-  },
-
-  set showFPS(value){
-    //Boom.DebugUI.setStaticLineVisibility("fps", value);
-  },
-
-  get showFPS(){
-    //return Boom.DebugUI.getStaticLineVisibility("fps");
   }
-
 };
 

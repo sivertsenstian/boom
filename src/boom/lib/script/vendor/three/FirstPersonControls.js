@@ -224,20 +224,10 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 
 	this.domElement.addEventListener( 'contextmenu', function ( event ) { event.preventDefault(); }, false );
 
-	this.domElement.addEventListener( 'mousemove', bind( this, this.onMouseMove ), false );
+	this.domElement.addEventListener( 'mousemove', Boom.bind( this, this.onMouseMove ), false );
 
-	window.addEventListener( 'keydown', bind( this, this.onKeyDown ), false );
-	window.addEventListener( 'keyup', bind( this, this.onKeyUp ), false );
-
-	function bind( scope, fn ) {
-
-		return function () {
-
-			fn.apply( scope, arguments );
-
-		};
-
-	};
+	window.addEventListener( 'keydown', Boom.bind( this, this.onKeyDown ), false );
+	window.addEventListener( 'keyup', Boom.bind( this, this.onKeyUp ), false );
 
 	this.handleResize();
 

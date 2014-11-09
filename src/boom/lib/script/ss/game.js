@@ -24,10 +24,6 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
   init: function() {
     //Call super
     Boom.Base.prototype.init.call(this);
-
-    //TODO SETUP DEBUG with log, visual debug (x,y,z and GRID and colors etc.)
-    //Boom.Debug.init();
-    //Boom.Debug.visible = false;
   },
 
   update: function(){
@@ -44,6 +40,7 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
     this.controls = new THREE.FirstPersonControls( this.camera );
     this.controls.movementSpeed = 100;
     this.controls.lookSpeed = 0.20;
+    this.controls.item.name = "PLAYER_TEST_CONTROLS_ITEM";
 
     this.scene.add (this.controls.item);
 

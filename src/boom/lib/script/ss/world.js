@@ -72,15 +72,17 @@ Boom.World.prototype = {
       new THREE.BoxGeometry( (this.size * this.width) * 2, (this.size * this.width) * 2, (this.size * this.width) * 2 ),
       skyBoxMaterial
     );
+    this.skyBox.name = Boom.Constants.Objects.SKYBOX;
 
     //Fog
-    this.fog = new THREE.FogExp2(0xFFFFFF, 0.002);
+    this.fog = new THREE.FogExp2(0xFFFFFF, 0.003);
 
     //Lights
     this.lights = [];
     var directional_light = new THREE.DirectionalLight(0xFFFFFF);
     directional_light.position.set( -1,  1, -1 );
     directional_light.castShadow = true;
+    directional_light.name = Boom.Constants.Objects.LIGHT;
     this.lights.push(directional_light);
 
     //Map
@@ -126,7 +128,7 @@ Boom.World.prototype = {
 
   build: function(scene){
     //Set Gravity and other physical properties for the world
-    scene.setGravity(new THREE.Vector3( 0, -100, 0 ));
+    scene.setGravity(Boom.Constants.World.GRAVITY);
 
     //Add Fog
     scene.fog = this.fog;
@@ -136,13 +138,14 @@ Boom.World.prototype = {
     floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
     floorTexture.repeat.set( this.width, this.height );
 
-    var floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture, side: THREE.DoubleSide });
+    var floorMaterial = new THREE.MeshPhongMaterial( { map: floorTexture, side: THREE.DoubleSide });
+
     var floorGeometry = new THREE.PlaneBufferGeometry (this.width * this.size, this.height * this.size, this.size, this.size);
     this.floor = new Physijs.BoxMesh(floorGeometry,  Physijs.createMaterial(floorMaterial, .4, .8), 0);
     this.floor.position.set(this.width/2 * this.size, -(this.size/2) , this.height/2 * this.size);
     this.floor.rotation.x = Math.PI / 2;
     this.floor.receiveShadow = true;
-
+    this.floor.name = Boom.Constants.Objects.FLOOR;
     scene.add(this.floor);
 
     //Add Map
@@ -150,8 +153,10 @@ Boom.World.prototype = {
     var geometry = new THREE.BoxGeometry(this.size, this.size, this.size);
     //Material
     var texture = THREE.ImageUtils.loadTexture(this.textures.wall);
-    var material = new THREE.MeshPhongMaterial({overdraw: true, map: texture});
+    var material = new THREE.MeshLambertMaterial({map: texture});
 
+    var walls = new Physijs.BoxMesh( new THREE.Geometry(), new THREE.MeshBasicMaterial(), 0 );
+    walls.name = Boom.Constants.Objects.COLLECTION;
     for(var i = 0; i < this.map.length; i++){
       if(this.map[i] > 0){
         var item = new Physijs.BoxMesh(
@@ -161,10 +166,13 @@ Boom.World.prototype = {
 
         item.position.x = this.size * Math.floor((i / this.width) + 1) - (this.size/2);
         item.position.z = this.size * Math.floor((i % this.height) + 1) - (this.size/2);
-        
-        scene.add( item );
+        item.name = Boom.Constants.Objects.WALL;
+
+        walls.add(item);
       }
     }
+
+    scene.add( walls );
 
     //Add Lights
     for(var i = 0; i < this.lights.length; i++){
