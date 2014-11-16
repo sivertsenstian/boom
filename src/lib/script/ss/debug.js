@@ -20,17 +20,17 @@ Boom.Debug = function(scene) {
       case Boom.Constants.Objects.FLOOR:
         self.registerItem(item);
         item.material = Boom.Constants.Debug.FLOOR();
-        self.createHelperArrow(item);
+        self.scene.add( self.createHelperArrow(item) );
         break;
       case Boom.Constants.Objects.WALL:
         self.registerItem(item);
         item.material = Boom.Constants.Debug.WALL();
-        self.createHelperArrow(item);
+        self.scene.add( self.createHelperArrow(item) );
         break;
       case Boom.Constants.Objects.SKYBOX:
         self.registerItem(item);
         item.material = Boom.Constants.Debug.SKYBOX();
-        self.createHelperArrow(item);
+        self.scene.add( self.createHelperArrow(item) );
         break;
     }
   };
@@ -61,7 +61,8 @@ Boom.Debug = function(scene) {
   this.onKeyDown = function ( event ) {
     switch ( event.keyCode ) {
 
-      case 220: /* | */ 
+      case 220: /* | Chrome */ 
+      case 172: /* | Firefox */ 
         this.visible = !this.visible;
         this.debugging = false;
         break;
@@ -171,16 +172,23 @@ Boom.Debug.prototype =  {
     }
   },
 
-  createHelperArrow: function(item){
+  createHelperArrow: function(item, scalar, origin){
+    if(typeof(scalar) === "undefined"){
+      scalar = 1;
+    }
+    if(typeof(origin) === "undefined"){
+      origin = false;
+    }
     //Helper axis
-    var origin = item.position;
-    var length = Boom.Constants.World.SIZE / 2;
+    var origin = origin ? new THREE.Vector3( 0, 0, 0 ) : item.position;
+    var length = (Boom.Constants.World.SIZE / 2) * scalar;
     var debug_arrow = new THREE.Object3D();
     debug_arrow.add(new THREE.ArrowHelper( new THREE.Vector3( 1, 0, 0 ), origin, length, Boom.Constants.Colors.X ));
     debug_arrow.add(new THREE.ArrowHelper( new THREE.Vector3( 0, 1, 0 ), origin, length, Boom.Constants.Colors.Y ));
     debug_arrow.add(new THREE.ArrowHelper( new THREE.Vector3( 0, 0, 1 ), origin, length, Boom.Constants.Colors.Z ));
     debug_arrow.name = Boom.Constants.Objects.DEBUG;
-    this.scene.add(debug_arrow);
+    return debug_arrow;
+    //this.scene.add(debug_arrow); 
   },
 
   removeHelpers: function(){

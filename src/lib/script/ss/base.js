@@ -7,7 +7,13 @@ Boom.Constants = {
     WIDTH: 32,
     HEIGHT: 32,
     SIZE: 24,
-    GRAVITY: new THREE.Vector3(0, -100, 0)
+    GRAVITY: new THREE.Vector3(0, -100, 0),
+    SKYBOX_SCALAR: 2
+
+  },
+
+  Entity:{
+    SIZE: 24
 
   },
   
@@ -22,13 +28,14 @@ Boom.Constants = {
     DEBUG: 99,
     RENDERER: 198,
     CAMERA: 199,
-    SCENE: 200
+    SCENE: 200,
+    PLAYER: 300
 
   },
 
   Debug:{
     FLOOR: function(){ 
-      var t = new THREE.ImageUtils.loadTexture( '/boom/lib/resources/DEBUG/floor.png' );
+      var t = new THREE.ImageUtils.loadTexture( '/lib/resources/DEBUG/floor.png' );
       t.wrapS = t.wrapT = THREE.RepeatWrapping;
       t.repeat.set( Boom.Constants.World.WIDTH, Boom.Constants.World.HEIGHT );
       return new THREE.MeshBasicMaterial( { map: t, side: THREE.DoubleSide });
@@ -42,7 +49,16 @@ Boom.Constants = {
     X: 0xFF0000,
     Y: 0x00FF00,
     Z: 0x0000FF,
+    CLEAR: 0x000000
   },
+
+  Base:{
+    FOV: 90,
+    NEAR: 0.1,
+    FAR: 1000,
+    TIMESTEP: 0.01666,
+    ANTIALIAS: true
+  }
 
 
 };
@@ -86,16 +102,16 @@ Boom.msToFrames = function(ms) {
 };
 
 Boom.Base = function() {
-  this.clearColor = 0x000000;
-  this.antialias = true;
+  this.clearColor = Boom.Constants.Colors.CLEAR;
+  this.antialias = Boom.Constants.Base.ANTIALIAS;
 
   this.width = window.innerWidth;
   this.height = window.innerHeight;
 
-  this.cameraFov = 90;
-  this.cameraNear = 0.1;
-  this.cameraFar = 1000;
-  this.timeStep = 0.01666;
+  this.cameraFov = Boom.Constants.Base.FOV;
+  this.cameraNear = Boom.Constants.Base.NEAR;
+  this.cameraFar = Boom.Constants.Base.FAR;
+  this.timeStep = Boom.Constants.Base.TIMESTEP;
 
   this.requestAnimationFrameId = null;
 };
@@ -120,7 +136,7 @@ Boom.Base.prototype = {
 
     this.scene = new Physijs.Scene();
     this.scene.name = Boom.Constants.Objects.SCENE;
-
+    
     this.debug = new Boom.Debug(this.scene);
     this.debug.init();
 
@@ -133,7 +149,7 @@ Boom.Base.prototype = {
   },
 
   load: function(){
-    if (this.requestAnimationFrameId != null) {
+    if (this.requestAnimationFrameId !== null) {
       cancelAnimationFrame(this.requestAnimationFrameId);
     }
 
