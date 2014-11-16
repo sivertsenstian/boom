@@ -14,8 +14,9 @@ Boom.Game = function() {
   this.antialias = false;
   this.cameraFov = 75;
   this.cameraFar = 2048;
-  
-  this.showFPS = true;
+
+  //Game Components
+  this.world;
 };
 
 Boom.Game.prototype = Boom.inherit(Boom.Base, {
@@ -30,23 +31,26 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
     //Call super
     Boom.Base.prototype.update.call(this);
 
-    this.controls.update(this.accumulator);
+    //Update world
+    this.world.update();
   },
 
   load: function(){
     //Call super
     Boom.Base.prototype.load.call(this);
-
-    this.controls = new THREE.FirstPersonControls( this.camera );
-    this.controls.movementSpeed = 100;
-    this.controls.lookSpeed = 0.20;
-    this.controls.item.name = "PLAYER_TEST_CONTROLS_ITEM";
-
-    this.scene.add (this.controls.item);
+    
+    //Player
+    var player = new Boom.Player( this.camera );
+    player.entity.position.set(200, 10, 200);
 
     //World
-    var world = new Boom.World();
-    world.build(this.scene);
+    this.world = new Boom.World();
+
+    //Add Actors to world
+    this.world.addActor( player );
+
+    //Build world
+    this.world.build(this.scene);
   }
 
 });

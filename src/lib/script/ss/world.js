@@ -12,10 +12,13 @@ Boom.World = function(){
 
   //Textures
   this.textures = {
-    floor: '/boom/lib/resources/dirt.jpg',
-    skybox: '/boom/lib/resources/skyboxsun25degtest.png',
-    wall: '/boom/lib/resources/brick_bump.jpg',
+    floor: '/lib/resources/dirt.jpg',
+    skybox: '/lib/resources/skyboxsun25degtest.png',
+    wall: '/lib/resources/brick_bump.jpg',
   };
+
+  //Actors
+  this.actors = [];
 
   this.init();
 };
@@ -69,10 +72,13 @@ Boom.World.prototype = {
     });
 
     this.skyBox = new THREE.Mesh(
-      new THREE.BoxGeometry( (this.size * this.width) * 2, (this.size * this.width) * 2, (this.size * this.width) * 2 ),
+      new THREE.BoxGeometry( (this.size * this.width) * Boom.Constants.World.SKYBOX_SCALAR, 
+                             (this.size * this.width) * Boom.Constants.World.SKYBOX_SCALAR,
+                             (this.size * this.width) * Boom.Constants.World.SKYBOX_SCALAR),
       skyBoxMaterial
     );
     this.skyBox.name = Boom.Constants.Objects.SKYBOX;
+
 
     //Fog
     this.fog = new THREE.FogExp2(0xFFFFFF, 0.003);
@@ -120,6 +126,7 @@ Boom.World.prototype = {
       1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
       1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
     ];
+
   },
 
   load: function(){
@@ -183,7 +190,24 @@ Boom.World.prototype = {
     this.skyBox.position.set(this.width/2 * this.size, -(this.size/2) , this.height/2 * this.size);
     scene.add( this.skyBox );
 
-    //var worldItems = new Physijs.BoxMesh(worldGeometry, material);
-    //scene.add(worldItems);
+    //Add Actor entities
+    var entity;
+    for (var i = this.actors.length - 1; i >= 0; i--) {
+      entity = this.actors[i].entity;
+      scene.add ( entity );
+    }
+  },
+
+  update: function(){
+    //Update all world actors
+    var actor;
+    for (var i = this.actors.length - 1; i >= 0; i--) {
+      actor = this.actors[i];
+      actor.update();
+    }
+  },
+
+  addActor: function( actor ){
+    this.actors.push( actor );
   }
 };

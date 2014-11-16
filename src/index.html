@@ -1,20 +1,27 @@
 <html>
 <body>
-<script type="text/javascript" src="lib/script/vendor/jquery-2.1.1.min.js" >
-</script>
-<script type="text/javascript" src="lib/script/vendor/Stats.js" ></script>
+<div id="blocker" style="z-index:100;position:absolute;top:50%;left:50%;color:#fff">
+
+  <div id="instructions">
+    <span style="font-size:40px">Click to play</span>
+    <br />
+    (W, A, S, D = Move, SPACE = Jump, MOUSE = Look around)
+  </div>
+
+</div>
+
+<script type="text/javascript" src="lib/script/vendor/jquery-2.1.1.min.js" ></script>
 <script type="text/javascript" src="lib/script/vendor/three.min.js" ></script>
-<script type="text/javascript" src="lib/script/vendor/three/FirstPersonControls.js" ></script>
-<script type="text/javascript" src="lib/script/vendor/pointerlock.js" ></script>
 
 <script type="text/javascript" src="lib/script/vendor/physi.js"></script>
 
 <script type="text/javascript" src="lib/script/ss/base.js" ></script>
 
+<script type="text/javascript" src="lib/script/ss/playercontrols.js" ></script>
+<script type="text/javascript" src="lib/script/ss/player.js" ></script>
 <script type="text/javascript" src="lib/script/ss/world.js" ></script>
 
 <script type="text/javascript" src="lib/script/ss/game.js" ></script>
-
 <script type="text/javascript" src="lib/script/ss/debug.js" ></script>
 
 
@@ -26,8 +33,8 @@
   </style>
 
 <script>
-  Physijs.scripts.worker = '/boom/lib/script/vendor/physijs_worker.js';
-  Physijs.scripts.ammo = '/boom/lib/script/vendor/ammo.js';
+  Physijs.scripts.worker = '/lib/script/vendor/physijs_worker.js';
+  Physijs.scripts.ammo = '/lib/script/vendor/ammo.js';
 
   GAME = new Boom.Game();
   GAME.init();
