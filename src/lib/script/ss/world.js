@@ -193,7 +193,7 @@ Boom.World.prototype = {
     //Add Actor entities
     var entity;
     for (var i = this.actors.length - 1; i >= 0; i--) {
-      entity = this.actors[i].entity;
+      entity = this.actors[i].object;
       scene.add ( entity );
     }
   },

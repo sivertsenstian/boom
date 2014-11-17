@@ -13,15 +13,14 @@ Boom.PlayerControls.prototype = {
     var scope = this;
 
     this.player.camera.rotation.set( 0, 0, 0 );
-    
+
     this.pitchObject = new THREE.Object3D();
     this.pitchObject.add( this.player.camera );
 
     this.yawObject = new THREE.Object3D();
     this.yawObject.add( this.pitchObject );
-
     
-    this.player.entity.add( this.yawObject );
+    this.player.object.add( this.yawObject );
 
     //Controls
     this.moveForward = false;
@@ -43,7 +42,6 @@ Boom.PlayerControls.prototype = {
       scope.pitchObject.rotation.x -= movementY * 0.002;
 
       scope.pitchObject.rotation.x = Math.max( - PI_2, Math.min( PI_2, scope.pitchObject.rotation.x ) );
-
     };
 
     var onKeyDown = function ( event ) {
@@ -136,23 +134,23 @@ Boom.PlayerControls.prototype = {
     this.yawObject.__dirtyPosition = true;
 
     var dir = this.getDirection().normalize();
-    this.player.entity.setDamping(0.99, 1.0);
-    var current_velocity = this.player.entity.getLinearVelocity();
+    this.player.object.setDamping(0.99, 1.0);
+    var current_velocity = this.player.object.getLinearVelocity();
 
     if ( this.moveForward) {
-      this.player.entity.setLinearVelocity({x: current_velocity.x + (this.player.speed * dir.x), y: current_velocity.y, z: current_velocity.z + (this.player.speed * dir.z)});
+      this.player.object.setLinearVelocity({x: current_velocity.x + (this.player.speed * dir.x), y: current_velocity.y, z: current_velocity.z + (this.player.speed * dir.z)});
     }
 
     if ( this.moveBackward ) {
-      this.player.entity.setLinearVelocity({x: current_velocity.x + (this.player.speed * -dir.x), y: current_velocity.y, z: current_velocity.z + (this.player.speed * -dir.z)});
+      this.player.object.setLinearVelocity({x: current_velocity.x + (this.player.speed * -dir.x), y: current_velocity.y, z: current_velocity.z + (this.player.speed * -dir.z)});
     }
 
     if ( this.moveLeft ) {
-      this.player.entity.setLinearVelocity({x: (dir.z * this.player.speed) + current_velocity.x, y: current_velocity.y, z: (-dir.x * this.player.speed) + current_velocity.z});
+      this.player.object.setLinearVelocity({x: (dir.z * this.player.speed) + current_velocity.x, y: current_velocity.y, z: (-dir.x * this.player.speed) + current_velocity.z});
     } 
 
     if ( this.moveRight ) {
-      this.player.entity.setLinearVelocity({x: (-dir.z * this.player.speed) + current_velocity.x, y: current_velocity.y, z: (dir.x * this.player.speed) + current_velocity.z});
+      this.player.object.setLinearVelocity({x: (-dir.z * this.player.speed) + current_velocity.x, y: current_velocity.y, z: (dir.x * this.player.speed) + current_velocity.z});
     }
 
   },
