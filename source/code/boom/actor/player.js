@@ -1,6 +1,70 @@
+Boom.Player = function( camera, scene ){
+  this.name = "PlayerName";
+
+  this.camera = camera;
+  this.scene = scene;
+  
+  //Size
+  this.radius = Boom.Constants.Entity.SIZE / 4; 
+  this.size = Boom.Constants.Entity.SIZE;
+
+  //Properties
+  this.speed = 5;
+  this.material = new THREE.MeshBasicMaterial({color: 0x00FF00});
+  
+
+  this.init();
+};
+
+Boom.Player.prototype = {
+  constructor: Boom.Player,
+
+  init: function(){
+    //Player object
+    this.object = new Physijs.SphereMesh (
+      new THREE.SphereGeometry( this.radius , this.size , this.size ),
+      Physijs.createMaterial(this.material, 0, 0), Boom.Constants.Entity.WEIGHT
+    );
+
+    this.object.name = Boom.Constants.Objects.PLAYER;
+    
+    //Crosshair
+    var crosshair_geometry = new THREE.CircleGeometry( 0.02, 25 ); 
+    var crosshair_material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } ); 
+    this.crosshair = new THREE.Mesh( crosshair_geometry, crosshair_material );
+    this.crosshair.position.set(0, 0, - this.radius);
+
+    this.camera.add( this.crosshair );
+
+    //Controls
+    this.controls = new Boom.PlayerControls( this );
+
+    //Weapon
+    this.weapon = new Boom.Weapon( this );
+
+    this.camera.add ( this.weapon.object );
+
+    this.load();
+  },
+
+  load: function(){
+    this.controls.load();
+
+  },
+
+  update: function(){
+    this.controls.update();
+    this.weapon.update();
+  }
+
+};
+
+
+
+// ** PLAYER CONTROLS ** /
 Boom.PlayerControls = function ( player ) {
-	
-	this.player = player;
+  
+  this.player = player;
 
   this.init();
 };
@@ -44,6 +108,22 @@ Boom.PlayerControls.prototype = {
       scope.pitchObject.rotation.x = Math.max( - PI_2, Math.min( PI_2, scope.pitchObject.rotation.x ) );
     };
 
+    var onMouseClick = function ( event ) {
+      event.preventDefault();
+
+      if ( scope.enabled === false ) return;
+
+      var left = 0;
+      var right = 2;
+
+      if ( event.button === left){
+        scope.player.weapon.shoot();
+      }
+      else if ( event.button === right ){
+      }
+
+    };
+
     var onKeyDown = function ( event ) {
 
       switch ( event.keyCode ) {
@@ -68,6 +148,7 @@ Boom.PlayerControls.prototype = {
           break;
 
         case 32: // space
+          scope.jump = true;
           break;
 
       }
@@ -105,6 +186,7 @@ Boom.PlayerControls.prototype = {
 
     };
 
+    document.addEventListener( 'mouseup', onMouseClick, false );
     document.addEventListener( 'mousemove', onMouseMove, false );
     document.addEventListener( 'keydown', onKeyDown, false );
     document.addEventListener( 'keyup', onKeyUp, false );

@@ -1,7 +1,3 @@
-var Boom;
-
-Boom = Boom || {};
-
 Boom.World = function(){
   this.name = "WorldName";
 
@@ -12,9 +8,9 @@ Boom.World = function(){
 
   //Textures
   this.textures = {
-    floor: '/lib/resources/dirt.jpg',
-    skybox: '/lib/resources/skyboxsun25degtest.png',
-    wall: '/lib/resources/brick_bump.jpg',
+    floor: '/resources/structures/ground/3/1.jpg',
+    skybox: '/resources/structures/skybox/1/1.png',
+    wall: '/resources/structures/wall/2/1.jpg',
   };
 
   //Actors
@@ -81,15 +77,18 @@ Boom.World.prototype = {
 
 
     //Fog
-    this.fog = new THREE.FogExp2(0xFFFFFF, 0.003);
+    this.fog = new THREE.FogExp2(0x404040, 0.003);
 
     //Lights
     this.lights = [];
-    var directional_light = new THREE.DirectionalLight(0xFFFFFF);
-    directional_light.position.set( -1,  1, -1 );
+    var directional_light = new THREE.DirectionalLight( 0xFFFFFF );
+    directional_light.position.set( -10,  50, -10 );
     directional_light.castShadow = true;
     directional_light.name = Boom.Constants.Objects.LIGHT;
-    this.lights.push(directional_light);
+    this.lights.push( directional_light );
+
+    var ambient_light = new THREE.AmbientLight( 0x404040 );
+    this.lights.push ( ambient_light );
 
     //Map
     this.map = [

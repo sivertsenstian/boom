@@ -27,8 +27,8 @@ node_modules
 # Users Environment Variables
 .lock-wscript
 
-# Three.js examples
-src/examples
-
 # Build
-src/build
+build
+
+#Bower
+src/bower_components

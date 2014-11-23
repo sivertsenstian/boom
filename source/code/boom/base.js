@@ -1,106 +1,3 @@
-var Boom;
-
-Boom = Boom || {};
-
-Boom.Constants = {
-  World:{
-    WIDTH: 32,
-    HEIGHT: 32,
-    SIZE: 24,
-    GRAVITY: new THREE.Vector3(0, -100, 0),
-    SKYBOX_SCALAR: 2
-
-  },
-
-  Entity:{
-    SIZE: 24
-
-  },
-  
-  Objects:{
-    FLOOR: 0,
-    SKYBOX: 1,
-    WALL: 2,
-    COLLECTION: 3,
-    FOG: 66,
-    GRAVITY: 77,
-    LIGHT: 88,
-    DEBUG: 99,
-    RENDERER: 198,
-    CAMERA: 199,
-    SCENE: 200,
-    PLAYER: 300
-
-  },
-
-  Debug:{
-    FLOOR: function(){ 
-      var t = new THREE.ImageUtils.loadTexture( '/lib/resources/DEBUG/floor.png' );
-      t.wrapS = t.wrapT = THREE.RepeatWrapping;
-      t.repeat.set( Boom.Constants.World.WIDTH, Boom.Constants.World.HEIGHT );
-      return new THREE.MeshBasicMaterial( { map: t, side: THREE.DoubleSide });
-    },
-    WALL: function(){ return new THREE.MeshBasicMaterial({color: 0xFF00FF, wireframe: true})},
-    SKYBOX: function(){ return new THREE.MeshBasicMaterial({color: 0x00FFFF, wireframe: true})}
-  },
-
-  Colors:{
-    DEFAULT: 0x00FF00,
-    X: 0xFF0000,
-    Y: 0x00FF00,
-    Z: 0x0000FF,
-    CLEAR: 0x000000
-  },
-
-  Base:{
-    FOV: 90,
-    NEAR: 0.1,
-    FAR: 1000,
-    TIMESTEP: 0.01666,
-    ANTIALIAS: true
-  }
-
-
-};
-
-Boom.inherit = function(classObj, members) {
-  var base = Object.create(classObj.prototype);
-
-  Object.getOwnPropertyNames(members).forEach(function(prop) {
-    var desc = Object.getOwnPropertyDescriptor(members, prop);
-
-    if (desc.get !== undefined) {
-      base.__defineGetter__(prop, desc.get);
-    } else {
-      base[prop] = members[prop];
-    }
-
-    if (desc.set !== undefined) {
-      base.__defineSetter__(prop, desc.set);
-    }
-  });
-  
-  return base;
-};
-
-Boom.bind = function( scope, fn ) {
-
-  return function () {
-
-    fn.apply( scope, arguments );
-
-  };
-
-};
-
-Boom.getCurrentTime = function(){
-  return Date.now();
-};
-
-Boom.msToFrames = function(ms) {
-  return Math.round(ms / 16.66);
-};
-
 Boom.Base = function() {
   this.clearColor = Boom.Constants.Colors.CLEAR;
   this.antialias = Boom.Constants.Base.ANTIALIAS;
@@ -112,7 +9,7 @@ Boom.Base = function() {
   this.cameraNear = Boom.Constants.Base.NEAR;
   this.cameraFar = Boom.Constants.Base.FAR;
   this.timeStep = Boom.Constants.Base.TIMESTEP;
-
+  this.test
   this.requestAnimationFrameId = null;
 };
 
@@ -196,6 +93,9 @@ Boom.Base.prototype = {
 
       this.debug.update();
     }
+
+    //Update tween!
+    TWEEN.update();
 
     this.requestAnimationFrameId = requestAnimationFrame(function() { self.gameLoop(); });
   },

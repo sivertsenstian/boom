@@ -1,0 +1,53 @@
+<html>
+<head>
+  <!-- Vendor -->
+  <script src="vendor/jquery.min.js"></script>
+  <script src="vendor/three.min.js"></script>
+  <script src="vendor/physi.js"></script>
+  <script src="vendor/tween.min.js"></script>
+  <!-- Code -->
+  <script type="text/javascript" src='code/boom/constants.js'></script>
+  <script type="text/javascript" src='code/boom/global.js'></script>
+  <script type="text/javascript" src='code/boom/base.js'></script>
+  <script type="text/javascript" src='code/boom/debug.js'></script>
+  <script type="text/javascript" src='code/boom/animation.js'></script>
+
+  <script type="text/javascript" src='code/boom/game/game.js'></script>
+
+  <script type="text/javascript" src='code/boom/world/world.js'></script>
+
+  <script type="text/javascript" src='code/boom/entity/entity.js'></script>
+  <script type="text/javascript" src='code/boom/entity/weapon.js'></script>
+  <script type="text/javascript" src='code/boom/entity/bullet.js'></script>
+
+  <script type="text/javascript" src='code/boom/actor/player.js'></script>
+
+    <style>
+    
+      body { margin: 0; padding: 0; overflow: hidden; background-color: #000; }
+      canvas { position: fixed; }
+    
+    </style>
+
+  <script>
+    $( document ).ready(function() {
+      Physijs.scripts.worker = '/vendor/physijs_worker.js';
+      Physijs.scripts.ammo = '/vendor/ammo.js';
+
+      var GAME = new Boom.Game();
+      GAME.init();
+    });
+  </script>
+</head>
+<body>
+<div id="blocker" style="z-index:100;position:absolute;top:50%;left:50%;color:#fff">
+
+  <div id="instructions">
+    <span style="font-size:40px">Click to play</span>
+    <br />
+    (W, A, S, D = Move, SPACE = Jump, MOUSE = Look around)
+  </div>
+
+</div>
+</body> 
+</html>

@@ -1,7 +1,3 @@
-var Boom;
-
-Boom = Boom || {};
-
 Boom.Debug = function(scene) {
   var self = this;
   this.scene = scene;
@@ -199,4 +195,9 @@ Boom.Debug.prototype =  {
       }
     }
   }
+};
+
+
+Boom.Exceptions = {
+  ObjectNotDefinedException: "Object is not defined"
 };

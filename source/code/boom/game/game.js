@@ -1,7 +1,3 @@
-var Boom;
-
-Boom = Boom || {};
-
 Boom.Game = function() {
   Boom.Base.call(this);
 
@@ -11,7 +7,7 @@ Boom.Game = function() {
   this.mapWon = false;
   this.restartedLevel = false;
   
-  this.antialias = false;
+  this.antialias = true;
   this.cameraFov = 75;
   this.cameraFar = 2048;
 
@@ -40,7 +36,7 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
     Boom.Base.prototype.load.call(this);
     
     //Player
-    var player = new Boom.Player( this.camera );
+    var player = new Boom.Player( this.camera, this.scene );
     player.object.position.set(200, 10, 200);
 
     //World
