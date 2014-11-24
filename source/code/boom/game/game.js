@@ -37,7 +37,7 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
     
     //Player
     var player = new Boom.Player( this.camera, this.scene );
-    player.object.position.set(200, 10, 200);
+    player.object.position.set(32, 0, 32);
 
     //World
     this.world = new Boom.World();

@@ -1,12 +1,20 @@
 <html>
 <head>
   <!-- Vendor -->
-  <script src="vendor/jquery.min.js"></script>
-  <script src="vendor/three.min.js"></script>
-  <script src="vendor/physi.js"></script>
-  <script src="vendor/tween.min.js"></script>
+  <script type="text/javascript" src="vendor/jquery.min.js"></script>
+  <script type="text/javascript" src="vendor/three.min.js"></script>
+  <script type="text/javascript" src="vendor/physi.js"></script>
+  <script type="text/javascript" src="vendor/tween.min.js"></script>
+  <script type="text/javascript" src="vendor/howler.min.js"></script>
+
+  <script type="text/javascript" src='code/three_plugins/ColladaLoader.js'></script>
+  <script type="text/javascript" src="vendor/PxLoader.js"></script>
+  <script type="text/javascript" src="vendor/PxLoaderSound.js"></script>
+
   <!-- Code -->
   <script type="text/javascript" src='code/boom/constants.js'></script>
+  <script type="text/javascript" src='code/boom/assets.js'></script>
+
   <script type="text/javascript" src='code/boom/global.js'></script>
   <script type="text/javascript" src='code/boom/base.js'></script>
   <script type="text/javascript" src='code/boom/debug.js'></script>
@@ -31,11 +39,19 @@
 
   <script>
     $( document ).ready(function() {
-      Physijs.scripts.worker = '/vendor/physijs_worker.js';
-      Physijs.scripts.ammo = '/vendor/ammo.js';
+      var loader = new PxLoader();
+      loader.addDAEModel('/resources/weapons/1/gun2_small_with_hand.dae', ['weapons', 'gun'] );
 
-      var GAME = new Boom.Game();
-      GAME.init();
+      loader.addCompletionListener(function() { 
+        Physijs.scripts.worker = '/vendor/physijs_worker.js';
+        Physijs.scripts.ammo = '/vendor/ammo.js';
+
+        var GAME = new Boom.Game();
+        GAME.init();
+      });
+
+      loader.start();
+
     });
   </script>
 </head>

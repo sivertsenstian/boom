@@ -2,11 +2,11 @@ Boom.Bullet = function( origin ) {
   
   //Basic Bullet
   var params = {  mass: 1, 
-              size: 0.25, 
+              size: 0.5, 
               scale: new THREE.Vector3(1, 1, 1),
               position: origin,
-              material: new THREE.MeshBasicMaterial({color: 0xFFFFFF })
-          };
+              material: new THREE.MeshBasicMaterial({color: 0xFFFF00 })
+            };
   this.speed = 2000;
   this.damage = 1;
   this.distance = 100;
@@ -44,8 +44,6 @@ Boom.Bullet.prototype = Boom.inherit(Boom.Entity, {
   update: function(){
     Boom.Entity.prototype.update.call(this);
     var velocity = this.object.getLinearVelocity();
-    //console.log(velocity);
-    //this.object.setLinearVelocity({ x: velocity.x, y: 1, z: velocity.z });
   },
 
   fire: function( direction ){

@@ -21,6 +21,7 @@ Boom.Constants = {
     SKYBOX: 1,
     WALL: 2,
     COLLECTION: 3,
+    CEILING: 4,
     FOG: 66,
     GRAVITY: 77,
     LIGHT: 88,
