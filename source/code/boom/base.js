@@ -2,8 +2,8 @@ Boom.Base = function() {
   this.clearColor = Boom.Constants.Colors.CLEAR;
   this.antialias = Boom.Constants.Base.ANTIALIAS;
 
-  this.width = window.innerWidth;
-  this.height = window.innerHeight;
+  this.width = 640; //window.innerWidth;
+  this.height = 480; //window.innerHeight;
 
   this.cameraFov = Boom.Constants.Base.FOV;
   this.cameraNear = Boom.Constants.Base.NEAR;
@@ -27,6 +27,8 @@ Boom.Base.prototype = {
     this.renderer.setClearColor(this.clearColor, 1);
     this.renderer.setSize(this.width, this.height);
     this.renderer.domElement.id = "game-canvas";
+    this.renderer.shadowMapEnabled = true;
+    this.renderer.shadowMapType = THREE.PCFSoftShadowMap;
   
     this.camera = new THREE.PerspectiveCamera(this.cameraFov, this.width / this.height, this.cameraNear, this.cameraFar);
     this.camera.name = Boom.Constants.Objects.CAMERA;

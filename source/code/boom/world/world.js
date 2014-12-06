@@ -83,10 +83,16 @@ Boom.World.prototype = {
     //Lights
     this.lights = [];
     var directional_light = new THREE.DirectionalLight( 0xFFFFFF );
-    directional_light.position.set( -10,  50, -10 );
+    directional_light.position.set( -(this.size*this.width) / 2,  500, (this.size*this.width) );
     directional_light.castShadow = true;
+    //directional_light.shadowCameraVisible = true;
     directional_light.name = Boom.Constants.Objects.LIGHT;
+    directional_light.lookAt(0,0,0);
     this.lights.push( directional_light );
+   /* var hemisphere_light = new THREE.HemisphereLight( 0xFFFFFF,  0x000000, 1.0 );
+    hemisphere_light.position.set( (this.size*this.width)/2,  this.size, (this.size*this.width)/2 );
+    hemisphere_light.name = Boom.Constants.Objects.LIGHT;
+    this.lights.push( hemisphere_light );*/
 
     var ambient_light = new THREE.AmbientLight( 0x404040 );
     this.lights.push ( ambient_light );
@@ -191,9 +197,14 @@ Boom.World.prototype = {
         item.position.z = this.size * Math.floor((i % this.height) + 1) - (this.size/2);
         item.name = Boom.Constants.Objects.WALL;
 
+    
+
         walls.add(item);
       }
     }
+
+    walls.receiveShadow = true;
+    walls.castShadow = true; 
 
     scene.add( walls );
 

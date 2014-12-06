@@ -1,63 +1,53 @@
-Boom.Bullet = function( origin ) {
-  
-  //Basic Bullet
-  var params = {  mass: 1, 
-              size: 0.5, 
-              scale: new THREE.Vector3(1, 1, 1),
-              position: origin,
-              material: new THREE.MeshBasicMaterial({color: 0xFFFF00 })
-            };
-  this.speed = 2000;
-  this.damage = 1;
-  this.distance = 100;
-  this.disposed = false;
-  Boom.Entity.call( this, params );
+Boom.Bullet = function( owner, spawn ){
+  this.spawn = spawn;
+  Boom.Entity.call(this, {name: 'AMMO_BulletEntity', owner: owner});
 };
 
 Boom.Bullet.prototype = Boom.inherit(Boom.Entity, {
   constructor: Boom.Bullet,
 
-  init: function(){
-    var _this = this;
+  init: function() {
+    //Call super
     Boom.Entity.prototype.init.call(this);
 
-    // Enable CCD Motion clamping if the object moves more than 1 meter in one simulation frame
-    //To stop it from passing through objects
-    this.object.setCcdMotionThreshold(1);
+    var scope = this;
+    this.speed = 200;
+    var physics = new Boom.PhysicalComponent(
+       {
+        type: Boom.Constants.Component.BOX,
+        position: this.spawn,
+        color: 0xFF0000,
+        size: .25,
+        mass: 1,
+        friction: 1,
+        restitution: 1
+      }
+    );
+    this.components[physics.name] = physics;
 
-    // Set the radius of the embedded sphere such that it is smaller than the object
-    this.object.setCcdSweptSphereRadius(0.2);
-
-    this.object.addEventListener( 'collision', function( other_object, relative_velocity, relative_rotation, contact_normal ) {
+    this.getObject().addEventListener( 'collision', function( other_object, relative_velocity, relative_rotation, contact_normal ) {
       if( other_object.name !== Boom.Constants.Objects.WEAPON && other_object.name !== Boom.Constants.Objects.PLAYER){
-        _this.dispose();
+        scope.__dispose = true;
       }
     });
-
   },
 
   load: function(){
+    //Call super
     Boom.Entity.prototype.load.call(this);
-
   },
 
   update: function(){
-    Boom.Entity.prototype.update.call(this);
-    var velocity = this.object.getLinearVelocity();
-  },
-
-  fire: function( direction ){
-    //Fire bullet in the given direction!
-    this.object.setLinearVelocity({ x: direction.x * this.speed, y: direction.y * this.speed, z: direction.z * this.speed });
+    var dir = this.owner.controls.getDirection();
+    this.getObject().setLinearVelocity({ x: (dir.x * this.speed), y: (dir.y * this.speed), z: (dir.z * this.speed)})
+    //Call super
+    Boom.Entity.prototype.update.call(this);                    
   },
 
   dispose: function(){
-    this.disposed = true;
-    this.object.parent.remove(this.object);
-    var geometry = this.geometry;
-    var material = this.material;
-    geometry.dispose();
-    material.dispose();
+    //Call super
+    Boom.Entity.prototype.dispose.call(this);
   }
+
 
 });

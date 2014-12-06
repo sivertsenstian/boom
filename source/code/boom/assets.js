@@ -4,6 +4,14 @@ Boom.Assets = {
 
   },
 
+  sounds: {
+    weapons: {
+      gun: {
+        shoot: 'resources/weapons/1/shoot.wav'
+      }
+    }
+  },
+
   add: function ( tags, object ){
     var current = Boom.Assets;
     for( var i = 0; i < tags.length; i++ ){

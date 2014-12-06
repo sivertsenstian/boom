@@ -10,7 +10,7 @@ Boom.Player = function( camera, scene ){
 
   //Properties
   this.speed = 5;
-  this.material = new THREE.MeshBasicMaterial({color: 0x00FF00});
+  this.material = new THREE.MeshBasicMaterial({color: 0x00FF00, wireframe: false});
   
 
   this.init();
@@ -27,6 +27,7 @@ Boom.Player.prototype = {
     );
 
     this.object.name = Boom.Constants.Objects.PLAYER;
+    this.object.castShadow = true;
     
     //Crosshair
     var crosshair_geometry = new THREE.CircleGeometry( 0.02, 25 ); 
@@ -40,9 +41,8 @@ Boom.Player.prototype = {
     this.controls = new Boom.PlayerControls( this );
 
     //Weapon
-    this.weapon = new Boom.Weapon( this );
-
-    this.camera.add ( this.weapon.object );
+    this.weapon = new Boom.Pistol( this );
+    this.camera.add ( this.weapon.getObject() );
 
     this.load();
   },
@@ -233,6 +233,15 @@ Boom.PlayerControls.prototype = {
 
     if ( this.moveRight ) {
       this.player.object.setLinearVelocity({x: (-dir.z * this.player.speed) + current_velocity.x, y: current_velocity.y, z: (dir.x * this.player.speed) + current_velocity.z});
+    }
+
+    if ( this.jump ){
+      this.player.object.setLinearVelocity({x: current_velocity.x, y: current_velocity.y + this.player.speed * 2, z: current_velocity.z });
+    }
+
+    if( this.player.object.position.y > 0){
+      this.player.object.setLinearVelocity({x: current_velocity.x, y: current_velocity.y - this.player.speed, z: current_velocity.z });
+      this.jump = false;
     }
 
   },

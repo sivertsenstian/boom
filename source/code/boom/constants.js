@@ -15,6 +15,17 @@ Boom.Constants = {
     SIZE: 24
 
   },
+
+  Component:{
+    BOX: 0,
+    SPHERE: 1,
+    MODEL: 2,
+    NAME: {
+      PHYSICAL: 'physics',
+      AUDIO: 'audio',
+      ANIMATION: 'animation'
+    }
+  },
   
   Objects:{
     FLOOR: 0,

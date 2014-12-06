@@ -27,6 +27,35 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
     //Call super
     Boom.Base.prototype.update.call(this);
 
+    //Update entities
+    for (id in Boom.Entities) {
+      if (!Boom.Entities.hasOwnProperty(id)) {
+          continue;
+      }
+      var entity = Boom.Entities[id];
+      entity.update();
+
+      if( entity.__addToScene ){
+        var entObj = entity.getObject();
+        if ( entObj ){
+          this.scene.add( entObj );
+        }
+        entity.__addToScene = false;
+      }
+
+      if ( entity.__dispose ){
+        var entObj = entity.getObject();
+        if ( entObj ){
+          entity.dispose();
+          this.scene.remove( entObj );
+          delete Boom.Entities[id];
+        }
+      }
+      
+      //console.log(entity);
+      //console.log(" ------------- ");
+    }
+
     //Update world
     this.world.update();
   },
@@ -37,7 +66,11 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
     
     //Player
     var player = new Boom.Player( this.camera, this.scene );
-    player.object.position.set(32, 0, 32);
+    
+    /*var arrow = this.debug.createHelperArrow(player.object, 2, true);
+    player.object.add( arrow );*/
+
+    player.object.position.set(64, 0, 64);
 
     //World
     this.world = new Boom.World();
