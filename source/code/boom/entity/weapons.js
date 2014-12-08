@@ -58,7 +58,7 @@ Boom.Pistol.prototype = Boom.inherit(Boom.Entity, {
 
     this.getObject().localToWorld(spawn);
 
-    new Boom.Bullet( this.owner, spawn );
+    new Boom.Bullet( this.owner.controls.getDirection(), spawn );
 
     this.components[Boom.Constants.Component.NAME.ANIMATION].animate();
     this.components.SHOOT.play();

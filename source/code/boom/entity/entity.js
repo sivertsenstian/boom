@@ -25,11 +25,21 @@ Boom.Entity.prototype = {
   },
 
   load: function(){
-
+    for (component in this.components) {
+      if (!this.components.hasOwnProperty(component)) {
+          continue;
+      }
+      this.components[component].load();
+    }
   },
 
   update: function(){
-
+    for (component in this.components) {
+      if (!this.components.hasOwnProperty(component)) {
+          continue;
+      }
+      this.components[component].update();
+    }
   },
 
   getObject: function(){

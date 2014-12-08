@@ -14,9 +14,6 @@ Boom.World = function(){
     wall: '/resources/structures/wall/2/1.jpg',
   };
 
-  //Actors
-  this.actors = [];
-
   this.init();
 };
 
@@ -216,25 +213,9 @@ Boom.World.prototype = {
     //Add Skybox
     this.skyBox.position.set(this.width/2 * this.size, -(this.size/2) , this.height/2 * this.size);
     scene.add( this.skyBox );
-
-    //Add Actor entities
-    var entity;
-    for (var i = this.actors.length - 1; i >= 0; i--) {
-      entity = this.actors[i].object;
-      scene.add ( entity );
-    }
   },
 
   update: function(){
-    //Update all world actors
-    var actor;
-    for (var i = this.actors.length - 1; i >= 0; i--) {
-      actor = this.actors[i];
-      actor.update();
-    }
-  },
-
-  addActor: function( actor ){
-    this.actors.push( actor );
   }
+  
 };

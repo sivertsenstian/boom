@@ -1,6 +1,7 @@
-Boom.Bullet = function( owner, spawn ){
+Boom.Bullet = function( direction, spawn ){
   this.spawn = spawn;
-  Boom.Entity.call(this, {name: 'AMMO_BulletEntity', owner: owner});
+  this.direction = direction;
+  Boom.Entity.call(this, {name: 'AMMO_BulletEntity'});
 };
 
 Boom.Bullet.prototype = Boom.inherit(Boom.Entity, {
@@ -16,11 +17,11 @@ Boom.Bullet.prototype = Boom.inherit(Boom.Entity, {
        {
         type: Boom.Constants.Component.BOX,
         position: this.spawn,
-        color: 0xFF0000,
+        color: 0x00FF00,
         size: .25,
         mass: 1,
-        friction: 1,
-        restitution: 1
+        friction: 0,
+        restitution: 0
       }
     );
     this.components[physics.name] = physics;
@@ -30,6 +31,14 @@ Boom.Bullet.prototype = Boom.inherit(Boom.Entity, {
         scope.__dispose = true;
       }
     });
+
+    var audio_hit = new Boom.AudioComponent(
+      {
+        name: 'HIT',
+        sound: Boom.Assets.sounds.weapons.gun.hit
+      }
+    );
+    this.components[audio_hit.name] = audio_hit;
   },
 
   load: function(){
@@ -38,8 +47,7 @@ Boom.Bullet.prototype = Boom.inherit(Boom.Entity, {
   },
 
   update: function(){
-    var dir = this.owner.controls.getDirection();
-    this.getObject().setLinearVelocity({ x: (dir.x * this.speed), y: (dir.y * this.speed), z: (dir.z * this.speed)})
+    this.getObject().setLinearVelocity({ x: (this.direction.x * this.speed), y: (this.direction.y * this.speed), z: (this.direction.z * this.speed)})
     //Call super
     Boom.Entity.prototype.update.call(this);                    
   },
@@ -47,6 +55,7 @@ Boom.Bullet.prototype = Boom.inherit(Boom.Entity, {
   dispose: function(){
     //Call super
     Boom.Entity.prototype.dispose.call(this);
+    this.components.HIT.play();
   }
 
 

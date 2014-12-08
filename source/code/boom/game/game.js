@@ -51,7 +51,7 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
           delete Boom.Entities[id];
         }
       }
-      
+
       //console.log(entity);
       //console.log(" ------------- ");
     }
@@ -65,18 +65,15 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
     Boom.Base.prototype.load.call(this);
     
     //Player
-    var player = new Boom.Player( this.camera, this.scene );
+    var player = new Boom.Player( this.camera );
     
     /*var arrow = this.debug.createHelperArrow(player.object, 2, true);
     player.object.add( arrow );*/
 
-    player.object.position.set(64, 0, 64);
+    //player.object.position.set(64, 0, 64);
 
     //World
     this.world = new Boom.World();
-
-    //Add Actors to world
-    this.world.addActor( player );
 
     //Build world
     this.world.build(this.scene);

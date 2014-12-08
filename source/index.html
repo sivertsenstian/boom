@@ -28,7 +28,7 @@
   <script type="text/javascript" src='code/boom/entity/weapons.js'></script>
   <script type="text/javascript" src='code/boom/entity/bullet.js'></script>
 
-  <script type="text/javascript" src='code/boom/actor/player.js'></script>
+  <script type="text/javascript" src='code/boom/actor/player_2.js'></script>
 
     <style>
     
@@ -40,7 +40,7 @@
   <script>
     $( document ).ready(function() {
       var loader = new PxLoader();
-      loader.addDAEModel('/resources/weapons/1/gun2_small_with_hand.dae', ['weapons', 'gun'] );
+      loader.addDAEModel('/resources/weapons/1/gun2_small_with_hand2.dae', ['weapons', 'gun'] );
 
       loader.addCompletionListener(function() { 
         Physijs.scripts.worker = '/vendor/physijs_worker.js';

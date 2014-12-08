@@ -7,7 +7,8 @@ Boom.Assets = {
   sounds: {
     weapons: {
       gun: {
-        shoot: 'resources/weapons/1/shoot.wav'
+        shoot: 'resources/weapons/1/shoot.wav',
+        hit: 'resources/bullets/1/hit.wav'
       }
     }
   },

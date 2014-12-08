@@ -11,11 +11,6 @@ Boom.Constants = {
 
   },
 
-  Entity:{
-    SIZE: 24
-
-  },
-
   Component:{
     BOX: 0,
     SPHERE: 1,
@@ -23,7 +18,8 @@ Boom.Constants = {
     NAME: {
       PHYSICAL: 'physics',
       AUDIO: 'audio',
-      ANIMATION: 'animation'
+      ANIMATION: 'animation',
+      INPUT: 'input'
     }
   },
   
