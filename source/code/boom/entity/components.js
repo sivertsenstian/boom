@@ -1,5 +1,9 @@
 Boom.Component = function( params ){
-  //this.name = params.name || 'UnnamedComponent';
+  var params = params || {};
+  if( typeof params.owner === 'undefined' || params.owner === null){
+    throw Boom.Exceptions.OwnerMissingException;
+  }
+  this.owner = params.owner;
   this.init();
 };
 
@@ -16,6 +20,10 @@ Boom.Component.prototype = {
 
   update: function(){
     
+  },
+
+  receive: function( message ){
+
   }
 
 };
@@ -217,10 +225,9 @@ Boom.AnimationComponent.prototype = Boom.inherit(Boom.Component, {
 
 });
 
-/////////////////////////////////// InputComponent(?) //////////////////////////
-Boom.InputComponent = function( entityOwner ) {
+/////////////////////////////////// InputComponent//////////////////////////
+Boom.InputComponent = function( params ) {
   var params = params || {};
-  this.entityOwner = entityOwner;
   this.name = params.name || Boom.Constants.Component.NAME.INPUT;
 
   //Call super
@@ -237,15 +244,15 @@ Boom.InputComponent.prototype = Boom.inherit(Boom.Component, {
 
     var scope = this;
 
-    this.entityOwner.camera.rotation.set( 0, 0, 0 );
+    this.owner.camera.rotation.set( 0, 0, 0 );
 
     this.pitchObject = new THREE.Object3D();
-    this.pitchObject.add( this.entityOwner.camera );
+    this.pitchObject.add( this.owner.camera );
 
     this.yawObject = new THREE.Object3D();
     this.yawObject.add( this.pitchObject );
     
-    this.entityOwner.getObject().add( this.yawObject );
+    this.owner.getObject().add( this.yawObject );
 
     //Controls
     this.moveForward = false;
@@ -278,7 +285,7 @@ Boom.InputComponent.prototype = Boom.inherit(Boom.Component, {
       var right = 2;
 
       if ( event.button === left){
-        //scope.entityOwner.weapon.shoot();
+        //scope.owner.weapon.shoot();
       }
       else if ( event.button === right ){
       }
@@ -296,7 +303,8 @@ Boom.InputComponent.prototype = Boom.inherit(Boom.Component, {
 
         case 37: // left
         case 65: // a
-          scope.moveLeft = true; break;
+          scope.moveLeft = true; 
+          break;
 
         case 40: // down
         case 83: // s
@@ -420,38 +428,35 @@ Boom.InputComponent.prototype = Boom.inherit(Boom.Component, {
     //Call super
     Boom.Component.prototype.update.call(this);
 
-    if ( this.enabled === false ) return;
-
-    this.yawObject.__dirtyRotation = true;
-    this.yawObject.__dirtyPosition = true;
+    /*if ( this.enabled === false ) return;
 
     var dir = this.getDirection().normalize();
-    this.entityOwner.getObject().setDamping(0.99, 1.0);
-    var current_velocity = this.entityOwner.getObject().getLinearVelocity();
+    this.owner.getObject().setDamping(0.99, 1.0);
+    var current_velocity = this.owner.getObject().getLinearVelocity();
 
     if ( this.moveForward) {
-      this.entityOwner.getObject().setLinearVelocity({x: current_velocity.x + (this.entityOwner.speed * dir.x), y: current_velocity.y, z: current_velocity.z + (this.entityOwner.speed * dir.z)});
+      this.owner.getObject().setLinearVelocity({x: current_velocity.x + (this.owner.speed * dir.x), y: current_velocity.y, z: current_velocity.z + (this.owner.speed * dir.z)});
     }
 
     if ( this.moveBackward ) {
-      this.entityOwner.getObject().setLinearVelocity({x: current_velocity.x + (this.entityOwner.speed * -dir.x), y: current_velocity.y, z: current_velocity.z + (this.entityOwner.speed * -dir.z)});
+      this.owner.getObject().setLinearVelocity({x: current_velocity.x + (this.owner.speed * -dir.x), y: current_velocity.y, z: current_velocity.z + (this.owner.speed * -dir.z)});
     }
 
     if ( this.moveLeft ) {
-      this.entityOwner.getObject().setLinearVelocity({x: (dir.z * this.entityOwner.speed) + current_velocity.x, y: current_velocity.y, z: (-dir.x * this.entityOwner.speed) + current_velocity.z});
+      this.owner.getObject().setLinearVelocity({x: (dir.z * this.owner.speed) + current_velocity.x, y: current_velocity.y, z: (-dir.x * this.owner.speed) + current_velocity.z});
     } 
 
     if ( this.moveRight ) {
-      this.entityOwner.getObject().setLinearVelocity({x: (-dir.z * this.entityOwner.speed) + current_velocity.x, y: current_velocity.y, z: (dir.x * this.entityOwner.speed) + current_velocity.z});
+      this.owner.getObject().setLinearVelocity({x: (-dir.z * this.owner.speed) + current_velocity.x, y: current_velocity.y, z: (dir.x * this.owner.speed) + current_velocity.z});
     }
 
     if ( this.jump ){
-      this.entityOwner.getObject().setLinearVelocity({x: current_velocity.x, y: current_velocity.y + this.entityOwner.speed * 2, z: current_velocity.z });
+      this.owner.getObject().setLinearVelocity({x: current_velocity.x, y: current_velocity.y + this.owner.speed * 2, z: current_velocity.z });
     }
 
-    if( this.entityOwner.getObject().position.y > 0){
+    if( this.owner.getObject().position.y > 0){
       this.jump = false;
-    }
+    }*/
   }
 
 });

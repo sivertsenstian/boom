@@ -61,22 +61,26 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
   },
 
   load: function(){
-    //Call super
-    Boom.Base.prototype.load.call(this);
-    
-    //Player
-    var player = new Boom.Player( this.camera );
-    
-    /*var arrow = this.debug.createHelperArrow(player.object, 2, true);
-    player.object.add( arrow );*/
+      //Call super
+      Boom.Base.prototype.load.call(this);
+    try{
+      //Player
+      var player = new Boom.Player( this.camera );
+      
+      /*var arrow = this.debug.createHelperArrow(player.object, 2, true);
+      player.object.add( arrow );*/
 
-    //player.object.position.set(64, 0, 64);
+      //player.object.position.set(64, 0, 64);
 
-    //World
-    this.world = new Boom.World();
+      //World
+      this.world = new Boom.World();
 
-    //Build world
-    this.world.build(this.scene);
+      //Build world
+      this.world.build(this.scene);
+    }
+    catch( error ){
+      Boom.handleError( error , 'Boom.Game.load()');
+    }
 
   }
 

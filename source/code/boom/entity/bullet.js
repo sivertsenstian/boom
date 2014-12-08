@@ -21,7 +21,8 @@ Boom.Bullet.prototype = Boom.inherit(Boom.Entity, {
         size: .25,
         mass: 1,
         friction: 0,
-        restitution: 0
+        restitution: 0,
+        owner: this
       }
     );
     this.components[physics.name] = physics;
@@ -35,7 +36,8 @@ Boom.Bullet.prototype = Boom.inherit(Boom.Entity, {
     var audio_hit = new Boom.AudioComponent(
       {
         name: 'HIT',
-        sound: Boom.Assets.sounds.weapons.gun.hit
+        sound: Boom.Assets.sounds.weapons.gun.hit,
+        owner: this
       }
     );
     this.components[audio_hit.name] = audio_hit;

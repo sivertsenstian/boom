@@ -7,7 +7,7 @@ Boom.Entity = function( params ){
   this.__addToScene = params.hasOwnProperty('addToScene') ? params.addToScene : true; //Defaults to new
   this.__dispose = params.dispose || false;
   this.components = {};
-  this.owner = params.owner || null;
+  this.owner = params.owner || null; //TODO: REMOVE THIS! msg system instead
 
   this.init();
 };
@@ -49,18 +49,13 @@ Boom.Entity.prototype = {
     return false;
   },
 
-  getDirection: function() {
-
-    // assumes the camera itself is not rotated
-
-    var direction = new THREE.Vector3( 0, 0, -1 );
-    var rotation = new THREE.Euler( 0, 0, 0, "YXZ" );
-    var v = new THREE.Vector3();
-
-    rotation.set( this.getObject().rotation.x, this.getObject().rotation.y, 0 );
-    v.copy( direction ).applyEuler( rotation );
-    
-    return v;
+  send: function( message ){
+    for (component in this.components) {
+      if (!this.components.hasOwnProperty(component)) {
+          continue;
+      }
+      this.components[component].receive( message );
+    }
   },
 
   add: function( other ){

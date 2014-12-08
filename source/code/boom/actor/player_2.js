@@ -19,12 +19,13 @@ Boom.Player.prototype = Boom.inherit(Boom.Entity, {
         size: 6,
         mass: 100,
         friction: 0,
-        restitution: 0
+        restitution: 0,
+        owner: this
       }
     );
     this.components[physics.name] = physics;
 
-    var controls = new Boom.InputComponent( this );
+    var controls = new Boom.InputComponent( { owner: this } );
     this.components[controls.name] = controls;
 
     this.load();

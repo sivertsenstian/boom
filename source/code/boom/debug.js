@@ -199,5 +199,6 @@ Boom.Debug.prototype =  {
 
 
 Boom.Exceptions = {
-  ObjectNotDefinedException: "Object is not defined"
+  ObjectNotDefinedException: "Object is not defined",
+  OwnerMissingException: "No Owner was defined"
 };

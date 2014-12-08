@@ -15,7 +15,8 @@ Boom.Pistol.prototype = Boom.inherit(Boom.Entity, {
         model: Boom.Assets.weapons.gun,
         scale: new THREE.Vector3(0.1, 0.1, 0.1),
         position: new THREE.Vector3(2, -2, -4),
-        rotation: new THREE.Vector3(0 , -Math.PI/2, 0)
+        rotation: new THREE.Vector3(0 , -Math.PI/2, 0),
+        owner: this
       }
     );
     this.components[physics.name] = physics;
@@ -26,15 +27,17 @@ Boom.Pistol.prototype = Boom.inherit(Boom.Entity, {
         object: obj,
         position: new THREE.Vector3(0, 0.25, 0.25), 
         rotation: new THREE.Vector3(0.25, 0, 0), 
-        ms: 500
-      } 
+        ms: 500,
+        owner: this
+      }
     );
     this.components[animation.name] = animation;
 
     var audio_shoot = new Boom.AudioComponent(
       {
         name: 'SHOOT',
-        sound: Boom.Assets.sounds.weapons.gun.shoot
+        sound: Boom.Assets.sounds.weapons.gun.shoot,
+        owner: this
       }
     );
     this.components[audio_shoot.name] = audio_shoot;

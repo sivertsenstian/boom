@@ -2,11 +2,11 @@ Boom.Player = function( camera, scene ){
   this.name = "PlayerName";
 
   this.camera = camera;
-  this.scene = scene;
+  //this.scene = scene;
   
   //Size
-  this.radius = Boom.Constants.Entity.SIZE / 4; 
-  this.size = Boom.Constants.Entity.SIZE;
+  this.radius = 24 / 4; 
+  this.size = 24;
 
   //Properties
   this.speed = 5;
@@ -23,11 +23,10 @@ Boom.Player.prototype = {
     //Player object
     this.object = new Physijs.SphereMesh (
       new THREE.SphereGeometry( this.radius , this.size , this.size ),
-      Physijs.createMaterial(this.material, 0, 0), Boom.Constants.Entity.WEIGHT
+      Physijs.createMaterial(this.material, 0, 0), 100
     );
 
     this.object.name = Boom.Constants.Objects.PLAYER;
-    this.object.castShadow = true;
     
     //Crosshair
     var crosshair_geometry = new THREE.CircleGeometry( 0.02, 25 ); 
@@ -240,7 +239,6 @@ Boom.PlayerControls.prototype = {
     }
 
     if( this.player.object.position.y > 0){
-      this.player.object.setLinearVelocity({x: current_velocity.x, y: current_velocity.y - this.player.speed, z: current_velocity.z });
       this.jump = false;
     }
 
@@ -286,5 +284,6 @@ Boom.PlayerControls.prototype = {
       instructions.innerHTML = 'Your browser doesn\'t seem to support Pointer Lock API';
     }
   }
+
 
 };
