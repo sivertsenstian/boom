@@ -19,7 +19,8 @@ Boom.Constants = {
       PHYSICAL: 'physics',
       AUDIO: 'audio',
       ANIMATION: 'animation',
-      INPUT: 'input'
+      INPUT: 'input',
+      ACTION: 'action'
     }
   },
   

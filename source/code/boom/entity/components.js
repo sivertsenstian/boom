@@ -1,9 +1,6 @@
 Boom.Component = function( params ){
   var params = params || {};
-  if( typeof params.owner === 'undefined' || params.owner === null){
-    throw Boom.Exceptions.OwnerMissingException;
-  }
-  this.owner = params.owner;
+  this.owner = params.owner || null;
   this.init();
 };
 
@@ -457,6 +454,40 @@ Boom.InputComponent.prototype = Boom.inherit(Boom.Component, {
     if( this.owner.getObject().position.y > 0){
       this.jump = false;
     }*/
+  }
+
+});
+
+/////////////////////////////////// ActionComponent //////////////////////////
+Boom.WalkActionComponent = function( params ) {
+  params = params || {};
+  this.name = params.name || Boom.Constants.Component.NAME.ACTION;
+
+  //Call super
+  Boom.Component.call(this, params );
+  
+};
+
+Boom.WalkActionComponent.prototype = Boom.inherit(Boom.Component, {
+  constructor: Boom.WalkActionComponent,
+
+  init: function() {
+    //Call super
+    Boom.Component.prototype.init.call(this);
+
+  },
+
+  load: function(){
+    //Call super
+    Boom.Component.prototype.load.call(this);
+    
+  },
+
+  update: function(){
+    //Call super
+    Boom.Component.prototype.update.call(this);
+
+
   }
 
 });

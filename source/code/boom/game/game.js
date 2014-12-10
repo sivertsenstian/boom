@@ -58,6 +58,9 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
 
     //Update world
     this.world.update();
+
+    //Update player
+    //this.player.update();
   },
 
   load: function(){
@@ -65,12 +68,14 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
       Boom.Base.prototype.load.call(this);
     try{
       //Player
-      var player = new Boom.Player( this.camera );
+      new Boom.Player( this.camera );
       
       /*var arrow = this.debug.createHelperArrow(player.object, 2, true);
       player.object.add( arrow );*/
 
-      //player.object.position.set(64, 0, 64);
+      //this.player.object.position.set(64, 0, 64);
+
+      //this.scene.add( this.player.object );
 
       //World
       this.world = new Boom.World();

@@ -28,6 +28,7 @@ Boom.Player.prototype = Boom.inherit(Boom.Entity, {
     var controls = new Boom.InputComponent( { owner: this } );
     this.components[controls.name] = controls;
 
+    var test = new Boom.WalkActionComponent( { owner: this } );
     this.load();
   },
 
