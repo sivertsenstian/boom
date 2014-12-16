@@ -13,8 +13,7 @@ Boom.Player.prototype = Boom.inherit(Boom.Entity, {
   init: function() {
     //Call super
     Boom.Entity.prototype.init.call(this);
-
-    this.speed = 5;
+    
     var physics = new Boom.PhysicalComponent(
        {
         name: 'player_physics',
@@ -49,6 +48,15 @@ Boom.Player.prototype = Boom.inherit(Boom.Entity, {
     );
     this.components[basic_movement.name] = basic_movement;
 
+    var basic_jump = new Boom.JumpActionComponent( 
+      { 
+        name: 'player_jump', 
+        owner: this, 
+        height: 100
+      } 
+    );
+    this.components[basic_jump.name] = basic_jump;
+
     var weapon = new Boom.WeaponActionComponent({
       name: 'player_weapon',
       owner: this
@@ -73,6 +81,18 @@ Boom.Player.prototype = Boom.inherit(Boom.Entity, {
   load: function(){
     //Call super
     Boom.Entity.prototype.load.call(this);
+
+    var scope = this;
+    //TODO: MAKE THIS INTO COLLISIONACTIONCOMPONENT
+    this.components['player_physics'].object.addEventListener( 'collision', function( other_object, relative_velocity, relative_rotation, contact_normal ) {
+      if( other_object.name === Boom.Constants.Objects.FLOOR ){
+        console.log( "LANDED!" );
+        scope.send( new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, 
+                              data: Boom.Constants.FALSE, 
+                              type: Boom.Constants.Message.Action.LAND, 
+                              sender: this.name + "|" + this.id }));
+      }
+    });
   },
 
   update: function(){

@@ -10,9 +10,7 @@ Boom.Bullet.prototype = Boom.inherit(Boom.Entity, {
   init: function() {
     //Call super
     Boom.Entity.prototype.init.call(this);
-
-    var scope = this;
-    this.speed = 200;
+    this.speed = 400;
     var physics = new Boom.PhysicalComponent(
        {
         name:'bullet_physics',
@@ -28,13 +26,6 @@ Boom.Bullet.prototype = Boom.inherit(Boom.Entity, {
     );
     this.components[physics.name] = physics;
 
-    //TODO: MAKE THIS INTO COLLISIONACTIONCOMPONENT
-    physics.object.addEventListener( 'collision', function( other_object, relative_velocity, relative_rotation, contact_normal ) {
-      if( other_object.name !== 'pistol_physics_OBJECT' && other_object.name !== 'player_physics_OBJECT' && other_object.name !== 'bullet_physics_OBJECT'){
-        scope.__dispose = true;
-      }
-    });
-
     var audio_hit = new Boom.AudioComponent(
       {
         name: 'HIT',
@@ -43,11 +34,21 @@ Boom.Bullet.prototype = Boom.inherit(Boom.Entity, {
       }
     );
     this.components[audio_hit.name] = audio_hit;
+
+    this.load();
   },
 
   load: function(){
     //Call super
     Boom.Entity.prototype.load.call(this);
+
+    var scope = this;
+    //TODO: MAKE THIS INTO COLLISIONACTIONCOMPONENT
+    this.components['bullet_physics'].object.addEventListener( 'collision', function( other_object, relative_velocity, relative_rotation, contact_normal ) {
+      if( other_object.name !== 'pistol_physics_OBJECT' && other_object.name !== 'player_physics_OBJECT' && other_object.name !== 'bullet_physics_OBJECT'){
+        scope.__dispose = true;
+      }
+    });
   },
 
   update: function(){

@@ -36,7 +36,7 @@ Boom.InputActionComponent.prototype = Boom.inherit(Boom.Component, {
     this.moveBackward = false;
     this.moveLeft = false;
     this.moveRight = false;
-    this.jump = false;
+    this.spaceBar = false;
     this.leftClick = false;
     this.rightClick = false;
 
@@ -104,7 +104,7 @@ Boom.InputActionComponent.prototype = Boom.inherit(Boom.Component, {
           break;
 
         case 32: // space
-          scope.jump = true;
+          scope.spaceBar = true;
           break;
       }
     };
@@ -132,7 +132,7 @@ Boom.InputActionComponent.prototype = Boom.inherit(Boom.Component, {
           break;
 
         case 32: // space
-          scope.jump = false;
+          scope.spaceBar = false;
           break;
       }
     };
@@ -255,10 +255,10 @@ Boom.InputActionComponent.prototype = Boom.inherit(Boom.Component, {
                               sender: this.type }));
     }
 
-    if ( this.jump ){
+    if ( this.spaceBar ){
       this.send( new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, 
                               data: this.getDirection().normalize(), 
-                              type: Boom.Constants.Message.Input.JUMP, 
+                              type: Boom.Constants.Message.Action.JUMP, 
                               sender: this.type }));
     }
   }

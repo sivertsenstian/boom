@@ -1,4 +1,9 @@
 Boom.Constants = {
+  
+  TRUE: Boom.guid(),
+
+  FALSE: Boom.guid(),
+
   World:{
     WIDTH: 32,
     HEIGHT: 32,
@@ -32,12 +37,13 @@ Boom.Constants = {
       LEFT: Boom.guid(),
       RIGHT: Boom.guid(),
       LEFTCLICK: Boom.guid(),
-      RIGHTCLICK: Boom.guid(),
-      JUMP: Boom.guid()
+      RIGHTCLICK: Boom.guid()
     },
     Action: {
       VELOCITY: Boom.guid(),
-      SHOOT: Boom.guid()
+      SHOOT: Boom.guid(),
+      JUMP: Boom.guid(),
+      LAND: Boom.guid()
     }
   },
   
