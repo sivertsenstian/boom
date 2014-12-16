@@ -1,3 +1,6 @@
+var Boom;
+Boom = Boom || {};
+
 Boom.inherit = function(classObj, members) {
   var base = Object.create(classObj.prototype);
 

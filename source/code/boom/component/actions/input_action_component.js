@@ -1,89 +1,35 @@
-Boom.Player = function( camera, scene ){
-  this.name = "PlayerName";
+Boom.InputActionComponent = function( params ) {
+  var params = params || {};
+  this.camera = params.camera;
+  this.object = params.object;
+  this.type = params.type || Boom.Constants.Component.TYPE.INPUT;
 
-  this.camera = camera;
-  //this.scene = scene;
-  
-  //Size
-  this.radius = 24 / 4; 
-  this.size = 24;
-
-  //Properties
-  this.speed = 5;
-  this.material = new THREE.MeshBasicMaterial({color: 0x00FF00, wireframe: false});
-  
-
-  this.init();
-};
-
-Boom.Player.prototype = {
-  constructor: Boom.Player,
-
-  init: function(){
-    //Player object
-    this.object = new Physijs.SphereMesh (
-      new THREE.SphereGeometry( this.radius , this.size , this.size ),
-      Physijs.createMaterial(this.material, 0, 0), 100
-    );
-
-    this.object.name = Boom.Constants.Objects.PLAYER;
-    
-    //Crosshair
-    var crosshair_geometry = new THREE.CircleGeometry( 0.02, 25 ); 
-    var crosshair_material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } ); 
-    this.crosshair = new THREE.Mesh( crosshair_geometry, crosshair_material );
-    this.crosshair.position.set(0, 0, - this.radius);
-
-    this.camera.add( this.crosshair );
-
-    //Controls
-    this.controls = new Boom.PlayerControls( this );
-
-    //Weapon
-    this.weapon = new Boom.Pistol( this );
-    this.camera.add ( this.weapon.getObject() );
-
-    this.load();
-  },
-
-  load: function(){
-    this.controls.load();
-
-  },
-
-  update: function(){
-    this.controls.update();
-    this.weapon.update();
+  if( typeof this.camera === 'undefined' || this.camera === null){
+      throw Boom.Exceptions.CameraMissingException;
   }
-
-};
-
-
-
-// ** PLAYER CONTROLS ** /
-Boom.PlayerControls = function ( player ) {
   
-  this.player = player;
-
-  this.init();
+  //Call super
+  Boom.Component.call(this, params );
 };
 
-Boom.PlayerControls.prototype = {
- 
-  constructor: Boom.PlayerControls,
+Boom.InputActionComponent.prototype = Boom.inherit(Boom.Component, {
+  constructor: Boom.InputActionComponent,
 
-  init: function(){
+  init: function() {
+    //Call super
+    Boom.Component.prototype.init.call(this);
+
     var scope = this;
 
-    this.player.camera.rotation.set( 0, 0, 0 );
+    this.camera.rotation.set( 0, 0, 0 );
 
     this.pitchObject = new THREE.Object3D();
-    this.pitchObject.add( this.player.camera );
+    this.pitchObject.add( this.camera );
 
     this.yawObject = new THREE.Object3D();
     this.yawObject.add( this.pitchObject );
     
-    this.player.object.add( this.yawObject );
+    this.object.add( this.yawObject );
 
     //Controls
     this.moveForward = false;
@@ -91,13 +37,13 @@ Boom.PlayerControls.prototype = {
     this.moveLeft = false;
     this.moveRight = false;
     this.jump = false;
+    this.leftClick = false;
+    this.rightClick = false;
 
     var PI_2 = Math.PI / 2;
 
     var onMouseMove = function ( event ) {
-
       if ( scope.enabled === false ) return;
-
       var movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
       var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
 
@@ -107,26 +53,36 @@ Boom.PlayerControls.prototype = {
       scope.pitchObject.rotation.x = Math.max( - PI_2, Math.min( PI_2, scope.pitchObject.rotation.x ) );
     };
 
-    var onMouseClick = function ( event ) {
+    var onMouseDown = function ( event ) {
       event.preventDefault();
-
       if ( scope.enabled === false ) return;
-
       var left = 0;
       var right = 2;
 
       if ( event.button === left){
-        scope.player.weapon.shoot();
+        scope.leftClick = true;
       }
       else if ( event.button === right ){
+        scope.rightClick = true;
       }
+    };
 
+    var onMouseUp = function ( event ) {
+      event.preventDefault();
+      if ( scope.enabled === false ) return;
+      var left = 0;
+      var right = 2;
+
+      if ( event.button === left){
+        scope.leftClick = false;
+      }
+      else if ( event.button === right ){
+        scope.rightClick = false;
+      }
     };
 
     var onKeyDown = function ( event ) {
-
       switch ( event.keyCode ) {
-
         case 38: // up
         case 87: // w
           scope.moveForward = true;
@@ -134,7 +90,8 @@ Boom.PlayerControls.prototype = {
 
         case 37: // left
         case 65: // a
-          scope.moveLeft = true; break;
+          scope.moveLeft = true; 
+          break;
 
         case 40: // down
         case 83: // s
@@ -149,15 +106,11 @@ Boom.PlayerControls.prototype = {
         case 32: // space
           scope.jump = true;
           break;
-
       }
-
     };
 
     var onKeyUp = function ( event ) {
-
       switch( event.keyCode ) {
-
         case 38: // up
         case 87: // w
           scope.moveForward = false;
@@ -178,73 +131,27 @@ Boom.PlayerControls.prototype = {
           scope.moveRight = false;
           break;
 
-        case 69: /*E*/ scope.yawObject.position.set(-50, 50, -50); break;
-        case 81: /*Q*/ scope.yawObject.position.set(0, 0, 0); break;
-
+        case 32: // space
+          scope.jump = false;
+          break;
       }
-
     };
 
-    document.addEventListener( 'mouseup', onMouseClick, false );
+    document.addEventListener( 'mousedown', onMouseDown, false );
+    document.addEventListener( 'mouseup', onMouseUp, false );
     document.addEventListener( 'mousemove', onMouseMove, false );
     document.addEventListener( 'keydown', onKeyDown, false );
     document.addEventListener( 'keyup', onKeyUp, false );
 
     scope.enabled = false;
-  },
-
-  getDirection: function() {
-
-    // assumes the camera itself is not rotated
-
-    var direction = new THREE.Vector3( 0, 0, -1 );
-    var rotation = new THREE.Euler( 0, 0, 0, "YXZ" );
-    var v = new THREE.Vector3();
-
-    rotation.set( this.pitchObject.rotation.x, this.yawObject.rotation.y, 0 );
-    v.copy( direction ).applyEuler( rotation );
-    
-    return v;
-  },
-
-  update: function() {
-
-    if ( this.enabled === false ) return;
-
-    this.yawObject.__dirtyRotation = true;
-    this.yawObject.__dirtyPosition = true;
-
-    var dir = this.getDirection().normalize();
-    this.player.object.setDamping(0.99, 1.0);
-    var current_velocity = this.player.object.getLinearVelocity();
-
-    if ( this.moveForward) {
-      this.player.object.setLinearVelocity({x: current_velocity.x + (this.player.speed * dir.x), y: current_velocity.y, z: current_velocity.z + (this.player.speed * dir.z)});
-    }
-
-    if ( this.moveBackward ) {
-      this.player.object.setLinearVelocity({x: current_velocity.x + (this.player.speed * -dir.x), y: current_velocity.y, z: current_velocity.z + (this.player.speed * -dir.z)});
-    }
-
-    if ( this.moveLeft ) {
-      this.player.object.setLinearVelocity({x: (dir.z * this.player.speed) + current_velocity.x, y: current_velocity.y, z: (-dir.x * this.player.speed) + current_velocity.z});
-    } 
-
-    if ( this.moveRight ) {
-      this.player.object.setLinearVelocity({x: (-dir.z * this.player.speed) + current_velocity.x, y: current_velocity.y, z: (dir.x * this.player.speed) + current_velocity.z});
-    }
-
-    if ( this.jump ){
-      this.player.object.setLinearVelocity({x: current_velocity.x, y: current_velocity.y + this.player.speed * 2, z: current_velocity.z });
-    }
-
-    if( this.player.object.position.y > 0){
-      this.jump = false;
-    }
 
   },
 
-  load: function() {
+  load: function(){
+    //Call super
+    Boom.Component.prototype.load.call(this);
+
+    //Bind controls and mark as enabled
     var scope = this;
     var blocker = document.getElementById( 'blocker' );
     var instructions = document.getElementById( 'instructions' );
@@ -283,7 +190,77 @@ Boom.PlayerControls.prototype = {
     } else {
       instructions.innerHTML = 'Your browser doesn\'t seem to support Pointer Lock API';
     }
+    
+  },
+
+  getDirection: function() {
+
+    // assumes the camera itself is not rotated
+
+    var direction = new THREE.Vector3( 0, 0, -1 );
+    var rotation = new THREE.Euler( 0, 0, 0, "YXZ" );
+    var v = new THREE.Vector3();
+
+    rotation.set( this.pitchObject.rotation.x, this.yawObject.rotation.y, 0 );
+    v.copy( direction ).applyEuler( rotation );
+    
+    return v;
+  },
+
+  update: function(){
+    //Call super
+    Boom.Component.prototype.update.call(this);
+
+    if ( this.enabled === false ) return;
+
+    if ( this.moveForward) {
+      this.send( new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, 
+                                    data: this.getDirection().normalize(), 
+                                    type: Boom.Constants.Message.Input.FORWARD, 
+                                    sender: this.type }));
+    }
+
+    if ( this.moveBackward ) {
+      this.send( new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, 
+                              data: this.getDirection().normalize(), 
+                              type: Boom.Constants.Message.Input.BACKWARD, 
+                              sender: this.type }));
+    }
+
+    if ( this.moveLeft ) {
+      this.send( new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, 
+                              data: this.getDirection().normalize(), 
+                              type: Boom.Constants.Message.Input.LEFT, 
+                              sender: this.type }));
+    } 
+
+    if ( this.moveRight ) {
+      this.send( new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, 
+                              data: this.getDirection().normalize(), 
+                              type: Boom.Constants.Message.Input.RIGHT, 
+                              sender: this.type }));
+    }
+
+    if ( this.leftClick ) {
+      this.send( new Boom.Message({ receiver: Boom.Constants.Component.TYPE.WEAPON, 
+                              data: this.getDirection().normalize(), 
+                              type: Boom.Constants.Message.Action.SHOOT,
+                              sender: this.type }));
+    } 
+
+    if ( this.rightClick ) {
+      this.send( new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, 
+                              data: this.getDirection().normalize(), 
+                              type: Boom.Constants.Message.Input.RIGHTCLICK, 
+                              sender: this.type }));
+    }
+
+    if ( this.jump ){
+      this.send( new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, 
+                              data: this.getDirection().normalize(), 
+                              type: Boom.Constants.Message.Input.JUMP, 
+                              sender: this.type }));
+    }
   }
 
-
-};
+});

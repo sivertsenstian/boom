@@ -1,6 +1,3 @@
-var Boom;
-Boom = Boom || {};
-
 Boom.Constants = {
   World:{
     WIDTH: 32,
@@ -12,33 +9,53 @@ Boom.Constants = {
   },
 
   Component:{
-    BOX: 0,
-    SPHERE: 1,
-    MODEL: 2,
-    NAME: {
+    BOX: Boom.guid(),
+    SPHERE: Boom.guid(),
+    MODEL: Boom.guid(),
+    TYPE: {
+      BASIC: 'basic',
       PHYSICAL: 'physics',
       AUDIO: 'audio',
       ANIMATION: 'animation',
       INPUT: 'input',
-      ACTION: 'action'
+      ACTION: 'action',
+      WEAPON: 'weapon',
+      UI: 'UI'
+    }
+  },
+
+  Message: {
+    ALL: Boom.guid(),
+    Input: {
+      FORWARD: Boom.guid(),
+      BACKWARD: Boom.guid(),
+      LEFT: Boom.guid(),
+      RIGHT: Boom.guid(),
+      LEFTCLICK: Boom.guid(),
+      RIGHTCLICK: Boom.guid(),
+      JUMP: Boom.guid()
+    },
+    Action: {
+      VELOCITY: Boom.guid(),
+      SHOOT: Boom.guid()
     }
   },
   
   Objects:{
-    FLOOR: 0,
-    SKYBOX: 1,
-    WALL: 2,
-    COLLECTION: 3,
-    CEILING: 4,
-    FOG: 66,
-    GRAVITY: 77,
-    LIGHT: 88,
-    DEBUG: 99,
-    RENDERER: 198,
-    CAMERA: 199,
-    SCENE: 200,
-    PLAYER: 300,
-    WEAPON: 500
+    FLOOR: Boom.guid(),
+    SKYBOX: Boom.guid(),
+    WALL: Boom.guid(),
+    COLLECTION: Boom.guid(),
+    CEILING: Boom.guid(),
+    FOG: Boom.guid(),
+    GRAVITY: Boom.guid(),
+    LIGHT: Boom.guid(),
+    DEBUG: Boom.guid(),
+    RENDERER: Boom.guid(),
+    CAMERA: Boom.guid(),
+    SCENE: Boom.guid(),
+    PLAYER: Boom.guid(),
+    WEAPON: Boom.guid()
 
   },
 

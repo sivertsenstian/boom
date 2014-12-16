@@ -36,18 +36,18 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
       entity.update();
 
       if( entity.__addToScene ){
-        var entObj = entity.getObject();
-        if ( entObj ){
-          this.scene.add( entObj );
+        var component = entity.getComponent( Boom.Constants.Component.TYPE.PHYSICAL );
+        if ( component ){
+          this.scene.add( component.object );
         }
         entity.__addToScene = false;
       }
 
       if ( entity.__dispose ){
-        var entObj = entity.getObject();
-        if ( entObj ){
+        var component = entity.getComponent( Boom.Constants.Component.TYPE.PHYSICAL );
+        if ( component ){
           entity.dispose();
-          this.scene.remove( entObj );
+          this.scene.remove( component.object );
           delete Boom.Entities[id];
         }
       }
@@ -65,10 +65,11 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
       Boom.Base.prototype.load.call(this);
     try{
       //Player
-      new Boom.Player( this.camera );
-      
-      /*var arrow = this.debug.createHelperArrow(player.object, 2, true);
-      player.object.add( arrow );*/
+      var p = new Boom.Player( this.camera );
+      /*var po = p.getComponent( Boom.Constants.Component.TYPE.PHYSICAL );
+
+      var arrow = this.debug.createHelperArrow(po.object, 1, true);
+      po.object.add( arrow );*/
 
       //World
       this.world = new Boom.World();

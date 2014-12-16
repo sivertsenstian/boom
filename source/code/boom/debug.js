@@ -10,7 +10,7 @@ Boom.Debug = function(scene) {
     frames: 0,
     currentTime: Boom.getCurrentTime(),
   };
-
+  
   this.drawDebugGeometry = function(item){
     switch(item.name){
       case Boom.Constants.Objects.FLOOR:
@@ -200,5 +200,7 @@ Boom.Debug.prototype =  {
 
 Boom.Exceptions = {
   ObjectNotDefinedException: "Object is not defined",
-  OwnerMissingException: "No Owner was defined"
+  OwnerMissingException: "No Owner was defined",
+  NoMessageReceiverException: "No Receiver was defined",
+  CameraMissingException: "No Camera was defined"
 };

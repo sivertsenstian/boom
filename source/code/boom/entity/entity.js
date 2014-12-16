@@ -7,7 +7,7 @@ Boom.Entity = function( params ){
   this.__addToScene = params.hasOwnProperty('addToScene') ? params.addToScene : true; //Defaults to new
   this.__dispose = params.dispose || false;
   this.components = {};
-  this.owner = params.owner || null; //TODO: REMOVE THIS! msg system instead
+  this.children = [];
 
   this.init();
 };
@@ -42,31 +42,72 @@ Boom.Entity.prototype = {
     }
   },
 
-  getObject: function(){
-    if( this.components.hasOwnProperty( Boom.Constants.Component.NAME.PHYSICAL ) ){
-      return this.components[Boom.Constants.Component.NAME.PHYSICAL].object;
+  send: function( message ){
+    try{
+      for (component in this.components) {
+        if (!this.components.hasOwnProperty(component)) {
+            continue;
+        }
+        if (!message.hasOwnProperty('receiver')){
+          throw Boom.Exceptions.NoMessageReceiverException;
+        }
+        if( message.receiver === Boom.Constants.Message.ALL || this.components[component].type === message.receiver){
+          this.components[component].receive( message );
+        }
+      }
+    }
+    catch( error ){
+      Boom.handleError( error , 'Boom.Entity.send()');
+    }
+  },
+
+  add: function( other, override ){
+    this.children.push( other );
+    var this_physical = this.getComponent( Boom.Constants.Component.TYPE.PHYSICAL );
+    var other_physical = other.getComponent( Boom.Constants.Component.TYPE.PHYSICAL );
+    if( this_physical && other_physical ){
+      var parent = override || this_physical.object;
+      parent.add( other_physical.object );
+    }
+  },
+
+  remove: function( other ){
+    for(var i = 0; i < this.children.length; i++ ){
+      if( this.children[i].id === other.id ){
+        var this_physical = this.getComponent( Boom.Constants.Component.TYPE.PHYSICAL );
+        var other_physical = other.getComponent( Boom.Constants.Component.TYPE.PHYSICAL );
+        if( this_physical && other_physical ){
+          this_physical.object.remove( other_physical.object );
+        }
+        this.children.splice(i, 1);
+      }
+    }
+  },
+
+  child: function( id ){
+    for(var i = 0; i < this.children.length; i++ ){
+      if( this.children[i].id === id ){
+        return this.children[i];
+      }
     }
     return false;
-  },
-
-  send: function( message ){
-    for (component in this.components) {
-      if (!this.components.hasOwnProperty(component)) {
-          continue;
-      }
-      this.components[component].receive( message );
-    }
-  },
-
-  add: function( other ){
-    if( this.getObject() && other.getObject() ){
-      this.getObject().add( other.getObject() );
-    }
   },
 
   dispose: function(){
    /* console.log( "DISPOSING ENTITY ");
     console.log( this );*/
+  },
+
+  getComponent: function( c ){
+    for (component in this.components) {
+      if (!this.components.hasOwnProperty(component)) {
+          continue;
+      }
+      if( this.components[component].type === c || this.components[component].name === c){
+        return this.components[component];
+      }
+    }
+    return false;
   }
 
 };
