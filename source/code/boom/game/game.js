@@ -66,10 +66,6 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
     try{
       //Player
       var p = new Boom.Player( this.camera );
-      /*var po = p.getComponent( Boom.Constants.Component.TYPE.PHYSICAL );
-
-      var arrow = this.debug.createHelperArrow(po.object, 1, true);
-      po.object.add( arrow );*/
 
       //World
       this.world = new Boom.World();

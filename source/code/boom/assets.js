@@ -13,6 +13,16 @@ Boom.Assets = {
     }
   },
 
+  map: {
+    OBJECT:{
+      PLAYER_SPAWN: "4f9bc809-977b-4283-bb96-73ca47e4dbdb"
+    },
+    ENTITY:{
+      SAND_WALL: "bcde54dd-abae-4c20-9d37-145812f5c933",
+      SAND_GROUND: "99a2f5b7-e0d9-4e00-9f3a-a88172bc5975"
+    }
+  },
+
   add: function ( tags, object ){
     var current = Boom.Assets;
     for( var i = 0; i < tags.length; i++ ){

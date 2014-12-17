@@ -8,7 +8,10 @@ Boom.World = function(){
 
   //Textures
   this.textures = {
-    skybox: '/resources/structures/skybox/4/1.png'
+    floor: '/resources/structures/ground/2/1.jpg',
+    ceiling: '/resources/structures/ceiling/1/1.jpg',
+    skybox: '/resources/structures/skybox/4/1.png',
+    wall: '/resources/structures/wall/2/1.jpg',
   };
 
   this.init();
@@ -139,6 +142,38 @@ Boom.World.prototype = {
 
     //Add Fog
     scene.fog = this.fog;
+
+    //Add Floor
+    var floorTexture = new THREE.ImageUtils.loadTexture( this.textures.floor );
+    floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
+    floorTexture.repeat.set( this.width, this.height );
+
+    var floorMaterial = new THREE.MeshPhongMaterial( { map: floorTexture, side: THREE.DoubleSide });
+
+    //var floorGeometry = new THREE.PlaneBufferGeometry (this.width * this.size, this.height * this.size, this.size, this.size);
+    var floorGeometry = new THREE.BoxGeometry (this.width * this.size, this.height * this.size, this.size);
+    this.floor = new Physijs.BoxMesh(floorGeometry,  Physijs.createMaterial(floorMaterial, 0, 0), 0);
+    this.floor.position.set(this.width/2 * this.size, -this.size , this.height/2 * this.size);
+    this.floor.rotation.x = Math.PI / 2;
+    this.floor.receiveShadow = true;
+    this.floor.name = Boom.Constants.Objects.FLOOR;
+    scene.add(this.floor);
+
+    //Add Roof
+    var ceilingTexture = new THREE.ImageUtils.loadTexture( this.textures.ceiling );
+    ceilingTexture.wrapS = ceilingTexture.wrapT = THREE.RepeatWrapping;
+    ceilingTexture.repeat.set( this.width, this.height );
+
+    var ceilingMaterial = new THREE.MeshPhongMaterial( { map: ceilingTexture, side: THREE.DoubleSide });
+
+    var ceilingGeometry = new THREE.PlaneBufferGeometry (this.width * this.size, this.height * this.size, this.size, this.size);
+    this.ceiling = new Physijs.BoxMesh(ceilingGeometry,  Physijs.createMaterial(ceilingMaterial, .4, .8), 0);
+    this.ceiling.position.set(this.width/2 * this.size, (this.size/2) , this.height/2 * this.size);
+    this.ceiling.rotation.x = Math.PI / 2;
+    this.ceiling.receiveShadow = true;
+    this.ceiling.name = Boom.Constants.Objects.CEILING;
+    //scene.add(this.ceiling);
+
     //Add Map
     //Item
     var geometry = new THREE.BoxGeometry(this.size, this.size, this.size);
@@ -146,21 +181,29 @@ Boom.World.prototype = {
     var texture = THREE.ImageUtils.loadTexture(this.textures.wall);
     var material = new THREE.MeshLambertMaterial({map: texture});
 
-    var pos;
+    var walls = new Physijs.BoxMesh( new THREE.Geometry(), new THREE.MeshBasicMaterial(), 0 );
+    walls.name = Boom.Constants.Objects.COLLECTION;
     for(var i = 0; i < this.map.length; i++){
       if(this.map[i] > 0){
-        pos = new THREE.Vector3(this.size * Math.floor((i / this.width) + 1) - (this.size/2),
-                               0, 
-                               this.size * Math.floor((i % this.height) + 1) - (this.size/2));
-        new Boom.SandWall({position: pos, size: this.size});
-      }
-      else if(this.map[i] === 0){
-        pos = new THREE.Vector3(this.size * Math.floor((i / this.width) + 1) - (this.size/2),
-                               -this.size, 
-                               this.size * Math.floor((i % this.height) + 1) - (this.size/2));
-        new Boom.SandGround({position: pos, size: this.size});
+        var item = new Physijs.BoxMesh(
+            new THREE.BoxGeometry( this.size , this.size , this.size ),
+            Physijs.createMaterial(material, 0, 0), 0
+        );
+
+        item.position.x = this.size * Math.floor((i / this.width) + 1) - (this.size/2);
+        item.position.z = this.size * Math.floor((i % this.height) + 1) - (this.size/2);
+        item.name = Boom.Constants.Objects.WALL;
+
+    
+
+        walls.add(item);
       }
     }
+
+    walls.receiveShadow = true;
+    walls.castShadow = true; 
+
+    scene.add( walls );
 
     //Add Lights
     for(var i = 0; i < this.lights.length; i++){

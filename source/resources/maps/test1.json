@@ -1,0 +1,1003 @@
+{ "height":32,
+ "layers":[
+        {
+         "data":[68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 50, 50, 50, 50, 50, 68, 50, 50, 50, 50, 50, 50, 50, 50, 50, 68, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 68, 50, 50, 50, 68, 68, 50, 50, 50, 50, 50, 68, 50, 50, 50, 50, 68, 50, 50, 50, 50, 68, 50, 50, 50, 50, 50, 68, 50, 50, 50, 50, 68, 50, 50, 50, 68, 68, 50, 50, 50, 50, 50, 68, 50, 50, 50, 50, 68, 50, 50, 50, 50, 68, 50, 50, 50, 50, 50, 68, 50, 50, 50, 50, 68, 50, 50, 50, 68, 68, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 68, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 68, 50, 50, 50, 50, 50, 50, 50, 50, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 50, 50, 50, 68, 68, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 68, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 68, 50, 50, 50, 50, 68, 50, 50, 50, 68, 68, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 68, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 68, 50, 50, 50, 50, 68, 50, 50, 50, 68, 68, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 68, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 68, 50, 50, 50, 50, 68, 50, 50, 50, 68, 68, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 68, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 68, 68, 68, 68, 68, 68, 50, 50, 50, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 50, 50, 68, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 68, 68, 50, 50, 50, 50, 50, 50, 50, 68, 50, 50, 68, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 68, 68, 50, 50, 50, 50, 50, 50, 50, 68, 50, 50, 68, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 68, 68, 50, 50, 50, 50, 50, 50, 50, 68, 50, 50, 68, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 68, 68, 50, 50, 50, 50, 50, 50, 50, 68, 50, 50, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 50, 50, 50, 50, 68, 68, 68, 68, 68, 68, 68, 50, 50, 50, 50, 50, 50, 50, 68, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 68, 50, 50, 50, 50, 68, 50, 50, 50, 50, 68, 68, 50, 50, 50, 50, 50, 50, 50, 68, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 68, 50, 50, 50, 50, 68, 50, 50, 50, 50, 68, 68, 50, 50, 50, 68, 50, 50, 68, 68, 68, 68, 50, 50, 68, 50, 50, 50, 50, 50, 50, 50, 68, 50, 50, 50, 50, 68, 50, 50, 50, 50, 68, 68, 50, 50, 50, 68, 50, 50, 50, 50, 50, 50, 50, 50, 68, 50, 50, 50, 50, 68, 68, 68, 68, 50, 50, 50, 50, 68, 68, 68, 68, 68, 68, 68, 50, 50, 50, 68, 50, 50, 50, 50, 50, 50, 50, 50, 68, 50, 50, 50, 50, 68, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 68, 68, 50, 50, 50, 68, 50, 50, 50, 50, 50, 50, 50, 50, 68, 50, 50, 50, 50, 68, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 68, 68, 50, 50, 50, 68, 50, 50, 50, 50, 50, 50, 50, 50, 68, 50, 50, 50, 50, 68, 50, 50, 68, 68, 68, 68, 68, 68, 68, 50, 50, 50, 68, 68, 50, 50, 50, 68, 50, 50, 50, 50, 50, 50, 50, 50, 68, 50, 50, 50, 50, 68, 50, 50, 68, 50, 50, 50, 50, 50, 68, 50, 50, 50, 68, 68, 50, 50, 50, 68, 50, 50, 50, 50, 50, 50, 50, 50, 68, 50, 50, 50, 50, 68, 50, 50, 68, 50, 50, 50, 50, 50, 68, 50, 50, 50, 68, 68, 50, 50, 50, 68, 68, 68, 68, 50, 50, 68, 68, 68, 68, 50, 50, 50, 50, 68, 50, 50, 68, 68, 68, 68, 68, 68, 68, 50, 50, 50, 68, 68, 50, 50, 50, 50, 50, 50, 68, 50, 50, 68, 50, 50, 50, 50, 50, 50, 50, 68, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 68, 68, 50, 50, 50, 50, 50, 50, 68, 50, 50, 68, 50, 50, 50, 50, 50, 50, 50, 68, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 68, 68, 68, 68, 68, 68, 68, 68, 68, 50, 50, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 50, 50, 50, 68, 68, 68, 68, 68, 68, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 68, 68, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 68, 68, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68],
+         "height":32,
+         "name":"Ground Floor",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":32,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "height":32,
+         "name":"Ground Floor Objects",
+         "objects":[
+                {
+                 "ellipse":true,
+                 "height":30,
+                 "name":"PLAYER_SPAWN",
+                 "properties":
+                    {
+
+                    },
+                 "rotation":0,
+                 "type":"4f9bc809-977b-4283-bb96-73ca47e4dbdb",
+                 "visible":true,
+                 "width":31,
+                 "x":40,
+                 "y":28
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "width":32,
+         "x":0,
+         "y":0
+        }],
+ "orientation":"orthogonal",
+ "properties":
+    {
+
+    },
+ "renderorder":"left-down",
+ "tileheight":24,
+ "tilesets":[
+        {
+         "firstgid":1,
+         "margin":0,
+         "name":"32x32Terrain",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "terrains":[
+                {
+                 "name":"Sand",
+                 "tile":-1
+                }, 
+                {
+                 "name":"Grass",
+                 "tile":-1
+                }, 
+                {
+                 "name":"Toxic",
+                 "tile":-1
+                }, 
+                {
+                 "name":"Snow",
+                 "tile":-1
+                }, 
+                {
+                 "name":"Water_Grass",
+                 "tile":-1
+                }, 
+                {
+                 "name":"Water_Dirt",
+                 "tile":-1
+                }],
+         "tileheight":32,
+         "tileproperties":
+            {
+             "49":
+                {
+                 "Boom.ID":"99a2f5b7-e0d9-4e00-9f3a-a88172bc5975"
+                },
+             "67":
+                {
+                 "Boom.ID":"bcde54dd-abae-4c20-9d37-145812f5c933"
+                }
+            },
+         "tiles":
+            {
+             "0":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtGrass (1) (Custom).png",
+                 "terrain":[1, 1, 1, 1]
+                },
+             "1":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtGrass (2) (Custom).png",
+                 "terrain":[1, 1, 1, 1]
+                },
+             "10":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtGrass (11) (Custom).png",
+                 "terrain":[1, 1, 1, 1]
+                },
+             "100":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_Slime (29) (Custom).png",
+                 "terrain":[2, 2, 2, 2]
+                },
+             "101":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_Slime (30) (Custom).png",
+                 "terrain":[2, 2, 2, 2]
+                },
+             "102":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_Slime (31) (Custom).png",
+                 "terrain":[2, 2, 2, 2]
+                },
+             "103":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_Slime (32) (Custom).png",
+                 "terrain":[2, 2, 2, 2]
+                },
+             "104":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_Slime (33) (Custom).png",
+                 "terrain":[2, 2, 2, 2]
+                },
+             "105":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_Slime (34) (Custom).png",
+                 "terrain":[2, 2, 2, 2]
+                },
+             "106":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_Slime (35) (Custom).png",
+                 "terrain":[2, 2, 2, 2]
+                },
+             "107":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_Slime (36) (Custom).png",
+                 "terrain":[2, 2, 2, 2]
+                },
+             "108":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_SnowIce (1) (Custom).png",
+                 "terrain":[3, 3, 3, 3]
+                },
+             "109":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_SnowIce (2) (Custom).png",
+                 "terrain":[3, 3, 3, 3]
+                },
+             "11":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtGrass (12) (Custom).png",
+                 "terrain":[1, 1, 1, 1]
+                },
+             "110":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_SnowIce (3) (Custom).png",
+                 "terrain":[3, 3, 3, 3]
+                },
+             "111":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_SnowIce (4) (Custom).png",
+                 "terrain":[3, 3, 3, 3]
+                },
+             "112":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_SnowIce (5) (Custom).png",
+                 "terrain":[3, 3, 3, 3]
+                },
+             "113":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_SnowIce (6) (Custom).png",
+                 "terrain":[3, 3, 3, 3]
+                },
+             "114":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_SnowIce (7) (Custom).png",
+                 "terrain":[3, 3, 3, 3]
+                },
+             "115":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_SnowIce (8) (Custom).png",
+                 "terrain":[3, 3, 3, 3]
+                },
+             "116":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_SnowIce (9) (Custom).png",
+                 "terrain":[3, 3, 3, 3]
+                },
+             "117":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_SnowIce (10) (Custom).png",
+                 "terrain":[3, 3, 3, 3]
+                },
+             "118":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_SnowIce (11) (Custom).png",
+                 "terrain":[3, 3, 3, 3]
+                },
+             "119":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_SnowIce (12) (Custom).png",
+                 "terrain":[3, 3, 3, 3]
+                },
+             "12":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtGrass (13) (Custom).png",
+                 "terrain":[1, 1, 1, 1]
+                },
+             "120":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_SnowIce (13) (Custom).png",
+                 "terrain":[3, 3, 3, 3]
+                },
+             "121":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_SnowIce (14) (Custom).png",
+                 "terrain":[3, 3, 3, 3]
+                },
+             "122":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_SnowIce (15) (Custom).png",
+                 "terrain":[3, 3, 3, 3]
+                },
+             "123":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_SnowIce (16) (Custom).png",
+                 "terrain":[3, 3, 3, 3]
+                },
+             "124":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_SnowIce (17) (Custom).png",
+                 "terrain":[3, 3, 3, 3]
+                },
+             "125":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_SnowIce (18) (Custom).png",
+                 "terrain":[3, 3, 3, 3]
+                },
+             "126":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_SnowIce (19) (Custom).png",
+                 "terrain":[3, 3, 3, 3]
+                },
+             "127":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_SnowIce (20) (Custom).png",
+                 "terrain":[3, 3, 3, 3]
+                },
+             "128":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_SnowIce (21) (Custom).png",
+                 "terrain":[3, 3, 3, 3]
+                },
+             "129":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_SnowIce (22) (Custom).png",
+                 "terrain":[3, 3, 3, 3]
+                },
+             "13":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtGrass (14) (Custom).png",
+                 "terrain":[1, 1, 1, 1]
+                },
+             "130":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_SnowIce (23) (Custom).png",
+                 "terrain":[3, 3, 3, 3]
+                },
+             "131":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_SnowIce (24) (Custom).png",
+                 "terrain":[3, 3, 3, 3]
+                },
+             "132":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_SnowIce (25) (Custom).png",
+                 "terrain":[3, 3, 3, 3]
+                },
+             "133":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_SnowIce (26) (Custom).png",
+                 "terrain":[3, 3, 3, 3]
+                },
+             "134":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_SnowIce (27) (Custom).png",
+                 "terrain":[3, 3, 3, 3]
+                },
+             "135":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_SnowIce (28) (Custom).png",
+                 "terrain":[3, 3, 3, 3]
+                },
+             "136":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_SnowIce (29) (Custom).png",
+                 "terrain":[3, 3, 3, 3]
+                },
+             "137":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_SnowIce (30) (Custom).png",
+                 "terrain":[3, 3, 3, 3]
+                },
+             "138":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_SnowIce (31) (Custom).png",
+                 "terrain":[3, 3, 3, 3]
+                },
+             "139":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_SnowIce (32) (Custom).png",
+                 "terrain":[3, 3, 3, 3]
+                },
+             "14":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtGrass (15) (Custom).png",
+                 "terrain":[1, 1, 1, 1]
+                },
+             "140":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_SnowIce (33) (Custom).png",
+                 "terrain":[3, 3, 3, 3]
+                },
+             "141":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_SnowIce (34) (Custom).png",
+                 "terrain":[3, 3, 3, 3]
+                },
+             "142":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_SnowIce (35) (Custom).png",
+                 "terrain":[3, 3, 3, 3]
+                },
+             "143":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_SnowIce (36) (Custom).png",
+                 "terrain":[3, 3, 3, 3]
+                },
+             "144":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_WaterGrass (1) (Custom).png",
+                 "terrain":[4, 4, 4, 4]
+                },
+             "145":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_WaterGrass (2) (Custom).png",
+                 "terrain":[4, 4, 4, 4]
+                },
+             "146":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_WaterGrass (3) (Custom).png",
+                 "terrain":[4, 4, 4, 4]
+                },
+             "147":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_WaterGrass (4) (Custom).png",
+                 "terrain":[4, 4, 4, 4]
+                },
+             "148":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_WaterGrass (5) (Custom).png",
+                 "terrain":[4, 4, 4, 4]
+                },
+             "149":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_WaterGrass (6) (Custom).png",
+                 "terrain":[4, 4, 4, 4]
+                },
+             "15":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtGrass (16) (Custom).png",
+                 "terrain":[1, 1, 1, 1]
+                },
+             "150":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_WaterGrass (7) (Custom).png",
+                 "terrain":[4, 4, 4, 4]
+                },
+             "151":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_WaterGrass (8) (Custom).png",
+                 "terrain":[4, 4, 4, 4]
+                },
+             "152":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_WaterGrass (9) (Custom).png",
+                 "terrain":[4, 4, 4, 4]
+                },
+             "153":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_WaterGrass (10) (Custom).png",
+                 "terrain":[4, 4, 4, 4]
+                },
+             "154":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_WaterGrass (11) (Custom).png",
+                 "terrain":[4, 4, 4, 4]
+                },
+             "155":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_WaterGrass (12) (Custom).png",
+                 "terrain":[4, 4, 4, 4]
+                },
+             "156":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_WaterGrass (13) (Custom).png",
+                 "terrain":[4, 4, 4, 4]
+                },
+             "157":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_WaterGrass (14) (Custom).png",
+                 "terrain":[4, 4, 4, 4]
+                },
+             "158":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_WaterGrass (15) (Custom).png",
+                 "terrain":[4, 4, 4, 4]
+                },
+             "159":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_WaterGrass (16) (Custom).png",
+                 "terrain":[4, 4, 4, 4]
+                },
+             "16":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtGrass (17) (Custom).png",
+                 "terrain":[1, 1, 1, 1]
+                },
+             "160":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_WaterGrass (17) (Custom).png",
+                 "terrain":[4, 4, 4, 4]
+                },
+             "161":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_WaterGrass (18) (Custom).png",
+                 "terrain":[4, 4, 4, 4]
+                },
+             "162":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_WaterGrass (19) (Custom).png",
+                 "terrain":[5, 5, 5, 5]
+                },
+             "163":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_WaterGrass (20) (Custom).png",
+                 "terrain":[5, 5, 5, 5]
+                },
+             "164":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_WaterGrass (21) (Custom).png",
+                 "terrain":[5, 5, 5, 5]
+                },
+             "165":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_WaterGrass (22) (Custom).png",
+                 "terrain":[5, 5, 5, 5]
+                },
+             "166":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_WaterGrass (23) (Custom).png",
+                 "terrain":[5, 5, 5, 5]
+                },
+             "167":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_WaterGrass (24) (Custom).png",
+                 "terrain":[5, 5, 5, 5]
+                },
+             "168":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_WaterGrass (25) (Custom).png",
+                 "terrain":[5, 5, 5, 5]
+                },
+             "169":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_WaterGrass (26) (Custom).png",
+                 "terrain":[5, 5, 5, 5]
+                },
+             "17":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtGrass (18) (Custom).png",
+                 "terrain":[1, 1, 1, 1]
+                },
+             "170":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_WaterGrass (27) (Custom).png",
+                 "terrain":[5, 5, 5, 5]
+                },
+             "171":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_WaterGrass (28) (Custom).png",
+                 "terrain":[5, 5, 5, 5]
+                },
+             "172":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_WaterGrass (29) (Custom).png",
+                 "terrain":[5, 5, 5, 5]
+                },
+             "173":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_WaterGrass (30) (Custom).png",
+                 "terrain":[5, 5, 5, 5]
+                },
+             "174":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_WaterGrass (31) (Custom).png",
+                 "terrain":[5, 5, 5, 5]
+                },
+             "175":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_WaterGrass (32) (Custom).png",
+                 "terrain":[5, 5, 5, 5]
+                },
+             "176":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_WaterGrass (33) (Custom).png",
+                 "terrain":[5, 5, 5, 5]
+                },
+             "177":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_WaterGrass (34) (Custom).png",
+                 "terrain":[5, 5, 5, 5]
+                },
+             "178":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_WaterGrass (35) (Custom).png",
+                 "terrain":[5, 5, 5, 5]
+                },
+             "179":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_WaterGrass (36) (Custom).png",
+                 "terrain":[5, 5, 5, 5]
+                },
+             "18":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtGrass (19) (Custom).png",
+                 "terrain":[1, 1, 1, 1]
+                },
+             "19":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtGrass (20) (Custom).png",
+                 "terrain":[1, 1, 1, 1]
+                },
+             "2":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtGrass (3) (Custom).png",
+                 "terrain":[1, 1, 1, 1]
+                },
+             "20":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtGrass (21) (Custom).png",
+                 "terrain":[1, 1, 1, 1]
+                },
+             "21":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtGrass (22) (Custom).png",
+                 "terrain":[1, 1, 1, 1]
+                },
+             "22":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtGrass (23) (Custom).png",
+                 "terrain":[1, 1, 1, 1]
+                },
+             "23":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtGrass (24) (Custom).png",
+                 "terrain":[1, 1, 1, 1]
+                },
+             "24":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtGrass (25) (Custom).png",
+                 "terrain":[1, 1, 1, 1]
+                },
+             "25":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtGrass (26) (Custom).png",
+                 "terrain":[1, 1, 1, 1]
+                },
+             "26":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtGrass (27) (Custom).png",
+                 "terrain":[1, 1, 1, 1]
+                },
+             "27":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtGrass (28) (Custom).png",
+                 "terrain":[1, 1, 1, 1]
+                },
+             "28":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtGrass (29) (Custom).png",
+                 "terrain":[1, 1, 1, 1]
+                },
+             "29":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtGrass (30) (Custom).png",
+                 "terrain":[1, 1, 1, 1]
+                },
+             "3":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtGrass (4) (Custom).png",
+                 "terrain":[1, 1, 1, 1]
+                },
+             "30":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtGrass (31) (Custom).png",
+                 "terrain":[1, 1, 1, 1]
+                },
+             "31":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtGrass (32) (Custom).png",
+                 "terrain":[1, 1, 1, 1]
+                },
+             "32":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtGrass (33) (Custom).png",
+                 "terrain":[1, 1, 1, 1]
+                },
+             "33":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtGrass (34) (Custom).png",
+                 "terrain":[1, 1, 1, 1]
+                },
+             "34":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtGrass (35) (Custom).png",
+                 "terrain":[1, 1, 1, 1]
+                },
+             "35":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtGrass (36) (Custom).png",
+                 "terrain":[1, 1, 1, 1]
+                },
+             "36":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtSand (1) (Custom).png",
+                 "terrain":[0, 0, 0, 0]
+                },
+             "37":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtSand (33) (Custom).png",
+                 "terrain":[0, 0, 0, 0]
+                },
+             "38":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtSand (34) (Custom).png",
+                 "terrain":[0, 0, 0, 0]
+                },
+             "39":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtSand (35) (Custom).png",
+                 "terrain":[0, 0, 0, 0]
+                },
+             "4":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtGrass (5) (Custom).png",
+                 "terrain":[1, 1, 1, 1]
+                },
+             "40":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtSand (36) (Custom).png",
+                 "terrain":[0, 0, 0, 0]
+                },
+             "41":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtSand (37) (Custom).png",
+                 "terrain":[0, 0, 0, 0]
+                },
+             "42":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtSand (38) (Custom).png",
+                 "terrain":[0, 0, 0, 0]
+                },
+             "43":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtSand (39) (Custom).png",
+                 "terrain":[0, 0, 0, 0]
+                },
+             "44":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtSand (40) (Custom).png",
+                 "terrain":[0, 0, 0, 0]
+                },
+             "45":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtSand (41) (Custom).png",
+                 "terrain":[0, 0, 0, 0]
+                },
+             "46":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtSand (42) (Custom).png",
+                 "terrain":[0, 0, 0, 0]
+                },
+             "47":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtSand (43) (Custom).png",
+                 "terrain":[0, 0, 0, 0]
+                },
+             "48":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtSand (44) (Custom).png",
+                 "terrain":[0, 0, 0, 0]
+                },
+             "49":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtSand (45) (Custom).png",
+                 "terrain":[0, 0, 0, 0]
+                },
+             "5":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtGrass (6) (Custom).png",
+                 "terrain":[1, 1, 1, 1]
+                },
+             "50":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtSand (46) (Custom).png",
+                 "terrain":[0, 0, 0, 0]
+                },
+             "51":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtSand (47) (Custom).png",
+                 "terrain":[0, 0, 0, 0]
+                },
+             "52":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtSand (48) (Custom).png",
+                 "terrain":[0, 0, 0, 0]
+                },
+             "53":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtSand (49) (Custom).png",
+                 "terrain":[0, 0, 0, 0]
+                },
+             "54":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtSand (50) (Custom).png",
+                 "terrain":[0, 0, 0, 0]
+                },
+             "55":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtSand (51) (Custom).png",
+                 "terrain":[0, 0, 0, 0]
+                },
+             "56":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtSand (52) (Custom).png",
+                 "terrain":[0, 0, 0, 0]
+                },
+             "57":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtSand (53) (Custom).png",
+                 "terrain":[0, 0, 0, 0]
+                },
+             "58":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtSand (54) (Custom).png",
+                 "terrain":[0, 0, 0, 0]
+                },
+             "59":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtSand (55) (Custom).png",
+                 "terrain":[0, 0, 0, 0]
+                },
+             "6":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtGrass (7) (Custom).png",
+                 "terrain":[1, 1, 1, 1]
+                },
+             "60":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtSand (56) (Custom).png",
+                 "terrain":[0, 0, 0, 0]
+                },
+             "61":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtSand (57) (Custom).png",
+                 "terrain":[0, 0, 0, 0]
+                },
+             "62":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtSand (58) (Custom).png",
+                 "terrain":[0, 0, 0, 0]
+                },
+             "63":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtSand (59) (Custom).png",
+                 "terrain":[0, 0, 0, 0]
+                },
+             "64":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtSand (60) (Custom).png",
+                 "terrain":[0, 0, 0, 0]
+                },
+             "65":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtSand (61) (Custom).png",
+                 "terrain":[0, 0, 0, 0]
+                },
+             "66":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtSand (62) (Custom).png",
+                 "terrain":[0, 0, 0, 0]
+                },
+             "67":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtSand (63) (Custom).png",
+                 "terrain":[0, 0, 0, 0]
+                },
+             "68":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtSand (64) (Custom).png",
+                 "terrain":[0, 0, 0, 0]
+                },
+             "69":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtSand (65) (Custom).png",
+                 "terrain":[0, 0, 0, 0]
+                },
+             "7":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtGrass (8) (Custom).png",
+                 "terrain":[1, 1, 1, 1]
+                },
+             "70":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtSand (66) (Custom).png",
+                 "terrain":[0, 0, 0, 0]
+                },
+             "71":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtSand (67) (Custom).png",
+                 "terrain":[0, 0, 0, 0]
+                },
+             "72":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_Slime (1) (Custom).png",
+                 "terrain":[2, 2, 2, 2]
+                },
+             "73":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_Slime (2) (Custom).png",
+                 "terrain":[2, 2, 2, 2]
+                },
+             "74":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_Slime (3) (Custom).png",
+                 "terrain":[2, 2, 2, 2]
+                },
+             "75":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_Slime (4) (Custom).png",
+                 "terrain":[2, 2, 2, 2]
+                },
+             "76":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_Slime (5) (Custom).png",
+                 "terrain":[2, 2, 2, 2]
+                },
+             "77":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_Slime (6) (Custom).png",
+                 "terrain":[2, 2, 2, 2]
+                },
+             "78":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_Slime (7) (Custom).png",
+                 "terrain":[2, 2, 2, 2]
+                },
+             "79":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_Slime (8) (Custom).png",
+                 "terrain":[2, 2, 2, 2]
+                },
+             "8":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtGrass (9) (Custom).png",
+                 "terrain":[1, 1, 1, 1]
+                },
+             "80":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_Slime (9) (Custom).png",
+                 "terrain":[2, 2, 2, 2]
+                },
+             "81":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_Slime (10) (Custom).png",
+                 "terrain":[2, 2, 2, 2]
+                },
+             "82":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_Slime (11) (Custom).png",
+                 "terrain":[2, 2, 2, 2]
+                },
+             "83":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_Slime (12) (Custom).png",
+                 "terrain":[2, 2, 2, 2]
+                },
+             "84":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_Slime (13) (Custom).png",
+                 "terrain":[2, 2, 2, 2]
+                },
+             "85":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_Slime (14) (Custom).png",
+                 "terrain":[2, 2, 2, 2]
+                },
+             "86":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_Slime (15) (Custom).png",
+                 "terrain":[2, 2, 2, 2]
+                },
+             "87":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_Slime (16) (Custom).png",
+                 "terrain":[2, 2, 2, 2]
+                },
+             "88":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_Slime (17) (Custom).png",
+                 "terrain":[2, 2, 2, 2]
+                },
+             "89":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_Slime (18) (Custom).png",
+                 "terrain":[2, 2, 2, 2]
+                },
+             "9":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_DirtGrass (10) (Custom).png",
+                 "terrain":[1, 1, 1, 1]
+                },
+             "90":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_Slime (19) (Custom).png",
+                 "terrain":[2, 2, 2, 2]
+                },
+             "91":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_Slime (20) (Custom).png",
+                 "terrain":[2, 2, 2, 2]
+                },
+             "92":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_Slime (21) (Custom).png",
+                 "terrain":[2, 2, 2, 2]
+                },
+             "93":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_Slime (22) (Custom).png",
+                 "terrain":[2, 2, 2, 2]
+                },
+             "94":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_Slime (23) (Custom).png",
+                 "terrain":[2, 2, 2, 2]
+                },
+             "95":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_Slime (24) (Custom).png",
+                 "terrain":[2, 2, 2, 2]
+                },
+             "96":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_Slime (25) (Custom).png",
+                 "terrain":[2, 2, 2, 2]
+                },
+             "97":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_Slime (26) (Custom).png",
+                 "terrain":[2, 2, 2, 2]
+                },
+             "98":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_Slime (27) (Custom).png",
+                 "terrain":[2, 2, 2, 2]
+                },
+             "99":
+                {
+                 "image":"..\/..\/..\/..\/assets\/TopDown Town\/32x32\/Land_Slime (28) (Custom).png",
+                 "terrain":[2, 2, 2, 2]
+                }
+            },
+         "tilewidth":32
+        }],
+ "tilewidth":24,
+ "version":1,
+ "width":32
+}
