@@ -4,7 +4,7 @@ Boom.Player = function( camera ){
       throw Boom.Exceptions.CameraMissingException;
   }
 
-  Boom.Entity.call(this, {name: 'PLAYER_Entity'});
+  Boom.Entity.call(this, {name: 'PLAYER_Entity', is_static: false});
 };
 
 Boom.Player.prototype = Boom.inherit(Boom.Entity, {
@@ -18,7 +18,7 @@ Boom.Player.prototype = Boom.inherit(Boom.Entity, {
        {
         name: 'player_physics',
         shape: Boom.Constants.Component.SPHERE,
-        position: new THREE.Vector3(64, 0, 64),
+        position: new THREE.Vector3(64, 64, 64),
         color: 0xFFFF00,
         size: 6,
         mass: 100,

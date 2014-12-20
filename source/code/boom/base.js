@@ -8,8 +8,6 @@ Boom.Base = function() {
   this.cameraFov = Boom.Constants.Base.FOV;
   this.cameraNear = Boom.Constants.Base.NEAR;
   this.cameraFar = Boom.Constants.Base.FAR;
-  this.timeStep = Boom.Constants.Base.TIMESTEP;
-  this.test
   this.requestAnimationFrameId = null;
 };
 
@@ -36,13 +34,28 @@ Boom.Base.prototype = {
     this.scene = new Physijs.Scene();
     this.scene.name = Boom.Constants.Objects.SCENE;
     
-    this.debug = new Boom.Debug(this.scene);
-    this.debug.init();
+    //this.debug = new Boom.Debug(this.scene);
+    //this.debug.init();
 
     window.addEventListener("resize", function() { self.onResize(); }, false);
     this.onResize();
 
     document.body.appendChild(this.renderer.domElement);
+
+    this.renderStats = new Stats();
+    this.renderStats.domElement.style.position = 'absolute';
+    this.renderStats.domElement.style.left = '0px';
+    this.renderStats.domElement.style.top = '0px';
+    this.renderStats.domElement.style.border = 'green 1px solid';
+
+    this.updateStats = new Stats();
+    this.updateStats.domElement.style.position = 'absolute';
+    this.updateStats.domElement.style.left = '85px';
+    this.updateStats.domElement.style.top = '0px';
+    this.updateStats.domElement.style.border = '1px solid red';
+
+    document.body.appendChild( this.renderStats.domElement );
+    document.body.appendChild( this.updateStats.domElement );
 
     this.load();
   },
@@ -59,48 +72,35 @@ Boom.Base.prototype = {
   },
 
   update: function(){
+    TWEEN.update(); //Update tween!
     this.scene.simulate(); // run physics
+    this.updateStats.update();
   },
 
   draw: function(){
     this.renderer.render(this.scene, this.camera);
+    this.renderStats.update();
   },
 
-  gameLoop: function(){
-    var self = this;
-
-    var newTime = Boom.getCurrentTime();
-    var frameTime = (newTime - this.currentTime) / 1000;
-    if (frameTime > 0.33) {
-      frameTime = 0.33;
+  gameLoop: (function(){
+    var loops = 0, skipTicks = 1000 / Boom.Constants.Base.FPS,
+        maxFrameSkip = 10,
+        nextGameTick = Boom.getCurrentTime();
+    return function() {
+      var self = this;
+      loops = 0;
+      while (Boom.getCurrentTime() > nextGameTick) {
+        this.update();
+        nextGameTick += skipTicks;
+        loops++;
+      }
+      if(loops){
+        this.draw();
+      }
+      
+      this.requestAnimationFrameId = requestAnimationFrame( function(){ self.gameLoop() });
     }
-    this.currentTime = newTime;
-    this.accumulator += frameTime;
-
-    while (this.accumulator >= this.timeStep) {
-      this.update();
-      this.debug.fpsCounter.updates++;
-
-      this.accumulator -= this.timeStep;
-    }
-    this.draw();
-    this.debug.fpsCounter.frames++;
-
-    if (newTime - this.debug.fpsCounter.currentTime >= 1000) {
-      this.debug.fpsCounter.updateRate = this.debug.fpsCounter.updates;
-      this.debug.fpsCounter.frameRate = this.debug.fpsCounter.frames;
-      this.debug.fpsCounter.updates = 0;
-      this.debug.fpsCounter.frames = 0;
-      this.debug.fpsCounter.currentTime = newTime;
-
-      this.debug.update();
-    }
-
-    //Update tween!
-    TWEEN.update();
-
-    this.requestAnimationFrameId = requestAnimationFrame(function() { self.gameLoop(); });
-  },
+  })(),
 
   onResize: function(){
     this.camera.aspect = this.width / this.height;

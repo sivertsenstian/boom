@@ -88,8 +88,8 @@ Boom.Constants = {
     FOV: 90,
     NEAR: 0.1,
     FAR: 1000,
-    TIMESTEP: 0.01666,
-    ANTIALIAS: true
+    FPS: 60,
+    ANTIALIAS: false
   }
 
 

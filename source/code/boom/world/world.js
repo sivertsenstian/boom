@@ -72,7 +72,7 @@ Boom.World.prototype = {
 
 
     //Fog
-    this.fog = new THREE.FogExp2(0x404040, 0.003);
+    this.fog = new THREE.FogExp2(0x404040, 0.004);
 
     //Lights
     this.lights = [];
@@ -141,24 +141,42 @@ Boom.World.prototype = {
     scene.fog = this.fog;
     //Add Map
     //Item
-    var geometry = new THREE.BoxGeometry(this.size, this.size, this.size);
+    //var geometry = new THREE.BoxGeometry(this.size, this.size, this.size);
     //Material
-    var texture = THREE.ImageUtils.loadTexture(this.textures.wall);
-    var material = new THREE.MeshLambertMaterial({map: texture});
+    //var texture = THREE.ImageUtils.loadTexture(this.textures.wall);
+    //var material = new THREE.MeshLambertMaterial({map: texture});
 
-    var pos;
+    var pos, pos2, pos3;
     for(var i = 0; i < this.map.length; i++){
       if(this.map[i] > 0){
         pos = new THREE.Vector3(this.size * Math.floor((i / this.width) + 1) - (this.size/2),
                                0, 
                                this.size * Math.floor((i % this.height) + 1) - (this.size/2));
+        pos2 = new THREE.Vector3(this.size * Math.floor((i / this.width) + 1) - (this.size/2),
+                               this.size, 
+                               this.size * Math.floor((i % this.height) + 1) - (this.size/2));
+        pos3 = new THREE.Vector3(this.size * Math.floor((i / this.width) + 1) - (this.size/2),
+                               this.size*2, 
+                               this.size * Math.floor((i % this.height) + 1) - (this.size/2));
+
         new Boom.SandWall({position: pos, size: this.size});
+        //new Boom.SandWall({position: pos2, size: this.size});
+        //new Boom.SandWall({position: pos3, size: this.size});
       }
       else if(this.map[i] === 0){
         pos = new THREE.Vector3(this.size * Math.floor((i / this.width) + 1) - (this.size/2),
                                -this.size, 
                                this.size * Math.floor((i % this.height) + 1) - (this.size/2));
+        pos2 = new THREE.Vector3(this.size * Math.floor((i / this.width) + 1) - (this.size/2),
+                               this.size, 
+                               this.size * Math.floor((i % this.height) + 1) - (this.size/2));
+        pos3 = new THREE.Vector3(this.size * Math.floor((i / this.width) + 1) - (this.size/2),
+                               this.size*2, 
+                               this.size * Math.floor((i % this.height) + 1) - (this.size/2));
+
         new Boom.SandGround({position: pos, size: this.size});
+        //new Boom.SandGround({position: pos2, size: this.size});
+        //new Boom.SandGround({position: pos3, size: this.size});
       }
     }
 

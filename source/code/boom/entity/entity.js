@@ -5,6 +5,7 @@ Boom.Entity = function( params ){
   this.id = Boom.guid();
   this.name = params.name || "EntityName";
   this.__addToScene = params.hasOwnProperty('addToScene') ? params.addToScene : true; //Defaults to new
+  this.__isStatic = params.hasOwnProperty('is_static') ? params.is_static : true; //Defaults to static
   this.__dispose = params.dispose || false;
   this.components = {};
   this.children = [];

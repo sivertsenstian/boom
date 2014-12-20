@@ -1,5 +1,5 @@
 Boom.Pistol = function(){
-  Boom.Entity.call(this, {name: 'WEAPON_PistolEntity', addToScene: false});
+  Boom.Entity.call(this, {name: 'WEAPON_PistolEntity', addToScene: false, is_static: false});
   this.cooldown = 200;
   this.last_shot = Boom.getCurrentTime();
 };

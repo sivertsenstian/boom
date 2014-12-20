@@ -1,7 +1,7 @@
 Boom.Bullet = function( direction, spawn ){
   this.spawn = spawn;
   this.direction = direction;
-  Boom.Entity.call(this, {name: 'AMMO_BulletEntity'});
+  Boom.Entity.call(this, {name: 'AMMO_BulletEntity', is_static: false});
 };
 
 Boom.Bullet.prototype = Boom.inherit(Boom.Entity, {

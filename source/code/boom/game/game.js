@@ -7,9 +7,9 @@ Boom.Game = function() {
   this.mapWon = false;
   this.restartedLevel = false;
   
-  this.antialias = true;
+  //this.antialias = true;
   this.cameraFov = 75;
-  this.cameraFar = 2048;
+  this.cameraFar = 2000;
 
   //Game Components
   this.world;
@@ -26,14 +26,17 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
   update: function(){
     //Call super
     Boom.Base.prototype.update.call(this);
-
     //Update entities
     for (id in Boom.Entities) {
       if (!Boom.Entities.hasOwnProperty(id)) {
           continue;
       }
       var entity = Boom.Entities[id];
-      entity.update();
+      
+      if(!entity.__isStatic){
+        //console.log("Updating " + entity.name );
+        entity.update();
+      }
 
       if( entity.__addToScene ){
         var component = entity.getComponent( Boom.Constants.Component.TYPE.PHYSICAL );
@@ -61,8 +64,6 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
   },
 
   load: function(){
-      //Call super
-      Boom.Base.prototype.load.call(this);
     try{
       //Player
       var p = new Boom.Player( this.camera );
@@ -76,6 +77,9 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
     catch( error ){
       Boom.handleError( error , 'Boom.Game.load()');
     }
+
+    //Call super
+    Boom.Base.prototype.load.call(this);
 
   }
 
