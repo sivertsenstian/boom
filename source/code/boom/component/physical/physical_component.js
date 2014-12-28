@@ -3,6 +3,7 @@ Boom.PhysicalComponent = function( params ) {
   //Physical
   this.shape = params.shape || Boom.Constants.Component.BOX;
   this.type = params.type || Boom.Constants.Component.TYPE.PHYSICAL;
+  this.texture = params.texture || null;
   this.model = params.model || null;
   this.color = params.color || 0xFFFFFF;
   this.scale = params.scale || new THREE.Vector3(1, 1, 1);
@@ -11,11 +12,13 @@ Boom.PhysicalComponent = function( params ) {
   this.mass = params.mass || 0;
   this.size = params.size || 1;
   this.friction = params.friction || 0;
-  this.restitution  = params.restitution  || 0;
-  this.linear_damping = params.linearDamping || 0.99;
+  this.restitution  = params.hasOwnProperty('restitution') ? params.restitution  : 1;
+  this.linear_damping = params.linearDamping || 0.5;
   this.angular_damping = params.angularDamping || 1.0;
   this.castShadow = params.castShadow || false;
-  this.events = [Boom.Constants.Message.Action.VELOCITY];
+  this.velocity = new THREE.Vector3(0, 0, 0);
+  this.gravity = params.gravity || false;
+  this.events = [Boom.Constants.Message.Action.VELOCITY, Boom.Constants.Message.Action.GRAVITY];
 
   //Call super
   Boom.Component.call(this, params );
@@ -27,21 +30,17 @@ Boom.PhysicalComponent.prototype = Boom.inherit(Boom.Component, {
   init: function() {
     //Call super
     Boom.Component.prototype.init.call(this);
-
+    this.material = (this.texture === null) ? new THREE.MeshLambertMaterial({ color: this.color }) : new THREE.MeshLambertMaterial({ map: this.texture });
+    this.geometry = undefined;
     this.object = undefined;
     switch ( this.shape ){
-      case Boom.Constants.Component.BOX:
-        this.object = new Physijs.BoxMesh ( 
-          new THREE.BoxGeometry(this.size, this.size, this.size),
-          Physijs.createMaterial(new THREE.MeshBasicMaterial({ color: this.color }), this.friction, this.restitution), this.mass
-        );
-
+      case Boom.Constants.Component.BOX:        
+        this.geometry = new THREE.BoxGeometry(this.size, this.size, this.size);
+        this.object = new THREE.Mesh(this.geometry, this.material);
         break;
       case Boom.Constants.Component.SPHERE:
-        this.object = new Physijs.SphereMesh ( 
-          new THREE.SphereGeometry(this.size, this.size * 6, this.size * 8),
-          Physijs.createMaterial(new THREE.MeshBasicMaterial( { color: this.color }), this.friction, this.restitution), this.mass
-        );
+        this.geometry = new THREE.SphereGeometry(this.size, this.size * 6, this.size * 8),
+        this.object = new THREE.Mesh(this.geometry, this.material);
         break;
       case Boom.Constants.Component.MODEL:
         this.object = this.model;
@@ -56,6 +55,9 @@ Boom.PhysicalComponent.prototype = Boom.inherit(Boom.Component, {
     this.object.castShadow = this.castShadow;
     this.object.name = this.name + "_OBJECT";
 
+    //Messages
+    this.msg_landed = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, data: true, type: Boom.Constants.Message.Action.LAND, sender: this.type });
+
   },
 
   load: function(){
@@ -65,21 +67,26 @@ Boom.PhysicalComponent.prototype = Boom.inherit(Boom.Component, {
   },
 
   update: function(){
-    if( typeof(this.object.setDamping) !== 'undefined'){
-      this.object.setDamping(this.linear_damping, this.angular_damping);
+    this.object.position.add(this.velocity);
+    this.velocity.multiplyScalar( this.linear_damping );
+
+    if( this.gravity && this.object.position.y <= 0){
+      this.object.position.y = 0;
+      this.send( this.msg_landed );
     }
     //Call super
     Boom.Component.prototype.update.call(this);
-
-
   },
   receive: function( message ){
     //Call super
     if(Boom.Component.prototype.receive.call(this, message)){
       switch( message.type ){
         case Boom.Constants.Message.Action.VELOCITY:
-          var current_velocity = this.object.getLinearVelocity();
-          this.object.setLinearVelocity({x: current_velocity.x + message.data.x, y: current_velocity.y + message.data.y, z: current_velocity.z + message.data.z});
+          this.velocity.x = message.data.x;
+          this.velocity.z = message.data.z;
+          break;
+        case Boom.Constants.Message.Action.GRAVITY:
+          this.velocity.add( message.data );
           break;
         default:
           console.log( "UNKNOWN MESSAGE!" );

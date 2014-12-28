@@ -3,7 +3,6 @@
   <!-- Vendor -->
   <script type="text/javascript" src="vendor/jquery.min.js"></script>
   <script type="text/javascript" src="vendor/three.min.js"></script>
-  <script type="text/javascript" src="vendor/physi.js"></script>
   <script type="text/javascript" src="vendor/tween.min.js"></script>
   <script type="text/javascript" src="vendor/howler.min.js"></script>
   <script type="text/javascript" src="vendor/Stats.js"></script>
@@ -37,6 +36,8 @@
   <script type="text/javascript" src='code/boom/component/actions/movement_action_component.js'></script>
   <script type="text/javascript" src='code/boom/component/actions/jump_action_component.js'></script>
   <script type="text/javascript" src='code/boom/component/actions/weapon_action_component.js'></script>
+  <script type="text/javascript" src='code/boom/component/actions/collision_action_component.js'></script>
+  <script type="text/javascript" src='code/boom/component/actions/gravity_action_component.js'></script>
 
   <!-- ### ENTITIES ### -->
   <script type="text/javascript" src='code/boom/entity/entity.js'></script>
@@ -64,12 +65,13 @@
   <script>
     $( document ).ready(function() {
       var loader = new PxLoader();
+      //Models
       loader.addDAEModel('/resources/weapons/1/gun2_small_with_hand2.dae', ['weapons', 'gun'] );
 
-      loader.addCompletionListener(function() { 
-        Physijs.scripts.worker = '/vendor/physijs_worker.js';
-        Physijs.scripts.ammo = '/vendor/ammo.js';
+      //Maps
+      loader.addJSON('/resources/maps/test1.json', ['world', 'MAP', 'SAND'] );
 
+      loader.addCompletionListener(function() { 
         var GAME = new Boom.Game();
         GAME.init();
       });

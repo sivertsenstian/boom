@@ -1,5 +1,6 @@
 Boom.Player = function( camera ){
   this.camera = camera;
+  this.size = 6;
   if( typeof this.camera === 'undefined' || this.camera === null){
       throw Boom.Exceptions.CameraMissingException;
   }
@@ -18,16 +19,34 @@ Boom.Player.prototype = Boom.inherit(Boom.Entity, {
        {
         name: 'player_physics',
         shape: Boom.Constants.Component.SPHERE,
-        position: new THREE.Vector3(64, 64, 64),
+        position: new THREE.Vector3(200, 0, 64),
         color: 0xFFFF00,
-        size: 6,
+        size: this.size,
         mass: 100,
         friction: 0,
-        restitution: 0,
+        restitution: 0.5,
+        gravity: true,
         owner: this
       }
     );
     this.components[physics.name] = physics;
+
+   /* var collision = new Boom.CollisionActionComponent(
+      {
+        name: 'player_collision',
+        distance: this.size,
+        owner: this
+      }
+    );
+    this.components[collision.name] = collision;
+
+    var gravity = new Boom.GravityActionComponent(
+      {
+        name: 'player_gravity',
+        owner: this
+      }
+    );
+    this.components[collision.gravity] = gravity;*/
 
     var controls = new Boom.InputActionComponent( 
       { 
@@ -43,7 +62,7 @@ Boom.Player.prototype = Boom.inherit(Boom.Entity, {
       { 
         name: 'player_movement', 
         owner: this, 
-        speed: 5 
+        speed: 1
       } 
     );
     this.components[basic_movement.name] = basic_movement;

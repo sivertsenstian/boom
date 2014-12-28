@@ -52,8 +52,8 @@ Boom.MovementActionComponent.prototype = Boom.inherit(Boom.Component, {
           console.log( message );
           return;
       }
-      var action_msg = { receiver: Boom.Constants.Component.TYPE.PHYSICAL, data: velocity, type: Boom.Constants.Message.Action.VELOCITY, sender: this.type };
-      this.send( action_msg );
+      var collision_action_msg = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, data: velocity, type: Boom.Constants.Message.Action.VELOCITY, sender: this.type });
+      this.send( collision_action_msg );
     }
   }
 

@@ -1,6 +1,7 @@
 Boom.Bullet = function( direction, spawn ){
   this.spawn = spawn;
   this.direction = direction;
+  this.size = 1;
   Boom.Entity.call(this, {name: 'AMMO_BulletEntity', is_static: false});
 };
 
@@ -10,14 +11,14 @@ Boom.Bullet.prototype = Boom.inherit(Boom.Entity, {
   init: function() {
     //Call super
     Boom.Entity.prototype.init.call(this);
-    this.speed = 400;
+    this.speed = 5;
     var physics = new Boom.PhysicalComponent(
        {
         name:'bullet_physics',
         shape: Boom.Constants.Component.BOX,
         position: this.spawn,
         color: 0x00FF00,
-        size: .25,
+        size: this.size,
         mass: 1,
         friction: 0,
         restitution: 0,
@@ -25,6 +26,15 @@ Boom.Bullet.prototype = Boom.inherit(Boom.Entity, {
       }
     );
     this.components[physics.name] = physics;
+
+   /* var collision = new Boom.CollisionActionComponent(
+      {
+        name: 'bullet_collision',
+        distance: this.size,
+        owner: this
+      }
+    );
+    this.components[collision.name] = collision;*/
 
     var audio_hit = new Boom.AudioComponent(
       {
@@ -41,20 +51,14 @@ Boom.Bullet.prototype = Boom.inherit(Boom.Entity, {
   load: function(){
     //Call super
     Boom.Entity.prototype.load.call(this);
-
-    var scope = this;
-    //TODO: MAKE THIS INTO COLLISIONACTIONCOMPONENT
-    this.components['bullet_physics'].object.addEventListener( 'collision', function( other_object, relative_velocity, relative_rotation, contact_normal ) {
-      if( other_object.name !== 'pistol_physics_OBJECT' && other_object.name !== 'player_physics_OBJECT' && other_object.name !== 'bullet_physics_OBJECT'){
-        scope.__dispose = true;
-      }
-    });
   },
 
   update: function(){
-    var obj = this.getComponent( Boom.Constants.Component.TYPE.PHYSICAL ).object;
-    obj.setLinearVelocity({ x: (this.direction.x * this.speed), y: (this.direction.y * this.speed), z: (this.direction.z * this.speed)})
-    //this.getObject().setLinearVelocity({ x: (this.direction.x * this.speed), y: (this.direction.y * this.speed), z: (this.direction.z * this.speed)});
+    /*var collision = this.getComponent( 'bullet_collision' );
+    var velocity = new THREE.Vector3(this.direction.x * this.speed,this.direction.y * this.speed,this.direction.z * this.speed);
+    var collision_action_msg = { receiver: Boom.Constants.Component.TYPE.ACTION, data: velocity, type: Boom.Constants.Message.Action.VELOCITY, sender: this.type };
+    this.send( collision_action_msg );*/
+    this.components['bullet_physics'].velocity.set(this.direction.x * this.speed,this.direction.y * this.speed,this.direction.z * this.speed);
     //Call super
     Boom.Entity.prototype.update.call(this);                    
   },
