@@ -8,7 +8,7 @@ Boom.World = function(){
 
   //Textures
   this.textures = {
-    skybox: '/resources/structures/skybox/4/1.png'
+    skybox: '/resources/structures/skybox/1/1.png'
   };
 
   this.init();
@@ -72,7 +72,7 @@ Boom.World.prototype = {
 
 
     //Fog
-    this.fog = new THREE.FogExp2(0x404040, 0.004);
+    this.fog = new THREE.FogExp2(0x000000, 0.005);
 
     //Lights
     this.lights = [];
@@ -83,49 +83,50 @@ Boom.World.prototype = {
     directional_light.name = Boom.Constants.Objects.LIGHT;
     directional_light.lookAt(0,0,0);
     this.lights.push( directional_light );
-   /* var hemisphere_light = new THREE.HemisphereLight( 0xFFFFFF,  0x000000, 1.0 );
+    var hemisphere_light = new THREE.HemisphereLight( 0xFFFFFF,  0x000000, 0.2 );
     hemisphere_light.position.set( (this.size*this.width)/2,  this.size, (this.size*this.width)/2 );
     hemisphere_light.name = Boom.Constants.Objects.LIGHT;
-    this.lights.push( hemisphere_light );*/
+    this.lights.push( hemisphere_light );
 
     var ambient_light = new THREE.AmbientLight( 0x404040 );
     this.lights.push ( ambient_light );
 
-    //Map
-    this.map = [
-      1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-      1,0,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-      1,0,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-      1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-      1,0,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-      1,1,0,1,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-      1,1,0,1,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-      1,1,0,1,0,0,1,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,
-      1,1,0,1,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,1,
-      1,1,0,1,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,1,
-      1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,1,
-      1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,1,
-      1,1,1,1,1,1,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,1,
-      1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,1,
-      1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,1,
-      1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,
-      1,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,
-      1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,1,
-      1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,1,
-      1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,1,
-      1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,1,
-      1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,1,
-      1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,1,0,0,0,0,0,1,
-      1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,
-      1,0,0,0,0,0,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,1,
-      1,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,
-      1,0,0,0,0,1,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,
-      1,0,0,0,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,
-      1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,
-      1,0,0,0,0,1,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,
-      1,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,
-      1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-    ];
+    this.map = Boom.Assets.world.MAP.SAND;
+    var pos, pos2, pos3;
+
+    var tileId, tilePath;
+    for (tile in this.map.tilesets[0].tileproperties) {
+      if (!this.map.tilesets[0].tileproperties.hasOwnProperty(tile)) {
+          continue;
+      }
+      tileId = this.map.tilesets[0].tileproperties[tile]['Boom.ID'];
+      tilePath = this.map.tilesets[0].tileproperties[tile]['Boom.Path'];
+      if(tilePath !== null && tilePath !== undefined){
+        Boom.Assets.textures[tileId] = THREE.ImageUtils.loadTexture(tilePath);  
+      }
+      else{
+        Boom.Assets.textures[tileId] = null;
+      }
+      
+    }
+
+    for(var i = 0; i < this.map.layers[0].data.length; i++){
+      if( this.map.tilesets[0].tileproperties.hasOwnProperty(this.map.layers[0].data[i] - this.map.tilesets[0].firstgid) ){
+        if(this.map.tilesets[0].tileproperties[this.map.layers[0].data[i] - this.map.tilesets[0].firstgid]['Boom.ID'] === Boom.Assets.world.ENTITY.SAND_WALL){
+          pos = new THREE.Vector3(this.map.tilewidth * Math.floor((i / this.map.width)),
+                                  0, 
+                                  this.map.tilewidth * Math.floor((i % this.map.height)));
+            new Boom.SandWall({position: pos, size: this.map.tilewidth});
+        }
+        else if(this.map.tilesets[0].tileproperties[this.map.layers[0].data[i] - this.map.tilesets[0].firstgid]['Boom.ID'] === Boom.Assets.world.ENTITY.SAND_GROUND){
+          pos = new THREE.Vector3(this.map.tilewidth * Math.floor((i / this.map.width)),
+                                 -this.map.tileheight, 
+                                  this.map.tilewidth * Math.floor((i % this.map.height)));
+
+          new Boom.SandGround({position: pos, size: this.map.tilewidth});
+        }
+      }
+    }
 
   },
 
@@ -135,7 +136,7 @@ Boom.World.prototype = {
 
   build: function(scene){
     //Set Gravity and other physical properties for the world
-    scene.setGravity(Boom.Constants.World.GRAVITY);
+    //scene.setGravity(Boom.Constants.World.GRAVITY);
 
     //Add Fog
     scene.fog = this.fog;
@@ -146,39 +147,7 @@ Boom.World.prototype = {
     //var texture = THREE.ImageUtils.loadTexture(this.textures.wall);
     //var material = new THREE.MeshLambertMaterial({map: texture});
 
-    var pos, pos2, pos3;
-    for(var i = 0; i < this.map.length; i++){
-      if(this.map[i] > 0){
-        pos = new THREE.Vector3(this.size * Math.floor((i / this.width) + 1) - (this.size/2),
-                               0, 
-                               this.size * Math.floor((i % this.height) + 1) - (this.size/2));
-        pos2 = new THREE.Vector3(this.size * Math.floor((i / this.width) + 1) - (this.size/2),
-                               this.size, 
-                               this.size * Math.floor((i % this.height) + 1) - (this.size/2));
-        pos3 = new THREE.Vector3(this.size * Math.floor((i / this.width) + 1) - (this.size/2),
-                               this.size*2, 
-                               this.size * Math.floor((i % this.height) + 1) - (this.size/2));
-
-        new Boom.SandWall({position: pos, size: this.size});
-        //new Boom.SandWall({position: pos2, size: this.size});
-        //new Boom.SandWall({position: pos3, size: this.size});
-      }
-      else if(this.map[i] === 0){
-        pos = new THREE.Vector3(this.size * Math.floor((i / this.width) + 1) - (this.size/2),
-                               -this.size, 
-                               this.size * Math.floor((i % this.height) + 1) - (this.size/2));
-        pos2 = new THREE.Vector3(this.size * Math.floor((i / this.width) + 1) - (this.size/2),
-                               this.size, 
-                               this.size * Math.floor((i % this.height) + 1) - (this.size/2));
-        pos3 = new THREE.Vector3(this.size * Math.floor((i / this.width) + 1) - (this.size/2),
-                               this.size*2, 
-                               this.size * Math.floor((i % this.height) + 1) - (this.size/2));
-
-        new Boom.SandGround({position: pos, size: this.size});
-        //new Boom.SandGround({position: pos2, size: this.size});
-        //new Boom.SandGround({position: pos3, size: this.size});
-      }
-    }
+    
 
     //Add Lights
     for(var i = 0; i < this.lights.length; i++){

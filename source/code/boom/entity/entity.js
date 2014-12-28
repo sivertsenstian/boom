@@ -1,4 +1,6 @@
 Boom.Entities = Boom.Entities || {};
+Boom.MergedEntities = Boom.MergedEntities || [];
+Boom.Collidables = Boom.Collidables || [];
 
 Boom.Entity = function( params ){
   params = params || {};
@@ -6,6 +8,7 @@ Boom.Entity = function( params ){
   this.name = params.name || "EntityName";
   this.__addToScene = params.hasOwnProperty('addToScene') ? params.addToScene : true; //Defaults to new
   this.__isStatic = params.hasOwnProperty('is_static') ? params.is_static : true; //Defaults to static
+  this.__isMerged = params.hasOwnProperty('is_merged') ? params.is_merged : false; //Defaults to un-merged
   this.__dispose = params.dispose || false;
   this.components = {};
   this.children = [];

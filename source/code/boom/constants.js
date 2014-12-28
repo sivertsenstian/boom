@@ -8,7 +8,7 @@ Boom.Constants = {
     WIDTH: 32,
     HEIGHT: 32,
     SIZE: 24,
-    GRAVITY: new THREE.Vector3(0, -200, 0),
+    GRAVITY: new THREE.Vector3(0, -1.5, 0),
     SKYBOX_SCALAR: 2
 
   },
@@ -41,6 +41,7 @@ Boom.Constants = {
     },
     Action: {
       VELOCITY: Boom.guid(),
+      GRAVITY: Boom.guid(),
       SHOOT: Boom.guid(),
       JUMP: Boom.guid(),
       LAND: Boom.guid()

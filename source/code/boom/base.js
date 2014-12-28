@@ -31,7 +31,7 @@ Boom.Base.prototype = {
     this.camera = new THREE.PerspectiveCamera(this.cameraFov, this.width / this.height, this.cameraNear, this.cameraFar);
     this.camera.name = Boom.Constants.Objects.CAMERA;
 
-    this.scene = new Physijs.Scene();
+    this.scene = new THREE.Scene();
     this.scene.name = Boom.Constants.Objects.SCENE;
     
     //this.debug = new Boom.Debug(this.scene);
@@ -68,12 +68,12 @@ Boom.Base.prototype = {
     this.currentTime = Boom.getCurrentTime();
     this.accumulator = 0.0;
 
+    this.requestAnimationFrameId = 1;
     this.gameLoop();
   },
 
   update: function(){
     TWEEN.update(); //Update tween!
-    this.scene.simulate(); // run physics
     this.updateStats.update();
   },
 
@@ -87,18 +87,20 @@ Boom.Base.prototype = {
         maxFrameSkip = 10,
         nextGameTick = Boom.getCurrentTime();
     return function() {
-      var self = this;
-      loops = 0;
-      while (Boom.getCurrentTime() > nextGameTick) {
-        this.update();
-        nextGameTick += skipTicks;
-        loops++;
+      if(this.requestAnimationFrameId !== null){
+        var self = this;
+        loops = 0;
+        while (Boom.getCurrentTime() > nextGameTick) {
+          this.update();
+          nextGameTick += skipTicks;
+          loops++;
+        }
+        if(loops){
+          this.draw();
+        }
+        
+        this.requestAnimationFrameId = requestAnimationFrame( function(){ self.gameLoop() });
       }
-      if(loops){
-        this.draw();
-      }
-      
-      this.requestAnimationFrameId = requestAnimationFrame( function(){ self.gameLoop() });
     }
   })(),
 

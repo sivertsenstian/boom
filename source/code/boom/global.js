@@ -46,6 +46,7 @@ Boom.handleError = function( error, location ) {
   console.error( "----------------------" );
   console.error("Error occured in " + location);
   console.error( error );
+  console.error( error.stack );
   console.error( "----------------------" );
 };
 
