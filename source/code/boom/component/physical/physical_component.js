@@ -67,12 +67,15 @@ Boom.PhysicalComponent.prototype = Boom.inherit(Boom.Component, {
   },
 
   update: function(){
-    this.object.position.add(this.velocity);
-    this.velocity.multiplyScalar( this.linear_damping );
+    if(this.velocity.length() !== 0){
+      this.object.position.add( this.velocity.multiplyScalar( this.linear_damping ) );
 
-    if( this.gravity && this.object.position.y <= 0){
-      this.object.position.y = 0;
-      this.send( this.msg_landed );
+      if( !this.owner.onGround && this.gravity && this.object.position.y <= 0){
+        this.object.position.y = 0;
+        this.send( this.msg_landed );
+      }
+
+      this.velocity.set(0, 0, 0);
     }
     //Call super
     Boom.Component.prototype.update.call(this);

@@ -90,8 +90,10 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
       //Build world
       this.world.build(this.scene);
 
-      var totalGeom = new THREE.Geometry()
-      var materials = [];
+      var totalGeom = new THREE.Geometry();
+      var wallmat = new THREE.MeshLambertMaterial({ map: Boom.Assets.textures['bcde54dd-abae-4c20-9d37-145812f5c933'] });
+      var groundmat = new THREE.MeshLambertMaterial({ map: Boom.Assets.textures['99a2f5b7-e0d9-4e00-9f3a-a88172bc5975'] });
+      var materials = [wallmat, groundmat];
       for (id in Boom.Entities) {
         if (!Boom.Entities.hasOwnProperty(id)) {
             continue;
@@ -102,12 +104,13 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
           var component = entity.getComponent( Boom.Constants.Component.TYPE.PHYSICAL );
           if ( component ){
             for ( var face in component.object.geometry.faces ) {
-              component.object.geometry.faces[face].materialIndex = materials.length;
+              component.object.geometry.faces[face].materialIndex = (entity.name === 'ITEM_WALL_SAND') ? 0 : 1;
             }
             component.object.updateMatrix();
             totalGeom.merge( component.object.geometry, component.object.matrix );
-            materials.push( component.object.material );
+            //materials.push( component.object.material );
             entity.__isMerged = true;
+            delete Boom.Entities[id];
           }
         }
       }

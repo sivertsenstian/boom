@@ -210,10 +210,10 @@ Boom.InputActionComponent.prototype = Boom.inherit(Boom.Component, {
   update: function(){
     //Call super
     Boom.Component.prototype.update.call(this);
-
     if ( this.enabled === false ) return;
 
-    if ( this.moveForward) {
+    if ( this.moveForward ) {
+      this.moveBackward = false;
       this.send( new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, 
                                     data: this.getDirection().normalize(), 
                                     type: Boom.Constants.Message.Input.FORWARD, 
@@ -221,6 +221,7 @@ Boom.InputActionComponent.prototype = Boom.inherit(Boom.Component, {
     }
 
     if ( this.moveBackward ) {
+      this.moveForward = false;
       this.send( new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, 
                               data: this.getDirection().normalize(), 
                               type: Boom.Constants.Message.Input.BACKWARD, 
@@ -228,6 +229,7 @@ Boom.InputActionComponent.prototype = Boom.inherit(Boom.Component, {
     }
 
     if ( this.moveLeft ) {
+      this.moveRight = false;
       this.send( new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, 
                               data: this.getDirection().normalize(), 
                               type: Boom.Constants.Message.Input.LEFT, 
@@ -235,6 +237,7 @@ Boom.InputActionComponent.prototype = Boom.inherit(Boom.Component, {
     } 
 
     if ( this.moveRight ) {
+      this.moveLeft = false;
       this.send( new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, 
                               data: this.getDirection().normalize(), 
                               type: Boom.Constants.Message.Input.RIGHT, 

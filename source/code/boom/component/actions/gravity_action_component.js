@@ -2,7 +2,6 @@ Boom.GravityActionComponent = function( params ) {
   params = params || {};
   this.type = params.type || Boom.Constants.Component.TYPE.ACTION;
   this.force = params.force || Boom.Constants.World.GRAVITY;
-  this.onGround = false;
   this.events = [Boom.Constants.Message.Action.LAND];
 
   //Call super
@@ -26,7 +25,7 @@ Boom.GravityActionComponent.prototype = Boom.inherit(Boom.Component, {
   update: function(){
     //Call super
     Boom.Component.prototype.update.call(this);
-    if(!this.onGround){
+    if(!this.owner.onGround){
       this.send( this.message );
     }
   },
@@ -36,7 +35,7 @@ Boom.GravityActionComponent.prototype = Boom.inherit(Boom.Component, {
     if(Boom.Component.prototype.receive.call(this, message)){
       switch( message.type ){
         case Boom.Constants.Message.Action.LAND:
-          this.onGround = message.data;
+          this.owner.onGround = message.data;
           break;
         default:
           console.log( "UNKNOWN MESSAGE!" );

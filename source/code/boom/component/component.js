@@ -40,6 +40,7 @@ Boom.Component.prototype = {
     if( typeof this.owner === 'undefined' || this.owner === null){
       throw Boom.Exceptions.OwnerMissingException;
     }
+    //console.log("Component - Sending messsage " + message.type);
     this.owner.send( message );
   },
 

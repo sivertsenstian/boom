@@ -1,7 +1,7 @@
 Boom.Bullet = function( direction, spawn ){
   this.spawn = spawn;
   this.direction = direction;
-  this.size = 1;
+  this.size = .25;
   Boom.Entity.call(this, {name: 'AMMO_BulletEntity', is_static: false});
 };
 

@@ -113,10 +113,10 @@ Boom.World.prototype = {
     for(var i = 0; i < this.map.layers[0].data.length; i++){
       if( this.map.tilesets[0].tileproperties.hasOwnProperty(this.map.layers[0].data[i] - this.map.tilesets[0].firstgid) ){
         if(this.map.tilesets[0].tileproperties[this.map.layers[0].data[i] - this.map.tilesets[0].firstgid]['Boom.ID'] === Boom.Assets.world.ENTITY.SAND_WALL){
-          pos = new THREE.Vector3(this.map.tilewidth * Math.floor((i / this.map.width)),
+          pos1 = new THREE.Vector3(this.map.tilewidth * Math.floor((i / this.map.width)),
                                   0, 
                                   this.map.tilewidth * Math.floor((i % this.map.height)));
-            new Boom.SandWall({position: pos, size: this.map.tilewidth});
+            new Boom.SandWall({position: pos1, size: this.map.tilewidth});
         }
         else if(this.map.tilesets[0].tileproperties[this.map.layers[0].data[i] - this.map.tilesets[0].firstgid]['Boom.ID'] === Boom.Assets.world.ENTITY.SAND_GROUND){
           pos = new THREE.Vector3(this.map.tilewidth * Math.floor((i / this.map.width)),

@@ -1,6 +1,7 @@
 Boom.Player = function( camera ){
   this.camera = camera;
   this.size = 6;
+  this.onGround = false;
   if( typeof this.camera === 'undefined' || this.camera === null){
       throw Boom.Exceptions.CameraMissingException;
   }
@@ -31,7 +32,7 @@ Boom.Player.prototype = Boom.inherit(Boom.Entity, {
     );
     this.components[physics.name] = physics;
 
-   /* var collision = new Boom.CollisionActionComponent(
+    var collision = new Boom.CollisionActionComponent(
       {
         name: 'player_collision',
         distance: this.size,
@@ -46,7 +47,7 @@ Boom.Player.prototype = Boom.inherit(Boom.Entity, {
         owner: this
       }
     );
-    this.components[collision.gravity] = gravity;*/
+    this.components[collision.gravity] = gravity;
 
     var controls = new Boom.InputActionComponent( 
       { 
@@ -62,7 +63,7 @@ Boom.Player.prototype = Boom.inherit(Boom.Entity, {
       { 
         name: 'player_movement', 
         owner: this, 
-        speed: 1
+        speed: 1.5
       } 
     );
     this.components[basic_movement.name] = basic_movement;
