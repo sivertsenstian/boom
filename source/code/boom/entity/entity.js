@@ -98,8 +98,7 @@ Boom.Entity.prototype = {
   },
 
   dispose: function(){
-   /* console.log( "DISPOSING ENTITY ");
-    console.log( this );*/
+    this.__dispose = true;
   },
 
   getComponent: function( c ){

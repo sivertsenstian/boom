@@ -2,7 +2,14 @@ Boom.SandWall = function( params ){
   this.id = Boom.Assets.world.ENTITY.SAND_WALL;
   this.position = params.position;
   this.size = params.size;
+  this.height = params.height || 10;
+  this.width = params.width || 1;
+
   this.texture = Boom.Assets.textures[this.id] || Boom.Assets.textures.MISSING;
+  this.texture.wrapS = THREE.RepeatWrapping;
+  this.texture.wrapT = THREE.RepeatWrapping;
+  this.texture.repeat.set( this.width, this.height );
+
   Boom.Entity.call(this, {name: 'ITEM_WALL_SAND'});
 };
 
@@ -22,6 +29,7 @@ Boom.SandWall.prototype = Boom.inherit(Boom.Entity, {
         color: 0x6C541E,
         mass: 0,
         size: this.size,
+        scale: new THREE.Vector3(this.width, this.height, this.width),
         friction: 0,
         restitution: 0,
         texture: this.texture,

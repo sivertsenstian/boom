@@ -2,8 +2,8 @@ Boom.Base = function() {
   this.clearColor = Boom.Constants.Colors.CLEAR;
   this.antialias = Boom.Constants.Base.ANTIALIAS;
 
-  this.width = 640; //window.innerWidth;
-  this.height = 480; //window.innerHeight;
+  this.width = window.innerWidth;
+  this.height = window.innerHeight;
 
   this.cameraFov = Boom.Constants.Base.FOV;
   this.cameraNear = Boom.Constants.Base.NEAR;

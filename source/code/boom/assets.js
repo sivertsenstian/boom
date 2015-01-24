@@ -22,7 +22,7 @@ Boom.Assets = {
       SAND_GROUND: "99a2f5b7-e0d9-4e00-9f3a-a88172bc5975"
     },
     MAP:{
-
+      COLLISION: 'a1114c99-41cb-4fbd-8847-5e112d2ceb18'
     }
   },
 

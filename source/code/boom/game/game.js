@@ -11,6 +11,9 @@ Boom.Game = function() {
   this.cameraFov = 75;
   this.cameraFar = 2000;
 
+  this.width = 800;
+  this.height = 600;
+
   //Game Components
   this.world;
 };
@@ -51,6 +54,7 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
         if ( entity.__dispose ){
           var component = entity.getComponent( Boom.Constants.Component.TYPE.PHYSICAL );
           if ( component ){
+            console.log("DISPOSING " + entity.name);
             entity.dispose();
             this.scene.remove( component.object );
             delete Boom.Entities[id];
@@ -89,6 +93,9 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
 
       //Build world
       this.world.build(this.scene);
+
+      //Collisions
+      Boom.GameGrid = new Boom.CollisionGrid( this.world.map );
 
       var totalGeom = new THREE.Geometry();
       var wallmat = new THREE.MeshLambertMaterial({ map: Boom.Assets.textures['bcde54dd-abae-4c20-9d37-145812f5c933'] });

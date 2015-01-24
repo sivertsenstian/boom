@@ -1,6 +1,7 @@
 Boom.Player = function( camera ){
   this.camera = camera;
   this.size = 6;
+  this.height = 24;
   this.onGround = false;
   if( typeof this.camera === 'undefined' || this.camera === null){
       throw Boom.Exceptions.CameraMissingException;
@@ -20,9 +21,10 @@ Boom.Player.prototype = Boom.inherit(Boom.Entity, {
        {
         name: 'player_physics',
         shape: Boom.Constants.Component.SPHERE,
-        position: new THREE.Vector3(200, 0, 64),
+        position: new THREE.Vector3(200, 50, 124),
         color: 0xFFFF00,
         size: this.size,
+        height: this.height,
         mass: 100,
         friction: 0,
         restitution: 0.5,
@@ -47,7 +49,7 @@ Boom.Player.prototype = Boom.inherit(Boom.Entity, {
         owner: this
       }
     );
-    this.components[collision.gravity] = gravity;
+    this.components[gravity.name] = gravity;
 
     var controls = new Boom.InputActionComponent( 
       { 
@@ -63,7 +65,7 @@ Boom.Player.prototype = Boom.inherit(Boom.Entity, {
       { 
         name: 'player_movement', 
         owner: this, 
-        speed: 1.5
+        speed: 3.5
       } 
     );
     this.components[basic_movement.name] = basic_movement;
@@ -101,18 +103,6 @@ Boom.Player.prototype = Boom.inherit(Boom.Entity, {
   load: function(){
     //Call super
     Boom.Entity.prototype.load.call(this);
-
-    var scope = this;
-    //TODO: MAKE THIS INTO COLLISIONACTIONCOMPONENT
-    this.components['player_physics'].object.addEventListener( 'collision', function( other_object, relative_velocity, relative_rotation, contact_normal ) {
-      if( other_object.name === Boom.Constants.Objects.FLOOR ){
-        console.log( "LANDED!" );
-        scope.send( new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, 
-                              data: Boom.Constants.FALSE, 
-                              type: Boom.Constants.Message.Action.LAND, 
-                              sender: this.name + "|" + this.id }));
-      }
-    });
   },
 
   update: function(){

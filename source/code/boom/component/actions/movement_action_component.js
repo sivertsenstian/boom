@@ -8,7 +8,7 @@ Boom.MovementActionComponent = function( params ) {
                   Boom.Constants.Message.Input.LEFT,
                   Boom.Constants.Message.Input.RIGHT];
 
-  this.msg = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, data: null, type: Boom.Constants.Message.Action.VELOCITY, sender: this.type });
+  this.msg = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, data: null, type: Boom.Constants.Message.Action.VELOCITY_FLAT, sender: this.type });
 
   //Call super
   Boom.Component.call(this, params );

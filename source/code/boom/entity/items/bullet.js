@@ -2,6 +2,10 @@ Boom.Bullet = function( direction, spawn ){
   this.spawn = spawn;
   this.direction = direction;
   this.size = .25;
+  this.speed = 10;
+  this.velocity = new THREE.Vector3(0, 0, 0);
+  this.msg = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, data: null, type: Boom.Constants.Message.Action.VELOCITY, sender: this.name });
+
   Boom.Entity.call(this, {name: 'AMMO_BulletEntity', is_static: false});
 };
 
@@ -11,7 +15,7 @@ Boom.Bullet.prototype = Boom.inherit(Boom.Entity, {
   init: function() {
     //Call super
     Boom.Entity.prototype.init.call(this);
-    this.speed = 5;
+
     var physics = new Boom.PhysicalComponent(
        {
         name:'bullet_physics',
@@ -27,18 +31,26 @@ Boom.Bullet.prototype = Boom.inherit(Boom.Entity, {
     );
     this.components[physics.name] = physics;
 
-   /* var collision = new Boom.CollisionActionComponent(
+    var collision = new Boom.CollisionActionComponent(
       {
-        name: 'bullet_collision',
+        name: 'BULLET_COLLISION',
         distance: this.size,
         owner: this
       }
     );
-    this.components[collision.name] = collision;*/
+    this.components[collision.name] = collision;
+
+    var collision_hit = new Boom.HitActionComponent(
+      {
+        name: 'BULLET_HIT_COLLISION',
+        owner: this
+      }
+    );
+    this.components[collision_hit.name] = collision_hit;
 
     var audio_hit = new Boom.AudioComponent(
       {
-        name: 'HIT',
+        name: 'BULLET_HIT_AUDIO',
         sound: Boom.Assets.sounds.weapons.gun.hit,
         owner: this
       }
@@ -54,11 +66,11 @@ Boom.Bullet.prototype = Boom.inherit(Boom.Entity, {
   },
 
   update: function(){
-    /*var collision = this.getComponent( 'bullet_collision' );
-    var velocity = new THREE.Vector3(this.direction.x * this.speed,this.direction.y * this.speed,this.direction.z * this.speed);
-    var collision_action_msg = { receiver: Boom.Constants.Component.TYPE.ACTION, data: velocity, type: Boom.Constants.Message.Action.VELOCITY, sender: this.type };
-    this.send( collision_action_msg );*/
-    this.components['bullet_physics'].velocity.set(this.direction.x * this.speed,this.direction.y * this.speed,this.direction.z * this.speed);
+    this.velocity.set(this.direction.x * this.speed, this.direction.y * this.speed, this.direction.z * this.speed);
+    if( this.velocity.length() !== 0 ){
+      this.msg.data = this.velocity;
+      this.send( this.msg );
+    }
     //Call super
     Boom.Entity.prototype.update.call(this);                    
   },
@@ -66,7 +78,7 @@ Boom.Bullet.prototype = Boom.inherit(Boom.Entity, {
   dispose: function(){
     //Call super
     Boom.Entity.prototype.dispose.call(this);
-    this.components.HIT.play();
+    this.components.BULLET_HIT_AUDIO.play();
   }
 
 

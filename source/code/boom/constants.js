@@ -9,7 +9,15 @@ Boom.Constants = {
     HEIGHT: 32,
     SIZE: 24,
     GRAVITY: new THREE.Vector3(0, -6, 0),
-    SKYBOX_SCALAR: 2
+    SKYBOX_SCALAR: 2,
+    LAYER: {
+      FLOOR: 0,
+      WALLS: 1,
+      CEILING: 2,
+      COLLISION: 3,
+      LIGHT: 4,
+      ENTITIES: 5
+    }
 
   },
 
@@ -40,11 +48,13 @@ Boom.Constants = {
       RIGHTCLICK: Boom.guid()
     },
     Action: {
+      VELOCITY_FLAT: Boom.guid(),
       VELOCITY: Boom.guid(),
       GRAVITY: Boom.guid(),
       SHOOT: Boom.guid(),
       JUMP: Boom.guid(),
-      LAND: Boom.guid()
+      LAND: Boom.guid(),
+      HIT: Boom.guid()
     }
   },
   

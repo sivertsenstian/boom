@@ -11,6 +11,7 @@ Boom.PhysicalComponent = function( params ) {
   this.rotation = params.rotation || new THREE.Vector3(0, 0, 0);
   this.mass = params.mass || 0;
   this.size = params.size || 1;
+  this.height = params.height || 0;
   this.friction = params.friction || 0;
   this.restitution  = params.hasOwnProperty('restitution') ? params.restitution  : 1;
   this.linear_damping = params.linearDamping || 0.5;
@@ -18,7 +19,7 @@ Boom.PhysicalComponent = function( params ) {
   this.castShadow = params.castShadow || false;
   this.velocity = new THREE.Vector3(0, 0, 0);
   this.gravity = params.gravity || false;
-  this.events = [Boom.Constants.Message.Action.VELOCITY, Boom.Constants.Message.Action.GRAVITY];
+  this.events = [Boom.Constants.Message.Action.VELOCITY_FLAT, Boom.Constants.Message.Action.VELOCITY, Boom.Constants.Message.Action.GRAVITY];
 
   //Call super
   Boom.Component.call(this, params );
@@ -49,9 +50,10 @@ Boom.PhysicalComponent.prototype = Boom.inherit(Boom.Component, {
         Boom.handleError( " ERROR: Component 'shape' not defined: '" + this.shape + "'", "Boom.PhysicalComponent");
     }
 
+    this.object.scale.set( this.scale.x, this.scale.y, this.scale.z );
     this.object.position.set( this.position.x, this.position.y, this.position.z );
     this.object.rotation.set( this.rotation.x, this.rotation.y, this.rotation.z );
-    this.object.scale.set( this.scale.x, this.scale.y, this.scale.z );
+    this.object.translateY( (this.scale.y * this.size) / 2 );
     this.object.castShadow = this.castShadow;
     this.object.name = this.name + "_OBJECT";
 
@@ -70,8 +72,9 @@ Boom.PhysicalComponent.prototype = Boom.inherit(Boom.Component, {
     if(this.velocity.length() !== 0){
       this.object.position.add( this.velocity.multiplyScalar( this.linear_damping ) );
 
-      if( !this.owner.onGround && this.gravity && this.object.position.y <= 0){
-        this.object.position.y = 0;
+      if( !this.owner.onGround && this.gravity && this.object.position.y <= this.height){
+        this.object.position.y = this.height;
+        console.log("height:" + this.height);
         this.send( this.msg_landed );
       }
 
@@ -84,8 +87,13 @@ Boom.PhysicalComponent.prototype = Boom.inherit(Boom.Component, {
     //Call super
     if(Boom.Component.prototype.receive.call(this, message)){
       switch( message.type ){
+        case Boom.Constants.Message.Action.VELOCITY_FLAT:
+          this.velocity.x = message.data.x;
+          this.velocity.z = message.data.z;
+          break;
         case Boom.Constants.Message.Action.VELOCITY:
           this.velocity.x = message.data.x;
+          this.velocity.y = message.data.y;
           this.velocity.z = message.data.z;
           break;
         case Boom.Constants.Message.Action.GRAVITY:
