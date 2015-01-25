@@ -15,11 +15,12 @@ Boom.Assets = {
 
   world: {
     OBJECT:{
-      PLAYER_SPAWN: "4f9bc809-977b-4283-bb96-73ca47e4dbdb"
+      PLAYER_SPAWN: '4f9bc809-977b-4283-bb96-73ca47e4dbdb'
     },
     ENTITY:{
-      SAND_WALL: "bcde54dd-abae-4c20-9d37-145812f5c933",
-      SAND_GROUND: "99a2f5b7-e0d9-4e00-9f3a-a88172bc5975"
+      DEFAULT_WALL: 'bcde54dd-abae-4c20-9d37-145812f5c933',
+      DEFAULT_FLOOR: '99a2f5b7-e0d9-4e00-9f3a-a88172bc5975',
+      DEFAULT_CEILING: 'b4403eac-c8ad-48af-b847-ff9d1248abd9'
     },
     MAP:{
       COLLISION: 'a1114c99-41cb-4fbd-8847-5e112d2ceb18'
@@ -118,7 +119,7 @@ Boom.Assets = {
 
         // start downloading
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", url, false);
+        xhr.open('GET', url, false);
         xhr.onreadystatechange = function() {
           if (xhr['readyState'] !== 4)  { return; }
           if (xhr['status'] !== 200) {

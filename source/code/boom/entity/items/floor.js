@@ -1,13 +1,13 @@
-Boom.SandGround = function( params ){
-  this.id = Boom.Assets.world.ENTITY.SAND_GROUND;
+Boom.Floor = function( params ){
+  this.type = params.type || Boom.Assets.world.ENTITY.DEFAULT_FLOOR;
   this.position = params.position;
   this.size = params.size;
-  this.texture = Boom.Assets.textures[this.id] || Boom.Assets.textures.MISSING;
-  Boom.Entity.call(this, {name: 'ITEM_GROUND_SAND'});
+  this.texture = Boom.Assets.textures[this.type] || Boom.Assets.textures.MISSING;
+  Boom.Entity.call(this, {name: 'STATIC_ITEM_FLOOR'});
 };
 
-Boom.SandGround.prototype = Boom.inherit(Boom.Entity, {
-  constructor: Boom.SandGround,
+Boom.Floor.prototype = Boom.inherit(Boom.Entity, {
+  constructor: Boom.Floor,
 
   init: function() {
     //Call super
@@ -16,7 +16,7 @@ Boom.SandGround.prototype = Boom.inherit(Boom.Entity, {
     //TODO: MAKE MATERIAL A SINGLE POINTABLE MATERIAL
     var physics = new Boom.PhysicalComponent(
        {
-        name:'item_ground_sand_physics',
+        name:'item_ground_physics',
         shape: Boom.Constants.Component.BOX,
         position: this.position,
         color: 0xEDC9AF,

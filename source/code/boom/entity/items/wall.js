@@ -1,20 +1,20 @@
-Boom.SandWall = function( params ){
-  this.id = Boom.Assets.world.ENTITY.SAND_WALL;
+Boom.Wall = function( params ){
+  this.type = params.type || Boom.Assets.world.ENTITY.DEFAULT_WALL;
   this.position = params.position;
   this.size = params.size;
   this.height = params.height || 10;
   this.width = params.width || 1;
 
-  this.texture = Boom.Assets.textures[this.id] || Boom.Assets.textures.MISSING;
+  this.texture = Boom.Assets.textures[this.type] || Boom.Assets.textures.MISSING;
   this.texture.wrapS = THREE.RepeatWrapping;
   this.texture.wrapT = THREE.RepeatWrapping;
   this.texture.repeat.set( this.width, this.height );
 
-  Boom.Entity.call(this, {name: 'ITEM_WALL_SAND'});
+  Boom.Entity.call(this, {name: 'STATIC_ITEM_WALL'});
 };
 
-Boom.SandWall.prototype = Boom.inherit(Boom.Entity, {
-  constructor: Boom.SandWall,
+Boom.Wall.prototype = Boom.inherit(Boom.Entity, {
+  constructor: Boom.Wall,
 
   init: function() {
     //Call super
@@ -23,7 +23,7 @@ Boom.SandWall.prototype = Boom.inherit(Boom.Entity, {
     //TODO: MAKE MATERIAL A SINGLE POINTABLE MATERIAL
     var physics = new Boom.PhysicalComponent(
        {
-        name:'item_wall_sand_physics',
+        name:'item_wall_physics',
         shape: Boom.Constants.Component.BOX,
         position: this.position,
         color: 0x6C541E,

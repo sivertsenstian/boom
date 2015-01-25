@@ -64,7 +64,7 @@ Boom.World.prototype = {
 
     this.skyBox = new THREE.Mesh(
       new THREE.BoxGeometry( (this.size * this.width) * Boom.Constants.World.SKYBOX_SCALAR, 
-                             (this.size * this.width) * Boom.Constants.World.SKYBOX_SCALAR,
+                             (this.size * this.width),
                              (this.size * this.width) * Boom.Constants.World.SKYBOX_SCALAR),
       skyBoxMaterial
     );
@@ -117,7 +117,10 @@ Boom.World.prototype = {
                                   0, 
                                   this.map.tilewidth * Math.floor((i % this.map.height)));
 
-        new Boom.SandWall({position: pos, size: this.map.tilewidth, height: this.map.layers[Boom.Constants.World.LAYER.WALLS].properties['Boom.Height']});
+        new Boom.Wall({position: pos, 
+                       size: this.map.tilewidth, 
+                       height: this.map.layers[Boom.Constants.World.LAYER.WALLS].properties['Boom.Height']
+                      });
       }
     }
 
@@ -128,7 +131,7 @@ Boom.World.prototype = {
                                   -this.map.tileheight, 
                                   this.map.tilewidth * Math.floor((i % this.map.height)));
 
-        new Boom.SandGround({position: pos, size: this.map.tilewidth});
+        new Boom.Floor({position: pos, size: this.map.tilewidth});
       }
     }
 
@@ -139,7 +142,7 @@ Boom.World.prototype = {
                                   (this.map.layers[Boom.Constants.World.LAYER.WALLS].properties['Boom.Height'] * this.map.tileheight), 
                                   this.map.tilewidth * Math.floor((i % this.map.height)));
 
-        new Boom.SandGround({position: pos, size: this.map.tilewidth});
+        new Boom.Ceiling({position: pos, size: this.map.tilewidth});
       }
     }
 
@@ -160,7 +163,7 @@ Boom.World.prototype = {
     }
 
     //Add Skybox
-    this.skyBox.position.set(this.width/2 * this.size, -(this.size/2) , this.height/2 * this.size);
+    this.skyBox.position.set(this.width/2 * this.size, -(this.size*8) , this.height/2 * this.size);
     scene.add( this.skyBox );
   },
 

@@ -9,7 +9,7 @@ Boom.Game = function() {
   
   //this.antialias = true;
   this.cameraFov = 75;
-  this.cameraFar = 2000;
+  this.cameraFar = 1000;
 
   this.width = 800;
   this.height = 600;
@@ -97,35 +97,41 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
       //Collisions
       Boom.GameGrid = new Boom.CollisionGrid( this.world.map );
 
+      //MERGE STATIC ENTITIES FOR OPTIMIZIATION 
+      //TODO: MOVE THIS ? TO WHERE?
       var totalGeom = new THREE.Geometry();
-      var wallmat = new THREE.MeshLambertMaterial({ map: Boom.Assets.textures['bcde54dd-abae-4c20-9d37-145812f5c933'] });
-      var groundmat = new THREE.MeshLambertMaterial({ map: Boom.Assets.textures['99a2f5b7-e0d9-4e00-9f3a-a88172bc5975'] });
-      var materials = [wallmat, groundmat];
+      var materials = [];
+      var material_index = {};
       for (id in Boom.Entities) {
         if (!Boom.Entities.hasOwnProperty(id)) {
             continue;
         }
         var entity = Boom.Entities[id];
-
         if(entity.__isStatic && !entity.__isMerged){
           var component = entity.getComponent( Boom.Constants.Component.TYPE.PHYSICAL );
           if ( component ){
             for ( var face in component.object.geometry.faces ) {
-              component.object.geometry.faces[face].materialIndex = (entity.name === 'ITEM_WALL_SAND') ? 0 : 1;
+              if(entity.type === null || entity.type === undefined){
+                throw Boom.Exceptions.UndefinedEntityTypeException;
+              }
+              if(!material_index.hasOwnProperty(entity.type)){
+                materials.push(new THREE.MeshLambertMaterial({ map: Boom.Assets.textures[entity.type] }));
+                material_index[entity.type] = materials.length - 1;
+              }
+              component.object.geometry.faces[face].materialIndex = material_index[entity.type];
             }
             component.object.updateMatrix();
             totalGeom.merge( component.object.geometry, component.object.matrix );
-            //materials.push( component.object.material );
             entity.__isMerged = true;
             delete Boom.Entities[id];
           }
         }
       }
-
       var total = new THREE.Mesh(totalGeom, new THREE.MeshFaceMaterial( materials ));
-      Boom.MergedEntities.push( { name: 'WALLS/GROUND', __addToScene: false, __isStatic: true, __isMerged: true, object: total });
+      Boom.MergedEntities.push( { name: 'MERGED_STATIC_STRUCTURES', __addToScene: false, __isStatic: true, __isMerged: true, object: total });
       console.log( Boom.MergedEntities );
       console.log( Object.keys(Boom.Entities).length );
+      
     }
     catch( error ){
       Boom.handleError( error , 'Boom.Game.load()');

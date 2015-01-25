@@ -202,5 +202,6 @@ Boom.Exceptions = {
   ObjectNotDefinedException: "Object is not defined",
   OwnerMissingException: "No Owner was defined",
   NoMessageReceiverException: "No Receiver was defined",
-  CameraMissingException: "No Camera was defined"
+  CameraMissingException: "No Camera was defined",
+  UndefinedEntityTypeException: "No Entity.type defined"
 };
