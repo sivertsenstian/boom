@@ -21,7 +21,7 @@ Boom.Bullet.prototype = Boom.inherit(Boom.Entity, {
         name:'bullet_physics',
         shape: Boom.Constants.Component.BOX,
         position: this.spawn,
-        color: 0x00FF00,
+        color: 0x336699,
         size: this.size,
         mass: 1,
         friction: 0,

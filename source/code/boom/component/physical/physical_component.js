@@ -35,7 +35,7 @@ Boom.PhysicalComponent.prototype = Boom.inherit(Boom.Component, {
     if(this.texture !== null && this.texture.sourceFile === ''){
       this.texture = Boom.Assets.textures[Boom.Assets.world.ENTITY.MISSING];
     }
-    this.material = (this.texture === null) ? new THREE.MeshLambertMaterial({ color: this.color }) : new THREE.MeshLambertMaterial({ map: this.texture });
+    this.material = (this.texture === null) ? new THREE.MeshBasicMaterial({ color: this.color }) : new THREE.MeshLambertMaterial({ map: this.texture });
     this.geometry = undefined;
     this.object = undefined;
     switch ( this.shape ){

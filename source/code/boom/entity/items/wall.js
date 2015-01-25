@@ -6,7 +6,7 @@ Boom.Wall = function( params ){
   this.height = params.height || 10;
   this.width = params.width || 1;
 
-  this.texture = Boom.Assets.textures[this.type] ;
+  this.texture = Boom.Assets.textures[this.type];
   if(this.repeat === Boom.Constants.TRUE){
     this.texture.wrapS = THREE.RepeatWrapping;
     this.texture.wrapT = THREE.RepeatWrapping;

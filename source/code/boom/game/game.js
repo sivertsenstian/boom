@@ -9,7 +9,7 @@ Boom.Game = function() {
   
   //this.antialias = true;
   this.cameraFov = 75;
-  this.cameraFar = 1000;
+  this.cameraFar = 500;
 
   this.width = 800;
   this.height = 600;

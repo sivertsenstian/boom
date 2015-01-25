@@ -72,7 +72,7 @@ Boom.World.prototype = {
 
 
     //Fog
-    this.fog = new THREE.FogExp2(0x000000, 0.005);
+    this.fog = new THREE.FogExp2(0x000000, 0.0025);
 
     //Lights
     this.lights = [];
