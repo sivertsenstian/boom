@@ -1,8 +1,8 @@
 Boom.Ceiling = function( params ){
-  this.type = params.type || Boom.Assets.world.ENTITY.DEFAULT_CEILING;
+  this.type = params.type || Boom.Assets.world.ENTITY.MISSING;
   this.position = params.position;
   this.size = params.size;
-  this.texture = Boom.Assets.textures[this.type] || Boom.Assets.textures.MISSING;
+  this.texture = Boom.Assets.textures[this.type];
   Boom.Entity.call(this, {name: 'STATIC_ITEM_CEILING'});
 };
 

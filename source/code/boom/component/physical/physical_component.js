@@ -31,6 +31,10 @@ Boom.PhysicalComponent.prototype = Boom.inherit(Boom.Component, {
   init: function() {
     //Call super
     Boom.Component.prototype.init.call(this);
+    //Check if texture-source is well defined - if not declare it as missing
+    if(this.texture !== null && this.texture.sourceFile === ''){
+      this.texture = Boom.Assets.textures[Boom.Assets.world.ENTITY.MISSING];
+    }
     this.material = (this.texture === null) ? new THREE.MeshLambertMaterial({ color: this.color }) : new THREE.MeshLambertMaterial({ map: this.texture });
     this.geometry = undefined;
     this.object = undefined;

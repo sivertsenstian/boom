@@ -1,8 +1,8 @@
 Boom.Constants = {
   
-  TRUE: Boom.guid(),
+  TRUE: '46e25702-b22f-4d18-a391-7f7e0bba137c',
 
-  FALSE: Boom.guid(),
+  FALSE: '1cf21342-39c3-4bf0-865c-d28f19448112',
 
   World:{
     WIDTH: 32,

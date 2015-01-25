@@ -123,6 +123,7 @@ Boom.World.prototype = {
         new Boom.Wall({position: pos, 
                        size: this.map.tilewidth,
                        type: map_tile_properties[current_tile]['Boom.ID'],
+                       repeat: map_tile_properties[current_tile]['Boom.Repeat'],
                        height: this.map.layers[Boom.Constants.World.LAYER.WALLS].properties['Boom.Height']
                       });
       }

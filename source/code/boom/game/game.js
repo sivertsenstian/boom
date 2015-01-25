@@ -100,8 +100,10 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
       //MERGE STATIC ENTITIES FOR OPTIMIZIATION 
       //TODO: MOVE THIS ? TO WHERE?
       var totalGeom = new THREE.Geometry();
-      var materials = [];
+      var materials = [new THREE.MeshLambertMaterial({ map: Boom.Assets.textures[Boom.Assets.world.ENTITY.MISSING] })];
       var material_index = {};
+      //Add 'missing' texture for debug-purposes
+      material_index[Boom.Assets.world.ENTITY.MISSING] = 0;
       for (id in Boom.Entities) {
         if (!Boom.Entities.hasOwnProperty(id)) {
             continue;
@@ -115,10 +117,15 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
                 throw Boom.Exceptions.UndefinedEntityTypeException;
               }
               if(!material_index.hasOwnProperty(entity.type)){
-                materials.push(new THREE.MeshLambertMaterial({ map: Boom.Assets.textures[entity.type] }));
-                material_index[entity.type] = materials.length - 1;
+                  materials.push(new THREE.MeshLambertMaterial({ map: Boom.Assets.textures[entity.type] }));
+                  material_index[entity.type] = materials.length - 1;
               }
-              component.object.geometry.faces[face].materialIndex = material_index[entity.type];
+              if(Boom.Assets.textures[entity.type].sourceFile === ''){
+                  component.object.geometry.faces[face].materialIndex = material_index[Boom.Assets.world.ENTITY.MISSING];
+              }
+              else{
+                component.object.geometry.faces[face].materialIndex = material_index[entity.type];
+              }
             }
             component.object.updateMatrix();
             totalGeom.merge( component.object.geometry, component.object.matrix );

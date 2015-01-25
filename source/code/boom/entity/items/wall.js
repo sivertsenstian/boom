@@ -1,14 +1,17 @@
 Boom.Wall = function( params ){
-  this.type = params.type || Boom.Assets.world.ENTITY.DEFAULT_WALL;
+  this.type = params.type || Boom.Assets.world.ENTITY.MISSING;
+  this.repeat = params.repeat || Boom.Constants.TRUE;
   this.position = params.position;
   this.size = params.size;
   this.height = params.height || 10;
   this.width = params.width || 1;
 
-  this.texture = Boom.Assets.textures[this.type] || Boom.Assets.textures.MISSING;
-  this.texture.wrapS = THREE.RepeatWrapping;
-  this.texture.wrapT = THREE.RepeatWrapping;
-  this.texture.repeat.set( this.width, this.height );
+  this.texture = Boom.Assets.textures[this.type] ;
+  if(this.repeat === Boom.Constants.TRUE){
+    this.texture.wrapS = THREE.RepeatWrapping;
+    this.texture.wrapT = THREE.RepeatWrapping;
+    this.texture.repeat.set( this.width, this.height );
+  }
 
   Boom.Entity.call(this, {name: 'STATIC_ITEM_WALL'});
 };
