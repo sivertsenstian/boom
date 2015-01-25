@@ -74,7 +74,6 @@ Boom.PhysicalComponent.prototype = Boom.inherit(Boom.Component, {
 
       if( !this.owner.onGround && this.gravity && this.object.position.y <= this.height){
         this.object.position.y = this.height;
-        console.log("height:" + this.height);
         this.send( this.msg_landed );
       }
 

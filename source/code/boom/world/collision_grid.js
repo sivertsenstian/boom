@@ -11,7 +11,6 @@ Boom.CollisionGrid.prototype = {
 
   init: function(){
     var pos;
-    console.log( this.grid );
     //COLLISIONS
     for(var i = 0; i < this.map.layers[Boom.Constants.World.LAYER.COLLISION].data.length; i++){
       if( this.map.tilesets[0].tileproperties.hasOwnProperty(this.map.layers[Boom.Constants.World.LAYER.COLLISION].data[i] - this.map.tilesets[0].firstgid) ){

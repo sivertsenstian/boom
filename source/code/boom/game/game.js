@@ -129,9 +129,6 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
       }
       var total = new THREE.Mesh(totalGeom, new THREE.MeshFaceMaterial( materials ));
       Boom.MergedEntities.push( { name: 'MERGED_STATIC_STRUCTURES', __addToScene: false, __isStatic: true, __isMerged: true, object: total });
-      console.log( Boom.MergedEntities );
-      console.log( Object.keys(Boom.Entities).length );
-      
     }
     catch( error ){
       Boom.handleError( error , 'Boom.Game.load()');
