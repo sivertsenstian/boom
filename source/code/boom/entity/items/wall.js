@@ -10,6 +10,8 @@ Boom.Wall = function( params ){
   this.texture.wrapT = THREE.RepeatWrapping;
   this.texture.repeat.set( this.width, this.height );
 
+  console.log(this.texture);
+  
   Boom.Entity.call(this, {name: 'STATIC_ITEM_WALL'});
 };
 
@@ -20,7 +22,6 @@ Boom.Wall.prototype = Boom.inherit(Boom.Entity, {
     //Call super
     Boom.Entity.prototype.init.call(this);
     
-    //TODO: MAKE MATERIAL A SINGLE POINTABLE MATERIAL
     var physics = new Boom.PhysicalComponent(
        {
         name:'item_wall_physics',

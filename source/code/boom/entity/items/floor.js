@@ -13,7 +13,6 @@ Boom.Floor.prototype = Boom.inherit(Boom.Entity, {
     //Call super
     Boom.Entity.prototype.init.call(this);
     
-    //TODO: MAKE MATERIAL A SINGLE POINTABLE MATERIAL
     var physics = new Boom.PhysicalComponent(
        {
         name:'item_ground_physics',

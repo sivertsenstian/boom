@@ -95,12 +95,13 @@ Boom.World.prototype = {
     var pos;
 
     var tileId, tilePath;
-    for (tile in this.map.tilesets[0].tileproperties) {
-      if (!this.map.tilesets[0].tileproperties.hasOwnProperty(tile)) {
+    var map_tile_properties = this.map.tilesets[0].tileproperties;
+    for (tile in map_tile_properties) {
+      if (!map_tile_properties.hasOwnProperty(tile)) {
           continue;
       }
-      tileId = this.map.tilesets[0].tileproperties[tile]['Boom.ID'];
-      tilePath = this.map.tilesets[0].tileproperties[tile]['Boom.Path'];
+      tileId = map_tile_properties[tile]['Boom.ID'];
+      tilePath = map_tile_properties[tile]['Boom.Path'];
       if(tilePath !== null && tilePath !== undefined){
         Boom.Assets.textures[tileId] = THREE.ImageUtils.loadTexture(tilePath);  
       }
@@ -110,15 +111,18 @@ Boom.World.prototype = {
       
     }
 
+    var current_tile;
     //WALLS
     for(var i = 0; i < this.map.layers[Boom.Constants.World.LAYER.WALLS].data.length; i++){
-      if( this.map.tilesets[0].tileproperties.hasOwnProperty(this.map.layers[Boom.Constants.World.LAYER.WALLS].data[i] - this.map.tilesets[0].firstgid) ){
+      current_tile = this.map.layers[Boom.Constants.World.LAYER.WALLS].data[i] - this.map.tilesets[0].firstgid;
+      if( map_tile_properties.hasOwnProperty( current_tile ) ){
         pos = new THREE.Vector3(this.map.tilewidth * Math.floor((i / this.map.width)),
                                   0, 
                                   this.map.tilewidth * Math.floor((i % this.map.height)));
 
         new Boom.Wall({position: pos, 
-                       size: this.map.tilewidth, 
+                       size: this.map.tilewidth,
+                       type: map_tile_properties[current_tile]['Boom.ID'],
                        height: this.map.layers[Boom.Constants.World.LAYER.WALLS].properties['Boom.Height']
                       });
       }
@@ -126,23 +130,31 @@ Boom.World.prototype = {
 
     //FLOOR
     for(var i = 0; i < this.map.layers[Boom.Constants.World.LAYER.FLOOR].data.length; i++){
-      if( this.map.tilesets[0].tileproperties.hasOwnProperty(this.map.layers[Boom.Constants.World.LAYER.FLOOR].data[i] - this.map.tilesets[0].firstgid) ){
+      current_tile = this.map.layers[Boom.Constants.World.LAYER.FLOOR].data[i] - this.map.tilesets[0].firstgid;
+      if( map_tile_properties.hasOwnProperty( current_tile ) ){
         pos = new THREE.Vector3(this.map.tilewidth * Math.floor((i / this.map.width)),
                                   -this.map.tileheight, 
                                   this.map.tilewidth * Math.floor((i % this.map.height)));
 
-        new Boom.Floor({position: pos, size: this.map.tilewidth});
+        new Boom.Floor({position: pos, 
+                        size: this.map.tilewidth,
+                        type: map_tile_properties[current_tile]['Boom.ID']
+                       });
       }
     }
 
     //CEILING
     for(var i = 0; i < this.map.layers[Boom.Constants.World.LAYER.CEILING].data.length; i++){
-      if( this.map.tilesets[0].tileproperties.hasOwnProperty(this.map.layers[Boom.Constants.World.LAYER.CEILING].data[i] - this.map.tilesets[0].firstgid) ){
+      current_tile = this.map.layers[Boom.Constants.World.LAYER.CEILING].data[i] - this.map.tilesets[0].firstgid;
+      if( map_tile_properties.hasOwnProperty( current_tile ) ){
         pos = new THREE.Vector3(this.map.tilewidth * Math.floor((i / this.map.width)),
                                   (this.map.layers[Boom.Constants.World.LAYER.WALLS].properties['Boom.Height'] * this.map.tileheight), 
                                   this.map.tilewidth * Math.floor((i % this.map.height)));
 
-        new Boom.Ceiling({position: pos, size: this.map.tilewidth});
+        new Boom.Ceiling({position: pos, 
+                          size: this.map.tilewidth,
+                          type: map_tile_properties[current_tile]['Boom.ID']
+                         });
       }
     }
 
