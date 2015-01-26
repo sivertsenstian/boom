@@ -72,7 +72,7 @@ Boom.World.prototype = {
 
 
     //Fog
-    this.fog = new THREE.FogExp2(0x000000, 0.0025);
+    this.fog = new THREE.FogExp2(0x000000, 0.0035);
 
     //Lights
     this.lights = [];
@@ -91,7 +91,7 @@ Boom.World.prototype = {
     var ambient_light = new THREE.AmbientLight( 0x404040 );
     this.lights.push ( ambient_light );
 
-    this.map = Boom.Assets.world.MAP.SAND;
+    this.map = Boom.Assets.world.MAP['MAP01'];
     var pos;
 
     var tileId, tilePath;

@@ -21,7 +21,7 @@ Boom.Player.prototype = Boom.inherit(Boom.Entity, {
        {
         name: 'player_physics',
         shape: Boom.Constants.Component.SPHERE,
-        position: new THREE.Vector3(200, 50, 124),
+        position: new THREE.Vector3(2748, 0, 1164),
         color: 0xFFFF00,
         size: this.size,
         height: this.height,
