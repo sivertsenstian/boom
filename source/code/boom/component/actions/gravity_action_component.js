@@ -25,7 +25,7 @@ Boom.GravityActionComponent.prototype = Boom.inherit(Boom.Component, {
   update: function(){
     //Call super
     Boom.Component.prototype.update.call(this);
-    if(!this.owner.onGround){
+    if(this.owner.onGround === Boom.Constants.FALSE){
       this.send( this.message );
     }
   },

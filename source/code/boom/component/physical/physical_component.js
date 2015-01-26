@@ -62,7 +62,7 @@ Boom.PhysicalComponent.prototype = Boom.inherit(Boom.Component, {
     this.object.name = this.name + "_OBJECT";
 
     //Messages
-    this.msg_landed = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, data: true, type: Boom.Constants.Message.Action.LAND, sender: this.type });
+    this.msg_landed = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, data: Boom.Constants.FALSE, type: Boom.Constants.Message.Action.LAND, sender: this.type });
 
   },
 
@@ -76,7 +76,7 @@ Boom.PhysicalComponent.prototype = Boom.inherit(Boom.Component, {
     if(this.velocity.length() !== 0){
       this.object.position.add( this.velocity.multiplyScalar( this.linear_damping ) );
 
-      if( !this.owner.onGround && this.gravity && this.object.position.y <= this.height){
+      if( this.owner.onGround === Boom.Constants.FALSE && this.gravity && this.object.position.y <= this.height){
         this.object.position.y = this.height;
         this.send( this.msg_landed );
       }

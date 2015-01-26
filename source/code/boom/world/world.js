@@ -91,7 +91,9 @@ Boom.World.prototype = {
     var ambient_light = new THREE.AmbientLight( 0x404040 );
     this.lights.push ( ambient_light );
 
-    this.map = Boom.Assets.world.MAP['MAP01'];
+    //this.map = Boom.Assets.world.MAP['MAP01'];
+    this.map = Boom.Assets.world.MAP['TEST'];
+
     var pos;
 
     var tileId, tilePath;
