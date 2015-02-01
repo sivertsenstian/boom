@@ -4,12 +4,23 @@ Boom.Assets = {
 
   },
 
+  music: {
+    MISSING: new Howl({ urls: [ 'resources/music/missing.mp3' ], volume: 0.25, loop: true }),
+    maps:{
+      'c7cc27d8-da16-4c26-bb03-0e2d04de63c8' : new Howl({ urls: [ 'resources/music/simple_action_beat.ogg' ], volume: 0.25, loop: true })
+    }
+  },
   sounds: {
+    MISSING: new Howl({ urls: [ 'resources/sounds/missing.mp3' ], volume: 1.0 }),
     weapons: {
       gun: {
-        shoot: 'resources/weapons/1/shoot.wav',
-        hit: 'resources/bullets/1/hit.wav'
+        shoot: new Howl({ urls: [ 'resources/sounds/shoot.wav' ], volume: 1.0 }),
+        hit: new Howl({ urls: [ 'resources/sounds/hit.wav' ], volume: 1.0 })
       }
+    },
+    hostile: {
+      pain: new Howl({ urls: [ 'resources/sounds/pain.mp3' ], volume: 1.0 }),
+      death: new Howl({ urls: [ 'resources/sounds/death.mp3' ], volume: 1.0 })
     }
   },
 

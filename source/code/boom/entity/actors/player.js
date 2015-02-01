@@ -18,6 +18,12 @@ Boom.Player.prototype = Boom.inherit(Boom.Entity, {
     //Call super
     Boom.Entity.prototype.init.call(this);
     
+    var health = new Boom.HealthActionComponent({
+      name: 'player_health',
+      owner: this
+    });
+    this.components[health.name] = health;
+
     var physics = new Boom.PhysicalComponent(
        {
         name: 'player_physics',

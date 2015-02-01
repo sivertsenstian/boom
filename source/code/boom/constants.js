@@ -39,6 +39,7 @@ Boom.Constants = {
       ANIMATION: 'animation',
       INPUT: 'input',
       ACTION: 'action',
+      HIT: 'hit',
       WEAPON: 'weapon',
       UI: 'UI'
     }
@@ -61,7 +62,13 @@ Boom.Constants = {
       SHOOT: Boom.guid(),
       JUMP: Boom.guid(),
       LAND: Boom.guid(),
-      HIT: Boom.guid()
+      REDUCE_HEALTH: Boom.guid(),
+      INCREASE_HEALTH: Boom.guid(),
+      DEATH: Boom.guid()
+    },
+    Hit: {
+      DISPOSE: Boom.guid(),
+      DISPOSE_DEALDAMAGE: Boom.guid()
     }
   },
   

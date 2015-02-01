@@ -40,6 +40,7 @@ Boom.Pistol.prototype = Boom.inherit(Boom.Entity, {
       {
         name: 'pistol_audio_shoot',
         sound: Boom.Assets.sounds.weapons.gun.shoot,
+        volume: 0.25,
         owner: this
       }
     );

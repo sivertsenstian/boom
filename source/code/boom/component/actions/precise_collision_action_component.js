@@ -4,7 +4,7 @@ Boom.PreciseCollisionActionComponent = function( params ) {
   this.distance = params.distance || 1;
   this.owner_physical = params.owner.getComponent( Boom.Constants.Component.TYPE.PHYSICAL );
   this.physical_velocity = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.PHYSICAL, type: Boom.Constants.Message.Action.VELOCITY, sender: this.type });
-  this.collision = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, data: null, type: Boom.Constants.Message.Action.HIT, sender: this.type });
+  this.collision = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.HIT, data: null, type: Boom.Constants.Message.Hit.DISPOSE_DEALDAMAGE, sender: this.type });
   
   this.events = [Boom.Constants.Message.Action.VELOCITY, Boom.Constants.Message.Action.VELOCITY_FLAT];
 
@@ -37,9 +37,9 @@ Boom.PreciseCollisionActionComponent.prototype = Boom.inherit(Boom.Component, {
         case Boom.Constants.Message.Action.VELOCITY_FLAT:
         case Boom.Constants.Message.Action.VELOCITY:
           var collided = Boom.GameGrid.checkPrecise( this.owner_physical.object.position );
-          
+
           if( collided ){
-            if( typeof(collided) === 'object' && (this.owner.faction === collided.faction)){ //FIXME - is this bad?
+            if( typeof(collided) === 'object' && (this.owner.faction === collided.faction)){ //FIXME - could probably be done better - hit components??
               console.log(" -------------------------------------------   ");
               console.log("ENTITY HIT - BUT SAME FACTION. NO COLLISION!");
               console.log(this.owner);

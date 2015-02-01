@@ -12,7 +12,20 @@ Boom.Alien.prototype = Boom.inherit(Boom.Entity, {
 
   init: function() {
     //Call super
-    Boom.Entity.prototype.init.call(this); 
+    Boom.Entity.prototype.init.call(this);
+
+    var health = new Boom.HealthActionComponent({
+      name: 'alien_health',
+      owner: this
+    });
+    this.components[health.name] = health;
+
+    var death = new Boom.DeathActionComponent({
+      name: 'alien_death',
+      owner: this
+    });
+    this.components[death.name] = death;
+
     var physics = new Boom.PhysicalComponent(
        {
         name: 'alien_physics',
@@ -49,6 +62,26 @@ Boom.Alien.prototype = Boom.inherit(Boom.Entity, {
     });
     this.components[weapon.name] = weapon;
 
+    var audio_death = new Boom.AudioComponent(
+      {
+        name: 'AUDIO_DEATH',
+        sound: Boom.Assets.sounds.hostile.death,
+        volume: 0.15,
+        owner: this
+      }
+    );
+    this.components[audio_death.name] = audio_death;
+
+    var audio_pain = new Boom.AudioComponent(
+      {
+        name: 'AUDIO_PAIN',
+        sound: Boom.Assets.sounds.hostile.pain,
+        volume: 0.05,
+        owner: this
+      }
+    );
+    this.components[audio_pain.name] = audio_pain;
+
     this.load();
   },
 
@@ -63,6 +96,7 @@ Boom.Alien.prototype = Boom.inherit(Boom.Entity, {
   },
 
   dispose: function(){
+    this.components.AUDIO_DEATH.play();
     //Call super
     Boom.Entity.prototype.dispose.call(this);
   }

@@ -43,7 +43,7 @@
          "name":"collision",
          "opacity":1,
          "type":"tilelayer",
-         "visible":true,
+         "visible":false,
          "width":32,
          "x":0,
          "y":0
@@ -54,7 +54,7 @@
          "name":"light",
          "opacity":1,
          "type":"tilelayer",
-         "visible":true,
+         "visible":false,
          "width":32,
          "x":0,
          "y":0
@@ -73,7 +73,7 @@
  "orientation":"orthogonal",
  "properties":
     {
-
+     "Boom.ID":"c7cc27d8-da16-4c26-bb03-0e2d04de63c8"
     },
  "renderorder":"left-down",
  "tileheight":24,

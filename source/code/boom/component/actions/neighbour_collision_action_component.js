@@ -4,7 +4,6 @@ Boom.NeighbourCollisionActionComponent = function( params ) {
   this.distance = params.distance || 1;
   this.owner_physical = params.owner.getComponent( Boom.Constants.Component.TYPE.PHYSICAL );
   this.physical_velocity = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.PHYSICAL, type: Boom.Constants.Message.Action.VELOCITY, sender: this.type });
-  this.collision = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, data: null, type: Boom.Constants.Message.Action.HIT, sender: this.type });
   
   this.events = [Boom.Constants.Message.Action.VELOCITY, Boom.Constants.Message.Action.VELOCITY_FLAT];
 
@@ -46,10 +45,6 @@ Boom.NeighbourCollisionActionComponent.prototype = Boom.inherit(Boom.Component, 
           if(collisions[2] && message.data.z > 0 || collisions[3] && message.data.z < 0){
             message.data.z = 0;
             collided = true;
-          }
-
-          if( collided ){
-            this.send( this.collision );
           }
 
           this.physical_velocity.data = message.data;

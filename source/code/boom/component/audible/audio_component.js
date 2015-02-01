@@ -1,11 +1,8 @@
 Boom.AudioComponent = function( params ) {
   params = params || {};
   this.type = params.type || Boom.Constants.Component.TYPE.AUDIO;
-  this.sound = new Howl(
-    {
-      urls: [ params.sound ]
-    }
-  );
+  this.sound = params.sound || Boom.Assets.sounds.MISSING;
+  this.sound.volume(parseFloat(params.volume) || 1.0);
 
   //Call super
   Boom.Component.call(this, params );

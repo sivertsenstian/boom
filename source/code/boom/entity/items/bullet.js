@@ -3,6 +3,7 @@ Boom.Bullet = function( params ){
   this.direction = params.direction;
   this.size = .25;
   this.speed = 10;
+  this.damage = 25;
   this.velocity = new THREE.Vector3(0, 0, 0);
   this.msg = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, data: null, type: Boom.Constants.Message.Action.VELOCITY, sender: this.name });
 
@@ -40,18 +41,19 @@ Boom.Bullet.prototype = Boom.inherit(Boom.Entity, {
     );
     this.components[collision.name] = collision;
 
-    var collision_hit = new Boom.HitActionComponent(
+    var bullet_hit = new Boom.DisposeHitComponent(
       {
-        name: 'BULLET_HIT_COLLISION',
+        name: 'BULLET_HIT',
         owner: this
       }
     );
-    this.components[collision_hit.name] = collision_hit;
+    this.components[bullet_hit.name] = bullet_hit;
 
     var audio_hit = new Boom.AudioComponent(
       {
         name: 'BULLET_HIT_AUDIO',
         sound: Boom.Assets.sounds.weapons.gun.hit,
+        volume: 0.05,
         owner: this
       }
     );

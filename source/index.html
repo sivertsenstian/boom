@@ -39,7 +39,10 @@
   <script type="text/javascript" src='code/boom/component/actions/neighbour_collision_action_component.js'></script>
   <script type="text/javascript" src='code/boom/component/actions/precise_collision_action_component.js'></script>
   <script type="text/javascript" src='code/boom/component/actions/gravity_action_component.js'></script>
-  <script type="text/javascript" src='code/boom/component/actions/hit_action_component.js'></script>
+  <script type="text/javascript" src='code/boom/component/actions/health_action_component.js'></script>
+  <script type="text/javascript" src='code/boom/component/actions/death_action_component.js'></script>
+  <!-- HITS -->
+  <script type="text/javascript" src='code/boom/component/hits/dispose_deal_damage_hit_component.js'></script>
 
   <!-- ### ENTITIES ### -->
   <script type="text/javascript" src='code/boom/entity/entity.js'></script>
@@ -72,8 +75,8 @@
     $( document ).ready(function() {
       var loader = new PxLoader();
       //Models
-      loader.addDAEModel('/resources/weapons/1/gun2_small_with_hand2.dae', ['weapons', 'gun'] );
-      loader.addDAEModel('/resources/actors/aliendude.dae', ['enemies', 'alien'] );
+      loader.addDAEModel('/resources/models/gun.dae', ['weapons', 'gun'] );
+      loader.addDAEModel('/resources/models/alien.dae', ['enemies', 'alien'] );
 
       //Maps
       loader.addJSON('/resources/maps/test1.json', ['world', 'MAP', 'TEST'] );
