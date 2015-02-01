@@ -63,7 +63,7 @@ Boom.CollisionGrid.prototype = {
     this.x = Math.round(position.x / this.map.tileheight);
     this.z =  Math.round(position.z / this.map.tilewidth);
 
-    var entity = this.checkEntity(this.width * this.x + this.z);
+    var entity = this.checkEntity(this.width * this.x + this.z, position.y);
     if(entity){
       return entity;
     }
@@ -74,9 +74,12 @@ Boom.CollisionGrid.prototype = {
     return index >= 0 && index <= this.map.layers[Boom.Constants.World.LAYER.COLLISION].data.length && this.grid[index];
   },
 
-  checkEntity: function( index ){
+  checkEntity: function( index, height ){
     if(index >= 0 && index <= this.map.layers[Boom.Constants.World.LAYER.ENTITIES].data.length && this.entities[index]){
-      return Boom.Entities[ this.entities[index] ];
+      var entity = Boom.Entities[ this.entities[index] ];
+      if( entity !== undefined && height <= entity.boundingBox.y && height >= 0 ){ //Validate height
+        return entity;
+      }
     }
     return false; //FIX?88,
   },

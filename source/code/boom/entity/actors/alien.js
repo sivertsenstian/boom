@@ -4,7 +4,7 @@ Boom.Alien = function( params ){
   this.onGround = Boom.Constants.FALSE;
   this.position = params.position || new THREE.Vector3(0, 0, 0);
 
-  Boom.Entity.call(this, {name: 'ENEMY_ALIEN_Entity', is_static: false});
+  Boom.Entity.call(this, {name: 'ENEMY_ALIEN_Entity', is_static: false, boundingBox: new THREE.Vector3(24, 48, 24)});
 };
 
 Boom.Alien.prototype = Boom.inherit(Boom.Entity, {
@@ -19,12 +19,7 @@ Boom.Alien.prototype = Boom.inherit(Boom.Entity, {
         shape: Boom.Constants.Component.MODEL, 
         model: Boom.Assets.enemies.alien,
         position: this.position,
-        color: 0xFFFF00,
-        size: this.size,
         height: this.height,
-        mass: 100,
-        friction: 0,
-        restitution: 0.5,
         gravity: true,
         owner: this
       }

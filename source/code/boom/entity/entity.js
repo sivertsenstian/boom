@@ -7,6 +7,7 @@ Boom.Entity = function( params ){
   this.id = Boom.guid();
   this.name = params.name || "EntityName";
   this.faction = params.faction || Boom.Constants.HOSTILE;
+  this.boundingBox = params.boundingBox || new THREE.Vector3(Boom.Constants.World.SIZE, Boom.Constants.World.SIZE, Boom.Constants.World.SIZE);
   this.__addToScene = params.hasOwnProperty('addToScene') ? params.addToScene : true; //Defaults to new
   this.__isStatic = params.hasOwnProperty('is_static') ? params.is_static : true; //Defaults to static
   this.__isMerged = params.hasOwnProperty('is_merged') ? params.is_merged : false; //Defaults to un-merged
