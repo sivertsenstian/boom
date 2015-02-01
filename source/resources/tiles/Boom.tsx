@@ -134,4 +134,16 @@
   </properties>
   <image width="24" height="24" source="map/wall3b.jpg"/>
  </tile>
+ <tile id="18">
+  <properties>
+   <property name="Boom.ID" value="0a89b621-e2ed-4618-ad90-57641ba6a563"/>
+  </properties>
+  <image width="24" height="24" source="map/alien.jpg"/>
+ </tile>
+ <tile id="19">
+  <properties>
+   <property name="Boom.ID" value="44ade206-60e5-43b7-aaa3-045e147a1c88"/>
+  </properties>
+  <image width="24" height="24" source="map/player.jpg"/>
+ </tile>
 </tileset>

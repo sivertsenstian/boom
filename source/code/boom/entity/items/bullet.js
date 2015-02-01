@@ -1,12 +1,12 @@
-Boom.Bullet = function( direction, spawn ){
-  this.spawn = spawn;
-  this.direction = direction;
+Boom.Bullet = function( params ){
+  this.spawn = params.spawn;
+  this.direction = params.direction;
   this.size = .25;
   this.speed = 10;
   this.velocity = new THREE.Vector3(0, 0, 0);
   this.msg = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, data: null, type: Boom.Constants.Message.Action.VELOCITY, sender: this.name });
 
-  Boom.Entity.call(this, {name: 'AMMO_BulletEntity', is_static: false});
+  Boom.Entity.call(this, {name: 'AMMO_BulletEntity', is_static: false, faction: params.faction});
 };
 
 Boom.Bullet.prototype = Boom.inherit(Boom.Entity, {
@@ -31,7 +31,7 @@ Boom.Bullet.prototype = Boom.inherit(Boom.Entity, {
     );
     this.components[physics.name] = physics;
 
-    var collision = new Boom.CollisionActionComponent(
+    var collision = new Boom.PreciseCollisionActionComponent(
       {
         name: 'BULLET_COLLISION',
         distance: this.size,

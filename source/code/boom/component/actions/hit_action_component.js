@@ -30,6 +30,9 @@ Boom.HitActionComponent.prototype = Boom.inherit(Boom.Component, {
     if(Boom.Component.prototype.receive.call(this, message)){
       switch( message.type ){
         case Boom.Constants.Message.Action.HIT:
+          if(typeof(message.data) === 'object'){
+            message.data.dispose();
+          }
           this.owner.dispose();
           break;
         default:

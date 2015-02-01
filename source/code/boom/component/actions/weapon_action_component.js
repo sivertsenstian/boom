@@ -1,7 +1,7 @@
 Boom.WeaponActionComponent = function( params ) {
   params = params || {};
   this.type = params.type || Boom.Constants.Component.TYPE.WEAPON;
-  this.object = params.weapon || new Boom.Pistol();
+  this.object = params.weapon || new Boom.Pistol( {faction: params.owner.faction } );
   this.events = [Boom.Constants.Message.Action.SHOOT];
 
   //Call super

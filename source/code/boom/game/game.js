@@ -86,16 +86,18 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
   load: function(){
     try{
       //Player
-      var p = new Boom.Player( this.camera );
+      //var p = new Boom.Player( this.camera );
+
+      var current_map = Boom.Assets.world.MAP['TEST'];
+
+      //Collisions
+      Boom.GameGrid = new Boom.CollisionGrid( current_map );
 
       //World
-      this.world = new Boom.World();
+      this.world = new Boom.World( current_map );
 
       //Build world
       this.world.build(this.scene);
-
-      //Collisions
-      Boom.GameGrid = new Boom.CollisionGrid( this.world.map );
 
       //MERGE STATIC ENTITIES FOR OPTIMIZIATION 
       //TODO: MOVE THIS ? TO WHERE?

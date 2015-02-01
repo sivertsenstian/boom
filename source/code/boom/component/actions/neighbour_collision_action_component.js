@@ -1,4 +1,4 @@
-Boom.CollisionActionComponent = function( params ) {
+Boom.NeighbourCollisionActionComponent = function( params ) {
   params = params || {};
   this.type = params.type || Boom.Constants.Component.TYPE.ACTION;
   this.distance = params.distance || 1;
@@ -12,8 +12,8 @@ Boom.CollisionActionComponent = function( params ) {
   Boom.Component.call(this, params );
 };
 
-Boom.CollisionActionComponent.prototype = Boom.inherit(Boom.Component, {
-  constructor: Boom.CollisionActionComponent,
+Boom.NeighbourCollisionActionComponent.prototype = Boom.inherit(Boom.Component, {
+  constructor: Boom.NeighbourCollisionActionComponent,
 
   init: function() {
     //Call super
@@ -36,7 +36,7 @@ Boom.CollisionActionComponent.prototype = Boom.inherit(Boom.Component, {
       switch( message.type ){
         case Boom.Constants.Message.Action.VELOCITY_FLAT:
         case Boom.Constants.Message.Action.VELOCITY:
-          var collisions = Boom.GameGrid.isColliding( this.owner_physical.object.position );
+          var collisions = Boom.GameGrid.checkNeighbours( this.owner_physical.object.position );
           var collided = false;
 
           if(collisions[0] && message.data.x > 0 || collisions[1] && message.data.x < 0){

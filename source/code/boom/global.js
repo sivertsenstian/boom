@@ -48,6 +48,7 @@ Boom.handleError = function( error, location ) {
   console.error( error );
   console.error( error.stack );
   console.error( "----------------------" );
+  throw new Error('Exiting due to error...');
 };
 
 Boom.color = function(){

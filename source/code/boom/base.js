@@ -28,8 +28,8 @@ Boom.Base.prototype = {
     this.renderer.shadowMapEnabled = true;
     this.renderer.shadowMapType = THREE.PCFSoftShadowMap;
   
-    this.camera = new THREE.PerspectiveCamera(this.cameraFov, this.width / this.height, this.cameraNear, this.cameraFar);
-    this.camera.name = Boom.Constants.Objects.CAMERA;
+    Boom.Constants.PLAYER_CAMERA = new THREE.PerspectiveCamera(this.cameraFov, this.width / this.height, this.cameraNear, this.cameraFar);
+    Boom.Constants.PLAYER_CAMERA.name = Boom.Constants.Objects.CAMERA;
 
     this.scene = new THREE.Scene();
     this.scene.name = Boom.Constants.Objects.SCENE;
@@ -78,7 +78,7 @@ Boom.Base.prototype = {
   },
 
   draw: function(){
-    this.renderer.render(this.scene, this.camera);
+    this.renderer.render(this.scene, Boom.Constants.PLAYER_CAMERA);
     this.renderStats.update();
   },
 
@@ -105,8 +105,8 @@ Boom.Base.prototype = {
   })(),
 
   onResize: function(){
-    this.camera.aspect = this.width / this.height;
-    this.camera.updateProjectionMatrix();
+    Boom.Constants.PLAYER_CAMERA.aspect = this.width / this.height;
+    Boom.Constants.PLAYER_CAMERA.updateProjectionMatrix();
 
     this.renderer.setSize(this.width, this.height);
   }

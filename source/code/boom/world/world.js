@@ -1,5 +1,8 @@
-Boom.World = function(){
+Boom.World = function( map ){
   this.name = "WorldName";
+
+  //this.map = Boom.Assets.world.MAP['MAP01'];
+  this.map = map;
 
   //Dimension
   this.width = Boom.Constants.World.WIDTH;
@@ -91,11 +94,9 @@ Boom.World.prototype = {
     var ambient_light = new THREE.AmbientLight( 0x404040 );
     this.lights.push ( ambient_light );
 
-    //this.map = Boom.Assets.world.MAP['MAP01'];
-    this.map = Boom.Assets.world.MAP['TEST'];
-
     var pos;
 
+    //TODO: INCORPORATE ENTITIES, AND LATER LIGHTS WITH THE SAME AUTOGENERATION FROM MAP
     var tileId, tilePath;
     var map_tile_properties = this.map.tilesets[0].tileproperties;
     for (tile in map_tile_properties) {
@@ -158,6 +159,20 @@ Boom.World.prototype = {
                           size: this.map.tilewidth,
                           type: map_tile_properties[current_tile]['Boom.ID']
                          });
+      }
+    }
+
+    //ENTITIES
+    var entityFactory = new Boom.EntityFactory();
+    for(var i = 0; i < this.map.layers[Boom.Constants.World.LAYER.ENTITIES].data.length; i++){
+      current_tile = this.map.layers[Boom.Constants.World.LAYER.ENTITIES].data[i] - this.map.tilesets[0].firstgid;
+      if( map_tile_properties.hasOwnProperty( current_tile ) ){
+        pos = new THREE.Vector3(this.map.tilewidth * Math.floor((i / this.map.width)),
+                                  0, 
+                                  this.map.tilewidth * Math.floor((i % this.map.height)));
+
+        var entity = entityFactory.spawnEntity( map_tile_properties[current_tile]['Boom.ID'], { position: pos });
+        Boom.GameGrid.addEntity( entity.id, pos );
       }
     }
 

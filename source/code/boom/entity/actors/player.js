@@ -1,13 +1,14 @@
-Boom.Player = function( camera ){
-  this.camera = camera;
-  this.size = 6;
+Boom.Player = function( params ){
+  this.camera = Boom.Constants.PLAYER_CAMERA;
+  this.size = 1;
   this.height = 24;
   this.onGround = Boom.Constants.FALSE;
+  this.position = params.position || new THREE.Vector3(0, 0, 0);
   if( typeof this.camera === 'undefined' || this.camera === null){
       throw Boom.Exceptions.CameraMissingException;
   }
 
-  Boom.Entity.call(this, {name: 'PLAYER_Entity', is_static: false});
+  Boom.Entity.call(this, {name: 'PLAYER_Entity', is_static: false, faction: Boom.Constants.FRIENDLY});
 };
 
 Boom.Player.prototype = Boom.inherit(Boom.Entity, {
@@ -20,22 +21,18 @@ Boom.Player.prototype = Boom.inherit(Boom.Entity, {
     var physics = new Boom.PhysicalComponent(
        {
         name: 'player_physics',
-        shape: Boom.Constants.Component.SPHERE,
-        //position: new THREE.Vector3(2748, 0, 1164),
-        position: new THREE.Vector3(48, 50, 48),
+        shape: Boom.Constants.Component.BOX,
+        position: this.position,
         color: 0xFFFF00,
         size: this.size,
         height: this.height,
-        mass: 100,
-        friction: 0,
-        restitution: 0.5,
         gravity: true,
         owner: this
       }
     );
     this.components[physics.name] = physics;
 
-    var collision = new Boom.CollisionActionComponent(
+    var collision = new Boom.NeighbourCollisionActionComponent(
       {
         name: 'player_collision',
         distance: this.size,

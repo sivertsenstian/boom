@@ -1,5 +1,5 @@
-Boom.Pistol = function(){
-  Boom.Entity.call(this, {name: 'WEAPON_PistolEntity', addToScene: false, is_static: false});
+Boom.Pistol = function( params ){
+  Boom.Entity.call(this, {name: 'WEAPON_PistolEntity', addToScene: false, is_static: false, faction: params.faction});
   this.cooldown = 200;
   this.last_shot = Boom.getCurrentTime();
 };
@@ -63,7 +63,7 @@ Boom.Pistol.prototype = Boom.inherit(Boom.Entity, {
     
       var spawn = new THREE.Vector3( -6 , 4 , 0 );
       this.components['pistol_physics'].object.localToWorld(spawn);
-      new Boom.Bullet( dir, spawn );
+      new Boom.Bullet( {direction: dir, spawn: spawn, faction: this.faction} );
       this.components['pistol_animation_shoot'].animate();
       this.components['pistol_audio_shoot'].play();
 

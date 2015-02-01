@@ -1,8 +1,10 @@
 Boom.Constants = {
   
   TRUE: '46e25702-b22f-4d18-a391-7f7e0bba137c',
-
   FALSE: '1cf21342-39c3-4bf0-865c-d28f19448112',
+  PLAYER_CAMERA: null,
+  HOSTILE: '63fc00f3-416d-43db-9fcf-315ae62c01e9',
+  FRIENDLY: 'ba75d021-1988-4cbb-a6c5-05071b69572f',
 
   World:{
     WIDTH: 32,
@@ -19,6 +21,11 @@ Boom.Constants = {
       ENTITIES: 5
     }
 
+  },
+
+  Entities:{
+    PLAYER: '44ade206-60e5-43b7-aaa3-045e147a1c88',
+    ALIEN:'0a89b621-e2ed-4618-ad90-57641ba6a563'
   },
 
   Component:{

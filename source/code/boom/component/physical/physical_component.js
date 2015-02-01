@@ -9,13 +9,9 @@ Boom.PhysicalComponent = function( params ) {
   this.scale = params.scale || new THREE.Vector3(1, 1, 1);
   this.position = params.position || new THREE.Vector3(0, 0, 0);
   this.rotation = params.rotation || new THREE.Vector3(0, 0, 0);
-  this.mass = params.mass || 0;
   this.size = params.size || 1;
   this.height = params.height || 0;
-  this.friction = params.friction || 0;
-  this.restitution  = params.hasOwnProperty('restitution') ? params.restitution  : 1;
-  this.linear_damping = params.linearDamping || 0.5;
-  this.angular_damping = params.angularDamping || 1.0;
+  this.damping = params.damping || 0.5;
   this.castShadow = params.castShadow || false;
   this.velocity = new THREE.Vector3(0, 0, 0);
   this.gravity = params.gravity || false;
@@ -48,7 +44,7 @@ Boom.PhysicalComponent.prototype = Boom.inherit(Boom.Component, {
         this.object = new THREE.Mesh(this.geometry, this.material);
         break;
       case Boom.Constants.Component.MODEL:
-        this.object = this.model;
+        this.object = this.model.clone(); //TODO: CLONE NEEDED? HAD PROBLEMS WITH ONLY 1 OCCURENCE BEING RENDERED
         break;
       default:
         Boom.handleError( " ERROR: Component 'shape' not defined: '" + this.shape + "'", "Boom.PhysicalComponent");
@@ -74,7 +70,7 @@ Boom.PhysicalComponent.prototype = Boom.inherit(Boom.Component, {
 
   update: function(){
     if(this.velocity.length() !== 0){
-      this.object.position.add( this.velocity.multiplyScalar( this.linear_damping ) );
+      this.object.position.add( this.velocity.multiplyScalar( this.damping ) );
 
       if( this.owner.onGround === Boom.Constants.FALSE && this.gravity && this.object.position.y <= this.height){
         this.object.position.y = this.height;

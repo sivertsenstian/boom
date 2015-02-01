@@ -54,7 +54,7 @@
          "name":"light",
          "opacity":1,
          "type":"tilelayer",
-         "visible":true,
+         "visible":false,
          "width":128,
          "x":0,
          "y":0
@@ -65,7 +65,7 @@
          "name":"entities",
          "opacity":1,
          "type":"tilelayer",
-         "visible":true,
+         "visible":false,
          "width":128,
          "x":0,
          "y":0
@@ -279,6 +279,25 @@
              "9":
                 {
                  "image":"..\/tiles\/map\/monitor06.jpg"
+                }
+            },
+         "tilewidth":24
+        }, 
+        {
+         "firstgid":19,
+         "margin":0,
+         "name":"Sand",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":24,
+         "tiles":
+            {
+             "0":
+                {
+                 "image":"..\/structures\/wall\/sand\/map.jpg"
                 }
             },
          "tilewidth":24

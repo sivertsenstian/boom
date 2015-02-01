@@ -36,12 +36,14 @@
   <script type="text/javascript" src='code/boom/component/actions/movement_action_component.js'></script>
   <script type="text/javascript" src='code/boom/component/actions/jump_action_component.js'></script>
   <script type="text/javascript" src='code/boom/component/actions/weapon_action_component.js'></script>
-  <script type="text/javascript" src='code/boom/component/actions/collision_action_component.js'></script>
+  <script type="text/javascript" src='code/boom/component/actions/neighbour_collision_action_component.js'></script>
+  <script type="text/javascript" src='code/boom/component/actions/precise_collision_action_component.js'></script>
   <script type="text/javascript" src='code/boom/component/actions/gravity_action_component.js'></script>
   <script type="text/javascript" src='code/boom/component/actions/hit_action_component.js'></script>
 
   <!-- ### ENTITIES ### -->
   <script type="text/javascript" src='code/boom/entity/entity.js'></script>
+  <script type="text/javascript" src='code/boom/entity/entity_factory.js'></script>
   <!-- WEAPONS -->
   <script type="text/javascript" src='code/boom/entity/weapons/pistol.js'></script>
   <!-- ITEMS -->
@@ -52,6 +54,7 @@
   <script type="text/javascript" src='code/boom/entity/items/ceiling.js'></script>
   <!-- ACTORS -->
   <script type="text/javascript" src='code/boom/entity/actors/player.js'></script>
+  <script type="text/javascript" src='code/boom/entity/actors/alien.js'></script>
 
 
   <!-- WORLD -->
@@ -70,6 +73,7 @@
       var loader = new PxLoader();
       //Models
       loader.addDAEModel('/resources/weapons/1/gun2_small_with_hand2.dae', ['weapons', 'gun'] );
+      loader.addDAEModel('/resources/actors/aliendude.dae', ['enemies', 'alien'] );
 
       //Maps
       loader.addJSON('/resources/maps/test1.json', ['world', 'MAP', 'TEST'] );
