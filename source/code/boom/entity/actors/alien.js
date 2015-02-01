@@ -62,15 +62,29 @@ Boom.Alien.prototype = Boom.inherit(Boom.Entity, {
     });
     this.components[weapon.name] = weapon;
 
-    var audio_death = new Boom.AudioComponent(
+    var animation_death = new Boom.AnimationComponent( 
       {
-        name: 'AUDIO_DEATH',
-        sound: Boom.Assets.sounds.hostile.death,
-        volume: 0.15,
+        name: "ANIMATION_DEATH",
+        object: physics.object,
+        position: new THREE.Vector3(10, 0, 0), 
+        rotation: new THREE.Vector3(0, -Math.PI, 0), 
+        ms: 500,
         owner: this
       }
     );
-    this.components[audio_death.name] = audio_death;
+    this.components[animation_death.name] = animation_death;
+
+    var animation_pain = new Boom.AnimationComponent( 
+      {
+        name: "ANIMATION_PAIN",
+        object: physics.object,
+        position: new THREE.Vector3(0, 0.25, 0.25), 
+        rotation: new THREE.Vector3(-0.5, 0, 0), 
+        ms: 500,
+        owner: this
+      }
+    );
+    this.components[animation_pain.name] = animation_pain;
 
     var audio_pain = new Boom.AudioComponent(
       {
@@ -81,6 +95,16 @@ Boom.Alien.prototype = Boom.inherit(Boom.Entity, {
       }
     );
     this.components[audio_pain.name] = audio_pain;
+
+    var audio_death = new Boom.AudioComponent(
+      {
+        name: 'AUDIO_DEATH',
+        sound: Boom.Assets.sounds.hostile.death,
+        volume: 0.05,
+        owner: this
+      }
+    );
+    this.components[audio_death.name] = audio_death;
 
     this.load();
   },
@@ -97,8 +121,15 @@ Boom.Alien.prototype = Boom.inherit(Boom.Entity, {
 
   dispose: function(){
     this.components.AUDIO_DEATH.play();
-    //Call super
-    Boom.Entity.prototype.dispose.call(this);
+    this.components.ANIMATION_DEATH.animate();
+
+    setTimeout(function( entity ){ 
+      entity.__dispose = true;
+    }, 
+    this.components.ANIMATION_DEATH.ms, this);
+    
+    //Boom.Entity.prototype.dispose.call(this)
+    
   }
 
 
