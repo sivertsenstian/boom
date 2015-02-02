@@ -101,6 +101,13 @@ Boom.Player.prototype = Boom.inherit(Boom.Entity, {
     });
     this.components[crosshair.name] = crosshair;
 
+    var hud = new Boom.HUDComponent({
+      name: 'player_HUD',
+      hudComponents: [health],
+      owner: this
+    });
+    this.components[hud.name] = hud;
+
     this.load();
   },
 

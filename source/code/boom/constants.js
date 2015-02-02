@@ -68,7 +68,11 @@ Boom.Constants = {
     },
     Hit: {
       DISPOSE: Boom.guid(),
-      DISPOSE_DEALDAMAGE: Boom.guid()
+      DISPOSE_DEALDAMAGE: Boom.guid(),
+
+    },
+    HUD: {
+      HEALTH_CHANGE: Boom.guid
     }
   },
   

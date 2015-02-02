@@ -181,7 +181,7 @@ Boom.World.prototype = {
     //Start music! TODO: Move this to a more appropriate place!
     //TODO: Reorganize the map structure into more logical bits (map loading, assets, music, skybox lights etc etc)
     this.music = Boom.Assets.music.maps[this.map.properties['Boom.ID']] || Boom.Assets.music.MISSING;
-    this.music.play();
+    //this.music.play();
   },
 
   load: function(){

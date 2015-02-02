@@ -3,9 +3,12 @@ Boom.HealthActionComponent = function( params ) {
   this.type = params.type || Boom.Constants.Component.TYPE.ACTION;
   this.value = params.value || 100;
   this.limit = params.value || 100;
+  this.HUD_NAME = 'HEALTH';
+  this.HUD_COLOR = 'lightcoral'
   this.events = [Boom.Constants.Message.Action.REDUCE_HEALTH, Boom.Constants.Message.Action.INCREASE_HEALTH];
 
   this.death = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, data: null, type: Boom.Constants.Message.Action.DEATH, sender: this.type });
+  this.hudUpdate = new Boom.Message({ receiver: Boom.Constants.Message.UI, data: null, type: Boom.Constants.Message.HUD.HEALTH_CHANGE, sender: this.type });
   this.died = false;
   //Call super
   Boom.Component.call(this, params );
@@ -42,6 +45,8 @@ Boom.HealthActionComponent.prototype = Boom.inherit(Boom.Component, {
       switch( message.type ){
         case Boom.Constants.Message.Action.REDUCE_HEALTH:
           this.value -= message.data;
+          this.hudUpdate.data = this.value;
+          this.send( this.hudUpdate );
           if( this.owner.components.hasOwnProperty('AUDIO_PAIN') ){
             this.owner.getComponent( 'AUDIO_PAIN' ).play();
           }
@@ -51,6 +56,8 @@ Boom.HealthActionComponent.prototype = Boom.inherit(Boom.Component, {
           break;
         case Boom.Constants.Message.Action.INCREASE_HEALTH:
           this.value += message.data;
+          this.hudUpdate.data = this.value;
+          this.send( this.hudUpdate );
           break;
         default:
           console.log( "UNKNOWN MESSAGE!" );

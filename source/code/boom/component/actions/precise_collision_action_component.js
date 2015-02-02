@@ -40,11 +40,11 @@ Boom.PreciseCollisionActionComponent.prototype = Boom.inherit(Boom.Component, {
 
           if( collided ){
             if( typeof(collided) === 'object' && (this.owner.faction === collided.faction)){ //FIXME - could probably be done better - hit components??
-              console.log(" -------------------------------------------   ");
+              //console.log(" -------------------------------------------   ");
               console.log("ENTITY HIT - BUT SAME FACTION. NO COLLISION!");
-              console.log(this.owner);
-              console.log(collided);
-               console.log(" ------------------------------------------- \n\n");
+              //console.log(this.owner);
+              //console.log(collided);
+              //console.log(" ------------------------------------------- \n\n");
             }
             else{
               message.data.set(0, 0, 0);

@@ -100,7 +100,7 @@ Boom.Alien.prototype = Boom.inherit(Boom.Entity, {
       {
         name: 'AUDIO_DEATH',
         sound: Boom.Assets.sounds.hostile.death,
-        volume: 0.05,
+        volume: 0.10,
         owner: this
       }
     );
