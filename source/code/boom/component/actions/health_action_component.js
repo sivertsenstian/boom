@@ -3,12 +3,14 @@ Boom.HealthActionComponent = function( params ) {
   this.type = params.type || Boom.Constants.Component.TYPE.ACTION;
   this.value = params.value || 100;
   this.limit = params.value || 100;
-  this.HUD_NAME = 'HEALTH';
-  this.HUD_COLOR = 'lightcoral'
   this.events = [Boom.Constants.Message.Action.REDUCE_HEALTH, Boom.Constants.Message.Action.INCREASE_HEALTH];
 
+  //HUD
+  this.registerHud = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.HUD, data: { name: 'HEALTH', color: 'lightcoral', value: this.value }, type: Boom.Constants.Message.HUD.REGISTER, sender: this.type });
+  this.hudUpdate = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.HUD, data: { name: 'HEALTH', value: this.value }, type: Boom.Constants.Message.HUD.UPDATE, sender: this.type });
+
+  //DEATH(!)
   this.death = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, data: null, type: Boom.Constants.Message.Action.DEATH, sender: this.type });
-  this.hudUpdate = new Boom.Message({ receiver: Boom.Constants.Message.UI, data: null, type: Boom.Constants.Message.HUD.HEALTH_CHANGE, sender: this.type });
   this.died = false;
   //Call super
   Boom.Component.call(this, params );
@@ -18,6 +20,7 @@ Boom.HealthActionComponent.prototype = Boom.inherit(Boom.Component, {
   constructor: Boom.HealthActionComponent,
 
   init: function() {
+    this.send( this.registerHud );
     //Call super
     Boom.Component.prototype.init.call(this);
   },
@@ -45,7 +48,7 @@ Boom.HealthActionComponent.prototype = Boom.inherit(Boom.Component, {
       switch( message.type ){
         case Boom.Constants.Message.Action.REDUCE_HEALTH:
           this.value -= message.data;
-          this.hudUpdate.data = this.value;
+          this.hudUpdate.data.value = this.value;
           this.send( this.hudUpdate );
           if( this.owner.components.hasOwnProperty('AUDIO_PAIN') ){
             this.owner.getComponent( 'AUDIO_PAIN' ).play();
@@ -56,7 +59,7 @@ Boom.HealthActionComponent.prototype = Boom.inherit(Boom.Component, {
           break;
         case Boom.Constants.Message.Action.INCREASE_HEALTH:
           this.value += message.data;
-          this.hudUpdate.data = this.value;
+          this.hudUpdate.data.value = this.value;
           this.send( this.hudUpdate );
           break;
         default:

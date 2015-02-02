@@ -19,10 +19,7 @@ Boom.Ceiling.prototype = Boom.inherit(Boom.Entity, {
         shape: Boom.Constants.Component.BOX,
         position: this.position,
         color: 0xEDC9AF,
-        mass: 0,
         size: this.size,
-        friction: 0,
-        restitution: 0,
         texture: this.texture,
         owner: this
       }

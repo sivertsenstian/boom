@@ -18,6 +18,12 @@ Boom.Player.prototype = Boom.inherit(Boom.Entity, {
     //Call super
     Boom.Entity.prototype.init.call(this);
     
+    var hud = new Boom.HUDComponent({
+      name: 'player_HUD',
+      owner: this
+    });
+    this.components[hud.name] = hud;
+
     var health = new Boom.HealthActionComponent({
       name: 'player_health',
       owner: this
@@ -100,13 +106,6 @@ Boom.Player.prototype = Boom.inherit(Boom.Entity, {
       owner: this
     });
     this.components[crosshair.name] = crosshair;
-
-    var hud = new Boom.HUDComponent({
-      name: 'player_HUD',
-      hudComponents: [health],
-      owner: this
-    });
-    this.components[hud.name] = hud;
 
     this.load();
   },

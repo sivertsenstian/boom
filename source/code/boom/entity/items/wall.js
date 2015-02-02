@@ -29,11 +29,8 @@ Boom.Wall.prototype = Boom.inherit(Boom.Entity, {
         shape: Boom.Constants.Component.BOX,
         position: this.position,
         color: 0x6C541E,
-        mass: 0,
         size: this.size,
         scale: new THREE.Vector3(this.width, this.height, this.width),
-        friction: 0,
-        restitution: 0,
         texture: this.texture,
         owner: this
       }

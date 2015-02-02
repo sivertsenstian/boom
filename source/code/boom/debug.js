@@ -203,5 +203,8 @@ Boom.Exceptions = {
   OwnerMissingException: "No Owner was defined",
   NoMessageReceiverException: "No Receiver was defined",
   CameraMissingException: "No Camera was defined",
-  UndefinedEntityTypeException: "No Entity.type defined"
+  UndefinedEntityTypeException: "No Entity.type defined",
+  DuplicateItemInHashException: 'Key already exists in hash',
+  ItemNotDefinedInHashException: 'Key does not exist in hash',
+  ComponentMustBeDefinedFirstException: 'This component MUST be defined first for the entity - and it isnt'
 };

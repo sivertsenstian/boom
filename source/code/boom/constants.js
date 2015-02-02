@@ -41,7 +41,8 @@ Boom.Constants = {
       ACTION: 'action',
       HIT: 'hit',
       WEAPON: 'weapon',
-      UI: 'UI'
+      UI: 'UI',
+      HUD: 'HUD'
     }
   },
 
@@ -72,7 +73,8 @@ Boom.Constants = {
 
     },
     HUD: {
-      HEALTH_CHANGE: Boom.guid
+      REGISTER: Boom.guid(),
+      UPDATE: Boom.guid()
     }
   },
   
