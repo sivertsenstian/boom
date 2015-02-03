@@ -16,7 +16,7 @@ Boom.World.prototype = {
   constructor: Boom.World,
 
   init: function(){
-
+    //SKYBOX
     this.skybox = new Boom.SkyBox({
       position: new THREE.Vector3(this.width/2 * this.size, -(this.size*8) , this.height/2 * this.size),
       size: 1,
@@ -25,8 +25,10 @@ Boom.World.prototype = {
       texture_map: this.map.properties['Boom.SKYBOX']
     });
 
-    //Fog
-    this.fog = new THREE.FogExp2(0x000000, 0.0035);
+    //FOG
+    var fog_color = this.map.properties['Boom.FOG_COLOR'] || 0xFFFFFF;
+    var fog_distance = this.map.properties['Boom.FOG_DISTANCE'] || 0.002;
+    this.fog = new THREE.FogExp2(fog_color, fog_distance);
 
     //Lights
     this.lights = [];
@@ -141,9 +143,6 @@ Boom.World.prototype = {
   },
 
   build: function(scene){
-    //Add Fog
-    //scene.fog = this.fog;
-
     //Add Lights
     for(var i = 0; i < this.lights.length; i++){
       scene.add(this.lights[i]);

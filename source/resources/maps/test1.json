@@ -73,6 +73,8 @@
  "orientation":"orthogonal",
  "properties":
     {
+     "Boom.FOG_COLOR":"0x000000",
+     "Boom.FOG_DISTANCE":"0.0035",
      "Boom.ID":"c7cc27d8-da16-4c26-bb03-0e2d04de63c8",
      "Boom.NAME":"Test",
      "Boom.SKYBOX":"\/resources\/tiles\/skybox_sun.png"
@@ -83,7 +85,7 @@
         {
          "firstgid":1,
          "margin":0,
-         "name":"Sand",
+         "name":"Boom",
          "properties":
             {
 
@@ -177,16 +179,6 @@
              "24":
                 {
                  "Boom.ID":"44ade206-60e5-43b7-aaa3-045e147a1c88"
-                },
-             "3":
-                {
-                 "Boom.ID":"b4403eac-c8ad-48af-b847-ff9d1248abd9",
-                 "Boom.Path":"\/resources\/tiles\/texture\/sand_floor.jpg"
-                },
-             "4":
-                {
-                 "Boom.ID":"bb33e765-1735-4661-80f4-40079eae6629",
-                 "Boom.Path":"\/resources\/tiles\/texture\/space_metal_blue.jpg"
                 },
              "5":
                 {

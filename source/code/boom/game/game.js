@@ -95,6 +95,7 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
 
       //World
       this.world = new Boom.World( current_map );
+      this.scene.fog = this.world.fog; //TODO: figure out a way to to this without having to pass the scene to world
 
       //Build world
       this.world.build(this.scene);
