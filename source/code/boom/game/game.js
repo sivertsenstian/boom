@@ -9,7 +9,7 @@ Boom.Game = function() {
   
   //this.antialias = true;
   this.cameraFov = 75;
-  this.cameraFar = 500;
+  this.cameraFar = 2000; //OPTIMIZE - Performance draining???
 
   this.width = 800;
   this.height = 600;
@@ -42,7 +42,7 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
           entity.update();
         }
 
-        if( entity.__addToScene && !entity.__isStatic ){
+        if( entity.__addToScene && (!entity.__isStatic || entity.__isStatic && entity.__singular) ){
           var component = entity.getComponent( Boom.Constants.Component.TYPE.PHYSICAL );
           if ( component ){
             console.log("ADDING " + entity.name);
@@ -111,7 +111,7 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
             continue;
         }
         var entity = Boom.Entities[id];
-        if(entity.__isStatic && !entity.__isMerged){
+        if(entity.__isStatic && !entity.__isMerged && !entity.__singular){
           var component = entity.getComponent( Boom.Constants.Component.TYPE.PHYSICAL );
           if ( component ){
             for ( var face in component.object.geometry.faces ) {

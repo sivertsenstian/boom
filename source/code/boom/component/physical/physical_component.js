@@ -4,6 +4,7 @@ Boom.PhysicalComponent = function( params ) {
   this.shape = params.shape || Boom.Constants.Component.BOX;
   this.type = params.type || Boom.Constants.Component.TYPE.PHYSICAL;
   this.texture = params.texture || null;
+  this.material = params.material || null;
   this.model = params.model || null;
   this.color = params.color || 0xFFFFFF;
   this.scale = params.scale || new THREE.Vector3(1, 1, 1);
@@ -31,7 +32,9 @@ Boom.PhysicalComponent.prototype = Boom.inherit(Boom.Component, {
     if(this.texture !== null && this.texture.sourceFile === ''){
       this.texture = Boom.Assets.textures[Boom.Assets.world.ENTITY.MISSING];
     }
-    this.material = (this.texture === null) ? new THREE.MeshBasicMaterial({ color: this.color }) : new THREE.MeshLambertMaterial({ map: this.texture });
+    if(this.material === null){
+      this.material = (this.texture === null) ? new THREE.MeshBasicMaterial({ color: this.color }) : new THREE.MeshLambertMaterial({ map: this.texture });
+    }
     this.geometry = undefined;
     this.object = undefined;
     switch ( this.shape ){

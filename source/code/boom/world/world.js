@@ -1,18 +1,13 @@
 Boom.World = function( map ){
-  this.name = "WorldName";
-
-  //this.map = Boom.Assets.world.MAP['MAP01'];
   this.map = map;
+
+  //Map Properties
+  this.name = this.map.properties['Boom.NAME'] || "WorldName";
 
   //Dimension
   this.width = Boom.Constants.World.WIDTH;
   this.height = Boom.Constants.World.HEIGHT;
   this.size = Boom.Constants.World.SIZE;
-
-  //Textures
-  this.textures = {
-    skybox: '/resources/structures/skybox/1/1.png'
-  };
 
   this.init();
 };
@@ -21,58 +16,14 @@ Boom.World.prototype = {
   constructor: Boom.World,
 
   init: function(){
-    //Skybox
-    var cubeMap = new THREE.CubeTexture( [] );
-    cubeMap.format = THREE.RGBFormat;
-    cubeMap.flipY = false;
 
-    var loader = new THREE.ImageLoader();
-    loader.load( this.textures.skybox , function ( image ) {
-
-      var getSide = function ( x, y ) {
-
-        var size = 1024;
-
-        var canvas = document.createElement( 'canvas' );
-        canvas.width = size;
-        canvas.height = size;
-
-        var context = canvas.getContext( '2d' );
-        context.drawImage( image, - x * size, - y * size );
-
-        return canvas;
-
-      };
-
-      cubeMap.images[ 0 ] = getSide( 2, 1 ); // px
-      cubeMap.images[ 1 ] = getSide( 0, 1 ); // nx
-      cubeMap.images[ 2 ] = getSide( 1, 0 ); // py
-      cubeMap.images[ 3 ] = getSide( 1, 2 ); // ny
-      cubeMap.images[ 4 ] = getSide( 1, 1 ); // pz
-      cubeMap.images[ 5 ] = getSide( 3, 1 ); // nz
-      cubeMap.needsUpdate = true;
-
-    } );
-
-    var cubeShader = THREE.ShaderLib['cube'];
-    cubeShader.uniforms['tCube'].value = cubeMap;
-
-    var skyBoxMaterial = new THREE.ShaderMaterial( {
-      fragmentShader: cubeShader.fragmentShader,
-      vertexShader: cubeShader.vertexShader,
-      uniforms: cubeShader.uniforms,
-      depthWrite: false,
-      side: THREE.BackSide
+    this.skybox = new Boom.SkyBox({
+      position: new THREE.Vector3(this.width/2 * this.size, -(this.size*8) , this.height/2 * this.size),
+      size: 1,
+      width: (this.size * this.width * 2),
+      height: (this.size * this.width),
+      texture_map: this.map.properties['Boom.SKYBOX']
     });
-
-    this.skyBox = new THREE.Mesh(
-      new THREE.BoxGeometry( (this.size * this.width) * Boom.Constants.World.SKYBOX_SCALAR, 
-                             (this.size * this.width),
-                             (this.size * this.width) * Boom.Constants.World.SKYBOX_SCALAR),
-      skyBoxMaterial
-    );
-    this.skyBox.name = Boom.Constants.Objects.SKYBOX;
-
 
     //Fog
     this.fog = new THREE.FogExp2(0x000000, 0.0035);
@@ -86,6 +37,7 @@ Boom.World.prototype = {
     directional_light.name = Boom.Constants.Objects.LIGHT;
     directional_light.lookAt(0,0,0);
     this.lights.push( directional_light );
+
     var hemisphere_light = new THREE.HemisphereLight( 0xFFFFFF,  0x000000, 0.2 );
     hemisphere_light.position.set( (this.size*this.width)/2,  this.size, (this.size*this.width)/2 );
     hemisphere_light.name = Boom.Constants.Objects.LIGHT;
@@ -190,16 +142,12 @@ Boom.World.prototype = {
 
   build: function(scene){
     //Add Fog
-    scene.fog = this.fog;
+    //scene.fog = this.fog;
 
     //Add Lights
     for(var i = 0; i < this.lights.length; i++){
       scene.add(this.lights[i]);
     }
-
-    //Add Skybox
-    this.skyBox.position.set(this.width/2 * this.size, -(this.size*8) , this.height/2 * this.size);
-    scene.add( this.skyBox );
   },
 
   update: function(){

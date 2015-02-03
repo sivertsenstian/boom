@@ -11,6 +11,7 @@ Boom.Entity = function( params ){
   this.__addToScene = params.hasOwnProperty('addToScene') ? params.addToScene : true; //Defaults to new
   this.__isStatic = params.hasOwnProperty('is_static') ? params.is_static : true; //Defaults to static
   this.__isMerged = params.hasOwnProperty('is_merged') ? params.is_merged : false; //Defaults to un-merged
+  this.__singular = params.hasOwnProperty('is_singular') ? params.is_singular : false; //Defaults to not singular (defines a static entity not to be merged but added to scene solo)
   this.__dispose = params.dispose || false;
   this.components = {};
   this.children = [];
