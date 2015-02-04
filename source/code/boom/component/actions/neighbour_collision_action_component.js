@@ -2,7 +2,7 @@ Boom.NeighbourCollisionActionComponent = function( params ) {
   params = params || {};
   this.type = params.type || Boom.Constants.Component.TYPE.ACTION;
   this.distance = params.distance || 1;
-  this.owner_physical = params.owner.getComponent( Boom.Constants.Component.TYPE.PHYSICAL );
+  this.owner_physical = params.owner.getObjectComponent();
   this.physical_velocity = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.PHYSICAL, type: Boom.Constants.Message.Action.VELOCITY, sender: this.type });
   
   this.events = [Boom.Constants.Message.Action.VELOCITY, Boom.Constants.Message.Action.VELOCITY_FLAT];

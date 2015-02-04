@@ -2,7 +2,7 @@ Boom.PreciseCollisionActionComponent = function( params ) {
   params = params || {};
   this.type = params.type || Boom.Constants.Component.TYPE.ACTION;
   this.distance = params.distance || 1;
-  this.owner_physical = params.owner.getComponent( Boom.Constants.Component.TYPE.PHYSICAL );
+  this.owner_physical = params.owner.getObjectComponent();
   this.physical_velocity = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.PHYSICAL, type: Boom.Constants.Message.Action.VELOCITY, sender: this.type });
   this.collision = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.HIT, data: null, type: Boom.Constants.Message.Hit.DISPOSE_DEALDAMAGE, sender: this.type });
   

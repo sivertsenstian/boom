@@ -70,8 +70,8 @@ Boom.Entity.prototype = {
 
   add: function( other, override ){
     this.children.push( other );
-    var this_physical = this.getComponent( Boom.Constants.Component.TYPE.PHYSICAL );
-    var other_physical = other.getComponent( Boom.Constants.Component.TYPE.PHYSICAL );
+    var this_physical = this.getObjectComponent();
+    var other_physical = other.getObjectComponent();
     if( this_physical && other_physical ){
       var parent = override || this_physical.object;
       parent.add( other_physical.object );
@@ -81,8 +81,8 @@ Boom.Entity.prototype = {
   remove: function( other ){
     for(var i = 0; i < this.children.length; i++ ){
       if( this.children[i].id === other.id ){
-        var this_physical = this.getComponent( Boom.Constants.Component.TYPE.PHYSICAL );
-        var other_physical = other.getComponent( Boom.Constants.Component.TYPE.PHYSICAL );
+        var this_physical = this.getObjectComponent();
+        var other_physical = other.getObjectComponent();
         if( this_physical && other_physical ){
           this_physical.object.remove( other_physical.object );
         }
@@ -103,13 +103,28 @@ Boom.Entity.prototype = {
   dispose: function(){
     this.__dispose = true;
   },
-
-  getComponent: function( c ){
+  //Returns entity-component based on type or name (first of its kind) 
+  getComponent: function( c ){ 
     for (component in this.components) {
       if (!this.components.hasOwnProperty(component)) {
           continue;
       }
       if( this.components[component].type === c || this.components[component].name === c){
+        return this.components[component];
+      }
+    }
+    return false;
+  },
+  //Returns a component that has an 'object'-property that is a THREE.Object3D-object, 
+  //expects there to be only one such component defined on an entity 
+  //TODO: CHECK THIS IN COMPONENT INIT AND THROW EXCEPTION IF A SECOND IS ADDED
+  getObjectComponent: function(){ 
+    for (component in this.components) {
+      if (!this.components.hasOwnProperty(component)) {
+          continue;
+      }
+      if( this.components[component].type === Boom.Constants.Component.TYPE.PHYSICAL ||
+          this.components[component].type === Boom.Constants.Component.TYPE.LIGHT){
         return this.components[component];
       }
     }

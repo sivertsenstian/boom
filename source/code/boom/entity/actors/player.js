@@ -1,4 +1,5 @@
 Boom.Player = function( params ){
+  this.type = params.type || Boom.Assets.world.ENTITY.MISSING;
   this.camera = Boom.Constants.PLAYER_CAMERA;
   this.size = 1;
   this.height = 24;

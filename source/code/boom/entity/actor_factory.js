@@ -1,9 +1,9 @@
-Boom.EntityFactory = function(){
+Boom.ActorFactory = function(){
   this.init();
 };
 
-Boom.EntityFactory.prototype = {
-  constructor: Boom.EntityFactory,
+Boom.ActorFactory.prototype = {
+  constructor: Boom.ActorFactory,
 
   init: function(){
   },
@@ -16,7 +16,7 @@ Boom.EntityFactory.prototype = {
     
   },
 
-  spawnEntity: function( type, params ){
+  spawnActor: function( type, params ){
     switch( type ){
       case Boom.Constants.Entities.ALIEN:
         return new Boom.Alien( params );

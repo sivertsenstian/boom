@@ -1,4 +1,5 @@
 Boom.Alien = function( params ){
+  this.type = params.type || Boom.Assets.world.ENTITY.MISSING;
   this.size = 6;
   this.height = 24;
   this.onGround = Boom.Constants.FALSE;
@@ -16,6 +17,7 @@ Boom.Alien.prototype = Boom.inherit(Boom.Entity, {
 
     var health = new Boom.HealthActionComponent({
       name: 'alien_health',
+      value: 50,
       owner: this
     });
     this.components[health.name] = health;

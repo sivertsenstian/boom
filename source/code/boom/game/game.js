@@ -9,7 +9,7 @@ Boom.Game = function() {
   
   //this.antialias = true;
   this.cameraFov = 75;
-  this.cameraFar = 2000; //OPTIMIZE - Performance draining???
+  this.cameraFar = 600; //OPTIMIZE - Performance draining???
 
   this.width = 800;
   this.height = 600;
@@ -43,7 +43,7 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
         }
 
         if( entity.__addToScene && (!entity.__isStatic || entity.__isStatic && entity.__singular) ){
-          var component = entity.getComponent( Boom.Constants.Component.TYPE.PHYSICAL );
+          var component = entity.getObjectComponent();
           if ( component ){
             console.log("ADDING " + entity.name);
             this.scene.add( component.object );
@@ -52,7 +52,7 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
         }
 
         if ( entity.__dispose ){
-          var component = entity.getComponent( Boom.Constants.Component.TYPE.PHYSICAL );
+          var component = entity.getObjectComponent();
           if ( component ){
             console.log("DISPOSING " + entity.name);
             entity.dispose();
@@ -85,10 +85,8 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
 
   load: function(){
     try{
-      //Player
-      //var p = new Boom.Player( this.camera );
-
       var current_map = Boom.Assets.world.MAP['TEST'];
+      //var current_map = Boom.Assets.world.MAP['MAP01'];
 
       //Collisions
       Boom.GameGrid = new Boom.CollisionGrid( current_map );
@@ -96,9 +94,6 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
       //World
       this.world = new Boom.World( current_map );
       this.scene.fog = this.world.fog; //TODO: figure out a way to to this without having to pass the scene to world
-
-      //Build world
-      this.world.build(this.scene);
 
       //MERGE STATIC ENTITIES FOR OPTIMIZIATION 
       //TODO: MOVE THIS ? TO WHERE?
@@ -113,7 +108,7 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
         }
         var entity = Boom.Entities[id];
         if(entity.__isStatic && !entity.__isMerged && !entity.__singular){
-          var component = entity.getComponent( Boom.Constants.Component.TYPE.PHYSICAL );
+          var component = entity.getObjectComponent();
           if ( component ){
             for ( var face in component.object.geometry.faces ) {
               if(entity.type === null || entity.type === undefined){
