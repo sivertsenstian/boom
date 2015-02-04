@@ -42,8 +42,16 @@ Boom.Constants = {
       HIT: 'hit',
       WEAPON: 'weapon',
       UI: 'UI',
-      HUD: 'HUD'
+      HUD: 'HUD',
+      LIGHT: 'light'
     }
+  },
+
+  Lights:{
+    AMBIENT: 'a45494b9-7876-428f-b339-626c75a1a10b',
+    DIRECTIONAL: 'a3b53140-a4ee-43e3-bda2-fb0b37bc3527',
+    HEMISPHERE: 'e37e182d-1c35-47cb-9463-678b916e9362',
+    POINT: 'dc16baf2-c933-4db4-a071-89ef72679925'
   },
 
   Message: {
