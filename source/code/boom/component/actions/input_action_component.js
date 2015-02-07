@@ -245,7 +245,7 @@ Boom.InputActionComponent.prototype = Boom.inherit(Boom.Component, {
     }
 
     if ( this.leftClick ) {
-      this.send( new Boom.Message({ receiver: Boom.Constants.Component.TYPE.WEAPON, 
+      this.send( new Boom.Message({ receiver: Boom.Constants.Component.TYPE.INVENTORY, 
                               data: this.getDirection().normalize(), 
                               type: Boom.Constants.Message.Action.SHOOT,
                               sender: this.type }));

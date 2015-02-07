@@ -6,6 +6,12 @@ Boom.Constants = {
   HOSTILE: '63fc00f3-416d-43db-9fcf-315ae62c01e9',
   FRIENDLY: 'ba75d021-1988-4cbb-a6c5-05071b69572f',
 
+  UI: {
+    BASE_WIDTH:175,
+    HEIGHT: 0,
+    WIDTH: 0
+  },
+
   World:{
     WIDTH: 32,
     HEIGHT: 32,
@@ -39,11 +45,11 @@ Boom.Constants = {
       ANIMATION: 'animation',
       INPUT: 'input',
       ACTION: 'action',
-      HIT: 'hit',
-      WEAPON: 'weapon',
+      HIT: 'hit', 
       UI: 'UI',
       HUD: 'HUD',
-      LIGHT: 'light'
+      LIGHT: 'light',
+      INVENTORY: 'inventory'
     }
   },
 
@@ -52,6 +58,10 @@ Boom.Constants = {
     DIRECTIONAL: 'a3b53140-a4ee-43e3-bda2-fb0b37bc3527',
     HEMISPHERE: 'e37e182d-1c35-47cb-9463-678b916e9362',
     POINT: 'dc16baf2-c933-4db4-a071-89ef72679925'
+  },
+
+  Ammunition:{
+    BULLET: '96fc013d-623b-4b0a-86ef-cdb9698d843f'
   },
 
   Message: {

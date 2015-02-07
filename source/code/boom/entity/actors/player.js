@@ -90,12 +90,12 @@ Boom.Player.prototype = Boom.inherit(Boom.Entity, {
     );
     this.components[basic_jump.name] = basic_jump;
 
-    var weapon = new Boom.WeaponActionComponent({
-      name: 'player_weapon',
+    var inventory = new Boom.InventoryComponent({
+      name: 'player_inventory',
+      camera: this.camera,
       owner: this
     });
-    this.components[weapon.name] = weapon;
-    this.add( weapon.object, this.camera );
+    this.components[inventory.name] = inventory;
 
     var crosshair = new Boom.UiComponent({
       name: 'player_crosshair',

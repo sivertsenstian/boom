@@ -30,7 +30,8 @@ Boom.Assets = {
     },
     ENTITY:{
       MISSING: 'cc3bbbf2-b514-4daf-a9d9-1bd320d612e6',
-      SKYBOX: 'fd7f5d5e-c7dd-4ea4-a8b8-e140a0a2e85b'
+      SKYBOX: 'fd7f5d5e-c7dd-4ea4-a8b8-e140a0a2e85b',
+      PISTOL: 'a55a989b-d8dc-46c9-8614-2fee2e52fc29'
     },
     MAP:{
       COLLISION: 'a1114c99-41cb-4fbd-8847-5e112d2ceb18'

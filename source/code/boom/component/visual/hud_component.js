@@ -13,7 +13,7 @@ Boom.HUDComponent.prototype = Boom.inherit(Boom.Component, {
   constructor: Boom.HUDComponent,
 
   init: function() {
-    this.display.style.cssText = 'position:absolute;left:0px;top:65%;font-size:2em;font-weight: bold;font-family: fantasy;color:white;';
+    this.display.style.cssText = 'position:absolute;left:0px;top:'+ (Boom.Constants.UI.HEIGHT - 50) +'px;font-size:2em;font-weight: bold;font-family: fantasy;color:white;display: table-row;';
     this.display.style.zIndex = '100';
     document.body.appendChild( this.display );
 
@@ -41,7 +41,9 @@ Boom.HUDComponent.prototype = Boom.inherit(Boom.Component, {
       var htmlItem, htmlItemLabel, htmlItemValue;
       
       htmlItem = document.createElement("DIV");
-      
+      htmlItem.style.width = Boom.Constants.UI.BASE_WIDTH;
+      htmlItem.style.display = 'table-cell';
+
       htmlItemLabel = document.createElement("SPAN");
       htmlItemLabel.id = data.name +"_LABEL";
       htmlItemLabel.style.color = data.color || 'yellow';
@@ -63,6 +65,8 @@ Boom.HUDComponent.prototype = Boom.inherit(Boom.Component, {
     }
   },
 
+  //data should be an object with a 'name' corresponding to a registered HUD item and a value with the updated value for this item
+  //TODO: add error checks here
   updateHudItem: function( data ){
     if(this.hudItems.hasOwnProperty(data.name)){
       //TODO / FIXME : Update hudItem as well ?? - not needed..

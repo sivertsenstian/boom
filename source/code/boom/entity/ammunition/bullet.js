@@ -1,4 +1,5 @@
 Boom.Bullet = function( params ){
+  this.type = params.type || Boom.Assets.world.ENTITY.MISSING;
   this.spawn = params.spawn;
   this.direction = params.direction;
   this.size = .25;

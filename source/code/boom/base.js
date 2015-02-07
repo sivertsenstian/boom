@@ -31,6 +31,9 @@ Boom.Base.prototype = {
     Boom.Constants.PLAYER_CAMERA = new THREE.PerspectiveCamera(this.cameraFov, this.width / this.height, this.cameraNear, this.cameraFar);
     Boom.Constants.PLAYER_CAMERA.name = Boom.Constants.Objects.CAMERA;
 
+    Boom.Constants.UI.HEIGHT = this.height;
+    Boom.Constants.UI.WIDTH = this.width;
+
     this.scene = new THREE.Scene();
     this.scene.name = Boom.Constants.Objects.SCENE;
     

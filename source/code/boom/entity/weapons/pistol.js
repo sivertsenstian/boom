@@ -1,7 +1,9 @@
 Boom.Pistol = function( params ){
+  this.type = Boom.Assets.world.ENTITY.PISTOL; //TODO: THIS SHOULD BE DONE IN A BETTER WAY
   Boom.Entity.call(this, {name: 'WEAPON_PistolEntity', addToScene: false, is_static: false, faction: params.faction});
   this.cooldown = 200;
   this.last_shot = Boom.getCurrentTime();
+  this.ammunitionFactory = new Boom.AmmunitionFactory();
 };
 
 Boom.Pistol.prototype = Boom.inherit(Boom.Entity, {
@@ -58,18 +60,21 @@ Boom.Pistol.prototype = Boom.inherit(Boom.Entity, {
     Boom.Entity.prototype.update.call(this);
   },
 
-  shoot: function( dir ){
+  shoot: function( dir, type ){
     if( (Boom.getCurrentTime() - this.last_shot) >= this.cooldown ){
       var _this = this;
     
       var spawn = new THREE.Vector3( -6 , 4 , 0 );
-      this.components['pistol_physics'].object.localToWorld(spawn);
-      new Boom.Bullet( {direction: dir, spawn: spawn, faction: this.faction} );
+      this.getObjectComponent().object.localToWorld(spawn);
+      //new Boom.Bullet( {direction: dir, spawn: spawn, faction: this.faction} );
+      this.ammunitionFactory.spawnAmmunition(type, {direction: dir, spawn: spawn, faction: this.faction});
       this.components['pistol_animation_shoot'].animate();
       this.components['pistol_audio_shoot'].play();
 
       this.last_shot = Boom.getCurrentTime();
+      return true;
     }
+    return false;
   }
 
 });

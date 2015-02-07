@@ -58,11 +58,11 @@ Boom.Alien.prototype = Boom.inherit(Boom.Entity, {
     );
     this.components[gravity.name] = gravity;
 
-    var weapon = new Boom.WeaponActionComponent({
-      name: 'alien__weapon',
+    var inventory = new Boom.InventoryComponent({
+      name: 'alien_inventory',
       owner: this
     });
-    this.components[weapon.name] = weapon;
+    this.components[inventory.name] = inventory;
 
     var animation_death = new Boom.AnimationComponent( 
       {
