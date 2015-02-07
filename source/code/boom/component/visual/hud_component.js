@@ -13,7 +13,9 @@ Boom.HUDComponent.prototype = Boom.inherit(Boom.Component, {
   constructor: Boom.HUDComponent,
 
   init: function() {
-    this.display.style.cssText = 'position:absolute;left:0px;top:'+ (Boom.Constants.UI.HEIGHT - 50) +'px;font-size:2em;font-weight: bold;font-family: fantasy;color:white;display: table-row;';
+    this.display.style.cssText = 'position:absolute;left:0px;top:'+ (Boom.Constants.UI.HEIGHT - 50) +
+                                 'px;font-size:2em;font-weight: bold;font-family: fantasy;color:white;' + 
+                                 'display: table-row; background: rgba(0, 0, 0, 0.42);';
     this.display.style.zIndex = '100';
     document.body.appendChild( this.display );
 
@@ -47,10 +49,12 @@ Boom.HUDComponent.prototype = Boom.inherit(Boom.Component, {
       htmlItemLabel = document.createElement("SPAN");
       htmlItemLabel.id = data.name +"_LABEL";
       htmlItemLabel.style.color = data.color || 'yellow';
+      htmlItemLabel.style.textShadow = '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000';
       htmlItemLabel.innerHTML = data.name + " ";
 
       htmlItemValue = document.createElement("SPAN");
       htmlItemValue.id = data.name +"_VALUE";
+      htmlItemValue.style.textShadow = '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000';
       htmlItemValue.innerHTML = data.value;
 
       htmlItem.id = data.name;

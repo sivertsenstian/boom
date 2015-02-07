@@ -14,7 +14,7 @@ Boom.InventoryComponent = function( params ) {
 
   //INIT VALUES FOR DEFAULT/START WEAPON AND ITS AMMO
   this.inventory.weapons[this.object.type] = this.object;
-  this.inventory.ammunition[this.active_ammunition] = params.start_ammunition || 5;
+  this.inventory.ammunition[this.active_ammunition] = params.start_ammunition || 12;
 
   //HUD
   this.registerHud = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.HUD, data: { name: 'AMMO', color: 'goldenrod', value: this.inventory.ammunition[this.active_ammunition] }, type: Boom.Constants.Message.HUD.REGISTER, sender: this.type });

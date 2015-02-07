@@ -1,7 +1,7 @@
 Boom.HealthActionComponent = function( params ) {
   params = params || {};
   this.type = params.type || Boom.Constants.Component.TYPE.ACTION;
-  this.value = params.value || 100;
+  this.value = params.value || 67;
   this.limit = params.value || 100;
   this.events = [Boom.Constants.Message.Action.REDUCE_HEALTH, Boom.Constants.Message.Action.INCREASE_HEALTH];
 
