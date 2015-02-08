@@ -206,5 +206,6 @@ Boom.Exceptions = {
   UndefinedEntityTypeException: "No Entity.type defined",
   DuplicateItemInHashException: 'Key already exists in hash',
   ItemNotDefinedInHashException: 'Key does not exist in hash',
-  ComponentMustBeDefinedFirstException: 'This component MUST be defined first for the entity - and it isnt'
+  ComponentMustBeDefinedFirstException: 'This component MUST be defined first for the entity - and it isnt',
+  EntityMessageMissingException: 'The Item-Entity should have a retrievable message'
 };

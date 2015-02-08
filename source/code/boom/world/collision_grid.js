@@ -3,7 +3,8 @@ Boom.CollisionGrid = function( map ){
   this.height = this.map.height;
   this.width = this.map.width;
   this.grid = [this.height * this.width];
-  this.entities = [this.height * this.width];
+  this.actors = [this.height * this.width];
+  this.items = [this.height * this.width];
   this.init();
   this.x;
   this.y;
@@ -37,10 +38,16 @@ Boom.CollisionGrid.prototype = {
     this.grid[index] = true;
   },
 
-  addEntity: function( entityId, position ){
+  addActor: function( actorId, position ){
     this.x = Math.round(position.x / this.map.tileheight);
     this.z =  Math.round(position.z / this.map.tilewidth);
-    this.entities[this.width * this.x + this.z] = entityId;
+    this.actors[this.width * this.x + this.z] = actorId;
+  },
+
+  addItem: function( itemId, position ){
+    this.x = Math.round(position.x / this.map.tileheight);
+    this.z =  Math.round(position.z / this.map.tilewidth);
+    this.items[this.width * this.x + this.z] = itemId;
   },
 
   checkNeighbours: function( position ){
@@ -59,13 +66,24 @@ Boom.CollisionGrid.prototype = {
     return collision;
   },
 
-  checkPrecise: function( position ){
+  checkPreciseActor: function( position ){
     this.x = Math.round(position.x / this.map.tileheight);
     this.z =  Math.round(position.z / this.map.tilewidth);
 
-    var entity = this.checkEntity(this.width * this.x + this.z, position.y);
-    if(entity){
-      return entity;
+    var actor = this.checkActor(this.width * this.x + this.z, position.y);
+    if(actor){
+      return actor;
+    }
+    return this.checkCollision(this.width * this.x + this.z);
+  },
+
+  checkPreciseItem: function( position ){
+    this.x = Math.round(position.x / this.map.tileheight);
+    this.z =  Math.round(position.z / this.map.tilewidth);
+
+    var item = this.checkItem(this.width * this.x + this.z, position.y);
+    if(item){
+      return item;
     }
     return this.checkCollision(this.width * this.x + this.z);
   },
@@ -74,15 +92,25 @@ Boom.CollisionGrid.prototype = {
     return index >= 0 && index <= this.map.layers[Boom.Constants.World.LAYER.COLLISION].data.length && this.grid[index];
   },
 
-  checkEntity: function( index, height ){
-    if(index >= 0 && index <= this.map.layers[Boom.Constants.World.LAYER.ENTITIES].data.length && this.entities[index]){
-      var entity = Boom.Entities[ this.entities[index] ];
-      if( entity !== undefined && height <= entity.boundingBox.y && height >= 0 ){ //Validate height
-        return entity;
+  checkActor: function( index, height ){
+    if(index >= 0 && index <= this.map.layers[Boom.Constants.World.LAYER.ACTORS].data.length && this.actors[index]){
+      var actor = Boom.Entities[ this.actors[index] ];
+      if( actor !== undefined && height <= actor.boundingBox.y && height >= 0 ){ //Validate height
+        return actor;
       }
     }
-    return false; //FIX?88,
+    return false; //TODO: FIX?
   },
+
+  checkItem: function( index, height ){
+    if(index >= 0 && index <= this.map.layers[Boom.Constants.World.LAYER.ITEMS].data.length && this.items[index]){
+      var item = Boom.Entities[ this.items[index] ];
+      if( item !== undefined && height <= item.boundingBox.y && height >= 0 ){ //Validate height
+        return item;
+      }
+    }
+    return false; //TODO: FIX?
+  }
 
 
 

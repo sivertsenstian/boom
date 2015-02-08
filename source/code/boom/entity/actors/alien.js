@@ -44,7 +44,6 @@ Boom.Alien.prototype = Boom.inherit(Boom.Entity, {
     var collision = new Boom.NeighbourCollisionActionComponent(
       {
         name: 'alien_collision',
-        distance: this.size,
         owner: this
       }
     );

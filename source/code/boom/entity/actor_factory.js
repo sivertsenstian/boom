@@ -18,14 +18,14 @@ Boom.ActorFactory.prototype = {
 
   spawnActor: function( type, params ){
     switch( type ){
-      case Boom.Constants.Entities.ALIEN:
+      case Boom.Constants.Actors.ALIEN:
         return new Boom.Alien( params );
         break;
-      case Boom.Constants.Entities.PLAYER:
+      case Boom.Constants.Actors.PLAYER:
         return new Boom.Player( params );
         break;
       default:
-        console.error( 'Entity of type "' + type + '" does not exist!');
+        console.error( 'Actor of type "' + type + '" does not exist!');
         break;
     }
   }

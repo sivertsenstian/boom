@@ -24,14 +24,20 @@ Boom.Constants = {
       CEILING: 2,
       COLLISION: 3,
       LIGHT: 4,
-      ENTITIES: 5
+      ACTORS: 5,
+      ITEMS: 6
     }
 
   },
 
-  Entities:{
+  Actors:{
     PLAYER: '44ade206-60e5-43b7-aaa3-045e147a1c88',
     ALIEN:'0a89b621-e2ed-4618-ad90-57641ba6a563'
+  },
+
+  Items:{
+    HEALTHPACK: 'db9fdc72-5195-49b2-9327-346919b644df',
+    BULLETS: '2bccdac5-f515-4926-b203-95334bc240a1'
   },
 
   Component:{
@@ -83,11 +89,13 @@ Boom.Constants = {
       LAND: Boom.guid(),
       REDUCE_HEALTH: Boom.guid(),
       INCREASE_HEALTH: Boom.guid(),
+      INCREASE_AMMO: Boom.guid(),
       DEATH: Boom.guid()
     },
     Hit: {
       DISPOSE: Boom.guid(),
       DISPOSE_DEALDAMAGE: Boom.guid(),
+      ITEM_PICKUP: Boom.guid()
 
     },
     HUD: {

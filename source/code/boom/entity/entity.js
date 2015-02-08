@@ -13,6 +13,8 @@ Boom.Entity = function( params ){
   this.__isMerged = params.hasOwnProperty('is_merged') ? params.is_merged : false; //Defaults to un-merged
   this.__singular = params.hasOwnProperty('is_singular') ? params.is_singular : false; //Defaults to not singular (defines a static entity not to be merged but added to scene solo)
   this.__dispose = params.dispose || false;
+  this.message_sendt = false;
+  //this.message = ? //TODO: IMPLEMENT MISSING MESSAGE THAT THROWS EXCEPTION OR TRIGGERS SOMETHING DEBUGGABLE
   this.components = {};
   this.children = [];
 
@@ -127,6 +129,15 @@ Boom.Entity.prototype = {
           this.components[component].type === Boom.Constants.Component.TYPE.LIGHT){
         return this.components[component];
       }
+    }
+    return false;
+  },
+  //If this entity has a passable message, it is fetched
+  getMessage: function(){
+    if(!this.message_sendt && this.message){
+      this.message_sendt = true;
+      this.dispose(); //TODO: MOVE THIS ??
+      return this.message;
     }
     return false;
   }

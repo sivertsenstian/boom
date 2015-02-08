@@ -1,8 +1,9 @@
 Boom.HealthActionComponent = function( params ) {
   params = params || {};
   this.type = params.type || Boom.Constants.Component.TYPE.ACTION;
-  this.value = params.value || 67;
-  this.limit = params.value || 100;
+  this.value = params.value || 100;
+  this.limit = params.limit || 100;
+  this.old_value = this.value;
   this.events = [Boom.Constants.Message.Action.REDUCE_HEALTH, Boom.Constants.Message.Action.INCREASE_HEALTH];
 
   //HUD
@@ -35,11 +36,16 @@ Boom.HealthActionComponent.prototype = Boom.inherit(Boom.Component, {
       this.send( this.death );
       this.died = true;
     }
-    else if ( this.value > this.limit ){
+    if ( this.value > this.limit ){
       this.value = this.limit;
     }
+    if(this.value !== this.old_value){
+      this.hudUpdate.data.value = this.value;
+      this.send( this.hudUpdate );
+    }
+    this.old_value = this.value;
     //Call super
-    Boom.Component.prototype.update.call(this);
+    Boom.Component.prototype.update.call(this); 
   },
 
   receive: function( message ){
@@ -47,9 +53,7 @@ Boom.HealthActionComponent.prototype = Boom.inherit(Boom.Component, {
     if(Boom.Component.prototype.receive.call(this, message)){
       switch( message.type ){
         case Boom.Constants.Message.Action.REDUCE_HEALTH:
-          this.value -= message.data;
-          this.hudUpdate.data.value = this.value;
-          this.send( this.hudUpdate );
+          this.value -= parseFloat(message.data);
           if( this.owner.components.hasOwnProperty('AUDIO_PAIN') ){
             this.owner.getComponent( 'AUDIO_PAIN' ).play();
           }
@@ -58,9 +62,7 @@ Boom.HealthActionComponent.prototype = Boom.inherit(Boom.Component, {
           }
           break;
         case Boom.Constants.Message.Action.INCREASE_HEALTH:
-          this.value += message.data;
-          this.hudUpdate.data.value = this.value;
-          this.send( this.hudUpdate );
+          this.value += parseFloat(message.data);
           break;
         default:
           console.log( "UNKNOWN MESSAGE!" );

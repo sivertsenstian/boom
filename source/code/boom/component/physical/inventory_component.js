@@ -5,7 +5,7 @@ Boom.InventoryComponent = function( params ) {
   //active weapon
   this.object = params.weapon || new Boom.Pistol( {faction: params.owner.faction } );
   this.active_ammunition = params.ammo || Boom.Constants.Ammunition.BULLET;
-  this.events = [Boom.Constants.Message.Action.SHOOT];
+  this.events = [Boom.Constants.Message.Action.SHOOT, Boom.Constants.Message.Action.INCREASE_AMMO];
   this.inventory = {
     weapons: {},
     ammunition: {},
@@ -42,6 +42,12 @@ Boom.InventoryComponent.prototype = Boom.inherit(Boom.Component, {
   },
 
   update: function(){
+    if(this.inventory.ammunition[this.active_ammunition] !== this.old_value){
+      this.hudUpdate.data.value = this.inventory.ammunition[this.active_ammunition];
+      this.send( this.hudUpdate );
+    }
+    this.old_value = this.inventory.ammunition[this.active_ammunition];
+
     //Call super
     Boom.Component.prototype.update.call(this);
   },
@@ -65,8 +71,11 @@ Boom.InventoryComponent.prototype = Boom.inherit(Boom.Component, {
             }
           }
           else{
-            //Out of ammo! //TODO: DISPLAY MESSAGE TO USER
+            this.object.empty();
           }
+          break;
+        case Boom.Constants.Message.Action.INCREASE_AMMO:
+          this.inventory.ammunition[message.data.name] += parseFloat(message.data.value);
           break;
         default:
           console.log( "UNKNOWN MESSAGE!" );

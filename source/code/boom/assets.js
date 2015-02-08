@@ -15,8 +15,13 @@ Boom.Assets = {
     weapons: {
       gun: {
         shoot: new Howl({ urls: [ 'resources/sounds/shoot.wav' ], volume: 1.0 }),
-        hit: new Howl({ urls: [ 'resources/sounds/hit.wav' ], volume: 1.0 })
+        hit: new Howl({ urls: [ 'resources/sounds/hit.wav' ], volume: 1.0 }),
+        empty: new Howl({ urls: [ 'resources/sounds/empty.mp3' ], volume: 1.0 })
       }
+    },
+    items: {
+      healthpack: new Howl({ urls: [ 'resources/sounds/healthpack_pickup.wav' ], volume: 1.0 }),
+      bullets: new Howl({ urls: [ 'resources/sounds/bullets_pickup.mp3' ], volume: 1.0 })
     },
     hostile: {
       pain: new Howl({ urls: [ 'resources/sounds/pain.mp3' ], volume: 1.0 }),

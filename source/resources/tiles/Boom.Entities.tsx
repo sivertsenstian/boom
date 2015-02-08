@@ -12,4 +12,11 @@
   </properties>
   <image width="24" height="24" source="entities/player.jpg"/>
  </tile>
+ <tile id="2">
+  <properties>
+   <property name="Boom.ID" value="db9fdc72-5195-49b2-9327-346919b644df"/>
+   <property name="Boom.VALUE" value="25"/>
+  </properties>
+  <image width="24" height="24" source="entities/healthpack.jpg"/>
+ </tile>
 </tileset>

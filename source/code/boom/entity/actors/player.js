@@ -27,6 +27,7 @@ Boom.Player.prototype = Boom.inherit(Boom.Entity, {
 
     var health = new Boom.HealthActionComponent({
       name: 'player_health',
+      value: 34,
       owner: this
     });
     this.components[health.name] = health;
@@ -45,14 +46,23 @@ Boom.Player.prototype = Boom.inherit(Boom.Entity, {
     );
     this.components[physics.name] = physics;
 
-    var collision = new Boom.NeighbourCollisionActionComponent(
+    var wall_collision = new Boom.NeighbourCollisionActionComponent(
       {
-        name: 'player_collision',
+        name: 'player_wall_collision',
         distance: this.size,
         owner: this
       }
     );
-    this.components[collision.name] = collision;
+    this.components[wall_collision.name] = wall_collision;
+
+
+    var item_pickup_collision = new Boom.PreciseItemCollisionActionComponent(
+      {
+        name: 'player_item_collision',
+        owner: this
+      }
+    );
+    this.components[item_pickup_collision.name] = item_pickup_collision;
 
     var gravity = new Boom.GravityActionComponent(
       {

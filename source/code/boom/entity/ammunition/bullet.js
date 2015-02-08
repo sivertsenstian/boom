@@ -30,10 +30,9 @@ Boom.Bullet.prototype = Boom.inherit(Boom.Entity, {
     );
     this.components[physics.name] = physics;
 
-    var collision = new Boom.PreciseCollisionActionComponent(
+    var collision = new Boom.PreciseActorCollisionActionComponent(
       {
         name: 'BULLET_COLLISION',
-        distance: this.size,
         owner: this
       }
     );

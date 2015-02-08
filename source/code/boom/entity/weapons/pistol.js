@@ -37,7 +37,7 @@ Boom.Pistol.prototype = Boom.inherit(Boom.Entity, {
       }
     );
     this.components[animation.name] = animation;
-
+    
     var audio_shoot = new Boom.AudioComponent(
       {
         name: 'pistol_audio_shoot',
@@ -47,6 +47,16 @@ Boom.Pistol.prototype = Boom.inherit(Boom.Entity, {
       }
     );
     this.components[audio_shoot.name] = audio_shoot;
+
+    var audio_empty = new Boom.AudioComponent(
+      {
+        name: 'pistol_audio_empty',
+        sound: Boom.Assets.sounds.weapons.gun.empty,
+        volume: 0.25,
+        owner: this
+      }
+    );
+    this.components[audio_empty.name] = audio_empty;
   },
 
   load: function(){
@@ -70,6 +80,16 @@ Boom.Pistol.prototype = Boom.inherit(Boom.Entity, {
       this.ammunitionFactory.spawnAmmunition(type, {direction: dir, spawn: spawn, faction: this.faction});
       this.components['pistol_animation_shoot'].animate();
       this.components['pistol_audio_shoot'].play();
+
+      this.last_shot = Boom.getCurrentTime();
+      return true;
+    }
+    return false;
+  },
+
+  empty: function(){
+    if( (Boom.getCurrentTime() - this.last_shot) >= this.cooldown ){
+      this.components['pistol_audio_empty'].play();
 
       this.last_shot = Boom.getCurrentTime();
       return true;

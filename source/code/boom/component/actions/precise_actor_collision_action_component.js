@@ -1,7 +1,6 @@
-Boom.PreciseCollisionActionComponent = function( params ) {
+Boom.PreciseActorCollisionActionComponent = function( params ) {
   params = params || {};
   this.type = params.type || Boom.Constants.Component.TYPE.ACTION;
-  this.distance = params.distance || 1;
   this.owner_physical = params.owner.getObjectComponent();
   this.physical_velocity = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.PHYSICAL, type: Boom.Constants.Message.Action.VELOCITY, sender: this.type });
   this.collision = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.HIT, data: null, type: Boom.Constants.Message.Hit.DISPOSE_DEALDAMAGE, sender: this.type });
@@ -12,8 +11,8 @@ Boom.PreciseCollisionActionComponent = function( params ) {
   Boom.Component.call(this, params );
 };
 
-Boom.PreciseCollisionActionComponent.prototype = Boom.inherit(Boom.Component, {
-  constructor: Boom.PreciseCollisionActionComponent,
+Boom.PreciseActorCollisionActionComponent.prototype = Boom.inherit(Boom.Component, {
+  constructor: Boom.PreciseActorCollisionActionComponent,
 
   init: function() {
     //Call super
@@ -36,12 +35,12 @@ Boom.PreciseCollisionActionComponent.prototype = Boom.inherit(Boom.Component, {
       switch( message.type ){
         case Boom.Constants.Message.Action.VELOCITY_FLAT:
         case Boom.Constants.Message.Action.VELOCITY:
-          var collided = Boom.GameGrid.checkPrecise( this.owner_physical.object.position );
+          var collided = Boom.GameGrid.checkPreciseActor( this.owner_physical.object.position );
 
           if( collided ){
             if( typeof(collided) === 'object' && (this.owner.faction === collided.faction)){ //FIXME - could probably be done better - hit components??
               //console.log(" -------------------------------------------   ");
-              console.log("ENTITY HIT - BUT SAME FACTION. NO COLLISION!");
+              console.log("ACTOR HIT - BUT SAME FACTION. NO COLLISION!");
               //console.log(this.owner);
               //console.log(collided);
               //console.log(" ------------------------------------------- \n\n");

@@ -45,17 +45,18 @@ Boom.AnimationComponent.prototype = Boom.inherit(Boom.Component, {
     Boom.Component.prototype.update.call(this);
   },
 
-  animate: function(){
+  animate: function( repeat ){
+    repeat = repeat || 0;
     var object = this.object;
     try{
-      TWEEN.removeAll();
+      //TWEEN.removeAll(); TODO: FIX THIS ??
       if (typeof(object) === "undefined" || object === null){
         throw Boom.Exceptions.ObjectNotDefinedException;
       }
       var pos = this.position.clone();
       var rot = this.rotation.clone();
-      var tween_position = new TWEEN.Tween( pos ).to( this.target_position, this.ms);
-      var tween_rotation = new TWEEN.Tween( rot ).to( this.target_rotation, this.ms);
+      var tween_position = new TWEEN.Tween( pos ).to( this.target_position, this.ms).repeat( repeat );
+      var tween_rotation = new TWEEN.Tween( rot ).to( this.target_rotation, this.ms).repeat( repeat );
 
       tween_position.onUpdate(function(){
         object.position.set( pos.x, pos.y, pos.z );

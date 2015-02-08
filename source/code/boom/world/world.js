@@ -110,8 +110,8 @@ Boom.World.prototype = {
 
     //ACTORS
     var actor, actorFactory = new Boom.ActorFactory();
-    for(var i = 0; i < this.map.layers[Boom.Constants.World.LAYER.ENTITIES].data.length; i++){
-      current_tile = this.map.layers[Boom.Constants.World.LAYER.ENTITIES].data[i] - map_tile_properties['Boom.Entities'].firstgid;
+    for(var i = 0; i < this.map.layers[Boom.Constants.World.LAYER.ACTORS].data.length; i++){
+      current_tile = this.map.layers[Boom.Constants.World.LAYER.ACTORS].data[i] - map_tile_properties['Boom.Entities'].firstgid;
       if( map_tile_properties['Boom.Entities'].hasOwnProperty( current_tile ) ){
         pos = new THREE.Vector3(this.map.tilewidth * Math.floor((i / this.map.width)),
                                   0, 
@@ -124,7 +124,28 @@ Boom.World.prototype = {
                                           }
                                         );
 
-        Boom.GameGrid.addEntity( actor.id, pos );
+        Boom.GameGrid.addActor( actor.id, pos );
+      }
+    }
+
+     //ITEMS
+    var item, itemFactory = new Boom.ItemFactory();
+    for(var i = 0; i < this.map.layers[Boom.Constants.World.LAYER.ITEMS].data.length; i++){
+      current_tile = this.map.layers[Boom.Constants.World.LAYER.ITEMS].data[i] - map_tile_properties['Boom.Items'].firstgid;
+      if( map_tile_properties['Boom.Items'].hasOwnProperty( current_tile ) ){
+        pos = new THREE.Vector3(this.map.tilewidth * Math.floor((i / this.map.width)),
+                                  this.map.tileheight/4, 
+                                  this.map.tilewidth * Math.floor((i % this.map.height)));
+
+        item = itemFactory.spawnItem( map_tile_properties['Boom.Items'][current_tile]['Boom.ID'],
+                                         { 
+                                            position: pos, 
+                                            type: map_tile_properties['Boom.Items'][current_tile]['Boom.ID'],
+                                            value:map_tile_properties['Boom.Items'][current_tile]['Boom.VALUE']
+                                          }
+                                        );
+
+        Boom.GameGrid.addItem( item.id, pos );
       }
     }
 
