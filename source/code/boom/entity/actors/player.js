@@ -35,6 +35,7 @@ Boom.Player.prototype = Boom.inherit(Boom.Entity, {
     var physics = new Boom.PhysicalComponent(
        {
         name: 'player_physics',
+        update_collision: true,
         shape: Boom.Constants.Component.BOX,
         position: this.position,
         color: 0xFFFF00,
@@ -72,7 +73,7 @@ Boom.Player.prototype = Boom.inherit(Boom.Entity, {
     );
     this.components[gravity.name] = gravity;
 
-    var controls = new Boom.InputActionComponent( 
+    var controls = new Boom.PlayerInputActionComponent( 
       { 
         camera: this.camera, 
         object: physics.object, 
@@ -103,6 +104,7 @@ Boom.Player.prototype = Boom.inherit(Boom.Entity, {
     var inventory = new Boom.InventoryComponent({
       name: 'player_inventory',
       camera: this.camera,
+      player: true,
       owner: this
     });
     this.components[inventory.name] = inventory;
@@ -118,6 +120,12 @@ Boom.Player.prototype = Boom.inherit(Boom.Entity, {
     });
     this.components[crosshair.name] = crosshair;
 
+    var death = new Boom.DeathActionComponent({
+      name: 'player_death',
+      owner: this
+    });
+    this.components[death.name] = death;
+
     this.load();
   },
 
@@ -132,6 +140,9 @@ Boom.Player.prototype = Boom.inherit(Boom.Entity, {
   },
 
   dispose: function(){
+    //TODO: FIND A BETTER WAY TO RESET GAME - THIS WORKS FOR NOW!
+    $("#game_over").show();
+    setTimeout(function () { location.reload(true); }, 1000);
     //Call super
     Boom.Entity.prototype.dispose.call(this);
   }
