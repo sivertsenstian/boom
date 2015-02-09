@@ -4,7 +4,7 @@ Boom.Alien = function( params ){
   this.height = 24;
   this.onGround = Boom.Constants.FALSE;
   this.position = params.position || new THREE.Vector3(0, 0, 0);
-
+  
   Boom.Entity.call(this, {name: 'ENEMY_ALIEN_Entity', is_static: false, boundingBox: new THREE.Vector3(24, 48, 24)});
 };
 
@@ -31,6 +31,7 @@ Boom.Alien.prototype = Boom.inherit(Boom.Entity, {
     var physics = new Boom.PhysicalComponent(
        {
         name: 'alien_physics',
+        update_collision: true,
         shape: Boom.Constants.Component.MODEL, 
         model: Boom.Assets.enemies.alien,
         position: this.position,
@@ -40,6 +41,24 @@ Boom.Alien.prototype = Boom.inherit(Boom.Entity, {
       }
     );
     this.components[physics.name] = physics;
+
+    var ai_controls = new Boom.AIInputActionComponent( 
+      { 
+        object: physics.object, 
+        name: 'ai_controls', 
+        owner: this 
+      } 
+    );
+    this.components[ai_controls.name] = ai_controls;
+
+    var basic_movement = new Boom.MovementActionComponent( 
+      { 
+        name: 'ai_movement', 
+        owner: this, 
+        speed: 3.5
+      } 
+    );
+    this.components[basic_movement.name] = basic_movement;
 
     var collision = new Boom.NeighbourCollisionActionComponent(
       {
@@ -91,7 +110,6 @@ Boom.Alien.prototype = Boom.inherit(Boom.Entity, {
       {
         name: 'AUDIO_PAIN',
         sound: Boom.Assets.sounds.hostile.pain,
-        volume: 0.05,
         owner: this
       }
     );
@@ -101,7 +119,6 @@ Boom.Alien.prototype = Boom.inherit(Boom.Entity, {
       {
         name: 'AUDIO_DEATH',
         sound: Boom.Assets.sounds.hostile.death,
-        volume: 0.10,
         owner: this
       }
     );

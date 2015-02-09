@@ -1,6 +1,7 @@
 Boom.PhysicalComponent = function( params ) {
   params = params || {};
   //Physical
+  this.update_collision = params.update_collision || false;
   this.shape = params.shape || Boom.Constants.Component.BOX;
   this.type = params.type || Boom.Constants.Component.TYPE.PHYSICAL;
   this.texture = params.texture || null;
@@ -73,7 +74,11 @@ Boom.PhysicalComponent.prototype = Boom.inherit(Boom.Component, {
 
   update: function(){
     if(this.velocity.length() !== 0){
-      this.object.position.add( this.velocity.multiplyScalar( this.damping ) );
+      var oldPos = this.object.position.clone();
+      var newPos = this.object.position.add( this.velocity.multiplyScalar( this.damping ) );
+      if(this.update_collision){ //TODO: MAKE THIS A SEPARATE COMPONENT // CHECK IN GAME LOOP ??
+        Boom.GameGrid.updateActor( this.owner.id, oldPos, newPos);
+      }
 
       if( this.owner.onGround === Boom.Constants.FALSE && this.gravity && this.object.position.y <= this.height){
         this.object.position.y = this.height;

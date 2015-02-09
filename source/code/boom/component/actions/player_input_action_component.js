@@ -1,4 +1,4 @@
-Boom.InputActionComponent = function( params ) {
+Boom.PlayerInputActionComponent = function( params ) {
   var params = params || {};
   this.camera = params.camera;
   this.object = params.object;
@@ -12,8 +12,8 @@ Boom.InputActionComponent = function( params ) {
   Boom.Component.call(this, params );
 };
 
-Boom.InputActionComponent.prototype = Boom.inherit(Boom.Component, {
-  constructor: Boom.InputActionComponent,
+Boom.PlayerInputActionComponent.prototype = Boom.inherit(Boom.Component, {
+  constructor: Boom.PlayerInputActionComponent,
 
   init: function() {
     //Call super

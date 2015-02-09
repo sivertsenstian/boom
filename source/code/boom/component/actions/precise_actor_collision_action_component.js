@@ -38,14 +38,7 @@ Boom.PreciseActorCollisionActionComponent.prototype = Boom.inherit(Boom.Componen
           var collided = Boom.GameGrid.checkPreciseActor( this.owner_physical.object.position );
 
           if( collided ){
-            if( typeof(collided) === 'object' && (this.owner.faction === collided.faction)){ //FIXME - could probably be done better - hit components??
-              //console.log(" -------------------------------------------   ");
-              console.log("ACTOR HIT - BUT SAME FACTION. NO COLLISION!");
-              //console.log(this.owner);
-              //console.log(collided);
-              //console.log(" ------------------------------------------- \n\n");
-            }
-            else{
+            if( typeof(collided) !== 'object' || (this.owner.faction !== collided.faction)){ //FIXME - could probably be done better - hit components??
               message.data.set(0, 0, 0);
               this.collision.data = collided;
               this.send( this.collision );

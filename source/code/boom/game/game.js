@@ -11,8 +11,8 @@ Boom.Game = function() {
   this.cameraFov = 75;
   this.cameraFar = 600; //OPTIMIZE - Performance draining???
 
-  this.width = 800;
-  this.height = 600;
+  /*this.width = 800;
+  this.height = 600;*/
 
   //Game Components
   this.world;
@@ -45,7 +45,7 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
         if( entity.__addToScene && (!entity.__isStatic || entity.__isStatic && entity.__singular) ){
           var component = entity.getObjectComponent();
           if ( component ){
-            console.log("ADDING " + entity.name);
+            //console.log("ADDING " + entity.name);
             this.scene.add( component.object );
           }
           entity.__addToScene = false;
@@ -54,7 +54,7 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
         if ( entity.__dispose ){
           var component = entity.getObjectComponent();
           if ( component ){
-            console.log("DISPOSING " + entity.name);
+            //console.log("DISPOSING " + entity.name);
             entity.dispose();
             this.scene.remove( component.object );
             delete Boom.Entities[id];

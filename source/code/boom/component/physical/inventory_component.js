@@ -2,6 +2,7 @@ Boom.InventoryComponent = function( params ) {
   params = params || {};
   this.type = params.type || Boom.Constants.Component.TYPE.INVENTORY;
   this.camera = params.camera;
+  this.player = params.player || false;
   //active weapon
   this.object = params.weapon || new Boom.Pistol( {faction: params.owner.faction } );
   this.active_ammunition = params.ammo || Boom.Constants.Ammunition.BULLET;
@@ -28,7 +29,7 @@ Boom.InventoryComponent.prototype = Boom.inherit(Boom.Component, {
   constructor: Boom.InventoryComponent,
 
   init: function() {
-    this.addActiveWeaponToCamera();
+    this.addActiveWeapon();
 
     //HUD
     this.send( this.registerHud );
@@ -52,9 +53,12 @@ Boom.InventoryComponent.prototype = Boom.inherit(Boom.Component, {
     Boom.Component.prototype.update.call(this);
   },
 
-  addActiveWeaponToCamera: function(){
+  addActiveWeapon: function(){
     if( typeof this.camera !== 'undefined' && this.camera !== null){
       this.owner.add( this.object, this.camera );
+    }
+    else{
+     this.owner.add( this.object ); 
     }
   },
 
@@ -63,7 +67,7 @@ Boom.InventoryComponent.prototype = Boom.inherit(Boom.Component, {
     if(Boom.Component.prototype.receive.call(this, message)){
       switch( message.type ){
         case Boom.Constants.Message.Action.SHOOT:
-          if(this.inventory.ammunition[this.active_ammunition] > 0){
+          if(this.inventory.ammunition[this.active_ammunition] > 0 || !this.player){
             if(this.object.shoot( message.data , this.active_ammunition)){
               this.inventory.ammunition[this.active_ammunition]--;
               this.hudUpdate.data.value = this.inventory.ammunition[this.active_ammunition];

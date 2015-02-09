@@ -50,6 +50,20 @@ Boom.CollisionGrid.prototype = {
     this.items[this.width * this.x + this.z] = itemId;
   },
 
+  updateActor: function(actorId, oldPosition, newPosition){
+    if(oldPosition.x !== newPosition.x || oldPosition.z !== newPosition.z){
+      this.x = Math.round(oldPosition.x / this.map.tileheight);
+      this.z =  Math.round(oldPosition.z / this.map.tilewidth);
+
+      this.actors[this.width * this.x + this.z] = false;
+
+      this.x = Math.round(newPosition.x / this.map.tileheight);
+      this.z =  Math.round(newPosition.z / this.map.tilewidth);
+
+      this.actors[this.width * this.x + this.z] = actorId;
+    }
+  },
+
   checkNeighbours: function( position ){
     this.x = Math.round(position.x / this.map.tileheight);
     this.z =  Math.round(position.z / this.map.tilewidth);

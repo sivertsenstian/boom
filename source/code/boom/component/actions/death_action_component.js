@@ -30,8 +30,6 @@ Boom.DeathActionComponent.prototype = Boom.inherit(Boom.Component, {
     if(Boom.Component.prototype.receive.call(this, message)){
       switch( message.type ){
         case Boom.Constants.Message.Action.DEATH:
-          console.log(this.owner);
-          console.log("DIES");
           this.owner.dispose();
           break;
         default:
