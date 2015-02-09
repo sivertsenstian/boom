@@ -31,6 +31,10 @@ Boom.Base.prototype = {
     Boom.Constants.PLAYER_CAMERA = new THREE.PerspectiveCamera(this.cameraFov, this.width / this.height, this.cameraNear, this.cameraFar);
     Boom.Constants.PLAYER_CAMERA.name = Boom.Constants.Objects.CAMERA;
 
+    //Establish player camera as global listener TODO: FIND OUT WHAT THE LISTENER DOES - IS THIS NEEDED ??
+    Boom.Constants.PLAYER_LISTENER = new THREE.AudioListener();
+    Boom.Constants.PLAYER_CAMERA.add( Boom.Constants.PLAYER_LISTENER );
+
     Boom.Constants.UI.HEIGHT = this.height;
     Boom.Constants.UI.WIDTH = this.width;
 

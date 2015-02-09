@@ -48,7 +48,6 @@ Boom.Bullets.prototype = Boom.inherit(Boom.Entity, {
       {
         name: 'BULLETS_AUDIO',
         sound: Boom.Assets.sounds.items.bullets,
-        volume: 0.05,
         owner: this
       }
     );

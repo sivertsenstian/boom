@@ -5,27 +5,27 @@ Boom.Assets = {
   },
 
   music: {
-    MISSING: new Howl({ urls: [ 'resources/music/missing.mp3' ], volume: 0.25, loop: true }),
+    MISSING: new Boom.Audio({url: 'resources/music/missing.mp3', volume: 0.25, loop: true }),
     maps:{
-      'c7cc27d8-da16-4c26-bb03-0e2d04de63c8' : new Howl({ urls: [ 'resources/music/simple_action_beat.ogg' ], volume: 0.25, loop: true })
+      'c7cc27d8-da16-4c26-bb03-0e2d04de63c8' : new Boom.Audio({url: 'resources/music/simple_action_beat.ogg', volume: 0.25, loop: true})
     }
   },
   sounds: {
-    MISSING: new Howl({ urls: [ 'resources/sounds/missing.mp3' ], volume: 1.0 }),
+    MISSING: new Boom.Audio({url: 'resources/sounds/missing.mp3'}),
     weapons: {
       gun: {
-        shoot: new Howl({ urls: [ 'resources/sounds/shoot.wav' ], volume: 1.0 }),
-        hit: new Howl({ urls: [ 'resources/sounds/hit.wav' ], volume: 1.0 }),
-        empty: new Howl({ urls: [ 'resources/sounds/empty.mp3' ], volume: 1.0 })
+        shoot: new Boom.Audio({url: 'resources/sounds/shoot.wav', volume: 0.10}),
+        hit: new Boom.Audio({url: 'resources/sounds/hit.wav'}),
+        empty: new Boom.Audio({url: 'resources/sounds/empty.mp3'})
       }
     },
     items: {
-      healthpack: new Howl({ urls: [ 'resources/sounds/healthpack_pickup.wav' ], volume: 1.0 }),
-      bullets: new Howl({ urls: [ 'resources/sounds/bullets_pickup.mp3' ], volume: 1.0 })
+      healthpack: new Boom.Audio({url: 'resources/sounds/healthpack_pickup.wav', volume: 0.10}),
+      bullets: new Boom.Audio({url: 'resources/sounds/bullets_pickup.mp3', volume: 0.10})
     },
     hostile: {
-      pain: new Howl({ urls: [ 'resources/sounds/pain.mp3' ], volume: 1.0 }),
-      death: new Howl({ urls: [ 'resources/sounds/death.mp3' ], volume: 1.0 })
+      pain: new Boom.Audio({url: 'resources/sounds/pain.mp3'}),
+      death: new Boom.Audio({url: 'resources/sounds/death.mp3'})
     }
   },
 

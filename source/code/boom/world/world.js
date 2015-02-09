@@ -39,7 +39,7 @@ Boom.World.prototype = {
       map_tile_properties[this.map.tilesets[tileset].name] = this.map.tilesets[tileset].tileproperties;
       map_tile_properties[this.map.tilesets[tileset].name].firstgid = this.map.tilesets[tileset].firstgid;
     }
-    //var map_tile_properties['Boom'] = this.map.tilesets[0].tileproperties;
+    
     for(tileset in map_tile_properties){
       if (!map_tile_properties.hasOwnProperty(tileset)) {
           continue;

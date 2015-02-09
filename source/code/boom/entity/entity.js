@@ -13,6 +13,7 @@ Boom.Entity = function( params ){
   this.__isMerged = params.hasOwnProperty('is_merged') ? params.is_merged : false; //Defaults to un-merged
   this.__singular = params.hasOwnProperty('is_singular') ? params.is_singular : false; //Defaults to not singular (defines a static entity not to be merged but added to scene solo)
   this.__dispose = params.dispose || false;
+  this.__local = params.local || false;
   this.message_sendt = false;
   //this.message = ? //TODO: IMPLEMENT MISSING MESSAGE THAT THROWS EXCEPTION OR TRIGGERS SOMETHING DEBUGGABLE
   this.components = {};

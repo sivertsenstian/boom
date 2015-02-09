@@ -48,7 +48,6 @@ Boom.Healthpack.prototype = Boom.inherit(Boom.Entity, {
       {
         name: 'HEALTHPACK_AUDIO',
         sound: Boom.Assets.sounds.items.healthpack,
-        volume: 0.05,
         owner: this
       }
     );

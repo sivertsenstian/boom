@@ -1,6 +1,6 @@
 Boom.Pistol = function( params ){
   this.type = Boom.Assets.world.ENTITY.PISTOL; //TODO: THIS SHOULD BE DONE IN A BETTER WAY
-  Boom.Entity.call(this, {name: 'WEAPON_PistolEntity', addToScene: false, is_static: false, faction: params.faction});
+  Boom.Entity.call(this, {name: 'WEAPON_PistolEntity', addToScene: false, is_static: false, faction: params.faction, local:true});
   this.cooldown = 200;
   this.last_shot = Boom.getCurrentTime();
   this.ammunitionFactory = new Boom.AmmunitionFactory();
@@ -42,7 +42,6 @@ Boom.Pistol.prototype = Boom.inherit(Boom.Entity, {
       {
         name: 'pistol_audio_shoot',
         sound: Boom.Assets.sounds.weapons.gun.shoot,
-        volume: 0.25,
         owner: this
       }
     );
@@ -52,7 +51,6 @@ Boom.Pistol.prototype = Boom.inherit(Boom.Entity, {
       {
         name: 'pistol_audio_empty',
         sound: Boom.Assets.sounds.weapons.gun.empty,
-        volume: 0.25,
         owner: this
       }
     );
@@ -73,10 +71,9 @@ Boom.Pistol.prototype = Boom.inherit(Boom.Entity, {
   shoot: function( dir, type ){
     if( (Boom.getCurrentTime() - this.last_shot) >= this.cooldown ){
       var _this = this;
-    
+
       var spawn = new THREE.Vector3( -6 , 4 , 0 );
       this.getObjectComponent().object.localToWorld(spawn);
-      //new Boom.Bullet( {direction: dir, spawn: spawn, faction: this.faction} );
       this.ammunitionFactory.spawnAmmunition(type, {direction: dir, spawn: spawn, faction: this.faction});
       this.components['pistol_animation_shoot'].animate();
       this.components['pistol_audio_shoot'].play();
