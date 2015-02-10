@@ -142,7 +142,12 @@ Boom.Player.prototype = Boom.inherit(Boom.Entity, {
   dispose: function(){
     //TODO: FIND A BETTER WAY TO RESET GAME - THIS WORKS FOR NOW!
     $("#game_over").show();
-    setTimeout(function () { location.reload(true); }, 1000);
+    document.exitPointerLock = document.exitPointerLock    ||
+                           document.mozExitPointerLock ||
+                           document.webkitExitPointerLock;
+
+    // Attempt to unlock
+    document.exitPointerLock(); //TODO: Create message to input component that does this!
     //Call super
     Boom.Entity.prototype.dispose.call(this);
   }

@@ -37,7 +37,7 @@ Boom.Bullets.prototype = Boom.inherit(Boom.Entity, {
         object: physics.object,
         position: new THREE.Vector3(0, 0, 0), 
         rotation: new THREE.Vector3(0, 2*Math.PI, 0), 
-        ms: 7500,
+        ms: 6000,
         owner: this
       }
     );

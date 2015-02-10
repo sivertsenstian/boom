@@ -1,9 +1,9 @@
 Boom.Pistol = function( params ){
   this.type = Boom.Assets.world.ENTITY.PISTOL; //TODO: THIS SHOULD BE DONE IN A BETTER WAY
-  Boom.Entity.call(this, {name: 'WEAPON_PistolEntity', addToScene: false, is_static: false, faction: params.faction, local:true});
-  this.cooldown = 200;
+  this.cooldown = 450;
   this.last_shot = Boom.getCurrentTime();
   this.ammunitionFactory = new Boom.AmmunitionFactory();
+  Boom.Entity.call(this, {name: 'WEAPON_PistolEntity', addToScene: false, is_static: false, faction: params.faction, local:true});
 };
 
 Boom.Pistol.prototype = Boom.inherit(Boom.Entity, {
@@ -32,7 +32,7 @@ Boom.Pistol.prototype = Boom.inherit(Boom.Entity, {
         object: physics.object,
         position: new THREE.Vector3(0, 0.25, 0.25), 
         rotation: new THREE.Vector3(0.25, 0, 0), 
-        ms: 500,
+        ms: this.cooldown,
         owner: this
       }
     );
