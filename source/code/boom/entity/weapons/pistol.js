@@ -3,6 +3,7 @@ Boom.Pistol = function( params ){
   this.cooldown = 450;
   this.last_shot = Boom.getCurrentTime();
   this.ammunitionFactory = new Boom.AmmunitionFactory();
+  this.hud_name = 'PISTOL';
   Boom.Entity.call(this, {name: 'WEAPON_PistolEntity', addToScene: false, is_static: false, faction: params.faction, local:true});
 };
 

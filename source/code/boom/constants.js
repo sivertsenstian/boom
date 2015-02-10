@@ -7,7 +7,7 @@ Boom.Constants = {
   FRIENDLY: 'ba75d021-1988-4cbb-a6c5-05071b69572f',
 
   UI: {
-    BASE_WIDTH:175,
+    BASE_WIDTH:250,
     HEIGHT: 0,
     WIDTH: 0
   },
@@ -36,8 +36,9 @@ Boom.Constants = {
   },
 
   Items:{
-    HEALTHPACK: 'db9fdc72-5195-49b2-9327-346919b644df',
-    BULLETS: '2bccdac5-f515-4926-b203-95334bc240a1'
+    HEALTHPACK_POWERUP: 'db9fdc72-5195-49b2-9327-346919b644df',
+    BULLET_POWERUP: '2bccdac5-f515-4926-b203-95334bc240a1',
+    PISTOL_POWERUP: 'e6a2d0c2-ff2d-46e5-b66e-2e94c541b709'
   },
 
   Component:{
@@ -66,6 +67,10 @@ Boom.Constants = {
     POINT: 'dc16baf2-c933-4db4-a071-89ef72679925'
   },
 
+  Weapon: {
+    PISTOL: 'a55a989b-d8dc-46c9-8614-2fee2e52fc29'
+  },
+
   Ammunition:{
     BULLET: '96fc013d-623b-4b0a-86ef-cdb9698d843f'
   },
@@ -90,6 +95,7 @@ Boom.Constants = {
       REDUCE_HEALTH: Boom.guid(),
       INCREASE_HEALTH: Boom.guid(),
       INCREASE_AMMO: Boom.guid(),
+      ADD_WEAPON: Boom.guid(),
       DEATH: Boom.guid()
     },
     Hit: {

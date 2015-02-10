@@ -78,6 +78,8 @@ Boom.Alien.prototype = Boom.inherit(Boom.Entity, {
 
     var inventory = new Boom.InventoryComponent({
       name: 'alien_inventory',
+      weapon: Boom.Assets.world.ENTITY.PISTOL,
+      ammo: Boom.Constants.Ammunition.BULLET,
       owner: this
     });
     this.components[inventory.name] = inventory;

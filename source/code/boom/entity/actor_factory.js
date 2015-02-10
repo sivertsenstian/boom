@@ -20,10 +20,8 @@ Boom.ActorFactory.prototype = {
     switch( type ){
       case Boom.Constants.Actors.ALIEN:
         return new Boom.Alien( params );
-        break;
       case Boom.Constants.Actors.PLAYER:
         return new Boom.Player( params );
-        break;
       default:
         console.error( 'Actor of type "' + type + '" does not exist!');
         break;

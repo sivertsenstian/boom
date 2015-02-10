@@ -55,7 +55,7 @@ Boom.HUDComponent.prototype = Boom.inherit(Boom.Component, {
       htmlItemValue = document.createElement("SPAN");
       htmlItemValue.id = data.name +"_VALUE";
       htmlItemValue.style.textShadow = '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000';
-      htmlItemValue.innerHTML = data.value;
+      htmlItemValue.innerHTML = data.value || '-';
 
       htmlItem.id = data.name;
       htmlItem.appendChild( htmlItemLabel );
@@ -76,7 +76,7 @@ Boom.HUDComponent.prototype = Boom.inherit(Boom.Component, {
       //TODO / FIXME : Update hudItem as well ?? - not needed..
       //Perhaps if the dom-update is run on every UPDATE - this should update the value, and update() should loop all elelemnts in hudItems when updating dom
       //Not needed now so ill leave it!
-      document.getElementById(data.name + '_VALUE').innerHTML = data.value;
+      document.getElementById(data.name + '_VALUE').innerHTML = data.value || '-';
     }
     else{
       throw Boom.Exceptions.ItemNotDefinedInHashException;
