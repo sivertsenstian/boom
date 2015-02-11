@@ -67,7 +67,13 @@ Boom.InventoryComponent.prototype = Boom.inherit(Boom.Component, {
       //TODO REMOVE FROM CAMERA / OVERRIDE NEEDED FOR REMOVE AS WELL ??
       //remove current object from owner
       if(typeof this.object !== 'undefined' && this.object !== null){
-        this.owner.remove( this.object );
+        if( typeof this.camera !== 'undefined' && this.camera !== null){
+          this.owner.remove( this.object, this.camera );
+        }
+        else{
+         //remove current weapon
+         this.owner.remove( this.object ); 
+        }
       }
 
       //add new object to owner
@@ -76,7 +82,7 @@ Boom.InventoryComponent.prototype = Boom.inherit(Boom.Component, {
           this.owner.add( this.object, this.camera );
       }
       else{
-       //remove current weapon
+       //add current weapon
        this.owner.add( this.object ); 
       }
 

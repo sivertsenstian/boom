@@ -81,13 +81,14 @@ Boom.Entity.prototype = {
     }
   },
 
-  remove: function( other ){
+  remove: function( other, override ){
     for(var i = 0; i < this.children.length; i++ ){
       if( this.children[i].id === other.id ){
         var this_physical = this.getObjectComponent();
         var other_physical = other.getObjectComponent();
         if( this_physical && other_physical ){
-          this_physical.object.remove( other_physical.object );
+          var parent = override || this_physical.object;
+          parent.remove( other_physical.object );
         }
         this.children.splice(i, 1);
       }
