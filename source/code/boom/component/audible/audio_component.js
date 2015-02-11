@@ -30,9 +30,8 @@ Boom.AudioComponent.prototype = Boom.inherit(Boom.Component, {
   },
 
   play: function(){
-    this.position = this.owner.__local ? this.owner.getObjectComponent().object.localToWorld( this.owner.getObjectComponent().object.position ) :
-                                        this.owner.getObjectComponent().object.position;
-    
+    var play_pos = this.owner.getObjectComponent().object.position.clone();
+    this.position = this.owner.__local ? this.owner.getObjectComponent().object.localToWorld( play_pos ) : play_pos;
     this.audio = new THREE.Audio( Boom.Constants.PLAYER_LISTENER );
     this.audio.gain.gain.value = this.sound.volume;
     this.audio.load( this.sound.url );

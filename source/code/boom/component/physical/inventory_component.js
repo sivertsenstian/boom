@@ -137,9 +137,8 @@ Boom.InventoryComponent.prototype = Boom.inherit(Boom.Component, {
             //Add active weapon-entity (this.object) to owner-entity
             this.setActiveWeapon( message.data.name );
           }
-          else { //Add 10 ammo of the weapon-type if it exists
-            this.inventory.ammunition[this.inventory.weapons[message.data.name]] += this.bonus;
-          }
+          //Add 10 ammo of the weapon-types ammo
+          this.inventory.ammunition[this.inventory.weapons[message.data.name]] += this.bonus;
           break;
         case Boom.Constants.Message.Action.SET_WEAPON:
           if( this.inventory.weapons.hasOwnProperty( message.data.name )){
