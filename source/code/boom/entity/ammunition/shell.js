@@ -4,7 +4,7 @@ Boom.Shell = function( params ){
   this.direction = params.direction;
   this.size = 0.25;
   this.speed = 10;
-  this.damage = 6.25;
+  this.damage = 10;
   this.velocity = new THREE.Vector3(0, 0, 0);
   this.msg = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, data: null, type: Boom.Constants.Message.Action.VELOCITY, sender: this.name });
   Boom.Entity.call(this, {name: 'AMMO_ShellEntity', is_static: false, faction: params.faction});

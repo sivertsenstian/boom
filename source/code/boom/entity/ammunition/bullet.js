@@ -4,7 +4,7 @@ Boom.Bullet = function( params ){
   this.direction = params.direction;
   this.size = 0.5;
   this.speed = 10;
-  this.damage = 25;
+  this.damage = 10;
   this.velocity = new THREE.Vector3(0, 0, 0);
   this.msg = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, data: null, type: Boom.Constants.Message.Action.VELOCITY, sender: this.name });
   Boom.Entity.call(this, {name: 'AMMO_BulletEntity', is_static: false, faction: params.faction});
@@ -48,7 +48,7 @@ Boom.Bullet.prototype = Boom.inherit(Boom.Entity, {
     var audio_hit = new Boom.AudioComponent(
       {
         name: 'BULLET_HIT_AUDIO',
-        sound: Boom.Assets.sounds.weapons.gun.hit,
+        sound: Boom.Assets.sounds.weapons.pistol.hit,
         owner: this
       }
     );

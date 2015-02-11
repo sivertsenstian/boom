@@ -47,7 +47,7 @@ Boom.PistolPowerup.prototype = Boom.inherit(Boom.Entity, {
     var audio = new Boom.AudioComponent(
       {
         name: 'BULLETS_AUDIO',
-        sound: Boom.Assets.sounds.weapons.gun.pickup,
+        sound: Boom.Assets.sounds.weapons.pistol.pickup,
         owner: this
       }
     );

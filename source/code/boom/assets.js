@@ -5,35 +5,35 @@ Boom.Assets = {
   },
 
   music: {
-    MISSING: new Boom.Audio({url: 'resources/music/missing.mp3', volume: 0.25, loop: true }),
+    MISSING: new Boom.Audio({url: 'resources/music/missing.mp3', volume: 0.5, loop: true }),
     maps:{
-      'c7cc27d8-da16-4c26-bb03-0e2d04de63c8' : new Boom.Audio({url: 'resources/music/simple_action_beat.ogg', volume: 0.25, loop: true})
+      'c7cc27d8-da16-4c26-bb03-0e2d04de63c8' : new Boom.Audio({url: 'resources/music/simple_action_beat.ogg', volume: 0.5, loop: true})
     }
   },
   sounds: {
     MISSING: new Boom.Audio({url: 'resources/sounds/missing.mp3'}),
     weapons: {
-      gun: {
-        shoot: new Boom.Audio({url: 'resources/sounds/shoot.wav', volume: 0.10}),
-        hit: new Boom.Audio({url: 'resources/sounds/hit.wav'}),
-        empty: new Boom.Audio({url: 'resources/sounds/empty.mp3'}),
-        pickup: new Boom.Audio({url: 'resources/sounds/bullets_pickup.mp3', volume: 0.10})
+      pistol: {
+        shoot: new Boom.Audio({url: 'resources/sounds/pistol.wav', volume: 0.5}),
+        hit: new Boom.Audio({url: 'resources/sounds/hit.wav', volume: 0.5}),
+        empty: new Boom.Audio({url: 'resources/sounds/empty.mp3', volume: 0.5}),
+        pickup: new Boom.Audio({url: 'resources/sounds/pistol_pickup.mp3', volume: 0.5})
       },
       shotgun: {
-        shoot: new Boom.Audio({url: 'resources/sounds/shotgun.mp3', volume: 0.10}),
-        hit: new Boom.Audio({url: 'resources/sounds/hit.wav'}),
-        empty: new Boom.Audio({url: 'resources/sounds/empty.mp3'}),
-        pickup: new Boom.Audio({url: 'resources/sounds/bullets_pickup.mp3', volume: 0.10})
+        shoot: new Boom.Audio({url: 'resources/sounds/shotgun.mp3', volume: 0.5}),
+        hit: new Boom.Audio({url: 'resources/sounds/hit.wav', volume: 0.5}),
+        empty: new Boom.Audio({url: 'resources/sounds/empty.mp3', volume: 0.5}),
+        pickup: new Boom.Audio({url: 'resources/sounds/shotgun_pickup.ogg', volume: 0.5})
       }
     },
     items: {
-      healthpack_powerup: new Boom.Audio({url: 'resources/sounds/healthpack_pickup.wav', volume: 0.10}),
-      bullet_powerup: new Boom.Audio({url: 'resources/sounds/bullets_pickup.mp3', volume: 0.10}),
-      shell_powerup: new Boom.Audio({url: 'resources/sounds/bullets_pickup.mp3', volume: 0.10})
+      healthpack_powerup: new Boom.Audio({url: 'resources/sounds/healthpack_pickup.wav', volume: 0.5}),
+      bullet_powerup: new Boom.Audio({url: 'resources/sounds/bullet_pickup.mp3', volume: 0.5}),
+      shell_powerup: new Boom.Audio({url: 'resources/sounds/shell_pickup.mp3', volume: 0.5})
     },
     hostile: {
-      pain: new Boom.Audio({url: 'resources/sounds/pain.mp3'}),
-      death: new Boom.Audio({url: 'resources/sounds/death.mp3'})
+      pain: new Boom.Audio({url: 'resources/sounds/pain.mp3', volume: 0.5}),
+      death: new Boom.Audio({url: 'resources/sounds/death.mp3', volume: 0.5})
     }
   },
 

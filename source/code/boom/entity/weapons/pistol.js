@@ -18,7 +18,7 @@ Boom.Pistol.prototype = Boom.inherit(Boom.Entity, {
       {
         name: "pistol_physics",
         shape: Boom.Constants.Component.MODEL, 
-        model: Boom.Assets.weapons.gun,
+        model: Boom.Assets.weapons.pistol,
         scale: new THREE.Vector3(0.1, 0.1, 0.1),
         position: new THREE.Vector3(2, -2, -4),
         rotation: new THREE.Vector3(0 , -Math.PI/2, 0),
@@ -42,7 +42,7 @@ Boom.Pistol.prototype = Boom.inherit(Boom.Entity, {
     var audio_shoot = new Boom.AudioComponent(
       {
         name: 'pistol_audio_shoot',
-        sound: Boom.Assets.sounds.weapons.gun.shoot,
+        sound: Boom.Assets.sounds.weapons.pistol.shoot,
         owner: this
       }
     );
@@ -51,7 +51,7 @@ Boom.Pistol.prototype = Boom.inherit(Boom.Entity, {
     var audio_empty = new Boom.AudioComponent(
       {
         name: 'pistol_audio_empty',
-        sound: Boom.Assets.sounds.weapons.gun.empty,
+        sound: Boom.Assets.sounds.weapons.pistol.empty,
         owner: this
       }
     );
