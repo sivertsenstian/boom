@@ -77,12 +77,15 @@ Boom.Shotgun.prototype = Boom.inherit(Boom.Entity, {
 
       var spawn = new THREE.Vector3( -6 , 4 , 0 );
       this.getObjectComponent().object.localToWorld(spawn);
-      for(var i = -(this.shells_per_burst/2); i < (this.shells_per_burst/2); i++){
-        var spread_dir = new THREE.Vector3(dir.x + (i*this.spread),dir.y, dir.z + (i*this.spread));
+      for(var i = 0; i < this.shells_per_burst; i++){
+        var spread_dir = new THREE.Vector3(dir.x + Boom.randomRange(-this.spread, this.spread), 
+                                           dir.y + Boom.randomRange(-this.spread, this.spread), 
+                                           dir.z + Boom.randomRange(-this.spread, this.spread)
+                                           );
         this.ammunitionFactory.spawnAmmunition(type, {direction: spread_dir, spawn: spawn, faction: this.faction});
       }
-      this.components['shotgun_animation_shoot'].animate();
-      this.components['shotgun_audio_shoot'].play();
+      this.components.shotgun_animation_shoot.animate();
+      this.components.shotgun_audio_shoot.play();
 
       this.last_shot = Boom.getCurrentTime();
       return true;
@@ -92,7 +95,7 @@ Boom.Shotgun.prototype = Boom.inherit(Boom.Entity, {
 
   empty: function(){
     if( (Boom.getCurrentTime() - this.last_shot) >= this.cooldown ){
-      this.components['shotgun_audio_empty'].play();
+      this.components.shotgun_audio_empty.play();
 
       this.last_shot = Boom.getCurrentTime();
       return true;

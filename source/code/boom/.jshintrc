@@ -1,0 +1,10 @@
+{
+    "globals": {
+        "$": false,
+        "jQuery": false,
+        "Boom": false,
+        "THREE": false,
+        "TWEEN": false
+    },
+    "undef": true
+}
