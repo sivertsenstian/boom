@@ -24,6 +24,10 @@ Boom.ItemFactory.prototype = {
         return new Boom.BulletPowerup( params ); 
       case Boom.Constants.Items.PISTOL_POWERUP:
         return new Boom.PistolPowerup( params );
+      case Boom.Constants.Items.SHELL_POWERUP:
+        return new Boom.ShellPowerup( params ); 
+      case Boom.Constants.Items.SHOTGUN_POWERUP:
+        return new Boom.ShotgunPowerup( params ); 
       default:
         console.error( 'Item of type "' + type + '" does not exist!');
         break;

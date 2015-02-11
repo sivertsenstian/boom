@@ -38,7 +38,9 @@ Boom.Constants = {
   Items:{
     HEALTHPACK_POWERUP: 'db9fdc72-5195-49b2-9327-346919b644df',
     BULLET_POWERUP: '2bccdac5-f515-4926-b203-95334bc240a1',
-    PISTOL_POWERUP: 'e6a2d0c2-ff2d-46e5-b66e-2e94c541b709'
+    SHELL_POWERUP: '1d2b839d-151e-4f4b-bbb4-f1809ec9a558',
+    PISTOL_POWERUP: 'e6a2d0c2-ff2d-46e5-b66e-2e94c541b709',
+    SHOTGUN_POWERUP: 'e697f30b-77eb-4c32-9b0d-e1c363466b70'
   },
 
   Component:{
@@ -68,11 +70,13 @@ Boom.Constants = {
   },
 
   Weapon: {
-    PISTOL: 'a55a989b-d8dc-46c9-8614-2fee2e52fc29'
+    PISTOL: 'a55a989b-d8dc-46c9-8614-2fee2e52fc29',
+    SHOTGUN: '3c8e662c-44e5-4348-b959-ccd74e09dec5'
   },
 
   Ammunition:{
-    BULLET: '96fc013d-623b-4b0a-86ef-cdb9698d843f'
+    BULLET: '96fc013d-623b-4b0a-86ef-cdb9698d843f',
+    SHELL: '02709816-7162-4c37-a9e7-b037cace65e0'
   },
 
   Message: {

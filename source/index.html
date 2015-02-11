@@ -59,14 +59,18 @@
   <!-- WEAPONS -->
   <script type="text/javascript" src='code/boom/entity/weapon_factory.js'></script>
   <script type="text/javascript" src='code/boom/entity/weapons/pistol.js'></script>
+  <script type="text/javascript" src='code/boom/entity/weapons/shotgun.js'></script>
   <!-- AMMUNITION -->
   <script type="text/javascript" src='code/boom/entity/ammunition_factory.js'></script>
   <script type="text/javascript" src='code/boom/entity/ammunition/bullet.js'></script>
+  <script type="text/javascript" src='code/boom/entity/ammunition/shell.js'></script>
   <!-- ITEMS -->
   <script type="text/javascript" src='code/boom/entity/item_factory.js'></script>
   <script type="text/javascript" src='code/boom/entity/items/healthpack_powerup.js'></script>
   <script type="text/javascript" src='code/boom/entity/items/bullet_powerup.js'></script>
   <script type="text/javascript" src='code/boom/entity/items/pistol_powerup.js'></script>
+  <script type="text/javascript" src='code/boom/entity/items/shell_powerup.js'></script>
+  <script type="text/javascript" src='code/boom/entity/items/shotgun_powerup.js'></script>
   <!-- TERRAIN -->
   <script type="text/javascript" src='code/boom/entity/structures/wall.js'></script>
   <script type="text/javascript" src='code/boom/entity/structures/floor.js'></script>
@@ -102,6 +106,7 @@
       var loader = new PxLoader();
       //Models
       loader.addDAEModel('/resources/models/gun.dae', ['weapons', 'gun'] );
+      loader.addDAEModel('/resources/models/shotgun.dae', ['weapons', 'shotgun'] );
       loader.addDAEModel('/resources/models/alien.dae', ['enemies', 'alien'] );
 
       //Maps

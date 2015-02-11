@@ -1,17 +1,17 @@
-Boom.BulletPowerup = function( params ){
+Boom.ShotgunPowerup = function( params ){
   this.type = params.type || Boom.Assets.world.ENTITY.MISSING;
   this.position = params.position;
   this.size = params.size || 12;
   this.texture = Boom.Assets.textures[this.type];
-  this.value = params.value || 10;
+  this.value = params.value || Boom.Constants.Ammunition.SHELL; //ammo used by  this weapon
 
-  this.message = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.INVENTORY, data: {name: Boom.Constants.Ammunition.BULLET, value: this.value}, type: Boom.Constants.Message.Action.INCREASE_AMMO, sender: this.type });
+  this.message = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.INVENTORY, data: {name:  Boom.Assets.world.ENTITY.SHOTGUN, value: this.value}, type: Boom.Constants.Message.Action.ADD_WEAPON, sender: this.type });
 
-  Boom.Entity.call(this, {name: 'POWERUP_ITEM_BULLETS', is_singular: true});
+  Boom.Entity.call(this, {name: 'POWERUP_ITEM_SHOTGUN', is_singular: true});
 };
 
-Boom.BulletPowerup.prototype = Boom.inherit(Boom.Entity, {
-  constructor: Boom.BulletPowerup,
+Boom.ShotgunPowerup.prototype = Boom.inherit(Boom.Entity, {
+  constructor: Boom.ShotgunPowerup,
 
   init: function() {
     //Call super
@@ -19,12 +19,12 @@ Boom.BulletPowerup.prototype = Boom.inherit(Boom.Entity, {
     
     var physics = new Boom.PhysicalComponent(
        {
-        name:'powerup_item_bullet_physics',
+        name:'powerup_item_shotgun_physics',
         shape: Boom.Constants.Component.BOX,
         position: this.position,
         color: 0x000000,
         size: this.size,
-        scale: new THREE.Vector3(0.5,0.75,1.0),
+        scale: new THREE.Vector3(0.75,1.0,1.25),
         texture: this.texture,
         owner: this
       }
@@ -33,7 +33,7 @@ Boom.BulletPowerup.prototype = Boom.inherit(Boom.Entity, {
 
     var animation = new Boom.AnimationComponent( 
       {
-        name: "powerup_item_bullet_animation",
+        name: "powerup_item_shotgun_animation",
         object: physics.object,
         position: new THREE.Vector3(0, 0, 0), 
         rotation: new THREE.Vector3(0, 2*Math.PI, 0), 
@@ -46,8 +46,8 @@ Boom.BulletPowerup.prototype = Boom.inherit(Boom.Entity, {
 
     var audio = new Boom.AudioComponent(
       {
-        name: 'BULLET_AUDIO',
-        sound: Boom.Assets.sounds.items.bullet_powerup,
+        name: 'SHOTGUN_AUDIO',
+        sound: Boom.Assets.sounds.weapons.shotgun.pickup,
         owner: this
       }
     );
@@ -68,6 +68,6 @@ Boom.BulletPowerup.prototype = Boom.inherit(Boom.Entity, {
   dispose: function(){
     //Call super
     Boom.Entity.prototype.dispose.call(this);
-    this.components.BULLET_AUDIO.play();
+    this.components.SHOTGUN_AUDIO.play();
   }
 });

@@ -20,6 +20,8 @@ Boom.AmmunitionFactory.prototype = {
     switch( type ){
       case Boom.Constants.Ammunition.BULLET:
         return new Boom.Bullet( params );
+      case Boom.Constants.Ammunition.SHELL:
+        return new Boom.Shell( params );
       default:
         console.error( 'Ammunition of type "' + type + '" does not exist!');
         break;

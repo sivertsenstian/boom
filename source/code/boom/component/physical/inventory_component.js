@@ -33,11 +33,12 @@ Boom.InventoryComponent.prototype = Boom.inherit(Boom.Component, {
   constructor: Boom.InventoryComponent,
 
   init: function() {
-    //ADD WEAPON
-    this.setActiveWeapon( this.weapon );
     //HUD
     this.send( this.registerHUD_AMMO );
     this.send( this.registerHUD_WEAPON );
+
+    //ADD WEAPON
+    this.setActiveWeapon( this.weapon );
     //Call super
     Boom.Component.prototype.init.call(this);
   },
@@ -104,6 +105,9 @@ Boom.InventoryComponent.prototype = Boom.inherit(Boom.Component, {
           }
           break;
         case Boom.Constants.Message.Action.INCREASE_AMMO:
+          if( !this.inventory.ammunition.hasOwnProperty(message.data.name) ){
+            this.inventory.ammunition[message.data.name] = 0;
+          }
           this.inventory.ammunition[message.data.name] += parseFloat(message.data.value);
           break;
         case Boom.Constants.Message.Action.ADD_WEAPON:

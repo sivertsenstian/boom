@@ -20,6 +20,8 @@ Boom.WeaponFactory.prototype = {
     switch( type ){
       case Boom.Constants.Weapon.PISTOL:
         return new Boom.Pistol( params );
+      case Boom.Constants.Weapon.SHOTGUN:
+        return new Boom.Shotgun( params );
       default:
         console.error( 'Weapon of type "' + type + '" does not exist!');
         break;

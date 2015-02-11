@@ -16,12 +16,20 @@ Boom.Assets = {
       gun: {
         shoot: new Boom.Audio({url: 'resources/sounds/shoot.wav', volume: 0.10}),
         hit: new Boom.Audio({url: 'resources/sounds/hit.wav'}),
-        empty: new Boom.Audio({url: 'resources/sounds/empty.mp3'})
+        empty: new Boom.Audio({url: 'resources/sounds/empty.mp3'}),
+        pickup: new Boom.Audio({url: 'resources/sounds/bullets_pickup.mp3', volume: 0.10})
+      },
+      shotgun: {
+        shoot: new Boom.Audio({url: 'resources/sounds/shotgun.mp3', volume: 0.10}),
+        hit: new Boom.Audio({url: 'resources/sounds/hit.wav'}),
+        empty: new Boom.Audio({url: 'resources/sounds/empty.mp3'}),
+        pickup: new Boom.Audio({url: 'resources/sounds/bullets_pickup.mp3', volume: 0.10})
       }
     },
     items: {
-      healthpack: new Boom.Audio({url: 'resources/sounds/healthpack_pickup.wav', volume: 0.10}),
-      bullets: new Boom.Audio({url: 'resources/sounds/bullets_pickup.mp3', volume: 0.10})
+      healthpack_powerup: new Boom.Audio({url: 'resources/sounds/healthpack_pickup.wav', volume: 0.10}),
+      bullet_powerup: new Boom.Audio({url: 'resources/sounds/bullets_pickup.mp3', volume: 0.10}),
+      shell_powerup: new Boom.Audio({url: 'resources/sounds/bullets_pickup.mp3', volume: 0.10})
     },
     hostile: {
       pain: new Boom.Audio({url: 'resources/sounds/pain.mp3'}),
@@ -36,7 +44,8 @@ Boom.Assets = {
     ENTITY:{
       MISSING: 'cc3bbbf2-b514-4daf-a9d9-1bd320d612e6',
       SKYBOX: 'fd7f5d5e-c7dd-4ea4-a8b8-e140a0a2e85b',
-      PISTOL: 'a55a989b-d8dc-46c9-8614-2fee2e52fc29'
+      PISTOL: 'a55a989b-d8dc-46c9-8614-2fee2e52fc29',
+      SHOTGUN: '3c8e662c-44e5-4348-b959-ccd74e09dec5'
     },
     MAP:{
       COLLISION: 'a1114c99-41cb-4fbd-8847-5e112d2ceb18'
