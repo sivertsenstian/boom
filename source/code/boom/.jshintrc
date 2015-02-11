@@ -4,7 +4,9 @@
         "jQuery": false,
         "Boom": false,
         "THREE": false,
-        "TWEEN": false
+        "TWEEN": false,
+        "document": false,
+        "console": false
     },
     "undef": true
 }

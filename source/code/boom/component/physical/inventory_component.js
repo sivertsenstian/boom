@@ -7,7 +7,12 @@ Boom.InventoryComponent = function( params ) {
   this.weapon = params.weapon || null;
   this.object =  null;
   this.active_ammunition = params.ammo || null;
-  this.events = [Boom.Constants.Message.Action.SHOOT, Boom.Constants.Message.Action.INCREASE_AMMO,  Boom.Constants.Message.Action.ADD_WEAPON];
+  this.bonus = params.bonus || 10;
+  this.events = [Boom.Constants.Message.Action.SHOOT, 
+                 Boom.Constants.Message.Action.INCREASE_AMMO,  
+                 Boom.Constants.Message.Action.ADD_WEAPON,
+                 Boom.Constants.Message.Action.SET_WEAPON];
+
   this.inventory = {
     weapons: {},
     ammunition: {},
@@ -15,9 +20,11 @@ Boom.InventoryComponent = function( params ) {
   };
   this.weaponFactory = new Boom.WeaponFactory();
 
-  //ADD SOME BASIC BULLETS TO INVENTORY
-  //TODO: REMOVE THIS ??
-  this.inventory.ammunition[Boom.Constants.Ammunition.BULLET] = params.start_ammunition || 12;
+  //Init and add weapon and ammunition if it is defined from params
+  if(this.weapon !== null && this.active_ammunition !== null){
+    this.inventory.weapons[this.weapon] = this.active_ammunition;
+    this.inventory.ammunition[this.active_ammunition] = 0; 
+  }
 
   //HUD
   this.registerHUD_WEAPON = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.HUD, data: { name: 'WEAPON', color: 'red', value: null }, type: Boom.Constants.Message.HUD.REGISTER, sender: this.type });
@@ -85,7 +92,8 @@ Boom.InventoryComponent.prototype = Boom.inherit(Boom.Component, {
        //add current weapon
        this.owner.add( this.object ); 
       }
-
+      //Set ammunition according to weapon
+      this.active_ammunition = this.inventory.weapons[weapon];
       //Update hud!
       this.updateHUD_WEAPON.data.value = this.object.hud_name;
       this.send( this.updateHUD_WEAPON );
@@ -117,17 +125,26 @@ Boom.InventoryComponent.prototype = Boom.inherit(Boom.Component, {
           this.inventory.ammunition[message.data.name] += parseFloat(message.data.value);
           break;
         case Boom.Constants.Message.Action.ADD_WEAPON:
-          //Add weapon to inventory, with its designated ammunition as value
-          this.inventory.weapons[message.data.name] = message.data.value;
-          //Set current active ammunition to this weapons ammunition, 
-          //and add it to inventory if it does not exist - with 0 count
-          this.active_ammunition = this.inventory.weapons[message.data.name];
-          if( !this.inventory.ammunition.hasOwnProperty(this.active_ammunition) ){
-            this.inventory.ammunition[this.active_ammunition] = 0;
+          if( !this.inventory.weapons.hasOwnProperty( message.data.name )){
+            //Add weapon to inventory, with its designated ammunition as value
+            this.inventory.weapons[message.data.name] = message.data.value;
+            //Set current active ammunition to this weapons ammunition, 
+            //and add it to inventory if it does not exist - with 0 count
+            if( !this.inventory.ammunition.hasOwnProperty(this.inventory.weapons[message.data.name]) ){
+              this.inventory.ammunition[this.inventory.weapons[message.data.name]] = 0;
+            }
+            //Set current active weapon-entity (this.object) to an instance of given type, using the weaponFactory
+            //Add active weapon-entity (this.object) to owner-entity
+            this.setActiveWeapon( message.data.name );
           }
-          //Set current active weapon-entity (this.object) to an instance of given type, using the weaponFactory
-          //Add active weapon-entity (this.object) to owner-entity
-          this.setActiveWeapon( message.data.name );
+          else { //Add 10 ammo of the weapon-type if it exists
+            this.inventory.ammunition[this.inventory.weapons[message.data.name]] += this.bonus;
+          }
+          break;
+        case Boom.Constants.Message.Action.SET_WEAPON:
+          if( this.inventory.weapons.hasOwnProperty( message.data.name )){
+            this.setActiveWeapon( message.data.name );
+          }
           break;
         default:
           console.log( "UNKNOWN MESSAGE!" );

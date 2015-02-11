@@ -1,5 +1,5 @@
 Boom.PlayerInputActionComponent = function( params ) {
-  var params = params || {};
+  params = params || {};
   this.camera = params.camera;
   this.object = params.object;
   this.type = params.type || Boom.Constants.Component.TYPE.INPUT;
@@ -39,6 +39,10 @@ Boom.PlayerInputActionComponent.prototype = Boom.inherit(Boom.Component, {
     this.spaceBar = false;
     this.leftClick = false;
     this.rightClick = false;
+
+    //Weapon selects
+    this.pistol = false;
+    this.shotgun = false;
 
     var PI_2 = Math.PI / 2;
 
@@ -105,6 +109,14 @@ Boom.PlayerInputActionComponent.prototype = Boom.inherit(Boom.Component, {
 
         case 32: // space
           scope.spaceBar = true;
+          break;
+
+        case 49: // 1
+          scope.pistol = true;
+          break;
+
+        case 50: // 2
+          scope.shotgun = true;
           break;
       }
     };
@@ -263,6 +275,23 @@ Boom.PlayerInputActionComponent.prototype = Boom.inherit(Boom.Component, {
                               data: this.getDirection().normalize(), 
                               type: Boom.Constants.Message.Action.JUMP, 
                               sender: this.type }));
+    }
+
+    //Weapons
+    if ( this.pistol ){
+      this.pistol = false;
+      this.send( new Boom.Message({ receiver: Boom.Constants.Component.TYPE.INVENTORY,
+                                    data: {name:  Boom.Assets.world.ENTITY.PISTOL, value: Boom.Constants.Ammunition.BULLET}, 
+                                    type: Boom.Constants.Message.Action.SET_WEAPON, 
+                                    sender: this.type }));
+    }
+
+    if ( this.shotgun ){
+      this.shotgun = false;
+      this.send( new Boom.Message({ receiver: Boom.Constants.Component.TYPE.INVENTORY,
+                                    data: {name:  Boom.Assets.world.ENTITY.SHOTGUN, value: Boom.Constants.Ammunition.SHELL}, 
+                                    type: Boom.Constants.Message.Action.SET_WEAPON, 
+                                    sender: this.type }));
     }
   }
 

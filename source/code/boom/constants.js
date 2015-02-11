@@ -100,6 +100,7 @@ Boom.Constants = {
       INCREASE_HEALTH: Boom.guid(),
       INCREASE_AMMO: Boom.guid(),
       ADD_WEAPON: Boom.guid(),
+      SET_WEAPON: Boom.guid(),
       DEATH: Boom.guid()
     },
     Hit: {
