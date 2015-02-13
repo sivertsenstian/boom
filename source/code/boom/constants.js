@@ -95,6 +95,9 @@ Boom.Constants = {
       GRAVITY: Boom.guid(),
       SHOOT: Boom.guid(),
       JUMP: Boom.guid(),
+      SPRINT_START: Boom.guid(),
+      SPRINT_STOP: Boom.guid(),
+      SPRINTING: Boom.guid(),
       LAND: Boom.guid(),
       REDUCE_HEALTH: Boom.guid(),
       INCREASE_HEALTH: Boom.guid(),
@@ -153,7 +156,7 @@ Boom.Constants = {
   },
 
   Base:{
-    FOV: 90,
+    FOV: 75,
     NEAR: 0.1,
     FAR: 1000,
     FPS: 60,

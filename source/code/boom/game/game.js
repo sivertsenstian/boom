@@ -8,7 +8,7 @@ Boom.Game = function() {
   this.restartedLevel = false;
   
   //this.antialias = true;
-  this.cameraFov = 75;
+  //this.cameraFov = 75;
   this.cameraFar = 600; //OPTIMIZE - Performance draining???
 
   /*this.width = 800;

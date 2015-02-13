@@ -76,6 +76,9 @@ Boom.HUDComponent.prototype = Boom.inherit(Boom.Component, {
       //TODO / FIXME : Update hudItem as well ?? - not needed..
       //Perhaps if the dom-update is run on every UPDATE - this should update the value, and update() should loop all elelemnts in hudItems when updating dom
       //Not needed now so ill leave it!
+      if(data.hasOwnProperty('color')){
+        document.getElementById(data.name + '_VALUE').style.color = data.color;
+      }
       document.getElementById(data.name + '_VALUE').innerHTML = data.value || '-';
     }
     else{

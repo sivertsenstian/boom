@@ -6,7 +6,8 @@ Boom.MovementActionComponent = function( params ) {
   this.events = [Boom.Constants.Message.Input.FORWARD,
                   Boom.Constants.Message.Input.BACKWARD,
                   Boom.Constants.Message.Input.LEFT,
-                  Boom.Constants.Message.Input.RIGHT];
+                  Boom.Constants.Message.Input.RIGHT,
+                  Boom.Constants.Message.Action.SPRINTING];
 
   this.msg = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, data: null, type: Boom.Constants.Message.Action.VELOCITY_FLAT, sender: this.type });
 
@@ -58,6 +59,9 @@ Boom.MovementActionComponent.prototype = Boom.inherit(Boom.Component, {
         case Boom.Constants.Message.Input.RIGHT:
           this.velocity.x += -message.data.z;
           this.velocity.z += message.data.x;
+          break;
+        case Boom.Constants.Message.Action.SPRINTING:
+          this.speed += message.data;
           break;
         default:
           console.log( "UNKNOWN MESSAGE!" );

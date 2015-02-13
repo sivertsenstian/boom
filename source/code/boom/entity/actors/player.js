@@ -109,6 +109,14 @@ Boom.Player.prototype = Boom.inherit(Boom.Entity, {
     });
     this.components[inventory.name] = inventory;
 
+    var basic_sprint = new Boom.SprintActionComponent( 
+      { 
+        name: 'player_sprint', 
+        owner: this
+      } 
+    );
+    this.components[basic_sprint.name] = basic_sprint;
+
     var crosshair = new Boom.UiComponent({
       name: 'player_crosshair',
       camera: this.camera,

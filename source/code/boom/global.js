@@ -62,3 +62,10 @@ Boom.guid = function b(a) {
 Boom.randomRange = function(min, max){
   return Math.random() * (max - min) + min;
 };
+
+Boom.changeFoV = function( fov ){
+  if(Boom.Constants.PLAYER_CAMERA.fov !== fov){
+    Boom.Constants.PLAYER_CAMERA.fov = fov;
+    Boom.Constants.PLAYER_CAMERA.updateProjectionMatrix();
+  }
+};

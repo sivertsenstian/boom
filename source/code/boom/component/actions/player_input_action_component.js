@@ -36,7 +36,8 @@ Boom.PlayerInputActionComponent.prototype = Boom.inherit(Boom.Component, {
     this.moveBackward = false;
     this.moveLeft = false;
     this.moveRight = false;
-    this.spaceBar = false;
+    this.jump = false;
+    this.sprint = false;
     this.leftClick = false;
     this.rightClick = false;
 
@@ -107,8 +108,12 @@ Boom.PlayerInputActionComponent.prototype = Boom.inherit(Boom.Component, {
           scope.moveRight = true;
           break;
 
-        case 32: // space
-          scope.spaceBar = true;
+        case 32: // jump
+          scope.jump = true;
+          break;
+
+        case 67: // sprint
+          scope.sprint = true;
           break;
 
         case 49: // 1
@@ -144,7 +149,15 @@ Boom.PlayerInputActionComponent.prototype = Boom.inherit(Boom.Component, {
           break;
 
         case 32: // space
-          scope.spaceBar = false;
+          scope.jump = false;
+          break;
+
+        case 67: // sprint
+          scope.sprint = false;
+          scope.send( new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, 
+                        data: null, 
+                        type: Boom.Constants.Message.Action.SPRINT_STOP, 
+                        sender: this.type }));
           break;
       }
     };
@@ -270,10 +283,18 @@ Boom.PlayerInputActionComponent.prototype = Boom.inherit(Boom.Component, {
                               sender: this.type }));
     }
 
-    if ( this.spaceBar ){
+    if ( this.jump ){
       this.send( new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, 
                               data: this.getDirection().normalize(), 
                               type: Boom.Constants.Message.Action.JUMP, 
+                              sender: this.type }));
+    }
+
+    if ( this.sprint ){
+      this.sprint = false;
+      this.send( new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, 
+                              data: null, 
+                              type: Boom.Constants.Message.Action.SPRINT_START, 
                               sender: this.type }));
     }
 
