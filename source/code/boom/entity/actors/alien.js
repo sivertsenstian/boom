@@ -111,7 +111,7 @@ Boom.Alien.prototype = Boom.inherit(Boom.Entity, {
     var audio_pain = new Boom.AudioComponent(
       {
         name: 'AUDIO_PAIN',
-        sound: Boom.Assets.sounds.hostile.pain,
+        sound: Boom.Assets.sounds.hostile.alien.pain,
         owner: this
       }
     );
@@ -120,7 +120,7 @@ Boom.Alien.prototype = Boom.inherit(Boom.Entity, {
     var audio_death = new Boom.AudioComponent(
       {
         name: 'AUDIO_DEATH',
-        sound: Boom.Assets.sounds.hostile.death,
+        sound: Boom.Assets.sounds.hostile.alien.death,
         owner: this
       }
     );
@@ -140,16 +140,10 @@ Boom.Alien.prototype = Boom.inherit(Boom.Entity, {
   },
 
   dispose: function(){
-    this.components.AUDIO_DEATH.play();
-    this.components.ANIMATION_DEATH.animate();
-
-    setTimeout(function( entity ){ 
-      entity.__dispose = true;
+    window.setTimeout(function( entity ){ 
+      Boom.Entity.prototype.dispose.call(entity);
     }, 
-    this.components.ANIMATION_DEATH.ms, this);
-    
-    //Boom.Entity.prototype.dispose.call(this)
-    
+    this.components.ANIMATION_DEATH.ms, this);    
   }
 
 

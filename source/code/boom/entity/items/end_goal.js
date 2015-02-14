@@ -1,17 +1,16 @@
-Boom.HealthpackPowerup = function( params ){
+Boom.EndGoal = function( params ){
   this.type = params.type || Boom.Assets.world.ENTITY.MISSING;
   this.position = params.position;
-  this.size = params.size || 12;
+  this.size = params.size || 24;
   this.texture = Boom.Assets.textures[this.type];
-  this.value = params.value || 10;
 
-  this.message = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, data: this.value, type: Boom.Constants.Message.Action.INCREASE_HEALTH, sender: this.type });
-
-  Boom.Entity.call(this, {name: 'POWERUP_ITEM_HEALTHPACK', is_singular: true});
+  //TODO: SEND TO WIN COMPONENT THEN ? LOAD NEXT LEVEL.. SOMETHING.. SCORESCREEN ?
+  this.message = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, data: this.value, type: Boom.Constants.Message.Action.WIN, sender: this.type });
+  
+  Boom.Entity.call(this, {name: 'ITEM_ENDGOAL', is_singular: true});
 };
-
-Boom.HealthpackPowerup.prototype = Boom.inherit(Boom.Entity, {
-  constructor: Boom.HealthpackPowerup,
+Boom.EndGoal.prototype = Boom.inherit(Boom.Entity, {
+  constructor: Boom.EndGoal,
 
   init: function() {
     //Call super
@@ -19,12 +18,11 @@ Boom.HealthpackPowerup.prototype = Boom.inherit(Boom.Entity, {
     
     var physics = new Boom.PhysicalComponent(
        {
-        name:'powerup_item_healthpack_physics',
+        name:'item_endgoal_physics',
         shape: Boom.Constants.Component.BOX,
         position: this.position,
         color: 0x000000,
         size: this.size,
-        scale: new THREE.Vector3(0.5,0.75,1.0),
         texture: this.texture,
         owner: this
       }
@@ -33,33 +31,25 @@ Boom.HealthpackPowerup.prototype = Boom.inherit(Boom.Entity, {
 
     var animation = new Boom.AnimationComponent( 
       {
-        name: "powerup_item_healthpack_animation",
+        name: "item_endgoal_animation",
         object: physics.object,
         position: new THREE.Vector3(0, 0, 0), 
         rotation: new THREE.Vector3(0, 2*Math.PI, 0), 
-        ms: 6000,
+        ms: 2000,
         owner: this
       }
     );
     this.components[animation.name] = animation;
     animation.animate( Infinity );
 
-    var audio = new Boom.AudioComponent(
-      {
-        name: 'HEALTHPACK_AUDIO',
-        sound: Boom.Assets.sounds.items.healthpack_powerup,
-        owner: this
-      }
-    );
-    this.components[audio.name] = audio;
-
     var animation_disappear = new Boom.AnimationComponent( 
       {
-        name: "powerup_item_healthpack_animation_disappear",
+        name: "item_endgoal_animation_disappear",
         object: physics.object,
+        rotation: new THREE.Vector3(0, -2*Math.PI, 0), 
         scale: new THREE.Vector3(0, 0, 0),
         target_scale: new THREE.Vector3(0, 0, 0),
-        ms: 200,
+        ms: 1000,
         owner: this
       }
     );
@@ -79,13 +69,11 @@ Boom.HealthpackPowerup.prototype = Boom.inherit(Boom.Entity, {
   },
 
   dispose: function(){
-    this.components.HEALTHPACK_AUDIO.play();
-
-    this.components.powerup_item_healthpack_animation_disappear.animate();
-    //Call super    
+    this.components.item_endgoal_animation_disappear.animate();
+    //Call super
     window.setTimeout(function( entity ){ 
       Boom.Entity.prototype.dispose.call(entity);
     }, 
-    this.components.powerup_item_healthpack_animation_disappear.ms, this);
+    this.components.item_endgoal_animation_disappear.ms, this);
   }
 });

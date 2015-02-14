@@ -52,6 +52,7 @@
   <script type="text/javascript" src='code/boom/component/actions/gravity_action_component.js'></script>
   <script type="text/javascript" src='code/boom/component/actions/health_action_component.js'></script>
   <script type="text/javascript" src='code/boom/component/actions/death_action_component.js'></script>
+  <script type="text/javascript" src='code/boom/component/actions/win_action_component.js'></script>
   <!-- HITS -->
   <script type="text/javascript" src='code/boom/component/hits/dispose_deal_damage_hit_component.js'></script>
 
@@ -72,6 +73,7 @@
   <script type="text/javascript" src='code/boom/entity/items/pistol_powerup.js'></script>
   <script type="text/javascript" src='code/boom/entity/items/shell_powerup.js'></script>
   <script type="text/javascript" src='code/boom/entity/items/shotgun_powerup.js'></script>
+  <script type="text/javascript" src='code/boom/entity/items/end_goal.js'></script>
   <!-- TERRAIN -->
   <script type="text/javascript" src='code/boom/entity/structures/wall.js'></script>
   <script type="text/javascript" src='code/boom/entity/structures/floor.js'></script>
@@ -134,6 +136,11 @@
 <div id="game_over" style="display:none;cursor:pointer;" onclick="location.reload(true);">
   <span style="text-shadow: rgb(0, 0, 0) -1px -1px 0px, rgb(0, 0, 0) 1px -1px 0px, rgb(0, 0, 0) -1px 1px 0px, rgb(0, 0, 0) 1px 1px 0px;z-index:100;position:absolute;top:25%;width:100%;text-align:center;font-size:80px;color:red;font-weight: bold;font-family: fantasy;">GAME OVER</span>
   <span style="text-shadow: rgb(0, 0, 0) -1px -1px 0px, rgb(0, 0, 0) 1px -1px 0px, rgb(0, 0, 0) -1px 1px 0px, rgb(0, 0, 0) 1px 1px 0px;z-index:100;background:rgba(0,0,0,0.2);position:absolute;top:50%;width:100%;text-align:center;font-size:40px;color:white;font-weight: bold;font-family: fantasy;">click to retry</span>
+</div>
+
+<div id="game_won" style="display:none;cursor:pointer;">
+  <span style="text-shadow: rgb(0, 0, 0) -1px -1px 0px, rgb(0, 0, 0) 1px -1px 0px, rgb(0, 0, 0) -1px 1px 0px, rgb(0, 0, 0) 1px 1px 0px;z-index:100;position:absolute;top:25%;width:100%;text-align:center;font-size:80px;color:green;font-weight: bold;font-family: fantasy;">YOU WIN</span>
+  <span style="text-shadow: rgb(0, 0, 0) -1px -1px 0px, rgb(0, 0, 0) 1px -1px 0px, rgb(0, 0, 0) -1px 1px 0px, rgb(0, 0, 0) 1px 1px 0px;z-index:100;background:rgba(0,0,0,0.2);position:absolute;top:50%;width:100%;text-align:center;font-size:40px;color:white;font-weight: bold;font-family: fantasy;">gz</span>
 </div>
 </body> 
 </html>

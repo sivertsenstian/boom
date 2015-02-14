@@ -7,7 +7,7 @@ Boom.Constants = {
   FRIENDLY: 'ba75d021-1988-4cbb-a6c5-05071b69572f',
 
   UI: {
-    BASE_WIDTH:250,
+    BASE_WIDTH:10,
     HEIGHT: 0,
     WIDTH: 0
   },
@@ -40,7 +40,8 @@ Boom.Constants = {
     BULLET_POWERUP: '2bccdac5-f515-4926-b203-95334bc240a1',
     SHELL_POWERUP: '1d2b839d-151e-4f4b-bbb4-f1809ec9a558',
     PISTOL_POWERUP: 'e6a2d0c2-ff2d-46e5-b66e-2e94c541b709',
-    SHOTGUN_POWERUP: 'e697f30b-77eb-4c32-9b0d-e1c363466b70'
+    SHOTGUN_POWERUP: 'e697f30b-77eb-4c32-9b0d-e1c363466b70',
+    END_GOAL: 'a6c4da7d-b51c-440a-a1be-19d26872c843'
   },
 
   Component:{
@@ -104,7 +105,9 @@ Boom.Constants = {
       INCREASE_AMMO: Boom.guid(),
       ADD_WEAPON: Boom.guid(),
       SET_WEAPON: Boom.guid(),
-      DEATH: Boom.guid()
+      PLAYER_DEATH: Boom.guid(),
+      HOSTILE_DEATH: Boom.guid(),
+      WIN: Boom.guid()
     },
     Hit: {
       DISPOSE: Boom.guid(),

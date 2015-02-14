@@ -44,6 +44,18 @@ Boom.BulletPowerup.prototype = Boom.inherit(Boom.Entity, {
     this.components[animation.name] = animation;
     animation.animate( Infinity );
 
+    var animation_disappear = new Boom.AnimationComponent( 
+      {
+        name: "powerup_item_bullet_animation_disappear",
+        object: physics.object,
+        scale: new THREE.Vector3(0, 0, 0),
+        target_scale: new THREE.Vector3(0, 0, 0),
+        ms: 200,
+        owner: this
+      }
+    );
+    this.components[animation_disappear.name] = animation_disappear;
+
     var audio = new Boom.AudioComponent(
       {
         name: 'BULLET_AUDIO',
@@ -66,8 +78,13 @@ Boom.BulletPowerup.prototype = Boom.inherit(Boom.Entity, {
   },
 
   dispose: function(){
-    //Call super
-    Boom.Entity.prototype.dispose.call(this);
     this.components.BULLET_AUDIO.play();
+
+    this.components.powerup_item_bullet_animation_disappear.animate();
+    //Call super    
+    window.setTimeout(function( entity ){ 
+      Boom.Entity.prototype.dispose.call(entity);
+    }, 
+    this.components.powerup_item_bullet_animation_disappear.ms, this);
   }
 });

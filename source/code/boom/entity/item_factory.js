@@ -28,6 +28,8 @@ Boom.ItemFactory.prototype = {
         return new Boom.ShellPowerup( params ); 
       case Boom.Constants.Items.SHOTGUN_POWERUP:
         return new Boom.ShotgunPowerup( params ); 
+      case Boom.Constants.Items.END_GOAL:
+        return new Boom.EndGoal( params ); 
       default:
         console.error( 'Item of type "' + type + '" does not exist!');
         break;

@@ -4,6 +4,7 @@ Boom.HealthActionComponent = function( params ) {
   this.value = params.value || 100;
   this.limit = params.limit || 100;
   this.old_value = this.value;
+  this.player = params.player || false;
   this.events = [Boom.Constants.Message.Action.REDUCE_HEALTH, Boom.Constants.Message.Action.INCREASE_HEALTH];
 
   //HUD
@@ -11,7 +12,7 @@ Boom.HealthActionComponent = function( params ) {
   this.hudUpdate = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.HUD, data: { name: 'HEALTH', value: this.value }, type: Boom.Constants.Message.HUD.UPDATE, sender: this.type });
 
   //DEATH(!)
-  this.death = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, data: null, type: Boom.Constants.Message.Action.DEATH, sender: this.type });
+  this.death = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, data: null, type: (this.player ? Boom.Constants.Message.Action.PLAYER_DEATH : Boom.Constants.Message.Action.HOSTILE_DEATH), sender: this.type });
   this.died = false;
   //Call super
   Boom.Component.call(this, params );

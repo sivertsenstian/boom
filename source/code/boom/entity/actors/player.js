@@ -27,6 +27,7 @@ Boom.Player.prototype = Boom.inherit(Boom.Entity, {
 
     var health = new Boom.HealthActionComponent({
       name: 'player_health',
+      player: true,
       value: 34,
       owner: this
     });
@@ -134,6 +135,30 @@ Boom.Player.prototype = Boom.inherit(Boom.Entity, {
     });
     this.components[death.name] = death;
 
+    var win = new Boom.WinActionComponent({
+      name: 'player_win',
+      owner: this
+    });
+    this.components[win.name] = win;
+
+    var death_audio = new Boom.AudioComponent(
+      {
+        name: 'DEATH_AUDIO',
+        sound: Boom.Assets.sounds.player.death,
+        owner: this
+      }
+    );
+    this.components[death_audio.name] = death_audio;
+
+    var win_audio = new Boom.AudioComponent(
+      {
+        name: 'WIN_AUDIO',
+        sound: Boom.Assets.sounds.player.win,
+        owner: this
+      }
+    );
+    this.components[win_audio.name] = win_audio;
+
     this.load();
   },
 
@@ -148,14 +173,6 @@ Boom.Player.prototype = Boom.inherit(Boom.Entity, {
   },
 
   dispose: function(){
-    //TODO: FIND A BETTER WAY TO RESET GAME - THIS WORKS FOR NOW!
-    $("#game_over").show();
-    document.exitPointerLock = document.exitPointerLock    ||
-                           document.mozExitPointerLock ||
-                           document.webkitExitPointerLock;
-
-    // Attempt to unlock
-    document.exitPointerLock(); //TODO: Create message to input component that does this!
     //Call super
     Boom.Entity.prototype.dispose.call(this);
   }

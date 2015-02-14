@@ -52,6 +52,19 @@ Boom.ShellPowerup.prototype = Boom.inherit(Boom.Entity, {
       }
     );
     this.components[audio.name] = audio;
+
+    var animation_disappear = new Boom.AnimationComponent( 
+      {
+        name: "powerup_item_shell_animation_disappear",
+        object: physics.object,
+        scale: new THREE.Vector3(0, 0, 0),
+        target_scale: new THREE.Vector3(0, 0, 0),
+        ms: 200,
+        owner: this
+      }
+    );
+    this.components[animation_disappear.name] = animation_disappear;
+    
     this.load();
   },
 
@@ -66,8 +79,13 @@ Boom.ShellPowerup.prototype = Boom.inherit(Boom.Entity, {
   },
 
   dispose: function(){
-    //Call super
-    Boom.Entity.prototype.dispose.call(this);
     this.components.SHELL_AUDIO.play();
+
+    this.components.powerup_item_shell_animation_disappear.animate();
+    //Call super    
+    window.setTimeout(function( entity ){ 
+      Boom.Entity.prototype.dispose.call(entity);
+    }, 
+    this.components.powerup_item_shell_animation_disappear.ms, this);
   }
 });

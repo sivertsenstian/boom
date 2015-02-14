@@ -6,7 +6,8 @@
         "THREE": false,
         "TWEEN": false,
         "document": false,
-        "console": false
+        "console": false,
+        "window": false
     },
     "undef": true
 }

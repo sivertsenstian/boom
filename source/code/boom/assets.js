@@ -31,9 +31,15 @@ Boom.Assets = {
       bullet_powerup: new Boom.Audio({url: 'resources/sounds/bullet_pickup.mp3', volume: 0.5}),
       shell_powerup: new Boom.Audio({url: 'resources/sounds/shell_pickup.mp3', volume: 0.5})
     },
+    player: {
+      win: new Boom.Audio({url: 'resources/sounds/player_win.mp3', volume: 1.0}),
+      death: new Boom.Audio({url: 'resources/sounds/player_death.mp3', volume: 1.0})
+    },
     hostile: {
-      pain: new Boom.Audio({url: 'resources/sounds/pain.mp3', volume: 0.5}),
-      death: new Boom.Audio({url: 'resources/sounds/death.mp3', volume: 0.5})
+      alien:{
+        pain: new Boom.Audio({url: 'resources/sounds/alien_pain.mp3', volume: 0.5}),
+        death: new Boom.Audio({url: 'resources/sounds/alien_death.mp3', volume: 0.5})
+      }
     }
   },
 

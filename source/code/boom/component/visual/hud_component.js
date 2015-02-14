@@ -21,7 +21,7 @@ Boom.HUDComponent.prototype = Boom.inherit(Boom.Component, {
 
     //TODO: FIX THIS SO IT DOESNT HAVE TO BE DEFINED FIRST IN THE ENTITY
     if( Object.keys( this.owner.components ).length !== 0) {
-      throw new ComponentMustBeDefinedFirstException
+      throw new ComponentMustBeDefinedFirstException;
     }
 
     //Call super
@@ -43,7 +43,8 @@ Boom.HUDComponent.prototype = Boom.inherit(Boom.Component, {
       var htmlItem, htmlItemLabel, htmlItemValue;
       
       htmlItem = document.createElement("DIV");
-      htmlItem.style.width = Boom.Constants.UI.BASE_WIDTH;
+      htmlItem.style.paddingRight = Boom.Constants.UI.BASE_WIDTH;
+      htmlItem.style.paddingLeft = Boom.Constants.UI.BASE_WIDTH;
       htmlItem.style.display = 'table-cell';
 
       htmlItemLabel = document.createElement("SPAN");
