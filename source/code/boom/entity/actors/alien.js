@@ -1,11 +1,11 @@
 Boom.Alien = function( params ){
   this.type = params.type || Boom.Assets.world.ENTITY.MISSING;
   this.size = 6;
-  this.height = 24;
+  this.height = 0;
   this.onGround = Boom.Constants.FALSE;
   this.position = params.position || new THREE.Vector3(0, 0, 0);
   
-  Boom.Entity.call(this, {name: 'ENEMY_ALIEN_Entity', is_static: false, boundingBox: new THREE.Vector3(24, 48, 24)});
+  Boom.Entity.call(this, {name: 'ENEMY_ALIEN_Entity', is_static: false, boundingBox: new THREE.Vector3(24, 24, 24), score: 50});
 };
 
 Boom.Alien.prototype = Boom.inherit(Boom.Entity, {

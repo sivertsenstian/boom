@@ -1,5 +1,8 @@
 <html>
 <head>
+  <!- STYLES AND FONTS -->
+  <link rel="stylesheet" href="resources/styles/stylesheet.css" type="text/css" charset="utf-8" />
+
   <!-- Vendor -->
   <script type="text/javascript" src="vendor/jquery.min.js"></script>
   <script type="text/javascript" src="vendor/three.min.js"></script>
@@ -7,6 +10,9 @@
   <script type="text/javascript" src="vendor/Stats.js"></script>
 
   <script type="text/javascript" src='code/three_plugins/ColladaLoader.js'></script>
+  <script type="text/javascript" src='code/three_plugins/PLYLoader.js'></script>
+  <script type="text/javascript" src='code/three_plugins/MTLLoader.js'></script>
+  <script type="text/javascript" src='code/three_plugins/OBJMTLLoader.js'></script>
   <script type="text/javascript" src='code/three_plugins/Audio.js'></script>
   <script type="text/javascript" src='code/three_plugins/AudioListener.js'></script>
   <script type="text/javascript" src="vendor/PxLoader.js"></script>
@@ -24,6 +30,8 @@
 
   <script type="text/javascript" src='code/boom/game/game.js'></script>
 
+  <!--- MENU --->
+  <script type="text/javascript" src='code/boom/ui/menu.js'></script>
   <!-- ### COMPONENTS ### -->
   <script type="text/javascript" src='code/boom/component/component.js'></script>
   <!-- AUDIBLE -->
@@ -95,52 +103,105 @@
   <script type="text/javascript" src='code/boom/world/world.js'></script>
   <script type="text/javascript" src='code/boom/world/collision_grid.js'></script>
 
-
-
-    <style>
-    
-      body { margin: 0; padding: 0; overflow: hidden; background-color: #000; }
-      canvas { position: fixed; }
-    
-    </style>
-
   <script>
     $( document ).ready(function() {
-      var loader = new PxLoader();
-      //Models
-      loader.addDAEModel('/resources/models/pistol.dae', ['weapons', 'pistol'] );
-      loader.addDAEModel('/resources/models/shotgun.dae', ['weapons', 'shotgun'] );
-      loader.addDAEModel('/resources/models/alien.dae', ['enemies', 'alien'] );
-
-      //Maps
-      loader.addJSON('/resources/maps/test1.json', ['world', 'MAP', 'TEST'] );
-      loader.addJSON('/resources/maps/map01.json', ['world', 'MAP', 'MAP01'] );
-
-      loader.addCompletionListener(function() { 
-        var GAME = new Boom.Game();
-        GAME.init();
-      });
-
-      loader.start();
-
+      var boom = new Boom.Game();
+      boom.init();
     });
   </script>
+
 </head>
 <body>
-<div id="blocker" style="text-align:center;background:rgba(0,0,0,0.2);z-index:100;position:absolute;top:50%;width:100%;color:#fff;font-weight:bold;font-family:fantasy;cursor:pointer">
-  <div id="instructions" style="text-align:center;">
-    <span style="font-size:40px">click to play</span>
+
+<!-- USER-NAME -->
+<div id="BoomPlayer" class="boom-shadow-text boom-user"></div>
+<!-- SCORE -->
+<div id="BoomScore" class="boom-shadow-text boom-score">
+  <span>Score:</span>
+  <span id="BoomScoreValue">TEST</span>
+</div>
+
+<!-- GAME WON SCREEN -->
+<div id="BoomGameWon">
+  <span class="boom-shadow-text boom-game-win-text boom-game-main-text">COURSE CLEARED</span>
+  <div>
+    <span class="boom-shadow-text boom-game-secondary-text">STATS</span>
+    <ul class="boom-shadow-text boom-game-tertiary-text">
+      <li>TOTAL SCORE: 3876</li>
+      <li>ENEMIES KILLED: 0/20</li>
+      <li>ITEMS FOUND: 0/30</li>
+      <li>SECRETS FOUND: 0/4</li>
+      <li>TOTAL TIME: 3:26</li>
+    </ul>
   </div>
 </div>
 
-<div id="game_over" style="display:none;cursor:pointer;" onclick="location.reload(true);">
-  <span style="text-shadow: rgb(0, 0, 0) -1px -1px 0px, rgb(0, 0, 0) 1px -1px 0px, rgb(0, 0, 0) -1px 1px 0px, rgb(0, 0, 0) 1px 1px 0px;z-index:100;position:absolute;top:25%;width:100%;text-align:center;font-size:80px;color:red;font-weight: bold;font-family: fantasy;">GAME OVER</span>
-  <span style="text-shadow: rgb(0, 0, 0) -1px -1px 0px, rgb(0, 0, 0) 1px -1px 0px, rgb(0, 0, 0) -1px 1px 0px, rgb(0, 0, 0) 1px 1px 0px;z-index:100;background:rgba(0,0,0,0.2);position:absolute;top:50%;width:100%;text-align:center;font-size:40px;color:white;font-weight: bold;font-family: fantasy;">click to retry</span>
+<!-- GAME OVER SCREEN -->
+<div id="BoomGameOver" onclick="location.reload(true);">
+  <span class="boom-shadow-text boom-game-over-text boom-game-main-text">GAME OVER</span>
+  <span class="boom-shadow-text boom-game-secondary-text">click to retry</span>
 </div>
 
-<div id="game_won" style="display:none;cursor:pointer;">
-  <span style="text-shadow: rgb(0, 0, 0) -1px -1px 0px, rgb(0, 0, 0) 1px -1px 0px, rgb(0, 0, 0) -1px 1px 0px, rgb(0, 0, 0) 1px 1px 0px;z-index:100;position:absolute;top:25%;width:100%;text-align:center;font-size:80px;color:green;font-weight: bold;font-family: fantasy;">YOU WIN</span>
-  <span style="text-shadow: rgb(0, 0, 0) -1px -1px 0px, rgb(0, 0, 0) 1px -1px 0px, rgb(0, 0, 0) -1px 1px 0px, rgb(0, 0, 0) 1px 1px 0px;z-index:100;background:rgba(0,0,0,0.2);position:absolute;top:50%;width:100%;text-align:center;font-size:40px;color:white;font-weight: bold;font-family: fantasy;">gz</span>
+<!-- TITLE SCREEN -->
+<div id="BoomTitle" class="boom-title-screen">
+  <div class="boom-shadow-text boom-title-text">BOOM</div>
+
+  <!-- TITLE MENU -->
+  <div id="BoomTitleMenu">
+    <div class="boom-menu-item-container">
+      <span id="BoomNewGame" class="boom-start boom-shadow-text boom-menu-item" onclick="Boom.GAME_MENU.newGame()" >Start New Game</span>
+    </div>
+    <div class="boom-menu-item-container">
+      <span class="boom-shadow-text boom-menu-item" onclick="Boom.GAME_MENU.selectLevel();">Select Level</span>
+    </div>
+    <div class="boom-menu-item-container">
+      <span class="boom-shadow-text boom-menu-item" onclick="Boom.GAME_MENU.highScore();">High Score</span>
+    </div>
+  </div>
+
+  <!-- PLAYER REGISTRATION -->
+  <div id="BoomPlayerRegistration">
+    <div class="boom-player-registration-container">
+      <span class="boom-shadow-text boom-player-registration-label">Please Register:</span>
+      <input id="BoomPlayerRegistrationInput" type="text" class="boom-player-registration-input">
+    </div>
+  </div>
+
+  <!-- HIGHSCORE-->
+  <div id="BoomHighScore">
+    <div class="boom-menu-item-container">
+      <span class="boom-shadow-text boom-menu-item" onclick="Boom.GAME_MENU.mainMenu();">BACK TO MAIN MENU</span>
+    </div>
+    <table class="boom-table">
+      <thead>
+        <tr>
+          <th class="boom-shadow-text boom-table-header"> RANK </th>
+          <th class="boom-shadow-text boom-table-header"> USERNAME </th>
+          <th class="boom-shadow-text boom-table-header"> SCORE </th>
+        </tr>
+      </thead>
+      <tbody class="boom-highscores-body">
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SELECT LEVEL-->
+  <div id="BoomSelectLevel">
+    <div class="boom-menu-item-container">
+      <span class="boom-shadow-text boom-menu-item" onclick="Boom.GAME_MENU.mainMenu();">BACK TO MAIN MENU</span>
+    </div>
+    <ul class="boom-level-list">
+    </ul>
+  </div>
+
 </div>
+
+<div id="BoomPointerLock">
+  <span class="boom-shadow-text">Right click to lock mouse</span>
+</div>
+
+<!-- HUD -->
+<div id="BoomHUD"></div>
+
 </body> 
 </html>

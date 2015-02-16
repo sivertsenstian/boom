@@ -56,8 +56,8 @@ Boom.AIInputActionComponent.prototype = Boom.inherit(Boom.Component, {
     this.leftClick = (Math.floor((Math.random() * 500) + 1) <= 5);
 
     this.moveForward = (Math.floor((Math.random() *   50) + 1) <= 5);
-    this.moveBackward = (Math.floor((Math.random() * 100) + 1) <= 5);
-    this.moveLeft = (Math.floor((Math.random() * 100) + 1) <= 5);
+    this.moveBackward = (Math.floor((Math.random() * 50) + 1) <= 5);
+    this.moveLeft = (Math.floor((Math.random() * 50) + 1) <= 5);
     this.moveRight = (Math.floor((Math.random() * 50) + 1) <= 5);
 
     if ( this.moveForward ) {

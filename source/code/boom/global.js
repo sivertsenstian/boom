@@ -69,3 +69,41 @@ Boom.changeFoV = function( fov ){
     Boom.Constants.PLAYER_CAMERA.updateProjectionMatrix();
   }
 };
+
+Boom.padNumber = function(num, size) {
+    var s = "000000000" + num;
+    return s.substr(s.length-size);
+};
+
+//SCORE STUFF - TODO: MOVE THIS?
+Boom.sortScores = function(a, b) {
+  if (a.score < b.score)
+     return 1;
+  if (a.score > b.score)
+    return -1;
+  return 0;
+};
+
+Boom.addScore = function( score ){
+  Boom.Constants.UI.CURRENT_SCORE += score; 
+};
+
+Boom.updateScores = function(){
+  var user;
+  for(var i = 0; i < Boom.Assets.ui.HIGHSCORES.length; i++){
+      user = Boom.Assets.ui.HIGHSCORES[i];
+      if(user.name.toLowerCase() === Boom.Constants.UI.CURRENT_PLAYER.toLowerCase() &&
+         Boom.Constants.UI.CURRENT_SCORE > user.score){
+        user.score = Boom.Constants.UI.CURRENT_SCORE;
+        return;
+      }
+  }
+  if(Boom.Constants.UI.CURRENT_PLAYER.toLowerCase() !== 'UNREGISTERED'.toLowerCase()){
+    Boom.Assets.ui.HIGHSCORES.push({
+                                    name: Boom.Constants.UI.CURRENT_PLAYER, 
+                                    score:  Boom.Constants.UI.CURRENT_SCORE
+                                  });
+  }
+
+  Boom.Constants.UI.CURRENT_SCORE = 0; //Reset score
+};

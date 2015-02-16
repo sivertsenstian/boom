@@ -7,7 +7,8 @@
         "TWEEN": false,
         "document": false,
         "console": false,
-        "window": false
+        "window": false,
+        "PxLoader": false
     },
     "undef": true
 }

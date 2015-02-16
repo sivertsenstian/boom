@@ -9,7 +9,25 @@ Boom.Constants = {
   UI: {
     BASE_WIDTH:10,
     HEIGHT: 0,
-    WIDTH: 0
+    WIDTH: 0,
+    MOUSE_LOCKED: false,
+    CURRENT_PLAYER: 'UNREGISTERED',
+    CURRENT_SCORE: 0,
+    ELEMENT:{
+      TITLE: '#BoomTitle',
+      GAME_WON: '#BoomGameWon',
+      GAME_OVER: '#BoomGameOver',
+      HUD: '#BoomHUD',
+      TITLE_MENU: '#BoomTitleMenu',
+      HIGH_SCORE: '#BoomHighScore',
+      PLAYER: '#BoomPlayer',
+      PLAYER_REGISTRATION: '#BoomPlayerRegistration',
+      REGISTRATION_INPUT: '#BoomPlayerRegistrationInput',
+      SCORE: '#BoomScore',
+      SCORE_VALUE: '#BoomScoreValue',
+      SELECT_LEVEL: '#BoomSelectLevel',
+      POINTER_LOCK: '#BoomPointerLock'
+    }
   },
 
   World:{
@@ -26,7 +44,8 @@ Boom.Constants = {
       LIGHT: 4,
       ACTORS: 5,
       ITEMS: 6
-    }
+    },
+    END_LEVEL: 'e0c364e2-338b-4252-8a20-e9c21fda57e6'
 
   },
 

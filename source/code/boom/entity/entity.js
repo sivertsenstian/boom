@@ -18,6 +18,7 @@ Boom.Entity = function( params ){
   //this.message = ? //TODO: IMPLEMENT MISSING MESSAGE THAT THROWS EXCEPTION OR TRIGGERS SOMETHING DEBUGGABLE
   this.components = {};
   this.children = [];
+  this.score = params.hasOwnProperty('score') ? params.score : 10;
 
   this.init();
 };
@@ -105,8 +106,16 @@ Boom.Entity.prototype = {
   },
 
   dispose: function(){
-    this.__dispose = true;
+    if(!this.isDisposed()){
+      this.__dispose = true;
+      Boom.addScore( this.score );
+    }
   },
+
+  isDisposed: function(){
+    return this.__dispose;
+  },
+
   //Returns entity-component based on type or name (first of its kind) 
   getComponent: function( c ){ 
     for (component in this.components) {

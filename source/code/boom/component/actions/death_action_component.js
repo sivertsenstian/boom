@@ -35,14 +35,7 @@ Boom.DeathActionComponent.prototype = Boom.inherit(Boom.Component, {
           this.owner.dispose();
           break;
         case Boom.Constants.Message.Action.PLAYER_DEATH:
-          //TODO: FIND A BETTER WAY TO RESET GAME - THIS WORKS FOR NOW!
-          $("#game_over").show();
-          document.exitPointerLock = document.exitPointerLock    ||
-                                 document.mozExitPointerLock ||
-                                 document.webkitExitPointerLock;
-
-          // Attempt to unlock
-          document.exitPointerLock(); //TODO: Create message to input component that does this!
+          Boom.GAME_MENU.gameOver();
           this.owner.getComponent('DEATH_AUDIO').play();
           this.owner.dispose();
           break;

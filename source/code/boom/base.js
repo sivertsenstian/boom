@@ -27,7 +27,7 @@ Boom.Base.prototype = {
     this.renderer.domElement.id = "game-canvas";
     this.renderer.shadowMapEnabled = true;
     this.renderer.shadowMapType = THREE.PCFSoftShadowMap;
-  
+    
     Boom.Constants.PLAYER_CAMERA = new THREE.PerspectiveCamera(this.cameraFov, this.width / this.height, this.cameraNear, this.cameraFar);
     Boom.Constants.PLAYER_CAMERA.name = Boom.Constants.Objects.CAMERA;
 
@@ -63,8 +63,6 @@ Boom.Base.prototype = {
 
     document.body.appendChild( this.renderStats.domElement );
     document.body.appendChild( this.updateStats.domElement );
-
-    this.load();
   },
 
   load: function(){
@@ -108,7 +106,7 @@ Boom.Base.prototype = {
         
         this.requestAnimationFrameId = requestAnimationFrame( function(){ self.gameLoop() });
       }
-    }
+    };
   })(),
 
   onResize: function(){
@@ -116,6 +114,21 @@ Boom.Base.prototype = {
     Boom.Constants.PLAYER_CAMERA.updateProjectionMatrix();
 
     this.renderer.setSize(this.width, this.height);
+  },
+
+  dispose: function(){
+    $(Boom.Constants.UI.ELEMENT.HUD).empty();
+    this.scene = new THREE.Scene();
+    Boom.Entities = {};
+    Boom.MergedEntities = [];
+    Boom.Collidables = [];
+
+    Boom.Constants.PLAYER_CAMERA = new THREE.PerspectiveCamera(this.cameraFov, this.width / this.height, this.cameraNear, this.cameraFar);
+    Boom.Constants.PLAYER_CAMERA.name = Boom.Constants.Objects.CAMERA;
+
+    //Establish player camera as global listener TODO: FIND OUT WHAT THE LISTENER DOES - IS THIS NEEDED ??
+    Boom.Constants.PLAYER_LISTENER = new THREE.AudioListener();
+    Boom.Constants.PLAYER_CAMERA.add( Boom.Constants.PLAYER_LISTENER );
   }
 };
 

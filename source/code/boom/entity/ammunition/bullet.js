@@ -7,7 +7,8 @@ Boom.Bullet = function( params ){
   this.damage = 10;
   this.velocity = new THREE.Vector3(0, 0, 0);
   this.msg = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, data: null, type: Boom.Constants.Message.Action.VELOCITY, sender: this.name });
-  Boom.Entity.call(this, {name: 'AMMO_BulletEntity', is_static: false, faction: params.faction});
+  
+  Boom.Entity.call(this, {name: 'AMMO_BulletEntity', is_static: false, faction: params.faction, score: 0});
 };
 
 Boom.Bullet.prototype = Boom.inherit(Boom.Entity, {

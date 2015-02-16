@@ -30,7 +30,7 @@ Boom.WinActionComponent.prototype = Boom.inherit(Boom.Component, {
     if(Boom.Component.prototype.receive.call(this, message)){
       switch( message.type ){
         case Boom.Constants.Message.Action.WIN:
-          $("#game_won").show();
+          Boom.GAME_MENU.gameWon();
           this.owner.getComponent('WIN_AUDIO').play();
           this.owner.dispose();
           break;

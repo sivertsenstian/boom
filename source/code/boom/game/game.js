@@ -1,11 +1,5 @@
 Boom.Game = function() {
   Boom.Base.call(this);
-
-  this.updated = false;
-  this.firstLoad = true;
-  this.firstPlay = true;
-  this.mapWon = false;
-  this.restartedLevel = false;
   
   //this.antialias = true;
   //this.cameraFov = 75;
@@ -15,7 +9,7 @@ Boom.Game = function() {
   this.height = 600;*/
 
   //Game Components
-  this.world;
+  this.world = null;
 };
 
 Boom.Game.prototype = Boom.inherit(Boom.Base, {
@@ -24,9 +18,12 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
   init: function() {
     //Call super
     Boom.Base.prototype.init.call(this);
+    //Init game-menu
+    Boom.GAME_MENU = new Boom.Menu( this  );
   },
 
   update: function(){
+    var component, entity, e, id;
     try{
       //Call super
       Boom.Base.prototype.update.call(this);
@@ -35,7 +32,7 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
         if (!Boom.Entities.hasOwnProperty(id)) {
             continue;
         }
-        var entity = Boom.Entities[id];
+        entity = Boom.Entities[id];
         
         if(!entity.__isStatic){
           //console.log("Updating " + entity.name );
@@ -43,7 +40,7 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
         }
 
         if( entity.__addToScene && (!entity.__isStatic || entity.__isStatic && entity.__singular) ){
-          var component = entity.getObjectComponent();
+          component = entity.getObjectComponent();
           if ( component ){
             //console.log("ADDING " + entity.name);
             this.scene.add( component.object );
@@ -51,11 +48,10 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
           entity.__addToScene = false;
         }
 
-        if ( entity.__dispose ){
-          var component = entity.getObjectComponent();
+        if ( entity.isDisposed() ){ //Dispose entity if it is marked as such
+          component = entity.getObjectComponent();
           if ( component ){
             //console.log("DISPOSING " + entity.name);
-            entity.dispose();
             this.scene.remove( component.object );
             delete Boom.Entities[id];
           }
@@ -66,7 +62,7 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
       }
 
       for (e in Boom.MergedEntities) {
-        var entity = Boom.MergedEntities[e];
+        entity = Boom.MergedEntities[e];
         if( !entity.__addToScene ){
           Boom.Collidables.push(entity.object);
           this.scene.add( entity.object );
@@ -76,6 +72,9 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
 
       //Update world
       this.world.update();
+
+      //Update score
+      $(Boom.Constants.UI.ELEMENT.SCORE_VALUE).text(Boom.padNumber(Boom.Constants.UI.CURRENT_SCORE, 8));
     }
     catch( error ){
       Boom.handleError( error , 'Boom.Game.update()');
@@ -83,9 +82,10 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
     }
   },
 
-  load: function(){
+  load: function( map ){
+    var id;
     try{
-      var current_map = Boom.Assets.world.MAP['TEST'];
+      var current_map = Boom.Assets.world.MAP[map] || Boom.Assets.world.MAP['TEST'];
       //var current_map = Boom.Assets.world.MAP['MAP01'];
 
       //Collisions
@@ -142,6 +142,18 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
     //Call super
     Boom.Base.prototype.load.call(this);
 
+  },
+
+  getCurrentLevel: function(){
+    return this.world.map.properties['Boom.NAME'];
+  },
+
+  getNextLevel: function(){
+    var next = this.world.map.properties['Boom.NEXT_LEVEL'];
+    if( next !== Boom.Constants.World.END_LEVEL ){
+      return next;
+    }
+    return false;
   }
 
 });

@@ -79,9 +79,8 @@ Boom.HealthpackPowerup.prototype = Boom.inherit(Boom.Entity, {
   },
 
   dispose: function(){
-    this.components.HEALTHPACK_AUDIO.play();
-
     this.components.powerup_item_healthpack_animation_disappear.animate();
+    this.components.HEALTHPACK_AUDIO.play();
     //Call super    
     window.setTimeout(function( entity ){ 
       Boom.Entity.prototype.dispose.call(entity);

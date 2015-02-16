@@ -3,9 +3,10 @@ Boom.AudioComponent = function( params ) {
   this.type = params.type || Boom.Constants.Component.TYPE.AUDIO;
   this.sound = params.sound;
   this.sound.volume = params.volume || this.sound.volume;
-  this.ref = 2;
-  this.rollof = 4;
-  this.audio, this.position;
+  this.ref = 1;
+  this.rollof = 1;
+  this.audio = null;
+  this.position = new THREE.Vector3(0, 0, 0);
   //Call super
   Boom.Component.call(this, params );
   
@@ -30,8 +31,16 @@ Boom.AudioComponent.prototype = Boom.inherit(Boom.Component, {
   },
 
   play: function(){
-    var play_pos = this.owner.getObjectComponent().object.position.clone();
-    this.position = this.owner.__local ? this.owner.getObjectComponent().object.localToWorld( play_pos ) : play_pos;
+    try{ //try to retrieve position from owner
+      var owner_obj = this.owner.getObjectComponent().object;
+      var play_pos = owner_obj.position.clone();
+      this.position = this.owner.__local ? owner_obj.localToWorld( play_pos ) : play_pos;
+    }
+    catch( error ){ //if not possible keep standard 0.0.0 position
+      //continue
+      //TODO: LOG HERE ?
+    }
+      
     this.audio = new THREE.Audio( Boom.Constants.PLAYER_LISTENER );
     this.audio.gain.gain.value = this.sound.volume;
     this.audio.load( this.sound.url );

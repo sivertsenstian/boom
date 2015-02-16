@@ -2,7 +2,7 @@ Boom.HUDComponent = function( params ) {
   params = params || {};
   this.type = params.type || Boom.Constants.Component.TYPE.HUD;
   this.events = [Boom.Constants.Message.HUD.REGISTER, Boom.Constants.Message.HUD.UPDATE];
-  this.display = document.createElement("DIV");
+  this.display = $(Boom.Constants.UI.ELEMENT.HUD)[0];
   this.hudItems = {};
 
   //Call super
@@ -13,10 +13,6 @@ Boom.HUDComponent.prototype = Boom.inherit(Boom.Component, {
   constructor: Boom.HUDComponent,
 
   init: function() {
-    this.display.style.cssText = 'position:absolute;left:0px;top:'+ (Boom.Constants.UI.HEIGHT - 50) +
-                                 'px;font-size:2em;font-weight: bold;font-family: fantasy;color:white;' + 
-                                 'display: table-row; background: rgba(0, 0, 0, 0.42);';
-    this.display.style.zIndex = '100';
     document.body.appendChild( this.display );
 
     //TODO: FIX THIS SO IT DOESNT HAVE TO BE DEFINED FIRST IN THE ENTITY
@@ -42,20 +38,20 @@ Boom.HUDComponent.prototype = Boom.inherit(Boom.Component, {
     if(!this.hudItems.hasOwnProperty(data.name)){
       var htmlItem, htmlItemLabel, htmlItemValue;
       
-      htmlItem = document.createElement("DIV");
+      htmlItem = document.createElement("SPAN");
       htmlItem.style.paddingRight = Boom.Constants.UI.BASE_WIDTH;
       htmlItem.style.paddingLeft = Boom.Constants.UI.BASE_WIDTH;
-      htmlItem.style.display = 'table-cell';
+      htmlItem.style.className = 'boom-hud-item';
 
       htmlItemLabel = document.createElement("SPAN");
       htmlItemLabel.id = data.name +"_LABEL";
       htmlItemLabel.style.color = data.color || 'yellow';
-      htmlItemLabel.style.textShadow = '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000';
+      htmlItemLabel.className = 'boom-shadow-text boom-hud-label';
       htmlItemLabel.innerHTML = data.name + " ";
 
       htmlItemValue = document.createElement("SPAN");
       htmlItemValue.id = data.name +"_VALUE";
-      htmlItemValue.style.textShadow = '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000';
+      htmlItemLabel.className = 'boom-shadow-text boom-hud-value';
       htmlItemValue.innerHTML = data.value || '-';
 
       htmlItem.id = data.name;

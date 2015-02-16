@@ -80,7 +80,6 @@ Boom.ShellPowerup.prototype = Boom.inherit(Boom.Entity, {
 
   dispose: function(){
     this.components.SHELL_AUDIO.play();
-
     this.components.powerup_item_shell_animation_disappear.animate();
     //Call super    
     window.setTimeout(function( entity ){ 

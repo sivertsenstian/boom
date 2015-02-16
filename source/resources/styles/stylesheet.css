@@ -1,0 +1,297 @@
+@font-face {
+    font-family: 'capture_itregular';
+    src: url('fonts/Capture_it-webfont.eot');
+    src: url('fonts/Capture_it-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/Capture_it-webfont.woff') format('woff'),
+         url('fonts/Capture_it-webfont.ttf') format('truetype'),
+         url('fonts/Capture_it-webfont.svg#capture_itregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+body { 
+  margin: 0; 
+  padding: 0; 
+  overflow: hidden; 
+  background-color: #000; 
+}
+
+canvas { 
+  position: fixed; 
+}
+
+/*** POINTER LOCK ***/
+#BoomPointerLock{
+  position: absolute;
+  top: 30vw;
+  width: 100%;
+  text-align: center;
+  font-size: 3vw;
+  font-family: capture_itregular;
+  color: white;
+  display: none;
+  z-index: 100;
+}
+
+
+/*** SCORE ***/
+#BoomScore{
+  position:absolute;
+  right:0.5vw;
+  top: 3vw;
+  font-size:2vw;
+  font-family: capture_itregular;
+  color:white; 
+  display:none;
+  z-index:100;
+}
+
+.boom-score-current{
+  background: rgba(214, 255, 24, 0.50)!important;
+}
+
+/*** PLAYER ***/
+#BoomPlayer{
+  position:absolute;
+  right:0.25vw;
+  top: 0.25vw;
+  font-size:3vw;
+  font-family: capture_itregular;
+  color:white; 
+  display:none;
+  z-index:100;
+}
+
+/*** REGISTRATION ***/
+#BoomPlayerRegistration{
+  font-size:2vw;
+  font-family: capture_itregular;
+  color:white; 
+  display:none;
+  z-index:100;
+}
+
+.boom-player-registration-container{
+  margin-top:3vw  ;
+}
+
+.boom-player-registration-label{
+
+}
+
+.boom-player-registration-input{
+  box-shadow: none !important;
+  font-size: 2vw;
+  font-family: capture_itregular;
+  background: rgba(0,0,0,0.5);
+  color: orange;
+  border: none;
+  text-align: center;
+}
+
+/*** HUD ***/
+
+#BoomHUD{
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  bottom: 0vw;
+  font-size: 2.5vw;
+  font-family: capture_itregular;
+  color: white;
+  display: none;
+  background: rgba(0, 0, 0, 0.42);
+  z-index: 100;
+}
+
+.boom-hud-item{
+  display: table-cell;
+}
+.boom-hud-label{
+
+}
+
+.boom-hud-value{
+
+}
+
+/*** MOUSE LOCK ***/
+#BoomMouseLock{
+  display:none;
+  text-align:center;
+  background:rgba(0,0,0,0.2);
+  z-index:100;
+  position:absolute;
+  top:50%;
+  width:100%;
+  color:#fff;
+  font-family:capture_itregular;
+  cursor:pointer
+}
+.boom-mouselock-instructions{
+  text-align:center;
+  font-size:4vw;
+}
+/*** TITLE SCREEN **/
+
+#BoomTitle{
+  display:none;
+}
+
+.boom-title-screen{
+  background: url('/resources/ui/title.jpg');
+  width:100%;
+  height:100%;
+  background-size: 100%;
+  text-align:center;
+}
+
+.boom-title-text{
+  z-index:100;
+  text-align:center;
+  font-size:6vw;
+  color:orange;
+  font-family: capture_itregular;
+  margin-bottom:50px;
+}
+
+/** TITLE SELECT LEVEL ***/
+#BoomSelectLevel{
+  display: none;
+  text-align: center;
+  width:100%;
+}
+
+.boom-level-list{
+  list-style:none;
+  padding-left:0;
+}
+
+.boom-level-item{
+  z-index:100;
+  width:100%;
+  text-align:center;
+  font-size:2.5vw;
+  color:white;
+  font-family: capture_itregular;
+  cursor: pointer;
+}
+
+.boom-level-item:hover{
+  color:orange;
+  background:rgba(0,0,255,0.15);
+}
+
+
+/*** TITLE MENU ***/
+.boom-menu-item{
+  z-index:100;
+  width:100%;
+  text-align:center;
+  font-size:2vw;
+  color:white;
+  font-family: capture_itregular;
+  cursor: pointer;
+}
+
+.boom-menu-item:hover{
+  color:orange;
+}
+
+.boom-menu-item-container{
+  margin-bottom: 1vw;
+}
+
+.boom-menu-item-container:hover{
+  background:rgba(0,0,0,0.15);
+}
+
+/*** TITLE HIGHSCORE ***/
+#BoomHighScore{
+  display: none;
+  text-align: center;
+  width:100%;
+}
+
+#BoomHighScore tr:nth-child(even) {
+  background: rgba(0,0,0,0.25);
+}
+
+.boom-table{
+  border-collapse: collapse;
+  width: 100%;
+  margin-left: 10vw;
+}
+
+.boom-table-header{
+  z-index:100;
+  text-align:left;
+  font-size:1.5vw;
+  color:white;
+  font-family: capture_itregular;
+  font-weight: normal;
+}
+
+.boom-table-cell{
+  z-index:100;
+  text-align:left;
+  font-size:1vw;
+  color:white;
+  font-family: capture_itregular;
+}
+
+/*** GAME OVER SCREEN ***/
+
+#BoomGameOver{
+  display:none;
+  cursor:pointer;
+}
+
+.boom-game-over-text{
+  color:red;
+}
+
+/*** GAME WON SCREEN ***/
+
+#BoomGameWon{
+  display:none;
+  cursor:pointer;
+}
+
+
+.boom-game-win-text{
+  color:white;
+}
+
+
+/*** SHARED **/
+
+.boom-shadow-text{
+  text-shadow: rgb(0, 0, 0) -1px -1px 0px, rgb(0, 0, 0) 1px -1px 0px, rgb(0, 0, 0) -1px 1px 0px, rgb(0, 0, 0) 1px 1px 0px;
+}
+
+.boom-game-secondary-text{
+  z-index:100;
+  background:rgba(0,0,0,0.5);
+  position:absolute;
+  top:1.5vw;
+  width:100%;
+  text-align:center;
+  font-size:5vw;
+  color:white;
+  font-family: capture_itregular;
+}
+
+.boom-game-tertiary-text{
+  z-index:100;
+  background:rgba(0,0,0,0.5);
+  position:absolute;
+  top:7.28vw;
+  width:100%;
+  text-align:center;
+  font-size:1vw;
+  color:white;
+  font-family: capture_itregular;
+}
+

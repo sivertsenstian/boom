@@ -5,31 +5,35 @@ Boom.Assets = {
   },
 
   music: {
-    MISSING: new Boom.Audio({url: 'resources/music/missing.mp3', volume: 0.5, loop: true }),
+    MISSING: new Boom.Audio({url: 'resources/music/missing.mp3', volume: 1.0, loop: true }),
     maps:{
-      'c7cc27d8-da16-4c26-bb03-0e2d04de63c8' : new Boom.Audio({url: 'resources/music/simple_action_beat.ogg', volume: 0.5, loop: true})
+      'c7cc27d8-da16-4c26-bb03-0e2d04de63c8' : new Boom.Audio({url: 'resources/music/simple_action_beat.ogg', volume: 1.0, loop: true})
     }
   },
   sounds: {
     MISSING: new Boom.Audio({url: 'resources/sounds/missing.mp3'}),
+    ui:{
+      menu_up: new Boom.Audio({url: 'resources/sounds/menu_up.mp3', volume: 1.0}),
+      menu_down: new Boom.Audio({url: 'resources/sounds/menu_down.mp3', volume: 1.0}),
+    },
     weapons: {
       pistol: {
-        shoot: new Boom.Audio({url: 'resources/sounds/pistol.wav', volume: 0.5}),
-        hit: new Boom.Audio({url: 'resources/sounds/hit.wav', volume: 0.5}),
-        empty: new Boom.Audio({url: 'resources/sounds/empty.mp3', volume: 0.5}),
-        pickup: new Boom.Audio({url: 'resources/sounds/pistol_pickup.mp3', volume: 0.5})
+        shoot: new Boom.Audio({url: 'resources/sounds/pistol.mp3', volume: 1.0}),
+        hit: new Boom.Audio({url: 'resources/sounds/hit.wav', volume: 1.0}),
+        empty: new Boom.Audio({url: 'resources/sounds/empty.mp3', volume: 1.0}),
+        pickup: new Boom.Audio({url: 'resources/sounds/pistol_pickup.mp3', volume: 1.0})
       },
       shotgun: {
-        shoot: new Boom.Audio({url: 'resources/sounds/shotgun.mp3', volume: 0.5}),
-        hit: new Boom.Audio({url: 'resources/sounds/hit.wav', volume: 0.5}),
-        empty: new Boom.Audio({url: 'resources/sounds/empty.mp3', volume: 0.5}),
-        pickup: new Boom.Audio({url: 'resources/sounds/shotgun_pickup.ogg', volume: 0.5})
+        shoot: new Boom.Audio({url: 'resources/sounds/shotgun.mp3', volume: 1.0}),
+        hit: new Boom.Audio({url: 'resources/sounds/hit.wav', volume: 1.0}),
+        empty: new Boom.Audio({url: 'resources/sounds/empty.mp3', volume: 1.0}),
+        pickup: new Boom.Audio({url: 'resources/sounds/shotgun_pickup.ogg', volume: 1.0})
       }
     },
     items: {
-      healthpack_powerup: new Boom.Audio({url: 'resources/sounds/healthpack_pickup.wav', volume: 0.5}),
-      bullet_powerup: new Boom.Audio({url: 'resources/sounds/bullet_pickup.mp3', volume: 0.5}),
-      shell_powerup: new Boom.Audio({url: 'resources/sounds/shell_pickup.mp3', volume: 0.5})
+      healthpack_powerup: new Boom.Audio({url: 'resources/sounds/healthpack_pickup.wav', volume: 1.0}),
+      bullet_powerup: new Boom.Audio({url: 'resources/sounds/bullet_pickup.mp3', volume: 1.0}),
+      shell_powerup: new Boom.Audio({url: 'resources/sounds/shell_pickup.mp3', volume: 1.0})
     },
     player: {
       win: new Boom.Audio({url: 'resources/sounds/player_win.mp3', volume: 1.0}),
@@ -37,8 +41,8 @@ Boom.Assets = {
     },
     hostile: {
       alien:{
-        pain: new Boom.Audio({url: 'resources/sounds/alien_pain.mp3', volume: 0.5}),
-        death: new Boom.Audio({url: 'resources/sounds/alien_death.mp3', volume: 0.5})
+        pain: new Boom.Audio({url: 'resources/sounds/alien_pain.mp3', volume: 1.0}),
+        death: new Boom.Audio({url: 'resources/sounds/alien_death.mp3', volume: 1.0})
       }
     }
   },
@@ -54,13 +58,16 @@ Boom.Assets = {
       SHOTGUN: '3c8e662c-44e5-4348-b959-ccd74e09dec5'
     },
     MAP:{
-      COLLISION: 'a1114c99-41cb-4fbd-8847-5e112d2ceb18'
     },
     SKYBOX: '/resources/DEBUG/missing.jpg'
   },
 
   textures: {
     'cc3bbbf2-b514-4daf-a9d9-1bd320d612e6': THREE.ImageUtils.loadTexture('/resources/DEBUG/missing.jpg')
+  },
+
+  ui:{
+    HIGHSCORES: []
   },
 
   add: function ( tags, object ){
@@ -103,6 +110,108 @@ Boom.Assets = {
         assetLoader.load( url, function ( collada ) {
 
           self.asset = collada.scene.children[0];
+          Boom.Assets.add( self.tags.all, self.asset );
+          loader.onLoad(self);
+
+        } );
+    }; 
+
+    // called by PxLoader to check status of image (fallback in case 
+    // the event listeners are not triggered). 
+    this.checkStatus = function() { 
+        // report any status changes to the loader 
+        // no need to do anything if nothing has changed 
+    }; 
+
+    // called by PxLoader when it is no longer waiting 
+    this.onTimeout = function() { 
+        // must report a status to the loader: load, error, or timeout 
+    }; 
+
+    // returns a name for the resource that can be used in logging 
+    this.getName = function() { 
+        return url; 
+    };
+
+  },
+
+   loadObjMtl: function (url, mtlUrl, tags, priority) { 
+    var self = this; 
+        loader = null; 
+
+    // used by the loader to categorize and prioritize
+    this.asset;
+    this.tags = tags; 
+    this.priority = priority; 
+
+    // called by PxLoader to trigger download 
+    this.start = function(pxLoader) { 
+        // we need the loader ref so we can notify upon completion 
+        loader = pxLoader; 
+
+        // set up event handlers so we send the loader progress updates 
+
+        // there are 3 possible events we can tell the loader about: 
+        // loader.onLoad(self);    // the resource loaded 
+        // loader.onError(self);   // an error occured 
+        // loader.onTimeout(self); // timeout while waiting 
+
+        // start downloading
+        var assetLoader = new THREE.OBJMTLLoader();
+        assetLoader.load( url, mtlUrl, function ( objmtl ) {
+
+          self.asset = objmtl.children[0].add( objmtl.children[1] );
+          Boom.Assets.add( self.tags.all, self.asset );
+          loader.onLoad(self);
+
+        } );
+    }; 
+
+    // called by PxLoader to check status of image (fallback in case 
+    // the event listeners are not triggered). 
+    this.checkStatus = function() { 
+        // report any status changes to the loader 
+        // no need to do anything if nothing has changed 
+    }; 
+
+    // called by PxLoader when it is no longer waiting 
+    this.onTimeout = function() { 
+        // must report a status to the loader: load, error, or timeout 
+    }; 
+
+    // returns a name for the resource that can be used in logging 
+    this.getName = function() { 
+        return url; 
+    };
+
+  },
+
+  loadPLY: function (url, tags, priority) { 
+    var self = this; 
+        loader = null; 
+
+    // used by the loader to categorize and prioritize
+    this.asset;
+    this.tags = tags; 
+    this.priority = priority; 
+
+    // called by PxLoader to trigger download 
+    this.start = function(pxLoader) { 
+        // we need the loader ref so we can notify upon completion 
+        loader = pxLoader; 
+
+        // set up event handlers so we send the loader progress updates 
+
+        // there are 3 possible events we can tell the loader about: 
+        // loader.onLoad(self);    // the resource loaded 
+        // loader.onError(self);   // an error occured 
+        // loader.onTimeout(self); // timeout while waiting 
+
+        // start downloading
+        var assetLoader = new THREE.PLYLoader();
+        assetLoader.load( url, function ( ply ) {
+
+          self.asset = new THREE.Mesh(ply);
           Boom.Assets.add( self.tags.all, self.asset );
           loader.onLoad(self);
 
@@ -190,6 +299,24 @@ Boom.Assets = {
 
   }
 
+};
+
+// add a convenience method to PxLoader for adding a DAE Model
+PxLoader.prototype.addObjMtlModel = function(url, tags, priority) {
+  var objMtlLoader = new Boom.Assets.loadObjMtl(url + '.obj', url + '.mtl', tags, priority);
+  this.add(objMtlLoader);
+
+  // return the dae element to the caller
+  return objMtlLoader.asset;
+};
+
+// add a convenience method to PxLoader for adding a PLY Model
+PxLoader.prototype.addPLYModel = function(url, tags, priority) {
+  var plyLoader = new Boom.Assets.loadPLY(url, tags, priority);
+  this.add(plyLoader);
+
+  // return the dae element to the caller
+  return plyLoader.asset;
 };
 
 // add a convenience method to PxLoader for adding a DAE Model
