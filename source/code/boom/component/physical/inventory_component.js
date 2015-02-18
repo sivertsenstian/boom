@@ -3,6 +3,8 @@ Boom.InventoryComponent = function( params ) {
   this.type = params.type || Boom.Constants.Component.TYPE.INVENTORY;
   this.camera = params.camera;
   this.player = params.player || false;
+  this.weapon_position = params.weapon_position || new THREE.Vector3(2, -2, -4);
+  this.weapon_rotation = params.weapon_rotation || new THREE.Vector3(0 , -Math.PI/2, 0);
   //active weapon
   this.weapon = params.weapon || null;
   this.object =  null;
@@ -84,7 +86,7 @@ Boom.InventoryComponent.prototype = Boom.inherit(Boom.Component, {
       }
 
       //add new object to owner
-      this.object = this.weaponFactory.spawnWeapon( weapon, {faction: this.owner.faction } );
+      this.object = this.weaponFactory.spawnWeapon( weapon, {faction: this.owner.faction, position: this.weapon_position, rotation: this.weapon_rotation } );
       if( typeof this.camera !== 'undefined' && this.camera !== null){
           this.owner.add( this.object, this.camera );
       }

@@ -200,6 +200,7 @@ Boom.Debug.prototype =  {
 
 Boom.Exceptions = {
   ObjectNotDefinedException: "Object is not defined",
+  FactoryObjectNotDefinedException: "Object is not defined in factory",
   OwnerMissingException: "No Owner was defined",
   NoMessageReceiverException: "No Receiver was defined",
   CameraMissingException: "No Camera was defined",

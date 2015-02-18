@@ -40,7 +40,6 @@ Boom.PreciseItemCollisionActionComponent.prototype = Boom.inherit(Boom.Component
             if(typeof(collided) === 'object'){ //FIXME - could probably be done better - hit components??
               var msg = collided.getMessage();
               if( msg ){
-                console.log("SENDING MESSAGE!");
                 this.send( msg );
               }
             }

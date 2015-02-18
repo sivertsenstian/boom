@@ -80,6 +80,8 @@ Boom.Alien.prototype = Boom.inherit(Boom.Entity, {
       name: 'alien_inventory',
       weapon: Boom.Assets.world.ENTITY.PISTOL,
       ammo: Boom.Constants.Ammunition.BULLET,
+      weapon_position: new THREE.Vector3(2, 8, -4),
+      weapon_rotation: new THREE.Vector3(0 , Math.PI/2, 0),
       owner: this
     });
     this.components[inventory.name] = inventory;
@@ -144,6 +146,20 @@ Boom.Alien.prototype = Boom.inherit(Boom.Entity, {
       Boom.Entity.prototype.dispose.call(entity);
     }, 
     this.components.ANIMATION_DEATH.ms, this);    
+  },
+
+  //Registers the entity as a player-used entity
+  process: function(){
+    Boom.Constants.UI.PLAYER.STATS.ENEMIES++;
+    //Call super
+    Boom.Entity.prototype.process.call(this);
+  },
+
+  //Adds entity to world-total in statistics
+  register: function(){
+    Boom.Constants.World.STATS.ENEMIES++;
+    //Call super
+    Boom.Entity.prototype.register.call(this);
   }
 
 

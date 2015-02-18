@@ -35,6 +35,7 @@ Boom.DeathActionComponent.prototype = Boom.inherit(Boom.Component, {
           this.owner.dispose();
           break;
         case Boom.Constants.Message.Action.PLAYER_DEATH:
+          Boom.Constants.UI.PLAYER.STATS.DEATHS++;
           Boom.GAME_MENU.gameOver();
           this.owner.getComponent('DEATH_AUDIO').play();
           this.owner.dispose();

@@ -90,6 +90,7 @@
      "Boom.ID":"c7cc27d8-da16-4c26-bb03-0e2d04de63c8",
      "Boom.NAME":"L1",
      "Boom.NEXT_LEVEL":"L2",
+     "Boom.PAR_TIME":"120000",
      "Boom.SKYBOX":"\/resources\/tiles\/skybox_sun.png"
     },
  "renderorder":"left-down",

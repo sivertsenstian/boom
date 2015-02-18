@@ -72,7 +72,8 @@ Boom.Menu.prototype = {
   newGame: function( level ){
     this.menu_down.play();
 
-    console.log("INIT NEW GAME " + level);
+    Boom.Constants.UI.PLAYER.SCORE = 0; //Reset score
+
     this.initGame( level );
 
     $(Boom.Constants.UI.ELEMENT.HIGH_SCORE).hide();
@@ -80,10 +81,13 @@ Boom.Menu.prototype = {
     $(Boom.Constants.UI.ELEMENT.PLAYER_REGISTRATION).hide();
     $(Boom.Constants.UI.ELEMENT.PLAYER_REGISTRATION).hide(this.animation_speed);
     $(Boom.Constants.UI.ELEMENT.TITLE).hide(this.animation_speed*5);
+    $(Boom.Constants.UI.ELEMENT.GAME_WON).hide(this.animation_speed);
+    $(Boom.Constants.UI.ELEMENT.GAME_OVER).hide(this.animation_speed);
+
 
     $(Boom.Constants.UI.ELEMENT.HUD).show(this.animation_speed*3);
 
-    $(Boom.Constants.UI.ELEMENT.PLAYER).text( Boom.Constants.UI.CURRENT_PLAYER );
+    $(Boom.Constants.UI.ELEMENT.PLAYER).text( Boom.Constants.UI.PLAYER.NAME );
     $(Boom.Constants.UI.ELEMENT.PLAYER).show(this.animation_speed*3);
 
     $(Boom.Constants.UI.ELEMENT.SCORE).show(this.animation_speed*3);
@@ -92,6 +96,34 @@ Boom.Menu.prototype = {
       $(Boom.Constants.UI.ELEMENT.POINTER_LOCK).show(this.animation_speed*3);
     }
     this.in_menu = false;
+
+    //Start level-timer
+    Boom.Constants.UI.PLAYER.STATS.START_TIME = Boom.getCurrentTime();
+  },
+
+  nextLevel: function(){
+    var next = this.game.getNextLevel(); 
+    if( next ){
+      this.newGame( next );  
+    }
+    else{
+      this.mouseRelease();
+      this.highScore();
+    }
+  },
+
+  restartLevel: function(){
+    var level = this.game.getCurrentLevel(); 
+    if( level ){
+      var current_deaths = Boom.Constants.UI.PLAYER.STATS.DEATHS;
+      this.newGame( level );
+      Boom.Constants.UI.PLAYER.STATS.DEATHS = current_deaths;
+    }
+  },
+
+  endLevel: function(){
+    this.mouseRelease();
+    this.highScore();
   },
 
   highScore: function(){
@@ -104,10 +136,10 @@ Boom.Menu.prototype = {
 
     for(var i = 0; i < Boom.Assets.ui.HIGHSCORES.length; i++){
       user = Boom.Assets.ui.HIGHSCORES[i];
-      current = (user.name.toLowerCase() === Boom.Constants.UI.CURRENT_PLAYER.toLowerCase()) ? 'class="boom-score-current"' : '';
+      current = (user.name.toLowerCase() === Boom.Constants.UI.PLAYER.NAME.toLowerCase()) ? 'class="boom-score-current"' : '';
       $(".boom-highscores-body").append(
         '<tr ' + current + '>' +
-          '<td class="boom-shadow-text boom-table-cell">#' + (i+1) +'</td>' +
+          '<td class="boom-shadow-text boom-table-cell"># ' + (i+1) +'</td>' +
           '<td class="boom-shadow-text boom-table-cell">' +  user.name + '</td>' +
           '<td class="boom-shadow-text boom-table-cell">' + Boom.padNumber(user.score, 8) + '</td>' +
        '</tr>'
@@ -117,6 +149,9 @@ Boom.Menu.prototype = {
     $(Boom.Constants.UI.ELEMENT.TITLE).show(this.animation_speed);
     $(Boom.Constants.UI.ELEMENT.HIGH_SCORE).show(this.animation_speed);
 
+    $(Boom.Constants.UI.ELEMENT.POINTER_LOCK).hide(this.animation_speed);
+    $(Boom.Constants.UI.ELEMENT.GAME_WON).hide(this.animation_speed);
+    $(Boom.Constants.UI.ELEMENT.GAME_OVER).hide(this.animation_speed);
     $(Boom.Constants.UI.ELEMENT.PLAYER_REGISTRATION).hide(this.animation_speed);
     $(Boom.Constants.UI.ELEMENT.TITLE_MENU).hide(this.animation_speed);
     $(Boom.Constants.UI.ELEMENT.SELECT_LEVEL).hide(this.animation_speed);
@@ -132,13 +167,13 @@ Boom.Menu.prototype = {
 
     //Generate Available levels
     var level;
-    $(".boom-level-list").empty();
+    $("#BoomLevelList").empty();
     for (level in Boom.Assets.world.MAP) {
       if (!Boom.Assets.world.MAP.hasOwnProperty(level)) {
           continue;
       }
       //level = Boom.Assets.world.MAP[l];
-      $(".boom-level-list").append(
+      $("#BoomLevelList").append(
         '<li class="boom-start boom-shadow-text boom-level-item" onclick="Boom.GAME_MENU.newGame(\'' + level +'\');">' + level + '</li>'
       );
     }
@@ -155,21 +190,26 @@ Boom.Menu.prototype = {
   },
 
   gameOver: function(){
-    console.log("GAME OVER SCREEN!");
+    $(Boom.Constants.UI.ELEMENT.GAME_OVER).show(this.animation_speed); 
+    this.mouseRelease();
   },
 
   gameWon: function(){
+    //END level-timer
+    Boom.Constants.UI.PLAYER.STATS.END_TIME = (Boom.getCurrentTime() - Boom.Constants.UI.PLAYER.STATS.START_TIME);
     Boom.updateScores();
 
-    var next = this.game.getNextLevel(); 
-    if( next ){
-      this.newGame( next );  
-    }
-    else{
-      this.mouseRelease();
-      this.highScore();
-    }
-    
+    //Set Available stats
+    $("#BoomStats").html(
+      '<li class="boom-shadow-text"> ENEMIES KILLED: ' + Boom.Constants.UI.PLAYER.STATS.ENEMIES + ' / ' + Boom.Constants.World.STATS.ENEMIES + ' <span class="boom-stats-percent">' + parseFloat((Boom.Constants.UI.PLAYER.STATS.ENEMIES/ Boom.Constants.World.STATS.ENEMIES) * 100).toFixed(2) + '%</span></li>' +
+      '<li class="boom-shadow-text"> ITEMS FOUND: ' + Boom.Constants.UI.PLAYER.STATS.ITEMS + ' / ' + Boom.Constants.World.STATS.ITEMS + ' <span class="boom-stats-percent">' + parseFloat((Boom.Constants.UI.PLAYER.STATS.ITEMS/ Boom.Constants.World.STATS.ITEMS) * 100).toFixed(2) + '%</span></li>' +
+      '<li class="boom-shadow-text"> SECRETS DISCOVERED: ' + Boom.Constants.UI.PLAYER.STATS.SECRETS + ' / ' + Boom.Constants.World.STATS.SECRETS + ' <span class="boom-stats-percent">' + parseFloat((Boom.Constants.UI.PLAYER.STATS.SECRETS/Boom.Constants.World.STATS.SECRETS) * 100).toFixed(2) + '%</span></li>' +
+      '<li class="boom-shadow-text"> DEATHS: ' + Boom.Constants.UI.PLAYER.STATS.DEATHS + '</li>' +
+      '<li class="boom-shadow-text"> TIME: ' + Boom.msToMS(Boom.Constants.UI.PLAYER.STATS.END_TIME) + '</li>'
+    );
+    $(Boom.Constants.UI.ELEMENT.GAME_WON).show(this.animation_speed); 
+
+    this.mouseRelease();
   },
 
   mouseLock: function(){
@@ -213,7 +253,7 @@ Boom.Menu.prototype = {
   registerMenuScripts: function(){
     //Player registration
     $(Boom.Constants.UI.ELEMENT.REGISTRATION_INPUT).keyup(function() {
-      Boom.Constants.UI.CURRENT_PLAYER = $(Boom.Constants.UI.ELEMENT.REGISTRATION_INPUT).val();
+      Boom.Constants.UI.PLAYER.NAME = $(Boom.Constants.UI.ELEMENT.REGISTRATION_INPUT).val();
     });
   },
 

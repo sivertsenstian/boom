@@ -123,23 +123,25 @@
 
 <!-- GAME WON SCREEN -->
 <div id="BoomGameWon">
-  <span class="boom-shadow-text boom-game-win-text boom-game-main-text">COURSE CLEARED</span>
-  <div>
-    <span class="boom-shadow-text boom-game-secondary-text">STATS</span>
-    <ul class="boom-shadow-text boom-game-tertiary-text">
-      <li>TOTAL SCORE: 3876</li>
-      <li>ENEMIES KILLED: 0/20</li>
-      <li>ITEMS FOUND: 0/30</li>
-      <li>SECRETS FOUND: 0/4</li>
-      <li>TOTAL TIME: 3:26</li>
-    </ul>
+  <div class="boom-game-win-container">
+    <div class="boom-game-win-text">LEVEL COMPLETE!</div>
+    <br>
+    <ul id="BoomStats" class="boom-list boom-shadow-text"></ul>
+    <div>
+      <span id="BoomGameWonHighScore" class="boom-button boom-button-red" onclick="Boom.GAME_MENU.highScore()">Menu</span>
+      <span id="BoomGameWonNextLevel" class="boom-button boom-button-green" onclick="Boom.GAME_MENU.nextLevel()">Onwards</span>
+    </div>
   </div>
 </div>
 
 <!-- GAME OVER SCREEN -->
-<div id="BoomGameOver" onclick="location.reload(true);">
-  <span class="boom-shadow-text boom-game-over-text boom-game-main-text">GAME OVER</span>
-  <span class="boom-shadow-text boom-game-secondary-text">click to retry</span>
+<div id="BoomGameOver">
+  <div class="boom-game-over-text">GAME OVER</div>
+  <br>
+  <div>
+    <span id="BoomGameRestart" class="boom-button boom-button-red" onclick="Boom.GAME_MENU.endLevel()">Give up</span>
+    <span id="BoomGameEnd" class="boom-button boom-button-green" onclick="Boom.GAME_MENU.restartLevel()">Retry</span>
+  </div>
 </div>
 
 <!-- TITLE SCREEN -->
@@ -190,7 +192,7 @@
     <div class="boom-menu-item-container">
       <span class="boom-shadow-text boom-menu-item" onclick="Boom.GAME_MENU.mainMenu();">BACK TO MAIN MENU</span>
     </div>
-    <ul class="boom-level-list">
+    <ul id="BoomLevelList" class="boom-list">
     </ul>
   </div>
 

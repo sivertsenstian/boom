@@ -87,5 +87,19 @@ Boom.PistolPowerup.prototype = Boom.inherit(Boom.Entity, {
       Boom.Entity.prototype.dispose.call(entity);
     }, 
     this.components.powerup_item_pistol_animation_disappear.ms, this);
+  },
+
+  //Registers the entity as a player-used entity
+  process: function(){
+    Boom.Constants.UI.PLAYER.STATS.ITEMS++;
+    //Call super
+    Boom.Entity.prototype.process.call(this);
+  },
+
+  //Adds entity to world-total in statistics
+  register: function(){
+    Boom.Constants.World.STATS.ITEMS++;
+    //Call super
+    Boom.Entity.prototype.register.call(this);
   }
 });

@@ -167,7 +167,12 @@ Boom.World.prototype = {
     //Start music! TODO: Move this to a more appropriate place!
     //TODO: Reorganize the map structure into more logical bits (map loading, assets, music, skybox lights etc etc)
     this.music = Boom.Assets.music.maps[this.map.properties['Boom.ID']] || Boom.Assets.music.MISSING;
-    //this.music.play();
+
+    this.audio = new THREE.Audio( Boom.Constants.PLAYER_LISTENER );
+    this.audio.load( this.music.url );
+
+    //Set config
+    Boom.Constants.World.STATS.PAR_TIME = parseFloat(this.map.properties['Boom.PAR_TIME']) || 0;
   },
 
   load: function(){

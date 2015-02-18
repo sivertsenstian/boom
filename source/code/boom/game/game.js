@@ -74,7 +74,7 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
       this.world.update();
 
       //Update score
-      $(Boom.Constants.UI.ELEMENT.SCORE_VALUE).text(Boom.padNumber(Boom.Constants.UI.CURRENT_SCORE, 8));
+      $(Boom.Constants.UI.ELEMENT.SCORE_VALUE).text(Boom.padNumber(Boom.Constants.UI.PLAYER.SCORE, 8));
     }
     catch( error ){
       Boom.handleError( error , 'Boom.Game.update()');

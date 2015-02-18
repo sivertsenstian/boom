@@ -6,6 +6,8 @@ Boom.Shotgun = function( params ){
   this.hud_name = 'SHOTGUN';
   this.shells_per_burst = 8;
   this.spread = 0.05;
+  this.position = params.position;
+  this.rotation = params.rotation;
   Boom.Entity.call(this, {name: 'WEAPON_ShotgunEntity', addToScene: false, is_static: false, faction: params.faction, local:true});
 };
 
@@ -22,8 +24,8 @@ Boom.Shotgun.prototype = Boom.inherit(Boom.Entity, {
         shape: Boom.Constants.Component.MODEL, 
         model: Boom.Assets.weapons.shotgun,
         scale: new THREE.Vector3(0.1, 0.1, 0.1),
-        position: new THREE.Vector3(2, -2, -4),
-        rotation: new THREE.Vector3(0 , -Math.PI/2, 0),
+        position: this.position,
+        rotation: this.rotation,
         owner: this
       }
     );

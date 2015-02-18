@@ -108,7 +108,7 @@ Boom.Entity.prototype = {
   dispose: function(){
     if(!this.isDisposed()){
       this.__dispose = true;
-      Boom.addScore( this.score );
+      this.process();
     }
   },
 
@@ -143,6 +143,7 @@ Boom.Entity.prototype = {
     }
     return false;
   },
+
   //If this entity has a passable message, it is fetched
   getMessage: function(){
     if(!this.message_sendt && this.message){
@@ -151,6 +152,17 @@ Boom.Entity.prototype = {
       return this.message;
     }
     return false;
+  },
+
+  //Registers the entity as a player-used entity
+  process: function(){
+    Boom.Constants.UI.PLAYER.SCORE += this.score; 
+  },
+
+  //Adds entity to world-total in statistics
+  register: function(){
+    //Empty - no stats to process
   }
+
 
 };

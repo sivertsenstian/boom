@@ -56,7 +56,7 @@ Boom.color = function(){
 };
 
 Boom.guid = function b(a) {
-  return a ? (a^Math.random()*16>>a/4).toString(16) : ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g , b)
+  return a ? (a^Math.random()*16>>a/4).toString(16) : ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g , b);
 };
 
 Boom.randomRange = function(min, max){
@@ -77,33 +77,42 @@ Boom.padNumber = function(num, size) {
 
 //SCORE STUFF - TODO: MOVE THIS?
 Boom.sortScores = function(a, b) {
-  if (a.score < b.score)
+  a = parseFloat(a.score);
+  b = parseFloat(b.score);
+  if (a < b)
      return 1;
-  if (a.score > b.score)
+  if (a > b)
     return -1;
   return 0;
 };
 
-Boom.addScore = function( score ){
-  Boom.Constants.UI.CURRENT_SCORE += score; 
+Boom.msToMS = function( ms ) {
+  var minutes = Math.floor(ms / 60000);
+  var seconds = ((ms % 60000) / 1000).toFixed(0);
+  return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
 };
 
 Boom.updateScores = function(){
   var user;
   for(var i = 0; i < Boom.Assets.ui.HIGHSCORES.length; i++){
       user = Boom.Assets.ui.HIGHSCORES[i];
-      if(user.name.toLowerCase() === Boom.Constants.UI.CURRENT_PLAYER.toLowerCase() &&
-         Boom.Constants.UI.CURRENT_SCORE > user.score){
-        user.score = Boom.Constants.UI.CURRENT_SCORE;
+      if(user.name.toLowerCase() === Boom.Constants.UI.PLAYER.NAME.toLowerCase() &&
+         Boom.Constants.UI.PLAYER.SCORE > user.score){
+        user.score = Boom.Constants.UI.PLAYER.SCORE;
         return;
       }
   }
-  if(Boom.Constants.UI.CURRENT_PLAYER.toLowerCase() !== 'UNREGISTERED'.toLowerCase()){
+  if(Boom.Constants.UI.PLAYER.NAME.toLowerCase() !== 'UNREGISTERED'.toLowerCase()){
     Boom.Assets.ui.HIGHSCORES.push({
-                                    name: Boom.Constants.UI.CURRENT_PLAYER, 
-                                    score:  Boom.Constants.UI.CURRENT_SCORE
+                                    name: Boom.Constants.UI.PLAYER.NAME, 
+                                    score:  Boom.Constants.UI.PLAYER.SCORE
                                   });
   }
 
-  Boom.Constants.UI.CURRENT_SCORE = 0; //Reset score
+
+  $.post( "/highscores", {dto: Boom.Assets.ui.HIGHSCORES}, function( data ) {
+    console.log( data );
+  });
+
+  //Boom.Constants.UI.PLAYER.SCORE = 0; //Reset score
 };

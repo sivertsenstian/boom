@@ -122,6 +122,8 @@ Boom.Base.prototype = {
     Boom.Entities = {};
     Boom.MergedEntities = [];
     Boom.Collidables = [];
+    Boom.Constants.World.STATS = {ENEMIES: 0, ITEMS: 0, SECRETS: 0, PAR_TIME: 0};
+    Boom.Constants.UI.PLAYER.STATS = {ENEMIES: 0, ITEMS: 0, SECRETS: 0, START_TIME: 0, END_TIME: 0, DEATHS: 0};
 
     Boom.Constants.PLAYER_CAMERA = new THREE.PerspectiveCamera(this.cameraFov, this.width / this.height, this.cameraNear, this.cameraFar);
     Boom.Constants.PLAYER_CAMERA.name = Boom.Constants.Objects.CAMERA;

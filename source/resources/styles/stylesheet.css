@@ -24,7 +24,7 @@ canvas {
 /*** POINTER LOCK ***/
 #BoomPointerLock{
   position: absolute;
-  top: 30vw;
+  top: 50vw;
   width: 100%;
   text-align: center;
   font-size: 3vw;
@@ -163,7 +163,7 @@ canvas {
   width:100%;
 }
 
-.boom-level-list{
+.boom-list{
   list-style:none;
   padding-left:0;
 }
@@ -236,7 +236,7 @@ canvas {
 .boom-table-cell{
   z-index:100;
   text-align:left;
-  font-size:1vw;
+  font-size:3vw;
   color:white;
   font-family: capture_itregular;
 }
@@ -244,24 +244,78 @@ canvas {
 /*** GAME OVER SCREEN ***/
 
 #BoomGameOver{
-  display:none;
-  cursor:pointer;
+  position: absolute;
+  top: 10vw;
+  width: 100%;
+  text-align: center;
+  font-size: 3vw;
+  font-family: capture_itregular;
+  color: white;
+  display: none;
+  z-index: 100;
+  background-color: rgba(0, 0, 0,0.5);
 }
 
 .boom-game-over-text{
-  color:red;
+  color:crimson;
+  font-size: 5vw;
 }
 
 /*** GAME WON SCREEN ***/
 
 #BoomGameWon{
-  display:none;
+  position: absolute;
+  top: 10vw;
+  width: 100%;
+  text-align: center;
+  font-size: 3vw;
+  font-family: capture_itregular;
+  color: white;
+  display: none;
+  z-index: 100;
+  background-color: rgba(0, 0, 0,0.5);
+}
+
+.boom-button-green{
+  color: greenyellow;
+}
+
+.boom-button-red{
+  color:crimson;
+}
+
+.boom-button{
+  border: 2px solid white;
+  background: whitesmoke;
+  box-shadow: 5px 5px 2px #000000;
+  text-align: center;
+  text-shadow: rgb(0, 0, 0) -1px -1px 0px, rgb(0, 0, 0) 1px -1px 0px, rgb(0, 0, 0) -1px 1px 0px, rgb(0, 0, 0) 1px 1px 0px;
+  border-radius: 5px;
+  padding-left: 1vw;
+  padding-right: 1vw;
   cursor:pointer;
+}
+
+.boom-button:hover{
+  color: orange;
+  border: 2px solid orange;
+}
+
+.boom-stats-percent{
+  color: yellow;
+  float: right;
+  padding-right: 1vw;
 }
 
 
 .boom-game-win-text{
-  color:white;
+  color:green;
+  font-size: 5vw;
+}
+
+.boom-game-win-container{
+  text-align: left;
+  margin-left: 30vw;
 }
 
 

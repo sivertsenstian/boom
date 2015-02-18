@@ -28,7 +28,7 @@ Boom.Player.prototype = Boom.inherit(Boom.Entity, {
     var health = new Boom.HealthActionComponent({
       name: 'player_health',
       player: true,
-      value: 34,
+      value: 1,
       owner: this
     });
     this.components[health.name] = health;

@@ -11,8 +11,17 @@ Boom.Constants = {
     HEIGHT: 0,
     WIDTH: 0,
     MOUSE_LOCKED: false,
-    CURRENT_PLAYER: 'UNREGISTERED',
-    CURRENT_SCORE: 0,
+    PLAYER: {
+      NAME: 'UNREGISTERED',
+      SCORE: 0,
+      STATS:{
+        ENEMIES: 0,
+        ITEMS: 0,
+        SECRETS: 0,
+        TIME: 0,
+        DEATHS: 0
+      }
+    },
     ELEMENT:{
       TITLE: '#BoomTitle',
       GAME_WON: '#BoomGameWon',
@@ -45,22 +54,36 @@ Boom.Constants = {
       ACTORS: 5,
       ITEMS: 6
     },
-    END_LEVEL: 'e0c364e2-338b-4252-8a20-e9c21fda57e6'
+    END_LEVEL: 'e0c364e2-338b-4252-8a20-e9c21fda57e6',
+    STATS:{
+      ENEMIES: 0,
+      ITEMS: 0,
+      SECRETS: 0,
+      PAR_TIME: 0
+    }
 
   },
 
   Actors:{
-    PLAYER: '44ade206-60e5-43b7-aaa3-045e147a1c88',
-    ALIEN:'0a89b621-e2ed-4618-ad90-57641ba6a563'
+    FRIENDLY: {
+      PLAYER: '44ade206-60e5-43b7-aaa3-045e147a1c88'
+    },
+    HOSTILE:{
+      ALIEN:'0a89b621-e2ed-4618-ad90-57641ba6a563'
+    }
   },
 
   Items:{
-    HEALTHPACK_POWERUP: 'db9fdc72-5195-49b2-9327-346919b644df',
-    BULLET_POWERUP: '2bccdac5-f515-4926-b203-95334bc240a1',
-    SHELL_POWERUP: '1d2b839d-151e-4f4b-bbb4-f1809ec9a558',
-    PISTOL_POWERUP: 'e6a2d0c2-ff2d-46e5-b66e-2e94c541b709',
-    SHOTGUN_POWERUP: 'e697f30b-77eb-4c32-9b0d-e1c363466b70',
-    END_GOAL: 'a6c4da7d-b51c-440a-a1be-19d26872c843'
+    POWERUP: {
+      HEALTH: 'db9fdc72-5195-49b2-9327-346919b644df',
+      BULLET: '2bccdac5-f515-4926-b203-95334bc240a1',
+      SHELL: '1d2b839d-151e-4f4b-bbb4-f1809ec9a558',
+      PISTOL: 'e6a2d0c2-ff2d-46e5-b66e-2e94c541b709',
+      SHOTGUN: 'e697f30b-77eb-4c32-9b0d-e1c363466b70',
+    },
+    OTHER:{
+      END_GOAL: 'a6c4da7d-b51c-440a-a1be-19d26872c843'
+    }
   },
 
   Component:{

@@ -6,7 +6,7 @@ Boom.HealthpackPowerup = function( params ){
   this.value = params.value || 10;
 
   this.message = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, data: this.value, type: Boom.Constants.Message.Action.INCREASE_HEALTH, sender: this.type });
-
+  
   Boom.Entity.call(this, {name: 'POWERUP_ITEM_HEALTHPACK', is_singular: true});
 };
 
@@ -86,5 +86,20 @@ Boom.HealthpackPowerup.prototype = Boom.inherit(Boom.Entity, {
       Boom.Entity.prototype.dispose.call(entity);
     }, 
     this.components.powerup_item_healthpack_animation_disappear.ms, this);
+  },
+
+  //Registers the entity as a player-used entity
+  process: function(){
+    Boom.Constants.UI.PLAYER.STATS.ITEMS++;
+    //Call super
+    Boom.Entity.prototype.process.call(this);
+  },
+
+  //Adds entity to world-total in statistics
+  register: function(){
+    Boom.Constants.World.STATS.ITEMS++;
+    //Call super
+    Boom.Entity.prototype.register.call(this);
   }
+
 });
