@@ -2,12 +2,12 @@ Boom.Shotgun = function( params ){
   this.type = Boom.Assets.world.ENTITY.SHOTGUN; //TODO: THIS SHOULD BE DONE IN A BETTER WAY
   this.cooldown = 800;
   this.last_shot = Boom.getCurrentTime();
-  this.ammunitionFactory = new Boom.AmmunitionFactory();
   this.hud_name = 'SHOTGUN';
   this.shells_per_burst = 8;
   this.spread = 0.05;
   this.position = params.position;
   this.rotation = params.rotation;
+  this.scale = params.scale;
   Boom.Entity.call(this, {name: 'WEAPON_ShotgunEntity', addToScene: false, is_static: false, faction: params.faction, local:true});
 };
 
@@ -23,7 +23,7 @@ Boom.Shotgun.prototype = Boom.inherit(Boom.Entity, {
         name: "shotgun_physics",
         shape: Boom.Constants.Component.MODEL, 
         model: Boom.Assets.weapons.shotgun,
-        scale: new THREE.Vector3(0.1, 0.1, 0.1),
+        scale: this.scale,
         position: this.position,
         rotation: this.rotation,
         owner: this
@@ -84,7 +84,7 @@ Boom.Shotgun.prototype = Boom.inherit(Boom.Entity, {
                                            dir.y + Boom.randomRange(-this.spread, this.spread), 
                                            dir.z + Boom.randomRange(-this.spread, this.spread)
                                            );
-        this.ammunitionFactory.spawnAmmunition(type, {direction: spread_dir, spawn: spawn, faction: this.faction});
+        Boom.GameFactory.spawn(type, {direction: spread_dir, spawn: spawn, faction: this.faction});
       }
       this.components.shotgun_animation_shoot.animate();
       this.components.shotgun_audio_shoot.play();

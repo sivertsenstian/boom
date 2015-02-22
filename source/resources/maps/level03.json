@@ -465,34 +465,40 @@
                 {
                  "Boom.ID":"2bccdac5-f515-4926-b203-95334bc240a1",
                  "Boom.Path":"\/resources\/tiles\/texture\/bullets.jpg",
+                 "Boom.Height":"6",
                  "Boom.VALUE":"12"
                 },
              "1":
                 {
                  "Boom.ID":"db9fdc72-5195-49b2-9327-346919b644df",
                  "Boom.Path":"\/resources\/tiles\/texture\/healthpack.jpg",
+                 "Boom.Height":"6",
                  "Boom.VALUE":"24"
                 },
              "2":
                 {
                  "Boom.ID":"e6a2d0c2-ff2d-46e5-b66e-2e94c541b709",
-                 "Boom.Path":"\/resources\/tiles\/texture\/pistol.jpg"
+                 "Boom.Path":"\/resources\/tiles\/texture\/pistol.jpg",
+                 "Boom.Height":"6"
                 },
              "3":
                 {
                  "Boom.ID":"1d2b839d-151e-4f4b-bbb4-f1809ec9a558",
                  "Boom.Path":"\/resources\/tiles\/texture\/shells.jpg",
+                 "Boom.Height":"6",
                  "Boom.VALUE":"8"
                 },
              "4":
                 {
                  "Boom.ID":"e697f30b-77eb-4c32-9b0d-e1c363466b70",
-                 "Boom.Path":"\/resources\/tiles\/texture\/shotgun.jpg"
+                 "Boom.Path":"\/resources\/tiles\/texture\/shotgun.jpg",
+                 "Boom.Height":"6"
                 },
              "5":
                 {
                  "Boom.ID":"a6c4da7d-b51c-440a-a1be-19d26872c843",
-                 "Boom.Path":"\/resources\/tiles\/texture\/end_goal.jpg"
+                 "Boom.Path":"\/resources\/tiles\/texture\/end_goal.jpg",
+                 "Boom.Height":"6"
                 }
             },
          "tiles":

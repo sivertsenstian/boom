@@ -36,7 +36,7 @@ Boom.World.prototype = {
       if(!this.map.tilesets.hasOwnProperty(tileset)){
         continue;
       }
-      map_tile_properties[this.map.tilesets[tileset].name] = this.map.tilesets[tileset].tileproperties;
+      map_tile_properties[this.map.tilesets[tileset].name] = this.map.tilesets[tileset].tileproperties || {};
       map_tile_properties[this.map.tilesets[tileset].name].firstgid = this.map.tilesets[tileset].firstgid;
     }
     
@@ -109,7 +109,6 @@ Boom.World.prototype = {
     }
 
     //ACTORS
-    var actor, actorFactory = new Boom.ActorFactory();
     for(var i = 0; i < this.map.layers[Boom.Constants.World.LAYER.ACTORS].data.length; i++){
       current_tile = this.map.layers[Boom.Constants.World.LAYER.ACTORS].data[i] - map_tile_properties['Boom.Entities'].firstgid;
       if( map_tile_properties['Boom.Entities'].hasOwnProperty( current_tile ) ){
@@ -117,7 +116,7 @@ Boom.World.prototype = {
                                   0, 
                                   this.map.tilewidth * Math.floor((i % this.map.height)));
 
-        actor = actorFactory.spawnActor( map_tile_properties['Boom.Entities'][current_tile]['Boom.ID'],
+        actor = Boom.GameFactory.spawn( map_tile_properties['Boom.Entities'][current_tile]['Boom.ID'],
                                          { 
                                             position: pos, 
                                             type: map_tile_properties['Boom.Entities'][current_tile]['Boom.ID'] 
@@ -129,7 +128,6 @@ Boom.World.prototype = {
     }
 
      //ITEMS
-    var item, itemFactory = new Boom.ItemFactory();
     for(var i = 0; i < this.map.layers[Boom.Constants.World.LAYER.ITEMS].data.length; i++){
       current_tile = this.map.layers[Boom.Constants.World.LAYER.ITEMS].data[i] - map_tile_properties['Boom.Items'].firstgid;
       if( map_tile_properties['Boom.Items'].hasOwnProperty( current_tile ) ){
@@ -137,7 +135,7 @@ Boom.World.prototype = {
                                   this.map.tileheight/4, 
                                   this.map.tilewidth * Math.floor((i % this.map.height)));
 
-        item = itemFactory.spawnItem( map_tile_properties['Boom.Items'][current_tile]['Boom.ID'],
+        item = Boom.GameFactory.spawn( map_tile_properties['Boom.Items'][current_tile]['Boom.ID'],
                                          { 
                                             position: pos, 
                                             type: map_tile_properties['Boom.Items'][current_tile]['Boom.ID'],
@@ -150,7 +148,7 @@ Boom.World.prototype = {
     }
 
     //LIGHTS
-    var light_params = {}, param, lightFactory = new Boom.LightFactory();
+    var light_params = {}, param;
     for(var i = 0; i < this.map.layers[Boom.Constants.World.LAYER.LIGHT].data.length; i++){
       current_tile = this.map.layers[Boom.Constants.World.LAYER.LIGHT].data[i] - map_tile_properties['Boom.Light'].firstgid;
       if( map_tile_properties['Boom.Light'].hasOwnProperty( current_tile ) ){
@@ -158,7 +156,10 @@ Boom.World.prototype = {
                                   map_tile_properties['Boom.Light'][current_tile]['Boom.HEIGHT'] * this.map.tileheight, 
                                   this.map.tilewidth * Math.floor((i % this.map.height)));
 
-        lightFactory.spawnLight( map_tile_properties['Boom.Light'][current_tile], { position: pos });
+        Boom.GameFactory.spawn( map_tile_properties['Boom.Light'][current_tile]['Boom.ID'], 
+                                { position: pos }, 
+                                map_tile_properties['Boom.Light'][current_tile]
+                              );
       }
     }
 

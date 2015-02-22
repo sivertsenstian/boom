@@ -32,3 +32,4 @@ build
 
 #Bower
 src/bower_components
+source/resources/ui/highscores.json

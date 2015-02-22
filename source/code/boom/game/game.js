@@ -85,8 +85,11 @@ Boom.Game.prototype = Boom.inherit(Boom.Base, {
   load: function( map ){
     var id;
     try{
+      //Map
       var current_map = Boom.Assets.world.MAP[map] || Boom.Assets.world.MAP['TEST'];
-      //var current_map = Boom.Assets.world.MAP['MAP01'];
+
+      //Factory
+      Boom.GameFactory = new Boom.EntityFactory();
 
       //Collisions
       Boom.GameGrid = new Boom.CollisionGrid( current_map );

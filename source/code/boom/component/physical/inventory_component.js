@@ -5,6 +5,7 @@ Boom.InventoryComponent = function( params ) {
   this.player = params.player || false;
   this.weapon_position = params.weapon_position || new THREE.Vector3(2, -2, -4);
   this.weapon_rotation = params.weapon_rotation || new THREE.Vector3(0 , -Math.PI/2, 0);
+  this.weapon_scale = params.weapon_scale || new THREE.Vector3(0.1, 0.1, 0.1);
   //active weapon
   this.weapon = params.weapon || null;
   this.object =  null;
@@ -20,7 +21,6 @@ Boom.InventoryComponent = function( params ) {
     ammunition: {},
     items: {}
   };
-  this.weaponFactory = new Boom.WeaponFactory();
 
   //Init and add weapon and ammunition if it is defined from params
   if(this.weapon !== null && this.active_ammunition !== null){
@@ -86,7 +86,11 @@ Boom.InventoryComponent.prototype = Boom.inherit(Boom.Component, {
       }
 
       //add new object to owner
-      this.object = this.weaponFactory.spawnWeapon( weapon, {faction: this.owner.faction, position: this.weapon_position, rotation: this.weapon_rotation } );
+      this.object = Boom.GameFactory.spawn( weapon, {faction: this.owner.faction, 
+                                                     position: this.weapon_position, 
+                                                     rotation: this.weapon_rotation, 
+                                                     scale: this.weapon_scale
+                                          });
       if( typeof this.camera !== 'undefined' && this.camera !== null){
           this.owner.add( this.object, this.camera );
       }
@@ -135,7 +139,7 @@ Boom.InventoryComponent.prototype = Boom.inherit(Boom.Component, {
             if( !this.inventory.ammunition.hasOwnProperty(this.inventory.weapons[message.data.name]) ){
               this.inventory.ammunition[this.inventory.weapons[message.data.name]] = 0;
             }
-            //Set current active weapon-entity (this.object) to an instance of given type, using the weaponFactory
+            //Set current active weapon-entity (this.object) to an instance of given type, using the GameFactory
             //Add active weapon-entity (this.object) to owner-entity
             this.setActiveWeapon( message.data.name );
           }

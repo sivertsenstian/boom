@@ -76,12 +76,23 @@ Boom.Alien.prototype = Boom.inherit(Boom.Entity, {
     );
     this.components[gravity.name] = gravity;
 
+    var wpn, am;
+    if(Math.random() > 0.5){
+      wpn = Boom.Assets.world.ENTITY.PISTOL;
+      am = Boom.Constants.Ammunition.BULLET;
+    }
+    else{
+      wpn = Boom.Assets.world.ENTITY.SHOTGUN;
+      am = Boom.Constants.Ammunition.SHELL;
+    }
+
     var inventory = new Boom.InventoryComponent({
       name: 'alien_inventory',
-      weapon: Boom.Assets.world.ENTITY.PISTOL,
-      ammo: Boom.Constants.Ammunition.BULLET,
-      weapon_position: new THREE.Vector3(2, 8, -4),
+      weapon: wpn,
+      ammo: am,
+      weapon_position: new THREE.Vector3(-7, 8, 11),
       weapon_rotation: new THREE.Vector3(0 , Math.PI/2, 0),
+      weapon_scale: new THREE.Vector3(0.4 , 0.4, 0.4),
       owner: this
     });
     this.components[inventory.name] = inventory;
