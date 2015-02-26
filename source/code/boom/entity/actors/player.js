@@ -66,6 +66,14 @@ Boom.Player.prototype = Boom.inherit(Boom.Entity, {
     );
     this.components[item_pickup_collision.name] = item_pickup_collision;
 
+    var trigger_collision = new Boom.PreciseTriggerCollisionActionComponent(
+      {
+        name: 'player_trigger_collision',
+        owner: this
+      }
+    );
+    this.components[trigger_collision.name] = trigger_collision;
+
     var gravity = new Boom.GravityActionComponent(
       {
         name: 'player_gravity',

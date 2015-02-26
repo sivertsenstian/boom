@@ -208,5 +208,7 @@ Boom.Exceptions = {
   DuplicateItemInHashException: 'Key already exists in hash',
   ItemNotDefinedInHashException: 'Key does not exist in hash',
   ComponentMustBeDefinedFirstException: 'This component MUST be defined first for the entity - and it isnt',
-  EntityMessageMissingException: 'The Item-Entity should have a retrievable message'
+  EntityMessageMissingException: 'The Item-Entity should have a retrievable message',
+  UndefinedCollisionException: "Error when trying to access a collision - no such collision defined",
+  NotTriggerableEntityException: "Unable to trigger entity - trigger not implemented!"
 };

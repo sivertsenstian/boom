@@ -44,6 +44,12 @@ Boom.Assets = {
         pain: new Boom.Audio({url: 'resources/sounds/alien_pain.mp3', volume: 1.0}),
         death: new Boom.Audio({url: 'resources/sounds/alien_death.mp3', volume: 1.0})
       }
+    },
+    structure: {
+      door: {
+        open: new Boom.Audio({url: 'resources/sounds/door_trigger.wav', volume: 1.0}),
+        close: new Boom.Audio({url: 'resources/sounds/door_trigger.wav', volume: 1.0})
+      }
     }
   },
 

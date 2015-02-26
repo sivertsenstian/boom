@@ -52,7 +52,8 @@ Boom.Constants = {
       COLLISION: 3,
       LIGHT: 4,
       ACTORS: 5,
-      ITEMS: 6
+      ITEMS: 6,
+      TRIGGERS: 7
     },
     END_LEVEL: 'e0c364e2-338b-4252-8a20-e9c21fda57e6',
     STATS:{
@@ -84,6 +85,11 @@ Boom.Constants = {
     OTHER:{
       END_GOAL: 'a6c4da7d-b51c-440a-a1be-19d26872c843'
     }
+  },
+
+  Triggers:{
+    DOOR: '94df0126-3382-444e-b179-df17fbfca37d',
+    ENTITY_SPAWN: '203a3744-5658-490c-9b28-fa0ded97cfa0'
   },
 
   Component:{
@@ -149,7 +155,8 @@ Boom.Constants = {
       SET_WEAPON: Boom.guid(),
       PLAYER_DEATH: Boom.guid(),
       HOSTILE_DEATH: Boom.guid(),
-      WIN: Boom.guid()
+      WIN: Boom.guid(),
+      TRIGGER: Boom.guid()
     },
     Hit: {
       DISPOSE: Boom.guid(),

@@ -5,9 +5,10 @@ Boom.CollisionGrid = function( map ){
   this.grid = [this.height * this.width];
   this.actors = [this.height * this.width];
   this.items = [this.height * this.width];
+  this.triggers = [this.height * this.width];
   this.init();
-  this.x;
-  this.y;
+  this.x = null;
+  this.y = null;
 };
 
 Boom.CollisionGrid.prototype = {
@@ -38,6 +39,30 @@ Boom.CollisionGrid.prototype = {
     this.grid[index] = true;
   },
 
+  addCollisionToPosition: function( position ){
+    this.x = Math.round(position.x / this.map.tileheight);
+    this.z =  Math.round(position.z / this.map.tilewidth);
+    var index = this.width * this.x + this.z;
+
+    if(!this.checkCollision(index)){
+      this.grid[index] = true;
+      return index;
+    }
+    throw Boom.Exceptions.UndefinedCollisionException;
+  },
+
+  removeCollisionFromPosition: function( position ){
+    this.x = Math.round(position.x / this.map.tileheight);
+    this.z =  Math.round(position.z / this.map.tilewidth);
+    var index = this.width * this.x + this.z;
+
+    if(this.checkCollision(index)){
+      this.grid[index] = false;
+      return index;
+    }
+    throw Boom.Exceptions.UndefinedCollisionException;
+  },
+
   addActor: function( actorId, position ){
     this.x = Math.round(position.x / this.map.tileheight);
     this.z =  Math.round(position.z / this.map.tilewidth);
@@ -48,6 +73,12 @@ Boom.CollisionGrid.prototype = {
     this.x = Math.round(position.x / this.map.tileheight);
     this.z =  Math.round(position.z / this.map.tilewidth);
     this.items[this.width * this.x + this.z] = itemId;
+  },
+
+  addTrigger: function( triggerId, position ){
+    this.x = Math.round(position.x / this.map.tileheight);
+    this.z =  Math.round(position.z / this.map.tilewidth);
+    this.triggers[this.width * this.x + this.z] = triggerId;
   },
 
   updateActor: function(actorId, oldPosition, newPosition){
@@ -74,10 +105,20 @@ Boom.CollisionGrid.prototype = {
     collision[2] = this.checkCollision(this.width * this.x + (this.z+1));
     collision[3] = this.checkCollision(this.width * this.x + (this.z-1));
 
-    /*    console.log( "(" + z + "," + x + ")");
-    console.log(collision);*/
-
     return collision;
+  },
+
+  checkTriggerNeighbours: function( position ){
+    this.x = Math.round(position.x / this.map.tileheight);
+    this.z =  Math.round(position.z / this.map.tilewidth);
+    var trigger = [4];
+
+    trigger[0] = this.checkTrigger(this.width * (this.x+1) + this.z);
+    trigger[1] = this.checkTrigger(this.width * (this.x-1) + this.z);
+    trigger[2] = this.checkTrigger(this.width * this.x + (this.z+1));
+    trigger[3] = this.checkTrigger(this.width * this.x + (this.z-1));
+
+    return trigger;
   },
 
   checkPreciseActor: function( position ){
@@ -102,6 +143,17 @@ Boom.CollisionGrid.prototype = {
     return this.checkCollision(this.width * this.x + this.z);
   },
 
+  checkPreciseTrigger: function( position ){
+    this.x = Math.round(position.x / this.map.tileheight);
+    this.z =  Math.round(position.z / this.map.tilewidth);
+
+    var trigger = this.checkTrigger(this.width * this.x + this.z, position.y);
+    if(trigger){
+      return trigger;
+    }
+    return false;
+  },
+
   checkCollision: function( index ){
     return index >= 0 && index <= this.map.layers[Boom.Constants.World.LAYER.COLLISION].data.length && this.grid[index];
   },
@@ -124,6 +176,41 @@ Boom.CollisionGrid.prototype = {
       }
     }
     return false; //TODO: FIX?
+  },
+
+  checkTrigger: function( index ){
+    if(index >= 0 && index <= this.map.layers[Boom.Constants.World.LAYER.TRIGGERS].data.length && this.triggers[index]){
+      var trigger = Boom.Entities[ this.triggers[index] ];
+      if( trigger !== undefined ){
+        return trigger;
+      }
+    }
+    return false; //TODO: FIX?
+  },
+
+  compareIgnoreHeight: function(v1, v2){
+    return (v1.x === v2.x && v1.z === v2.z);
+  },
+
+  triggerEntity: function( trigger_status, trigger_position, params ){
+    var current;
+    for (var entity in Boom.Entities) {
+      if (!Boom.Entities.hasOwnProperty(entity)) {
+          continue;
+      }
+      current = Boom.Entities[entity];
+      if(current.triggerable && this.compareIgnoreHeight(current.position, trigger_position)){
+        if(current.chainable){ //search for other chainable triggers nearby
+          var neighbours = this.checkTriggerNeighbours( trigger_position );
+          for(var i = 0; i < neighbours.length; i++){
+            if( neighbours[i] && trigger_status !== neighbours[i].triggered){
+              neighbours[i].trigger(); //activate trigger on neighbour
+            }
+          }
+        }
+        current.trigger( params );
+      }
+    }
   }
 
 

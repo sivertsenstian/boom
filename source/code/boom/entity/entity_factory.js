@@ -30,21 +30,27 @@ Boom.EntityFactory.prototype = {
       ///////////// ITEMS /////////////////////
       case Boom.Constants.Items.POWERUP.HEALTH:
         entity = new Boom.HealthpackPowerup( params );
+        Boom.GameGrid.addItem( entity.id, entity.position );
         break;
       case Boom.Constants.Items.POWERUP.BULLET:
         entity = new Boom.BulletPowerup( params ); 
+        Boom.GameGrid.addItem( entity.id, entity.position );
         break;
       case Boom.Constants.Items.POWERUP.PISTOL:
         entity = new Boom.PistolPowerup( params );
+        Boom.GameGrid.addItem( entity.id, entity.position );
         break;
       case Boom.Constants.Items.POWERUP.SHELL:
         entity = new Boom.ShellPowerup( params ); 
+        Boom.GameGrid.addItem( entity.id, entity.position );
         break;
       case Boom.Constants.Items.POWERUP.SHOTGUN:
         entity = new Boom.ShotgunPowerup( params ); 
+        Boom.GameGrid.addItem( entity.id, entity.position );
         break;
       case Boom.Constants.Items.OTHER.END_GOAL:
         entity = new Boom.EndGoal( params ); 
+        Boom.GameGrid.addItem( entity.id, entity.position );
         break;
 
       ///////////// LIGHTS /////////////////////
@@ -78,6 +84,19 @@ Boom.EntityFactory.prototype = {
       case Boom.Constants.Ammunition.SHELL:
         return new Boom.Shell( params ); 
 
+      ////////////// TRIGGERS /////////////////////
+      case Boom.Constants.Triggers.DOOR:
+        params.interactable = properties['Boom.INTERACTABLE'] === Boom.Constants.TRUE;
+        entity = new Boom.DoorTrigger( params );
+        Boom.GameGrid.addTrigger( entity.id, entity.position );
+        break;
+      case Boom.Constants.Triggers.ENTITY_SPAWN:
+        params.interactable = properties['Boom.INTERACTABLE'] === Boom.Constants.TRUE;
+        params.entity = properties['Boom.ENTITY'];
+        params.quantity = properties['Boom.QUANTITY'];
+        entity = new Boom.EntitySpawnTrigger(params);
+        Boom.GameGrid.addTrigger( entity.id, entity.position );
+        break;
 
       default:
         console.error( 'Entity of type "' + type + '" does not exist!');

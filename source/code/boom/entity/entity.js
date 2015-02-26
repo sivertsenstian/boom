@@ -14,6 +14,7 @@ Boom.Entity = function( params ){
   this.__singular = params.hasOwnProperty('is_singular') ? params.is_singular : false; //Defaults to not singular (defines a static entity not to be merged but added to scene solo)
   this.__dispose = params.dispose || false;
   this.__local = params.local || false;
+  this.__triggerable = params.triggerable || false;
   this.message_sendt = false;
   //this.message = ? //TODO: IMPLEMENT MISSING MESSAGE THAT THROWS EXCEPTION OR TRIGGERS SOMETHING DEBUGGABLE
   this.components = {};
@@ -36,7 +37,7 @@ Boom.Entity.prototype = {
   },
 
   load: function(){
-    for (component in this.components) {
+    for (var component in this.components) {
       if (!this.components.hasOwnProperty(component)) {
           continue;
       }
@@ -45,7 +46,7 @@ Boom.Entity.prototype = {
   },
 
   update: function(){
-    for (component in this.components) {
+    for (var component in this.components) {
       if (!this.components.hasOwnProperty(component)) {
           continue;
       }
@@ -55,7 +56,7 @@ Boom.Entity.prototype = {
 
   send: function( message ){
     try{
-      for (component in this.components) {
+      for (var component in this.components) {
         if (!this.components.hasOwnProperty(component)) {
             continue;
         }
@@ -118,7 +119,7 @@ Boom.Entity.prototype = {
 
   //Returns entity-component based on type or name (first of its kind) 
   getComponent: function( c ){ 
-    for (component in this.components) {
+    for (var component in this.components) {
       if (!this.components.hasOwnProperty(component)) {
           continue;
       }
@@ -132,7 +133,7 @@ Boom.Entity.prototype = {
   //expects there to be only one such component defined on an entity 
   //TODO: CHECK THIS IN COMPONENT INIT AND THROW EXCEPTION IF A SECOND IS ADDED
   getObjectComponent: function(){ 
-    for (component in this.components) {
+    for (var component in this.components) {
       if (!this.components.hasOwnProperty(component)) {
           continue;
       }
@@ -162,6 +163,10 @@ Boom.Entity.prototype = {
   //Adds entity to world-total in statistics
   register: function(){
     //Empty - no stats to process
+  },
+
+  trigger: function(){
+    throw Boom.NotTriggerableEntityException;//TODO: LOG HERE ?
   }
 
 

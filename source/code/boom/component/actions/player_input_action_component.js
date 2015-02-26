@@ -45,6 +45,9 @@ Boom.PlayerInputActionComponent.prototype = Boom.inherit(Boom.Component, {
     this.pistol = false;
     this.shotgun = false;
 
+    //Initiate trigger
+    this.trigger = false;
+
     var PI_2 = Math.PI / 2;
 
     var onMouseMove = function ( event ) {
@@ -131,6 +134,10 @@ Boom.PlayerInputActionComponent.prototype = Boom.inherit(Boom.Component, {
         case 50: // 2
           scope.shotgun = true;
           break;
+
+        case 69: // E
+          scope.trigger = true;
+          break;
       }
     };
 
@@ -166,6 +173,10 @@ Boom.PlayerInputActionComponent.prototype = Boom.inherit(Boom.Component, {
                         data: null, 
                         type: Boom.Constants.Message.Action.SPRINT_STOP, 
                         sender: this.type }));
+          break;
+
+        case 69: // E
+          scope.trigger = false;
           break;
       }
     };
@@ -279,6 +290,15 @@ Boom.PlayerInputActionComponent.prototype = Boom.inherit(Boom.Component, {
       this.send( new Boom.Message({ receiver: Boom.Constants.Component.TYPE.INVENTORY,
                                     data: {name:  Boom.Assets.world.ENTITY.SHOTGUN, value: Boom.Constants.Ammunition.SHELL}, 
                                     type: Boom.Constants.Message.Action.SET_WEAPON, 
+                                    sender: this.type }));
+    }
+
+    //Trigger
+    if ( this.trigger ){
+      this.trigger = false;
+      this.send( new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION,
+                                    data: this.getDirection().normalize(), 
+                                    type: Boom.Constants.Message.Action.TRIGGER, 
                                     sender: this.type }));
     }
   }

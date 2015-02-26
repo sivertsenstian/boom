@@ -32,7 +32,7 @@ Boom.World.prototype = {
     
     //TODO: INCORPORATE ENTITIES, AND LATER LIGHTS WITH THE SAME AUTOGENERATION FROM MAP
     var tileId, tilePath, map_tile_properties = {};
-    for(tileset in this.map.tilesets){
+    for(var tileset in this.map.tilesets){
       if(!this.map.tilesets.hasOwnProperty(tileset)){
         continue;
       }
@@ -44,7 +44,7 @@ Boom.World.prototype = {
       if (!map_tile_properties.hasOwnProperty(tileset)) {
           continue;
       }
-      for (tile in map_tile_properties[tileset]) {
+      for (var tile in map_tile_properties[tileset]) {
         if (!map_tile_properties[tileset].hasOwnProperty(tile)) {
             continue;
         }
@@ -69,11 +69,13 @@ Boom.World.prototype = {
                                   0, 
                                   this.map.tilewidth * Math.floor((i % this.map.height)));
 
-        new Boom.Wall({position: pos, 
+        entity = new Boom.Wall({position: pos, 
                        size: this.map.tilewidth,
                        type: map_tile_properties['Boom'][current_tile]['Boom.ID'],
                        repeat: map_tile_properties['Boom'][current_tile]['Boom.Repeat'],
-                       height: this.map.layers[Boom.Constants.World.LAYER.WALLS].properties['Boom.Height']
+                       height: this.map.layers[Boom.Constants.World.LAYER.WALLS].properties['Boom.Height'],
+                       triggerable: (map_tile_properties['Boom'][current_tile]['Boom.TRIGGER'] === Boom.Constants.TRUE),
+                       chainable: (map_tile_properties['Boom'][current_tile]['Boom.CHAIN'] === Boom.Constants.TRUE)
                       });
       }
     }
@@ -109,6 +111,7 @@ Boom.World.prototype = {
     }
 
     //ACTORS
+    var entity;
     for(var i = 0; i < this.map.layers[Boom.Constants.World.LAYER.ACTORS].data.length; i++){
       current_tile = this.map.layers[Boom.Constants.World.LAYER.ACTORS].data[i] - map_tile_properties['Boom.Entities'].firstgid;
       if( map_tile_properties['Boom.Entities'].hasOwnProperty( current_tile ) ){
@@ -116,14 +119,12 @@ Boom.World.prototype = {
                                   0, 
                                   this.map.tilewidth * Math.floor((i % this.map.height)));
 
-        actor = Boom.GameFactory.spawn( map_tile_properties['Boom.Entities'][current_tile]['Boom.ID'],
+        entity = Boom.GameFactory.spawn( map_tile_properties['Boom.Entities'][current_tile]['Boom.ID'],
                                          { 
                                             position: pos, 
                                             type: map_tile_properties['Boom.Entities'][current_tile]['Boom.ID'] 
                                           }
                                         );
-
-        Boom.GameGrid.addActor( actor.id, pos );
       }
     }
 
@@ -135,16 +136,14 @@ Boom.World.prototype = {
                                   this.map.tileheight/4, 
                                   this.map.tilewidth * Math.floor((i % this.map.height)));
 
-        item = Boom.GameFactory.spawn( map_tile_properties['Boom.Items'][current_tile]['Boom.ID'],
-                                         { 
-                                            position: pos, 
-                                            type: map_tile_properties['Boom.Items'][current_tile]['Boom.ID'],
-                                            value:map_tile_properties['Boom.Items'][current_tile]['Boom.VALUE']
-                                          }
-                                        );
-
-        Boom.GameGrid.addItem( item.id, pos );
-      }
+        Boom.GameFactory.spawn( map_tile_properties['Boom.Items'][current_tile]['Boom.ID'],
+                               { 
+                                  position: pos, 
+                                  type: map_tile_properties['Boom.Items'][current_tile]['Boom.ID'],
+                                  value:map_tile_properties['Boom.Items'][current_tile]['Boom.VALUE']
+                                }
+                              );
+}
     }
 
     //LIGHTS
@@ -160,6 +159,23 @@ Boom.World.prototype = {
                                 { position: pos }, 
                                 map_tile_properties['Boom.Light'][current_tile]
                               );
+      }
+    }
+
+    //TRIGGERS
+    for(var i = 0; i < this.map.layers[Boom.Constants.World.LAYER.TRIGGERS].data.length; i++){
+      current_tile = this.map.layers[Boom.Constants.World.LAYER.TRIGGERS].data[i] - map_tile_properties['Boom.Triggers'].firstgid;
+      if( map_tile_properties['Boom.Triggers'].hasOwnProperty( current_tile ) ){
+        pos = new THREE.Vector3(this.map.tilewidth * Math.floor((i / this.map.width)),
+                                  0, 
+                                  this.map.tilewidth * Math.floor((i % this.map.height)));
+        
+        entity = Boom.GameFactory.spawn( map_tile_properties['Boom.Triggers'][current_tile]['Boom.ID'], 
+                                { position: pos }, 
+                                map_tile_properties['Boom.Triggers'][current_tile]
+                              );
+        //Add trigger to collision-grid
+        //Boom.GameGrid.addTrigger( entity.id, pos );
       }
     }
 
