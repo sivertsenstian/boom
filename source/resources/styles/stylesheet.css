@@ -95,14 +95,21 @@ canvas {
 #BoomHUD{
   position: absolute;
   width: 100%;
-  text-align: center;
   bottom: 0vw;
-  font-size: 2.5vw;
+  font-size: 3.5vw;
   font-family: capture_itregular;
-  color: white;
   display: none;
-  background: rgba(0, 0, 0, 0.42);
   z-index: 100;
+}
+
+#BoomHUD_ACTIVE{
+  float: left;
+  text-align: 'left';
+}
+
+#BoomHUD_INVENTORY{
+  float: right;
+  text-align: 'right';
 }
 
 .boom-hud-item{
@@ -349,3 +356,7 @@ canvas {
   font-family: capture_itregular;
 }
 
+
+.boom-ui-icon {
+  height:4vw;
+}

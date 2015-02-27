@@ -8,7 +8,7 @@ Boom.Player = function( params ){
   if( typeof this.camera === 'undefined' || this.camera === null){
       throw Boom.Exceptions.CameraMissingException;
   }
-
+  Boom.Constants.PLAYER = this;
   Boom.Entity.call(this, {name: 'PLAYER_Entity', is_static: false, faction: Boom.Constants.FRIENDLY});
 };
 

@@ -27,6 +27,8 @@ Boom.Constants = {
       GAME_WON: '#BoomGameWon',
       GAME_OVER: '#BoomGameOver',
       HUD: '#BoomHUD',
+      HUD_ACTIVE: '#BoomHUD_ACTIVE',
+      HUD_INVENTORY: '#BoomHUD_INVENTORY',
       TITLE_MENU: '#BoomTitleMenu',
       HIGH_SCORE: '#BoomHighScore',
       PLAYER: '#BoomPlayer',

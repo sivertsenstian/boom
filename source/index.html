@@ -8,13 +8,12 @@
   <script type="text/javascript" src="vendor/three.min.js"></script>
   <script type="text/javascript" src="vendor/tween.min.js"></script>
   <script type="text/javascript" src="vendor/Stats.js"></script>
+  <script type="text/javascript" src="vendor/howler.min.js"></script>
 
   <script type="text/javascript" src='code/three_plugins/ColladaLoader.js'></script>
   <script type="text/javascript" src='code/three_plugins/PLYLoader.js'></script>
   <script type="text/javascript" src='code/three_plugins/MTLLoader.js'></script>
   <script type="text/javascript" src='code/three_plugins/OBJMTLLoader.js'></script>
-  <script type="text/javascript" src='code/three_plugins/Audio.js'></script>
-  <script type="text/javascript" src='code/three_plugins/AudioListener.js'></script>
   <script type="text/javascript" src="vendor/PxLoader.js"></script>
   <script type="text/javascript" src="vendor/PxLoaderSound.js"></script>
 
@@ -203,7 +202,10 @@
 </div>
 
 <!-- HUD -->
-<div id="BoomHUD"></div>
+<div id="BoomHUD">
+  <div id="BoomHUD_ACTIVE"></div>
+  <div id="BoomHUD_INVENTORY"></div>
+</div>
 
 </body> 
 </html>

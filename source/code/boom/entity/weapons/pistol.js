@@ -2,7 +2,11 @@ Boom.Pistol = function( params ){
   this.type = Boom.Assets.world.ENTITY.PISTOL; //TODO: THIS SHOULD BE DONE IN A BETTER WAY
   this.cooldown = 350;
   this.last_shot = Boom.getCurrentTime();
-  this.hud_name = 'PISTOL';
+  this.hud = {
+    name: 'WEAPON',
+    type:  Boom.Assets.world.ENTITY.PISTOL,
+    icon: '<img class="boom-ui-icon" src="resources/ui/icons/pistol_add.png">'
+  };
   this.position = params.position;
   this.rotation = params.rotation;
   this.scale = params.scale;
@@ -16,6 +20,7 @@ Boom.Pistol.prototype = Boom.inherit(Boom.Entity, {
     //Call super
     Boom.Entity.prototype.init.call(this);
 
+    //Components
     var physics = new Boom.PhysicalComponent(
       {
         name: "pistol_physics",

@@ -2,7 +2,11 @@ Boom.Shotgun = function( params ){
   this.type = Boom.Assets.world.ENTITY.SHOTGUN; //TODO: THIS SHOULD BE DONE IN A BETTER WAY
   this.cooldown = 800;
   this.last_shot = Boom.getCurrentTime();
-  this.hud_name = 'SHOTGUN';
+  this.hud = {
+    name: 'WEAPON',
+    type:  Boom.Assets.world.ENTITY.SHOTGUN,
+    icon: '<img class="boom-ui-icon" src="resources/ui/icons/shotgun_add.png">',
+  };
   this.shells_per_burst = 8;
   this.spread = 0.05;
   this.position = params.position;
@@ -18,6 +22,7 @@ Boom.Shotgun.prototype = Boom.inherit(Boom.Entity, {
     //Call super
     Boom.Entity.prototype.init.call(this);
 
+    //Components
     var physics = new Boom.PhysicalComponent(
       {
         name: "shotgun_physics",

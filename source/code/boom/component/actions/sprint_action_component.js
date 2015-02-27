@@ -16,8 +16,14 @@ Boom.SprintActionComponent = function( params ) {
   this.sprint_end = { receiver: Boom.Constants.Component.TYPE.ACTION, data: -this.speed, type: Boom.Constants.Message.Action.SPRINTING, sender: this.type };
 
   //HUD
-  this.registerHUD = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.HUD, data: { name: 'SPRINT', color: 'yellow', value: (this.duration - this.used) }, type: Boom.Constants.Message.HUD.REGISTER, sender: this.type });
-  this.updateHUD = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.HUD, data: { name: 'SPRINT', value: null }, type: Boom.Constants.Message.HUD.UPDATE, sender: this.type });
+  //HUD
+  this.hud = {
+    name: 'SPRINT',
+    icon: '<img class="boom-ui-icon" src="resources/ui/icons/sprint.png">',
+    value: this.duration - this.used
+  };
+  this.registerHUD = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.HUD, data: this.hud, type: Boom.Constants.Message.HUD.REGISTER, sender: this.type });
+  this.updateHUD = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.HUD, data: this.hud, type: Boom.Constants.Message.HUD.UPDATE, sender: this.type });
   //Call super
   Boom.Component.call(this, params );
 };
@@ -74,7 +80,7 @@ Boom.SprintActionComponent.prototype = Boom.inherit(Boom.Component, {
     else{
       if(this.updateHUD.data.value !== ((this.duration - this.used) / 1000).toFixed(2)){
         this.updateHUD.data.value = ((this.duration - this.used) / 1000).toFixed(2);
-        this.updateHUD.data.color = 'white';
+        this.updateHUD.data.color = 'greenyellow';
         this.send(this.updateHUD);
       }
     }

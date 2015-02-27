@@ -29,9 +29,9 @@ Boom.InventoryComponent = function( params ) {
   }
 
   //HUD
-  this.registerHUD_WEAPON = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.HUD, data: { name: 'WEAPON', color: 'red', value: null }, type: Boom.Constants.Message.HUD.REGISTER, sender: this.type });
-  this.updateHUD_WEAPON = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.HUD, data: { name: 'WEAPON', value: null }, type: Boom.Constants.Message.HUD.UPDATE, sender: this.type });
-  this.registerHUD_AMMO = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.HUD, data: { name: 'AMMO', color: 'goldenrod', value: this.inventory.ammunition[this.active_ammunition] }, type: Boom.Constants.Message.HUD.REGISTER, sender: this.type });
+  this.registerHUD_WEAPON = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.HUD, data: { name: 'WEAPON' }, type: Boom.Constants.Message.HUD.REGISTER, sender: this.type });
+  this.updateHUD_WEAPON = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.HUD, data: { name: 'WEAPON' }, type: Boom.Constants.Message.HUD.UPDATE, sender: this.type });
+  this.registerHUD_AMMO = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.HUD, data: { name: 'AMMO', value: this.inventory.ammunition[this.active_ammunition] }, type: Boom.Constants.Message.HUD.REGISTER, sender: this.type });
   this.updateHUD_AMMO = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.HUD, data: { name: 'AMMO', value: this.value }, type: Boom.Constants.Message.HUD.UPDATE, sender: this.type });
 
   //Call super
@@ -43,8 +43,24 @@ Boom.InventoryComponent.prototype = Boom.inherit(Boom.Component, {
 
   init: function() {
     //HUD
-    this.send( this.registerHUD_AMMO );
     this.send( this.registerHUD_WEAPON );
+    this.send( this.registerHUD_AMMO );
+
+    //REGISTER AVAILABLE WEAPONS TODO: MAKE THIS DYNAMIC OR SOMETHING
+    this.register_inventory_weapon = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.HUD, data: null, type: Boom.Constants.Message.HUD.REGISTER, sender: this.type });
+    this.update_inventory_weapon = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.HUD, data: null, type: Boom.Constants.Message.HUD.UPDATE, sender: this.type });
+    this.register_inventory_weapon.data = {
+      name: 'WEAPON',
+      type:  Boom.Assets.world.ENTITY.PISTOL,
+      icon: '<img class="boom-ui-icon" src="resources/ui/icons/pistol_missing.png">'
+    };
+    this.send( this.register_inventory_weapon );
+    this.register_inventory_weapon.data = {
+      name: 'WEAPON',
+      type:  Boom.Assets.world.ENTITY.SHOTGUN,
+      icon: '<img class="boom-ui-icon" src="resources/ui/icons/shotgun_missing.png">'
+    };
+    this.send( this.register_inventory_weapon );
 
     //ADD WEAPON
     this.setActiveWeapon( this.weapon );
@@ -100,8 +116,11 @@ Boom.InventoryComponent.prototype = Boom.inherit(Boom.Component, {
       }
       //Set ammunition according to weapon
       this.active_ammunition = this.inventory.weapons[weapon];
-      //Update hud!
-      this.updateHUD_WEAPON.data.value = this.object.hud_name;
+      //Update hud! - register as active not inventory, so no type!
+      this.updateHUD_WEAPON.data = {
+        name: this.object.hud.name,
+        icon: this.object.hud.icon,
+      };
       this.send( this.updateHUD_WEAPON );
     }
   },
@@ -142,6 +161,10 @@ Boom.InventoryComponent.prototype = Boom.inherit(Boom.Component, {
             //Set current active weapon-entity (this.object) to an instance of given type, using the GameFactory
             //Add active weapon-entity (this.object) to owner-entity
             this.setActiveWeapon( message.data.name );
+
+            //Mark weapon as available in inventory
+            this.update_inventory_weapon.data = this.object.hud;
+            this.send( this.update_inventory_weapon );
           }
           //Add 10 ammo of the weapon-types ammo
           this.inventory.ammunition[this.inventory.weapons[message.data.name]] += this.bonus;

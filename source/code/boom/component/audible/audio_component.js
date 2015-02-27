@@ -3,9 +3,6 @@ Boom.AudioComponent = function( params ) {
   this.type = params.type || Boom.Constants.Component.TYPE.AUDIO;
   this.sound = params.sound;
   this.sound.volume = params.volume || this.sound.volume;
-  this.ref = 1;
-  this.rollof = 1;
-  this.audio = null;
   this.position = new THREE.Vector3(0, 0, 0);
   //Call super
   Boom.Component.call(this, params );
@@ -40,13 +37,7 @@ Boom.AudioComponent.prototype = Boom.inherit(Boom.Component, {
       //continue
       //TODO: LOG HERE ?
     }
-      
-    this.audio = new THREE.Audio( Boom.Constants.PLAYER_LISTENER );
-    this.audio.gain.gain.value = this.sound.volume;
-    this.audio.load( this.sound.url );
-    this.audio.setRefDistance( this.ref );
-    this.audio.setRolloffFactor( this.rollof );
-    this.audio.panner.setPosition(this.position.x, this.position.y, this.position.z);
+    this.sound.play( this.position );
   }
 
 });

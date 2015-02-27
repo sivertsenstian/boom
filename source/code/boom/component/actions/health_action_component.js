@@ -8,8 +8,15 @@ Boom.HealthActionComponent = function( params ) {
   this.events = [Boom.Constants.Message.Action.REDUCE_HEALTH, Boom.Constants.Message.Action.INCREASE_HEALTH];
 
   //HUD
-  this.registerHud = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.HUD, data: { name: 'HEALTH', color: 'lightcoral', value: this.value }, type: Boom.Constants.Message.HUD.REGISTER, sender: this.type });
-  this.hudUpdate = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.HUD, data: { name: 'HEALTH', value: this.value }, type: Boom.Constants.Message.HUD.UPDATE, sender: this.type });
+  this.hud = {
+    name: 'HEALTH',
+    icon: '<img class="boom-ui-icon" src="resources/ui/icons/health.png">',
+    value: this.value,
+    color: 'rgb(' + parseInt(255 - (this.value * 2.55)) + ',' + parseInt(this.value * 2.55) + ',0)'
+  };
+  
+  this.registerHud = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.HUD, data: this.hud, type: Boom.Constants.Message.HUD.REGISTER, sender: this.type });
+  this.hudUpdate = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.HUD, data: this.hud, type: Boom.Constants.Message.HUD.UPDATE, sender: this.type });
 
   //DEATH(!)
   this.death = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, data: null, type: (this.player ? Boom.Constants.Message.Action.PLAYER_DEATH : Boom.Constants.Message.Action.HOSTILE_DEATH), sender: this.type });
@@ -42,6 +49,7 @@ Boom.HealthActionComponent.prototype = Boom.inherit(Boom.Component, {
     }
     if(this.value !== this.old_value){
       this.hudUpdate.data.value = this.value;
+      this.hudUpdate.data.color = 'rgb(' + parseInt(255 - (2.55 * this.value)) + ',' + parseInt(2.55 * this.value) + ',0)';
       this.send( this.hudUpdate );
     }
     this.old_value = this.value;

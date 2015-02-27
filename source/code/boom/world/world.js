@@ -170,12 +170,10 @@ Boom.World.prototype = {
                                   0, 
                                   this.map.tilewidth * Math.floor((i % this.map.height)));
         
-        entity = Boom.GameFactory.spawn( map_tile_properties['Boom.Triggers'][current_tile]['Boom.ID'], 
+        Boom.GameFactory.spawn( map_tile_properties['Boom.Triggers'][current_tile]['Boom.ID'], 
                                 { position: pos }, 
                                 map_tile_properties['Boom.Triggers'][current_tile]
                               );
-        //Add trigger to collision-grid
-        //Boom.GameGrid.addTrigger( entity.id, pos );
       }
     }
 
@@ -184,10 +182,7 @@ Boom.World.prototype = {
     //Start music! TODO: Move this to a more appropriate place!
     //TODO: Reorganize the map structure into more logical bits (map loading, assets, music, skybox lights etc etc)
     this.music = Boom.Assets.music.maps[this.map.properties['Boom.ID']] || Boom.Assets.music.MISSING;
-
-    this.audio = new THREE.Audio( Boom.Constants.PLAYER_LISTENER );
-    this.audio.load( this.music.url );
-
+    this.music.play();
     //Set config
     Boom.Constants.World.STATS.PAR_TIME = parseFloat(this.map.properties['Boom.PAR_TIME']) || 0;
   },

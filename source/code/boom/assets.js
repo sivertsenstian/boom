@@ -5,50 +5,50 @@ Boom.Assets = {
   },
 
   music: {
-    MISSING: new Boom.Audio({url: 'resources/music/missing.mp3', volume: 1.0, loop: true }),
+    MISSING: new Boom.Audio({url: 'resources/music/missing.mp3', volume: 0.2, loop: true, positional: false }),
     maps:{
-      'c7cc27d8-da16-4c26-bb03-0e2d04de63c8' : new Boom.Audio({url: 'resources/music/simple_action_beat.ogg', volume: 1.0, loop: true})
+      'c7cc27d8-da16-4c26-bb03-0e2d04de63c8' : new Boom.Audio({url: 'resources/music/simple_action_beat.ogg', volume: 0.2, loop: true, positional: false})
     }
   },
   sounds: {
     MISSING: new Boom.Audio({url: 'resources/sounds/missing.mp3'}),
     ui:{
-      menu_up: new Boom.Audio({url: 'resources/sounds/menu_up.mp3', volume: 1.0}),
-      menu_down: new Boom.Audio({url: 'resources/sounds/menu_down.mp3', volume: 1.0}),
+      menu_up: new Boom.Audio({url: 'resources/sounds/menu_up.mp3', volume: 0.5}),
+      menu_down: new Boom.Audio({url: 'resources/sounds/menu_down.mp3', volume: 0.5}),
     },
     weapons: {
       pistol: {
-        shoot: new Boom.Audio({url: 'resources/sounds/pistol.mp3', volume: 1.0}),
-        hit: new Boom.Audio({url: 'resources/sounds/hit.wav', volume: 1.0}),
-        empty: new Boom.Audio({url: 'resources/sounds/empty.mp3', volume: 1.0}),
-        pickup: new Boom.Audio({url: 'resources/sounds/pistol_pickup.mp3', volume: 1.0})
+        shoot: new Boom.Audio({url: 'resources/sounds/pistol.mp3', volume: 0.25}),
+        hit: new Boom.Audio({url: 'resources/sounds/hit.wav', volume: 0.25}),
+        empty: new Boom.Audio({url: 'resources/sounds/empty.mp3', volume: 0.5}),
+        pickup: new Boom.Audio({url: 'resources/sounds/pistol_pickup.mp3', volume: 0.5})
       },
       shotgun: {
-        shoot: new Boom.Audio({url: 'resources/sounds/shotgun.mp3', volume: 1.0}),
-        hit: new Boom.Audio({url: 'resources/sounds/hit.wav', volume: 1.0}),
-        empty: new Boom.Audio({url: 'resources/sounds/empty.mp3', volume: 1.0}),
-        pickup: new Boom.Audio({url: 'resources/sounds/shotgun_pickup.ogg', volume: 1.0})
+        shoot: new Boom.Audio({url: 'resources/sounds/shotgun.mp3', volume: 0.25}),
+        hit: new Boom.Audio({url: 'resources/sounds/hit.wav', volume: 0.25}),
+        empty: new Boom.Audio({url: 'resources/sounds/empty.mp3', volume: 0.5}),
+        pickup: new Boom.Audio({url: 'resources/sounds/shotgun_pickup.ogg', volume: 0.5})
       }
     },
     items: {
-      healthpack_powerup: new Boom.Audio({url: 'resources/sounds/healthpack_pickup.wav', volume: 1.0}),
-      bullet_powerup: new Boom.Audio({url: 'resources/sounds/bullet_pickup.mp3', volume: 1.0}),
-      shell_powerup: new Boom.Audio({url: 'resources/sounds/shell_pickup.mp3', volume: 1.0})
+      healthpack_powerup: new Boom.Audio({url: 'resources/sounds/healthpack_pickup.wav', volume: 0.5}),
+      bullet_powerup: new Boom.Audio({url: 'resources/sounds/bullet_pickup.mp3', volume: 0.5}),
+      shell_powerup: new Boom.Audio({url: 'resources/sounds/shell_pickup.mp3', volume: 0.5})
     },
     player: {
-      win: new Boom.Audio({url: 'resources/sounds/player_win.mp3', volume: 1.0}),
-      death: new Boom.Audio({url: 'resources/sounds/player_death.mp3', volume: 1.0})
+      win: new Boom.Audio({url: 'resources/sounds/player_win.mp3', volume: 0.5}),
+      death: new Boom.Audio({url: 'resources/sounds/player_death.mp3', volume: 0.5})
     },
     hostile: {
       alien:{
-        pain: new Boom.Audio({url: 'resources/sounds/alien_pain.mp3', volume: 1.0}),
-        death: new Boom.Audio({url: 'resources/sounds/alien_death.mp3', volume: 1.0})
+        pain: new Boom.Audio({url: 'resources/sounds/alien_pain.mp3', volume: 0.5}),
+        death: new Boom.Audio({url: 'resources/sounds/alien_death.mp3', volume: 0.5})
       }
     },
     structure: {
       door: {
-        open: new Boom.Audio({url: 'resources/sounds/door_trigger.wav', volume: 1.0}),
-        close: new Boom.Audio({url: 'resources/sounds/door_trigger.wav', volume: 1.0})
+        open: new Boom.Audio({url: 'resources/sounds/door_trigger.wav', volume: 0.5}),
+        close: new Boom.Audio({url: 'resources/sounds/door_trigger.wav', volume: 0.5})
       }
     }
   },
