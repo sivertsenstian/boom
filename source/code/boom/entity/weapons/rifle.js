@@ -1,22 +1,20 @@
-Boom.Shotgun = function( params ){
-  this.type = Boom.Assets.world.ENTITY.SHOTGUN; //TODO: THIS SHOULD BE DONE IN A BETTER WAY
-  this.cooldown = 800;
+Boom.Rifle = function( params ){
+  this.type = Boom.Assets.world.ENTITY.RIFLE; //TODO: THIS SHOULD BE DONE IN A BETTER WAY
+  this.cooldown = 50;
   this.last_shot = Boom.getCurrentTime();
   this.hud = {
     name: 'WEAPON',
-    type:  Boom.Assets.world.ENTITY.SHOTGUN,
-    icon: '<img class="boom-ui-icon" src="resources/ui/icons/shotgun_add.png">',
+    type:  Boom.Assets.world.ENTITY.RIFLE,
+    icon: '<img class="boom-ui-icon" src="resources/ui/icons/rifle_add.png">'
   };
-  this.shells_per_burst = 8;
-  this.spread = 0.05;
   this.position = params.position;
   this.rotation = params.rotation;
   this.scale = params.scale;
-  Boom.Entity.call(this, {name: 'WEAPON_ShotgunEntity', addToScene: false, is_static: false, faction: params.faction, local:true});
+  Boom.Entity.call(this, {name: 'WEAPON_RifleEntity', addToScene: false, is_static: false, faction: params.faction, local:true});
 };
 
-Boom.Shotgun.prototype = Boom.inherit(Boom.Entity, {
-  constructor: Boom.Shotgun,
+Boom.Rifle.prototype = Boom.inherit(Boom.Entity, {
+  constructor: Boom.Rifle,
 
   init: function() {
     //Call super
@@ -25,9 +23,9 @@ Boom.Shotgun.prototype = Boom.inherit(Boom.Entity, {
     //Components
     var physics = new Boom.PhysicalComponent(
       {
-        name: "shotgun_physics",
+        name: "rifle_physics",
         shape: Boom.Constants.Component.MODEL, 
-        model: Boom.Assets.weapons.shotgun,
+        model: Boom.Assets.weapons.rifle,
         scale: this.scale,
         position: this.position,
         rotation: this.rotation,
@@ -38,10 +36,10 @@ Boom.Shotgun.prototype = Boom.inherit(Boom.Entity, {
 
     var animation = new Boom.AnimationComponent( 
       {
-        name: "shotgun_animation_shoot",
+        name: "rifle_animation_shoot",
         object: physics.object,
-        position: new THREE.Vector3(0, 0.25, 0.25), 
-        rotation: new THREE.Vector3(0.25, 0, 0), 
+        rotation: new THREE.Vector3(0.25, 0, 0),
+        position: new THREE.Vector3(0, 0.25, 0.25),
         ms: 175,
         owner: this
       }
@@ -50,8 +48,8 @@ Boom.Shotgun.prototype = Boom.inherit(Boom.Entity, {
     
     var audio_shoot = new Boom.AudioComponent(
       {
-        name: 'shotgun_audio_shoot',
-        sound: Boom.Assets.sounds.weapons.shotgun.shoot,
+        name: 'rifle_audio_shoot',
+        sound: Boom.Assets.sounds.weapons.rifle.shoot,
         owner: this
       }
     );
@@ -59,8 +57,8 @@ Boom.Shotgun.prototype = Boom.inherit(Boom.Entity, {
 
     var audio_empty = new Boom.AudioComponent(
       {
-        name: 'shotgun_audio_empty',
-        sound: Boom.Assets.sounds.weapons.shotgun.empty,
+        name: 'rifle_audio_empty',
+        sound: Boom.Assets.sounds.weapons.rifle.empty,
         owner: this
       }
     );
@@ -68,8 +66,8 @@ Boom.Shotgun.prototype = Boom.inherit(Boom.Entity, {
 
     var audio_equip = new Boom.AudioComponent(
       {
-        name: 'shotgun_audio_equip',
-        sound: Boom.Assets.sounds.weapons.shotgun.pickup,
+        name: 'rifle_audio_equip',
+        sound: Boom.Assets.sounds.weapons.rifle.pickup,
         owner: this
       }
     );
@@ -91,17 +89,11 @@ Boom.Shotgun.prototype = Boom.inherit(Boom.Entity, {
     if( (Boom.getCurrentTime() - this.last_shot) >= this.cooldown ){
       var _this = this;
 
-      var spawn = new THREE.Vector3( -6 , 4 , 0 );
+      var spawn = new THREE.Vector3( -20 , 14 , 2 );
       this.getObjectComponent().object.localToWorld(spawn);
-      for(var i = 0; i < this.shells_per_burst; i++){
-        var spread_dir = new THREE.Vector3(dir.x + Boom.randomRange(-this.spread, this.spread), 
-                                           dir.y + Boom.randomRange(-this.spread, this.spread), 
-                                           dir.z + Boom.randomRange(-this.spread, this.spread)
-                                           );
-        Boom.GameFactory.spawn(type, {direction: spread_dir, spawn: spawn, faction: this.faction});
-      }
-      this.components.shotgun_animation_shoot.animate();
-      this.components.shotgun_audio_shoot.play();
+      Boom.GameFactory.spawn(type, {direction: dir, spawn: spawn, faction: this.faction});
+      this.components['rifle_animation_shoot'].animate();
+      this.components['rifle_audio_shoot'].play();
 
       this.last_shot = Boom.getCurrentTime();
       return true;
@@ -111,7 +103,7 @@ Boom.Shotgun.prototype = Boom.inherit(Boom.Entity, {
 
   empty: function(){
     if( (Boom.getCurrentTime() - this.last_shot) >= this.cooldown ){
-      this.components.shotgun_audio_empty.play();
+      this.components['rifle_audio_empty'].play();
 
       this.last_shot = Boom.getCurrentTime();
       return true;
@@ -120,7 +112,7 @@ Boom.Shotgun.prototype = Boom.inherit(Boom.Entity, {
   },
 
   equip: function(){
-    this.components['shotgun_audio_equip'].play();
+    this.components['rifle_audio_equip'].play();
   }
 
 });

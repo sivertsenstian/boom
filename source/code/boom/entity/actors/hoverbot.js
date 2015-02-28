@@ -1,39 +1,39 @@
-Boom.Alien = function( params ){
+Boom.HoverBot = function( params ){
   this.type = params.type || Boom.Assets.world.ENTITY.MISSING;
   this.size = 6;
   this.height = 0;
   this.onGround = Boom.Constants.FALSE;
   this.position = params.position || new THREE.Vector3(0, 0, 0);
   
-  Boom.Entity.call(this, {name: 'ENEMY_ALIEN_Entity', is_static: false, boundingBox: new THREE.Vector3(24, 24, 24), score: 50});
+  Boom.Entity.call(this, {name: 'ENEMY_HOVERBOT_Entity', is_static: false, boundingBox: new THREE.Vector3(24, 36, 24), score: 50});
 };
 
-Boom.Alien.prototype = Boom.inherit(Boom.Entity, {
-  constructor: Boom.Alien,
+Boom.HoverBot.prototype = Boom.inherit(Boom.Entity, {
+  constructor: Boom.HoverBot,
 
   init: function() {
     //Call super
     Boom.Entity.prototype.init.call(this);
 
     var health = new Boom.HealthActionComponent({
-      name: 'alien_health',
+      name: 'hoverbot_health',
       value: 50,
       owner: this
     });
     this.components[health.name] = health;
 
     var death = new Boom.DeathActionComponent({
-      name: 'alien_death',
+      name: 'hoverbot_death',
       owner: this
     });
     this.components[death.name] = death;
 
     var physics = new Boom.PhysicalComponent(
        {
-        name: 'alien_physics',
+        name: 'hoverbot_physics',
         update_collision: true,
         shape: Boom.Constants.Component.MODEL, 
-        model: Boom.Assets.enemies.alien,
+        model: Boom.Assets.enemies.hoverbot,
         position: this.position,
         height: this.height,
         gravity: true,
@@ -63,7 +63,7 @@ Boom.Alien.prototype = Boom.inherit(Boom.Entity, {
 
     var collision = new Boom.NeighbourCollisionActionComponent(
       {
-        name: 'alien_collision',
+        name: 'hoverbot_collision',
         owner: this
       }
     );
@@ -71,29 +71,19 @@ Boom.Alien.prototype = Boom.inherit(Boom.Entity, {
 
     var gravity = new Boom.GravityActionComponent(
       {
-        name: 'alien_gravity',
+        name: 'hoverbot_gravity',
         owner: this
       }
     );
     this.components[gravity.name] = gravity;
 
-    var wpn, am;
-    if(Math.random() > 0.5){
-      wpn = Boom.Assets.world.ENTITY.PISTOL;
-      am = Boom.Constants.Ammunition.BULLET;
-    }
-    else{
-      wpn = Boom.Assets.world.ENTITY.SHOTGUN;
-      am = Boom.Constants.Ammunition.SHELL;
-    }
-
     var inventory = new Boom.InventoryComponent({
-      name: 'alien_inventory',
-      weapon: wpn,
-      ammo: am,
-      weapon_position: new THREE.Vector3(-7, 8, 11),
+      name: 'hoverbot_inventory',
+      weapon: Boom.Assets.world.ENTITY.HOVERBOTGUN,
+      ammo: Boom.Assets.world.ENTITY.HOVERBOTGUNLASER,
+      weapon_position: new THREE.Vector3(0, 20, 0),
       weapon_rotation: new THREE.Vector3(0 , Math.PI/2, 0),
-      weapon_scale: new THREE.Vector3(0.4 , 0.4, 0.4),
+      weapon_scale: new THREE.Vector3(1 , 1, 1),
       owner: this
     });
     this.components[inventory.name] = inventory;
@@ -102,7 +92,7 @@ Boom.Alien.prototype = Boom.inherit(Boom.Entity, {
       {
         name: "ANIMATION_DEATH",
         object: physics.object,
-        position: new THREE.Vector3(10, 0, 0), 
+        position: new THREE.Vector3(0, -10, 0), 
         rotation: new THREE.Vector3(0, -Math.PI, 0), 
         ms: 500,
         permanent: true,
@@ -116,8 +106,7 @@ Boom.Alien.prototype = Boom.inherit(Boom.Entity, {
       {
         name: "ANIMATION_PAIN",
         object: physics.object,
-        position: new THREE.Vector3(0, 0.25, 0.25), 
-        rotation: new THREE.Vector3(-0.5, 0, 0),
+        rotation: new THREE.Vector3(0, 0.5, 0),
         permanent: true,
         ms: 100,
         owner: this
@@ -128,7 +117,7 @@ Boom.Alien.prototype = Boom.inherit(Boom.Entity, {
     var audio_pain = new Boom.AudioComponent(
       {
         name: 'AUDIO_PAIN',
-        sound: Boom.Assets.sounds.hostile.alien.pain,
+        sound: Boom.Assets.sounds.hostile.hoverbot.pain,
         owner: this
       }
     );
@@ -137,7 +126,7 @@ Boom.Alien.prototype = Boom.inherit(Boom.Entity, {
     var audio_death = new Boom.AudioComponent(
       {
         name: 'AUDIO_DEATH',
-        sound: Boom.Assets.sounds.hostile.alien.death,
+        sound: Boom.Assets.sounds.hostile.hoverbot.death,
         owner: this
       }
     );

@@ -20,8 +20,8 @@ Boom.EntityFactory.prototype = {
     var entity = null;
     switch( type ){
       ///////////// ACTORS /////////////////////
-      case Boom.Constants.Actors.HOSTILE.ALIEN:
-        entity = new Boom.Alien( params );
+      case Boom.Constants.Actors.HOSTILE.HOVERBOT:
+        entity = new Boom.HoverBot( params );
         Boom.GameGrid.addActor( entity.id, entity.position );
         break;
       case Boom.Constants.Actors.FRIENDLY.PLAYER:
@@ -35,6 +35,7 @@ Boom.EntityFactory.prototype = {
         Boom.GameGrid.addItem( entity.id, entity.position );
         break;
       case Boom.Constants.Items.POWERUP.BULLET:
+      case Boom.Constants.Items.POWERUP.BULLET_LARGE:
         entity = new Boom.BulletPowerup( params ); 
         Boom.GameGrid.addItem( entity.id, entity.position );
         break;
@@ -48,6 +49,10 @@ Boom.EntityFactory.prototype = {
         break;
       case Boom.Constants.Items.POWERUP.SHOTGUN:
         entity = new Boom.ShotgunPowerup( params ); 
+        Boom.GameGrid.addItem( entity.id, entity.position );
+        break;
+      case Boom.Constants.Items.POWERUP.RIFLE:
+        entity = new Boom.RiflePowerup( params ); 
         Boom.GameGrid.addItem( entity.id, entity.position );
         break;
       case Boom.Constants.Items.OTHER.END_GOAL:
@@ -79,12 +84,18 @@ Boom.EntityFactory.prototype = {
         return new Boom.Pistol( params );
       case Boom.Constants.Weapon.SHOTGUN:
         return new Boom.Shotgun( params );
+      case Boom.Constants.Weapon.RIFLE:
+        return new Boom.Rifle( params );
+      case Boom.Constants.Weapon.HOVERBOTGUN:
+        return new Boom.HoverBotGun( params );
 
       ///////////// AMMUNITION /////////////////////
       case Boom.Constants.Ammunition.BULLET:
         return new Boom.Bullet( params );
       case Boom.Constants.Ammunition.SHELL:
-        return new Boom.Shell( params ); 
+        return new Boom.Shell( params );
+      case Boom.Constants.Weapon.HOVERBOTGUNLASER:
+        return new Boom.HoverBotGunLaser( params ); 
 
       ////////////// TRIGGERS /////////////////////
       case Boom.Constants.Triggers.DOOR:

@@ -195,6 +195,11 @@ Boom.World.prototype = {
   },
 
   update: function(){
+  },
+
+  dispose: function() {
+    this.music.sound.stop();
+    console.log('world disposed');
   }
   
 };

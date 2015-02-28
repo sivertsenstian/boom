@@ -61,6 +61,12 @@ Boom.InventoryComponent.prototype = Boom.inherit(Boom.Component, {
       icon: '<img class="boom-ui-icon" src="resources/ui/icons/shotgun_missing.png">'
     };
     this.send( this.register_inventory_weapon );
+    this.register_inventory_weapon.data = {
+      name: 'WEAPON',
+      type:  Boom.Assets.world.ENTITY.RIFLE,
+      icon: '<img class="boom-ui-icon" src="resources/ui/icons/rifle_missing.png">'
+    };
+    this.send( this.register_inventory_weapon );
 
     //ADD WEAPON
     this.setActiveWeapon( this.weapon );
@@ -107,6 +113,7 @@ Boom.InventoryComponent.prototype = Boom.inherit(Boom.Component, {
                                                      rotation: this.weapon_rotation, 
                                                      scale: this.weapon_scale
                                           });
+      this.object.equip();
       if( typeof this.camera !== 'undefined' && this.camera !== null){
           this.owner.add( this.object, this.camera );
       }

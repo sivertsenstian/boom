@@ -63,6 +63,15 @@ Boom.Pistol.prototype = Boom.inherit(Boom.Entity, {
       }
     );
     this.components[audio_empty.name] = audio_empty;
+
+    var audio_equip = new Boom.AudioComponent(
+      {
+        name: 'pistol_audio_equip',
+        sound: Boom.Assets.sounds.weapons.pistol.pickup,
+        owner: this
+      }
+    );
+    this.components[audio_equip.name] = audio_equip;
   },
 
   load: function(){
@@ -100,6 +109,10 @@ Boom.Pistol.prototype = Boom.inherit(Boom.Entity, {
       return true;
     }
     return false;
+  },
+
+  equip: function(){
+    this.components['pistol_audio_equip'].play();
   }
 
 });

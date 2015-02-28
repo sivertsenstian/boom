@@ -6,11 +6,13 @@ Boom.Menu = function( game ){
   //Weapons
   loader.addObjMtlModel('/resources/models/weapons/pistol/pistol', ['weapons', 'pistol'] );
   loader.addObjMtlModel('/resources/models/weapons/shotgun/shotgun', ['weapons', 'shotgun'] );
+  loader.addObjMtlModel('/resources/models/weapons/rifle/rifle', ['weapons', 'rifle'] );
 
   //Enemies
-  loader.addObjMtlModel('/resources/models/enemies/boom_hoverbot/BoomHoverBot', ['enemies', 'alien'] );
+  loader.addObjMtlModel('/resources/models/enemies/boom_hoverbot/BoomHoverBot', ['enemies', 'hoverbot'] );
 
   //Maps
+  loader.addJSON('/resources/maps/playground.json', ['world', 'MAP', 'PLAYGROUND'] );
   loader.addJSON('/resources/maps/test1.json', ['world', 'MAP', 'TEST'] );
   /*loader.addJSON('/resources/maps/level01.json', ['world', 'MAP', 'L1'] );
   loader.addJSON('/resources/maps/level02.json', ['world', 'MAP', 'L2'] );
