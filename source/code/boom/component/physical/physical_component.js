@@ -15,6 +15,7 @@ Boom.PhysicalComponent = function( params ) {
   this.height = params.height || 0;
   this.damping = params.damping || 0.5;
   this.castShadow = params.castShadow || false;
+  this.selfShadow = params.selfShadow || false;
   this.velocity = new THREE.Vector3(0, 0, 0);
   this.gravity = params.gravity || false;
   this.events = [Boom.Constants.Message.Action.VELOCITY_FLAT, Boom.Constants.Message.Action.VELOCITY, Boom.Constants.Message.Action.GRAVITY];
@@ -59,6 +60,7 @@ Boom.PhysicalComponent.prototype = Boom.inherit(Boom.Component, {
     this.object.rotation.set( this.rotation.x, this.rotation.y, this.rotation.z );
     this.object.translateY( (this.scale.y * this.size) / 2 );
     this.object.castShadow = this.castShadow;
+    this.object.selfShadow = this.selfShadow;
     this.object.name = this.name + "_OBJECT";
 
     //Messages

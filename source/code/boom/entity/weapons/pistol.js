@@ -80,7 +80,7 @@ Boom.Pistol.prototype = Boom.inherit(Boom.Entity, {
     if( (Boom.getCurrentTime() - this.last_shot) >= this.cooldown ){
       var _this = this;
 
-      var spawn = new THREE.Vector3( -6 , 4 , 0 );
+      var spawn = new THREE.Vector3( -20 , 14 , 2 );
       this.getObjectComponent().object.localToWorld(spawn);
       Boom.GameFactory.spawn(type, {direction: dir, spawn: spawn, faction: this.faction});
       this.components['pistol_animation_shoot'].animate();

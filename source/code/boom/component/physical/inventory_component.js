@@ -3,7 +3,7 @@ Boom.InventoryComponent = function( params ) {
   this.type = params.type || Boom.Constants.Component.TYPE.INVENTORY;
   this.camera = params.camera;
   this.player = params.player || false;
-  this.weapon_position = params.weapon_position || new THREE.Vector3(2, -2, -4);
+  this.weapon_position = params.weapon_position || new THREE.Vector3(2, -3, -4);
   this.weapon_rotation = params.weapon_rotation || new THREE.Vector3(0 , -Math.PI/2, 0);
   this.weapon_scale = params.weapon_scale || new THREE.Vector3(0.1, 0.1, 0.1);
   //active weapon

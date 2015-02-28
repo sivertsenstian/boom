@@ -3,17 +3,18 @@ Boom.Menu = function( game ){
   this.animation_speed = 400;
   var loader = new PxLoader();
   var scope = this;
-  //Models
-  loader.addDAEModel('/resources/models/pistol.dae', ['weapons', 'pistol'] );
-  loader.addDAEModel('/resources/models/shotgun.dae', ['weapons', 'shotgun'] );
+  //Weapons
+  loader.addObjMtlModel('/resources/models/weapons/pistol/pistol', ['weapons', 'pistol'] );
+  loader.addObjMtlModel('/resources/models/weapons/shotgun/shotgun', ['weapons', 'shotgun'] );
 
-  loader.addObjMtlModel('/resources/models/alien/alien', ['enemies', 'alien'] );
+  //Enemies
+  loader.addObjMtlModel('/resources/models/enemies/boom_hoverbot/BoomHoverBot', ['enemies', 'alien'] );
 
   //Maps
   loader.addJSON('/resources/maps/test1.json', ['world', 'MAP', 'TEST'] );
-  loader.addJSON('/resources/maps/level01.json', ['world', 'MAP', 'L1'] );
+  /*loader.addJSON('/resources/maps/level01.json', ['world', 'MAP', 'L1'] );
   loader.addJSON('/resources/maps/level02.json', ['world', 'MAP', 'L2'] );
-  loader.addJSON('/resources/maps/level03.json', ['world', 'MAP', 'L3'] );
+  loader.addJSON('/resources/maps/level03.json', ['world', 'MAP', 'L3'] );*/
 
   //Scores
   loader.addJSON('/resources/ui/highscores.json', ['ui', 'HIGHSCORES'] );

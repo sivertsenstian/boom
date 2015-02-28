@@ -37,7 +37,8 @@ Boom.Alien.prototype = Boom.inherit(Boom.Entity, {
         position: this.position,
         height: this.height,
         gravity: true,
-        owner: this
+        owner: this,
+        selfShadow: false
       }
     );
     this.components[physics.name] = physics;
