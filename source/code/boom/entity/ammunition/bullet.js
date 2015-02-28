@@ -49,7 +49,7 @@ Boom.Bullet.prototype = Boom.inherit(Boom.Entity, {
     var audio_hit = new Boom.AudioComponent(
       {
         name: 'BULLET_HIT_AUDIO',
-        sound: Boom.Assets.sounds.weapons.pistol.hit,
+        sound: Boom.Assets.sounds.ammunition.bullet.hit,
         owner: this
       }
     );

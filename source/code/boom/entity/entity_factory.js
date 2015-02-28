@@ -55,6 +55,14 @@ Boom.EntityFactory.prototype = {
         entity = new Boom.RiflePowerup( params ); 
         Boom.GameGrid.addItem( entity.id, entity.position );
         break;
+      case Boom.Constants.Items.POWERUP.ROCKETLAUNCHER:
+        entity = new Boom.RocketLauncherPowerup( params ); 
+        Boom.GameGrid.addItem( entity.id, entity.position );
+        break;   
+      case Boom.Constants.Items.POWERUP.ROCKET:
+        entity = new Boom.RocketPowerup( params ); 
+        Boom.GameGrid.addItem( entity.id, entity.position );
+        break;        
       case Boom.Constants.Items.OTHER.END_GOAL:
         entity = new Boom.EndGoal( params ); 
         Boom.GameGrid.addItem( entity.id, entity.position );
@@ -86,6 +94,8 @@ Boom.EntityFactory.prototype = {
         return new Boom.Shotgun( params );
       case Boom.Constants.Weapon.RIFLE:
         return new Boom.Rifle( params );
+      case Boom.Constants.Weapon.ROCKETLAUNCHER:
+        return new Boom.RocketLauncher( params );        
       case Boom.Constants.Weapon.HOVERBOTGUN:
         return new Boom.HoverBotGun( params );
 
@@ -94,6 +104,8 @@ Boom.EntityFactory.prototype = {
         return new Boom.Bullet( params );
       case Boom.Constants.Ammunition.SHELL:
         return new Boom.Shell( params );
+      case Boom.Constants.Ammunition.ROCKET:
+        return new Boom.Rocket( params );        
       case Boom.Constants.Weapon.HOVERBOTGUNLASER:
         return new Boom.HoverBotGunLaser( params ); 
 

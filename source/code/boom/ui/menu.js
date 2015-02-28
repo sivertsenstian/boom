@@ -7,6 +7,7 @@ Boom.Menu = function( game ){
   loader.addObjMtlModel('/resources/models/weapons/pistol/pistol', ['weapons', 'pistol'] );
   loader.addObjMtlModel('/resources/models/weapons/shotgun/shotgun', ['weapons', 'shotgun'] );
   loader.addObjMtlModel('/resources/models/weapons/rifle/rifle', ['weapons', 'rifle'] );
+  loader.addObjMtlModel('/resources/models/weapons/rocketlauncher/rocketlauncher', ['weapons', 'rocketlauncher'] );
 
   //Enemies
   loader.addObjMtlModel('/resources/models/enemies/boom_hoverbot/BoomHoverBot', ['enemies', 'hoverbot'] );

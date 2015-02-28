@@ -48,7 +48,7 @@ Boom.Shell.prototype = Boom.inherit(Boom.Entity, {
     var audio_hit = new Boom.AudioComponent(
       {
         name: 'SHELL_HIT_AUDIO',
-        sound: Boom.Assets.sounds.weapons.shotgun.hit,
+        sound: Boom.Assets.sounds.ammunition.shell.hit,
         owner: this
       }
     );

@@ -67,6 +67,12 @@ Boom.InventoryComponent.prototype = Boom.inherit(Boom.Component, {
       icon: '<img class="boom-ui-icon" src="resources/ui/icons/rifle_missing.png">'
     };
     this.send( this.register_inventory_weapon );
+    this.register_inventory_weapon.data = {
+      name: 'WEAPON',
+      type:  Boom.Assets.world.ENTITY.ROCKETLAUNCHER,
+      icon: '<img class="boom-ui-icon" src="resources/ui/icons/rocketlauncher_missing.png">'
+    };
+    this.send( this.register_inventory_weapon );
 
     //ADD WEAPON
     this.setActiveWeapon( this.weapon );
@@ -113,7 +119,6 @@ Boom.InventoryComponent.prototype = Boom.inherit(Boom.Component, {
                                                      rotation: this.weapon_rotation, 
                                                      scale: this.weapon_scale
                                           });
-      this.object.equip();
       if( typeof this.camera !== 'undefined' && this.camera !== null){
           this.owner.add( this.object, this.camera );
       }
@@ -121,6 +126,7 @@ Boom.InventoryComponent.prototype = Boom.inherit(Boom.Component, {
        //add current weapon
        this.owner.add( this.object ); 
       }
+      this.object.equip( this.owner.getObjectComponent().object );
       //Set ammunition according to weapon
       this.active_ammunition = this.inventory.weapons[weapon];
       //Update hud! - register as active not inventory, so no type!

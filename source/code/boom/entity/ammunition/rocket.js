@@ -1,18 +1,18 @@
-Boom.HoverBotGunLaser = function( params ){
+Boom.Rocket = function( params ){
   this.type = params.type || Boom.Assets.world.ENTITY.MISSING;
   this.spawn = params.spawn;
   this.direction = params.direction;
   this.size = 2;
-  this.speed = 10;
-  this.damage = 20;
+  this.speed = 15;
+  this.damage = 50;
   this.velocity = new THREE.Vector3(0, 0, 0);
   this.msg = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, data: null, type: Boom.Constants.Message.Action.VELOCITY, sender: this.name });
   
-  Boom.Entity.call(this, {name: 'AMMO_HoverBotGunLaserEntity', is_static: false, faction: params.faction, score: 0});
+  Boom.Entity.call(this, {name: 'AMMO_RocketEntity', is_static: false, faction: params.faction, score: 0});
 };
 
-Boom.HoverBotGunLaser.prototype = Boom.inherit(Boom.Entity, {
-  constructor: Boom.HoverBotGunLaser,
+Boom.Rocket.prototype = Boom.inherit(Boom.Entity, {
+  constructor: Boom.Rocket,
 
   init: function() {
     //Call super
@@ -20,36 +20,36 @@ Boom.HoverBotGunLaser.prototype = Boom.inherit(Boom.Entity, {
 
     var physics = new Boom.PhysicalComponent(
        {
-        name:'hoverbotgunlaser_physics',
+        name:'rocket_physics',
         shape: Boom.Constants.Component.BOX,
         position: this.spawn,
-        color: 0xFF0000,
+        color: 0xFF6600,
         size: this.size,
         owner: this
       }
     );
     this.components[physics.name] = physics;
 
-    var collision = new Boom.PreciseActorCollisionActionComponent(
+    var collision = new Boom.AreaActorCollisionActionComponent(
       {
-        name: 'HOVERBOTGUNLASER_COLLISION',
+        name: 'ROCKET_COLLISION',
         owner: this
       }
     );
     this.components[collision.name] = collision;
 
-    var hoverbotgunlaser_hit = new Boom.DisposeHitComponent(
+    var rocket_hit = new Boom.DisposeHitComponent(
       {
-        name: 'HOVERBOTGUNLASER_HIT',
+        name: 'ROCKET_HIT',
         owner: this
       }
     );
-    this.components[hoverbotgunlaser_hit.name] = hoverbotgunlaser_hit;
+    this.components[rocket_hit.name] = rocket_hit;
 
     var audio_hit = new Boom.AudioComponent(
       {
-        name: 'HOVERBOTGUNLASER_HIT_AUDIO',
-        sound: Boom.Assets.sounds.ammunition.hoverbotgunlaser.hit,
+        name: 'ROCKET_HIT_AUDIO',
+        sound: Boom.Assets.sounds.ammunition.rocket.hit,
         owner: this
       }
     );
@@ -76,7 +76,7 @@ Boom.HoverBotGunLaser.prototype = Boom.inherit(Boom.Entity, {
   dispose: function(){
     //Call super
     Boom.Entity.prototype.dispose.call(this);
-    this.components.HOVERBOTGUNLASER_HIT_AUDIO.play();
+    this.components.ROCKET_HIT_AUDIO.play();
   }
 
 

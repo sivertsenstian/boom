@@ -82,9 +82,11 @@ Boom.Constants = {
       BULLET: '2bccdac5-f515-4926-b203-95334bc240a1',
       BULLET_LARGE: '4e41cb95-3df0-4463-8093-d9b87272ff0e',
       SHELL: '1d2b839d-151e-4f4b-bbb4-f1809ec9a558',
+      ROCKET: '5cbd5a4b-7e83-43c4-bcd0-6809825020bf',
       PISTOL: 'e6a2d0c2-ff2d-46e5-b66e-2e94c541b709',
       SHOTGUN: 'e697f30b-77eb-4c32-9b0d-e1c363466b70',
       RIFLE: '634cf56d-8214-4095-b8e2-e24a2aa2771e',
+      ROCKETLAUNCHER: 'f39b30ae-e3d8-4888-96d1-d95524b8d3ca',
     },
     OTHER:{
       END_GOAL: 'a6c4da7d-b51c-440a-a1be-19d26872c843'
@@ -126,12 +128,14 @@ Boom.Constants = {
     PISTOL: 'a55a989b-d8dc-46c9-8614-2fee2e52fc29',
     SHOTGUN: '3c8e662c-44e5-4348-b959-ccd74e09dec5',
     RIFLE: '6a57c256-e90c-49d4-b503-fd7b95c28c83',
+    ROCKETLAUNCHER: '02dac85e-416e-41bf-a1b6-c835867995a0',
     HOVERBOTGUN: 'a1e12702-edfd-46b3-868b-9d6b4ad82307'
   },
 
   Ammunition:{
     BULLET: '96fc013d-623b-4b0a-86ef-cdb9698d843f',
     SHELL: '02709816-7162-4c37-a9e7-b037cace65e0',
+    ROCKET: 'c7f24327-b0f1-41c4-b882-e45d6d4cfe28',
     HOVERBOTGUNLASER: '454ca313-2962-49ab-90fd-606542f3f55e'
   },
 

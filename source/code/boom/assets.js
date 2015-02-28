@@ -7,8 +7,8 @@ Boom.Assets = {
   music: {
     MISSING: new Boom.Audio({url: 'resources/music/missing.mp3', volume: 0.2, loop: true, positional: false }),
     maps:{
-      'c7cc27d8-da16-4c26-bb03-0e2d04de63c8' : new Boom.Audio({url: 'resources/music/simple_action_beat.ogg', volume: 0.2, loop: true, positional: false}),
-      '2edee789-75ae-411e-87a5-f11a049172c2' : new Boom.Audio({url: 'resources/music/bensound-scifi.mp3', volume: 0.2, loop: true, positional: false})
+      'c7cc27d8-da16-4c26-bb03-0e2d04de63c8' : new Boom.Audio({url: 'resources/music/simple_action_beat.ogg', volume: 0.1, loop: true, positional: false}),
+      '2edee789-75ae-411e-87a5-f11a049172c2' : new Boom.Audio({url: 'resources/music/bensound-scifi.mp3', volume: 0.1, loop: true, positional: false})
     }
   },
   sounds: {
@@ -20,32 +20,48 @@ Boom.Assets = {
     weapons: {
       pistol: {
         shoot: new Boom.Audio({url: 'resources/sounds/pistol.mp3', volume: 0.25}),
-        hit: new Boom.Audio({url: 'resources/sounds/hit.wav', volume: 0.25}),
         empty: new Boom.Audio({url: 'resources/sounds/empty.mp3', volume: 0.5}),
         pickup: new Boom.Audio({url: 'resources/sounds/pistol_pickup.mp3', volume: 1.0})
       },
       shotgun: {
         shoot: new Boom.Audio({url: 'resources/sounds/shotgun.mp3', volume: 0.25}),
-        hit: new Boom.Audio({url: 'resources/sounds/hit.wav', volume: 0.25}),
         empty: new Boom.Audio({url: 'resources/sounds/empty.mp3', volume: 0.5}),
         pickup: new Boom.Audio({url: 'resources/sounds/shotgun_pickup.ogg', volume: 1.0})
       },
       rifle: {
         shoot: new Boom.Audio({url: 'resources/sounds/rifle.mp3', volume: 0.25}),
-        hit: new Boom.Audio({url: 'resources/sounds/rifle_hit.mp3', volume: 0.25}),
         empty: new Boom.Audio({url: 'resources/sounds/rifle_empty.mp3', volume: 0.5}),
         pickup: new Boom.Audio({url: 'resources/sounds/rifle_pickup.mp3', volume: 1.0})
       },
+      rocketlauncher: {
+        shoot: new Boom.Audio({url: 'resources/sounds/rocketlauncher.mp3', volume: 0.25}),
+        empty: new Boom.Audio({url: 'resources/sounds/empty.mp3', volume: 0.5}),
+        pickup: new Boom.Audio({url: 'resources/sounds/rocketlauncher_pickup.wav', volume: 1.0})
+      },
       hoverbotgun: {
         shoot: new Boom.Audio({url: 'resources/sounds/hoverbotgun.mp3', volume: 0.25}),
-        hit: new Boom.Audio({url: 'resources/sounds/hit.wav', volume: 0.25}),
         empty: new Boom.Audio({url: 'resources/sounds/empty.mp3', volume: 0.5})
+      }
+    },
+    ammunition: {
+      bullet: {
+        hit: new Boom.Audio({url: 'resources/sounds/hit.wav', volume: 0.25}),
+      },
+      shell: {
+        hit: new Boom.Audio({url: 'resources/sounds/hit.wav', volume: 0.25}),
+      },
+      rocket: {
+        hit: new Boom.Audio({url: 'resources/sounds/rocket_hit.mp3', volume: 1.0}),
+      },
+      hoverbotgunlaser: {
+        hit: new Boom.Audio({url: 'resources/sounds/hit.wav', volume: 0.25}),
       }
     },
     items: {
       healthpack_powerup: new Boom.Audio({url: 'resources/sounds/healthpack_pickup.wav', volume: 0.5}),
       bullet_powerup: new Boom.Audio({url: 'resources/sounds/bullet_pickup.mp3', volume: 0.5}),
-      shell_powerup: new Boom.Audio({url: 'resources/sounds/shell_pickup.mp3', volume: 0.5})
+      shell_powerup: new Boom.Audio({url: 'resources/sounds/shell_pickup.mp3', volume: 0.5}),
+      rocket_powerup: new Boom.Audio({url: 'resources/sounds/rocket_pickup.wav', volume: 0.5})
     },
     player: {
       win: new Boom.Audio({url: 'resources/sounds/player_win.mp3', volume: 0.5}),
@@ -75,6 +91,7 @@ Boom.Assets = {
       PISTOL: 'a55a989b-d8dc-46c9-8614-2fee2e52fc29',
       SHOTGUN: '3c8e662c-44e5-4348-b959-ccd74e09dec5',
       RIFLE: '6a57c256-e90c-49d4-b503-fd7b95c28c83',
+      ROCKETLAUNCHER: '02dac85e-416e-41bf-a1b6-c835867995a0',
       HOVERBOTGUN: 'a1e12702-edfd-46b3-868b-9d6b4ad82307',
     },
     MAP:{

@@ -121,6 +121,31 @@ Boom.CollisionGrid.prototype = {
     return trigger;
   },
 
+  checkActorArea: function( position ){
+    this.x = Math.round(position.x / this.map.tileheight);
+    this.z =  Math.round(position.z / this.map.tilewidth);
+    var actor = [5]
+
+    actor[0] = this.checkActor(this.width * (this.x+1) + this.z, position.y);
+    actor[1] = this.checkActor(this.width * (this.x-1) + this.z, position.y);
+    actor[2] = this.checkActor(this.width * this.x + (this.z+1), position.y);
+    actor[3] = this.checkActor(this.width * this.x + (this.z-1), position.y);
+    
+    actor[4] = this.checkActor(this.width * (this.x+1) + (this.z+1), position.y);
+    actor[5] = this.checkActor(this.width * (this.x-1) + (this.z-1), position.y);
+    actor[6] = this.checkActor(this.width * (this.x-1) + (this.z+1), position.y);
+    actor[7] = this.checkActor(this.width * (this.x+1) + (this.z-1), position.y);
+
+    actor[8] = this.checkActor(this.width * this.x + this.z, position.y);
+    for(var a = 0; a < actor.length; a++){
+      if(!actor[a]){
+        actor[a] = this.checkCollision(this.width * this.x + this.z);
+      }
+    }
+
+    return actor;
+  },
+
   checkPreciseActor: function( position ){
     this.x = Math.round(position.x / this.map.tileheight);
     this.z =  Math.round(position.z / this.map.tilewidth);

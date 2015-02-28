@@ -111,8 +111,8 @@ Boom.Rifle.prototype = Boom.inherit(Boom.Entity, {
     return false;
   },
 
-  equip: function(){
-    this.components['rifle_audio_equip'].play();
+  equip: function( equipper ){
+    this.components['rifle_audio_equip'].play( equipper.position );
   }
 
 });

@@ -119,8 +119,8 @@ Boom.Shotgun.prototype = Boom.inherit(Boom.Entity, {
     return false;
   },
 
-  equip: function(){
-    this.components['shotgun_audio_equip'].play();
+  equip: function( equipper ){
+    this.components['shotgun_audio_equip'].play( equipper.position );
   }
 
 });

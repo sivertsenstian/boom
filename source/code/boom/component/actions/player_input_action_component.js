@@ -45,6 +45,7 @@ Boom.PlayerInputActionComponent.prototype = Boom.inherit(Boom.Component, {
     this.pistol = false;
     this.shotgun = false;
     this.rifle = false;
+    this.rocketlauncher = false;
 
     //Initiate trigger
     this.trigger = false;
@@ -138,6 +139,10 @@ Boom.PlayerInputActionComponent.prototype = Boom.inherit(Boom.Component, {
 
         case 51: // 3
           scope.rifle = true;
+          break;
+
+        case 52: // 4
+          scope.rocketlauncher = true;
           break;
 
         case 69: // E
@@ -302,6 +307,14 @@ Boom.PlayerInputActionComponent.prototype = Boom.inherit(Boom.Component, {
       this.rifle = false;
       this.send( new Boom.Message({ receiver: Boom.Constants.Component.TYPE.INVENTORY,
                                     data: {name:  Boom.Assets.world.ENTITY.RIFLE, value: Boom.Constants.Ammunition.BULLET}, 
+                                    type: Boom.Constants.Message.Action.SET_WEAPON, 
+                                    sender: this.type }));
+    }
+
+    if ( this.rocketlauncher ){
+      this.rocketlauncher = false;
+      this.send( new Boom.Message({ receiver: Boom.Constants.Component.TYPE.INVENTORY,
+                                    data: {name:  Boom.Assets.world.ENTITY.ROCKETLAUNCHER, value: Boom.Constants.Ammunition.ROCKET}, 
                                     type: Boom.Constants.Message.Action.SET_WEAPON, 
                                     sender: this.type }));
     }
