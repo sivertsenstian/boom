@@ -45,7 +45,9 @@ Boom.Wall.prototype = Boom.inherit(Boom.Entity, {
         {
           name: "ANIMATION_TRIGGER_OPEN",
           object: physics.object,
-          target_position: new THREE.Vector3(this.position.x, ((this.height + 1) * Boom.Constants.World.SIZE), this.position.z),
+          position: new THREE.Vector3(0, ((this.height - 1) * Boom.Constants.World.SIZE), 0),
+          yoyo: false,
+          permanent: true,
           ms: 500,
           owner: this
         }
@@ -56,7 +58,9 @@ Boom.Wall.prototype = Boom.inherit(Boom.Entity, {
         {
           name: "ANIMATION_TRIGGER_CLOSE",
           object: physics.object,
-          target_position: new THREE.Vector3(this.position.x, Boom.Constants.World.SIZE * 2, this.position.z),
+          position: new THREE.Vector3(0, -((this.height - 1) * Boom.Constants.World.SIZE), 0),
+          yoyo: false,
+          permanent: true,
           ms: 500,
           owner: this
         }

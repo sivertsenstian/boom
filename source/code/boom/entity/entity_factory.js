@@ -22,9 +22,11 @@ Boom.EntityFactory.prototype = {
       ///////////// ACTORS /////////////////////
       case Boom.Constants.Actors.HOSTILE.ALIEN:
         entity = new Boom.Alien( params );
+        Boom.GameGrid.addActor( entity.id, entity.position );
         break;
       case Boom.Constants.Actors.FRIENDLY.PLAYER:
         entity = new Boom.Player( params );
+        Boom.GameGrid.addActor( entity.id, entity.position );
         break;
 
       ///////////// ITEMS /////////////////////

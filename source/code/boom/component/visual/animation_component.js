@@ -1,6 +1,5 @@
 Boom.AnimationComponent = function( params ) {
   params = params || {};
-
   //Object
   if (typeof(params.object) === "undefined" || params.object === null){
     throw Boom.Exceptions.ObjectNotDefinedException;
@@ -8,18 +7,26 @@ Boom.AnimationComponent = function( params ) {
   else{
     this.object = params.object;
   }
-  //Animation
-  this.type = params.type || Boom.Constants.Component.TYPE.ANIMATION;
-  this.initial_position = params.position || new THREE.Vector3(0, 0, 0);
-  this.initial_rotation = params.rotation || new THREE.Vector3(0, 0, 0);
-  this.initial_scale = params.scale || new THREE.Vector3(0, 0, 0);
 
-  this.initial_target_position = params.target_position || null;
-  this.initial_target_rotation = params.target_rotation || null;
-  this.initial_target_scale = params.target_scale || null;
+  this.initial_rotation = this.object.rotation.clone();
+  this.rotation = params.rotation || null;
+
+  this.initial_position = this.object.position.clone();
+  this.position = params.position || null;
+
+  this.initial_scale = this.object.scale.clone();
+  this.scale = params.scale || null;
 
   this.ms = params.ms || 1000;
   this.easing = params.easing || TWEEN.Easing.Linear.None;
+  this.permanent = params.hasOwnProperty('permanent') ? params.permanent : false;
+  this.yoyo = params.hasOwnProperty('yoyo') ? params.yoyo : true;
+  if(this.yoyo){
+    this.repeat = 1;
+  }
+  else{
+    this.repeat = params.repeat || 0;
+  }
 
   //Call super
   Boom.Component.call(this, params );
@@ -46,61 +53,94 @@ Boom.AnimationComponent.prototype = Boom.inherit(Boom.Component, {
     Boom.Component.prototype.update.call(this);
   },
 
-  animate: function( repeat ){
-    repeat = repeat || 0;
-    var object = this.object;
-
-    var animate_position = this.initial_position.clone();
-    var animate_rotation = this.initial_rotation.clone();
-    var animate_scale = this.initial_scale.clone();
-
-    this.position = animate_position.add( this.object.position );
-    this.rotation = animate_rotation.set( this.object.rotation.x + animate_rotation.x, 
-                                                         this.object.rotation.y + animate_rotation.y, 
-                                                         this.object.rotation.z + animate_rotation.z);
-
-    this.scale = animate_scale.add( this.object.scale );
-
-    this.target_position = this.initial_target_position ? this.initial_target_position.clone() : this.object.position.clone();
-    this.target_rotation = this.initial_target_rotation ? this.initial_target_rotation.clone() : this.object.rotation.clone();
-    this.target_scale = this.initial_target_scale ? this.initial_target_scale.clone() : this.object.scale.clone();
-
+  animate: function(){
     try{
-      //TWEEN.removeAll(); //TODO: FIX THIS - REMOVES ALL ANIMATIONS, SHOULD REMOVE CURRENT IF PLAYED AGAIN ??
-      if (typeof(object) === "undefined" || object === null){
+      if (typeof(this.object) === "undefined" || this.object === null){
         throw Boom.Exceptions.ObjectNotDefinedException;
       }
-      var pos = this.position.clone();
-      var rot = this.rotation.clone();
-      var scale = this.scale.clone();
+      var scope = this;
 
-      var tween_position = new TWEEN.Tween( pos ).to( this.target_position, this.ms).repeat( repeat );
-      var tween_rotation = new TWEEN.Tween( rot ).to( this.target_rotation, this.ms).repeat( repeat );
-      var tween_scale = new TWEEN.Tween( scale ).to( this.target_scale, this.ms).repeat( repeat );
+      //Rotation
+      //Rotates from initial object-rotation to target-rotation given by (initial object rotation + given rotation)
+      //Yoyos and repeats once to return to initial state by default
+      if(this.rotation !== null){
+        if(this.permanent){ //the object has moved its initial rotation after animation
+          this.initial_rotation = this.object.rotation.clone();
+        }
+        this.start_rotation = this.initial_rotation.clone();
+        this.target_rotation = new THREE.Vector3( this.start_rotation.x + this.rotation.x,
+                                                  this.start_rotation.y + this.rotation.y,
+                                                  this.start_rotation.z + this.rotation.z);
 
-      tween_position.onUpdate(function(){
-        object.position.set( pos.x, pos.y, pos.z );
-      });
+        this.animation = new TWEEN.Tween( this.start_rotation )
+          .to( this.target_rotation, this.ms )
+          .onUpdate( function () {
+              scope.object.rotation.set( scope.start_rotation.x, scope.start_rotation.y, scope.start_rotation.z );
+          } )
+          .repeat( this.repeat )
+          .yoyo( this.yoyo )
+          .easing( this.easing )
+          .start();
+      }
 
-      tween_rotation.onUpdate(function(){
-        object.rotation.set( rot.x, rot.y, rot.z );
-      });
+      //Position
+      //Moves from initial object-position to target-position given by (initial object position + given position)
+      //Yoyos and repeats once to return to initial state by default
+      if(this.position !== null){
+        if(this.permanent){ //the object has moved its initial position after animation
+          this.initial_position = this.object.position.clone();
+        }
+        this.start_position = this.initial_position.clone();
+        this.target_position = new THREE.Vector3( this.start_position.x + this.position.x,
+                                                  this.start_position.y + this.position.y,
+                                                  this.start_position.z + this.position.z);
 
-      tween_scale.onUpdate(function(){
-        object.scale.set( scale.x, scale.y, scale.z );
-      });
+        this.animation = new TWEEN.Tween( this.start_position )
+          .to( this.target_position, this.ms )
+          .onUpdate( function () {
+              scope.object.position.set( scope.start_position.x, scope.start_position.y, scope.start_position.z );
+          } )
+          .repeat( this.repeat )
+          .yoyo( this.yoyo )
+          .easing( this.easing )
+          .start();
+      }
 
-      tween_position.easing( this.easing );
-      tween_rotation.easing( this.easing );
-      tween_scale.easing( this.easing );
+      //Scale
+      //Alters from initial object-scale to target-scale given by (initial object scale + given scale)
+      //Yoyos and repeats once to return to initial state by default
+      if(this.scale !== null){
+        if(this.permanent){ //the object has altered its initial scale after animation
+          this.initial_scale = this.object.scale.clone();
+        }
+        this.start_scale = this.initial_scale.clone();
+        this.target_scale = new THREE.Vector3( this.start_scale.x + this.scale.x,
+                                                  this.start_scale.y + this.scale.y,
+                                                  this.start_scale.z + this.scale.z);
 
-      tween_position.start();
-      tween_rotation.start();
-      tween_scale.start();
+        this.animation = new TWEEN.Tween( this.start_scale )
+          .to( this.target_scale, this.ms )
+          .onUpdate( function () {
+              scope.object.scale.set( scope.start_scale.x, scope.start_scale.y, scope.start_scale.z );
+          } )
+          .repeat( this.repeat )
+          .yoyo( this.yoyo )
+          .easing( this.easing )
+          .start();
+      }
+      
     }
     catch( error ){
       Boom.handleError( error , 'Boom.Animate');
     }
+  },
+
+  dispose: function(){
+    TWEEN.remove(this.tween_position);
+    TWEEN.remove(this.tween_rotation);
+    TWEEN.remove(this.tween_scale);
+     //Call super
+    Boom.Component.prototype.dispose.call(this);
   }
 
 });

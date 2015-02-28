@@ -104,6 +104,8 @@ Boom.Alien.prototype = Boom.inherit(Boom.Entity, {
         position: new THREE.Vector3(10, 0, 0), 
         rotation: new THREE.Vector3(0, -Math.PI, 0), 
         ms: 500,
+        permanent: true,
+        yoyo: false,
         owner: this
       }
     );
@@ -114,8 +116,9 @@ Boom.Alien.prototype = Boom.inherit(Boom.Entity, {
         name: "ANIMATION_PAIN",
         object: physics.object,
         position: new THREE.Vector3(0, 0.25, 0.25), 
-        rotation: new THREE.Vector3(-0.5, 0, 0), 
-        ms: 500,
+        rotation: new THREE.Vector3(-0.5, 0, 0),
+        permanent: true,
+        ms: 100,
         owner: this
       }
     );

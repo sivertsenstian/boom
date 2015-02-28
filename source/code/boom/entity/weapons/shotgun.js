@@ -42,7 +42,7 @@ Boom.Shotgun.prototype = Boom.inherit(Boom.Entity, {
         object: physics.object,
         position: new THREE.Vector3(0, 0.25, 0.25), 
         rotation: new THREE.Vector3(0.25, 0, 0), 
-        ms: this.cooldown,
+        ms: 175,
         owner: this
       }
     );

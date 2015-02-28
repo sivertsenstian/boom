@@ -46,6 +46,9 @@ Boom.Component.prototype = {
 
   listensTo: function( event ){
     return this.events.indexOf( event ) >= 0;
+  },
+
+  dispose: function(){
   }
 
 };

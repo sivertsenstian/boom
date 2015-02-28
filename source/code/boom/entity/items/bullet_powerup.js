@@ -35,22 +35,23 @@ Boom.BulletPowerup.prototype = Boom.inherit(Boom.Entity, {
       {
         name: "powerup_item_bullet_animation",
         object: physics.object,
-        position: new THREE.Vector3(0, 0, 0), 
         rotation: new THREE.Vector3(0, 2*Math.PI, 0), 
         ms: 6000,
+        repeat: Infinity,
+        yoyo: false,
         owner: this
       }
     );
     this.components[animation.name] = animation;
-    animation.animate( Infinity );
+    animation.animate();
 
     var animation_disappear = new Boom.AnimationComponent( 
       {
         name: "powerup_item_bullet_animation_disappear",
         object: physics.object,
-        scale: new THREE.Vector3(0, 0, 0),
-        target_scale: new THREE.Vector3(0, 0, 0),
+        scale: physics.object.scale.clone().negate(),
         ms: 200,
+        yoyo:false,
         owner: this
       }
     );

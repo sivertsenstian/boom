@@ -110,6 +110,13 @@ Boom.Entity.prototype = {
     if(!this.isDisposed()){
       this.__dispose = true;
       this.process();
+      //Dispose all components of this entity
+      for (var component in this.components) {
+        if (!this.components.hasOwnProperty(component)) {
+            continue;
+        }
+        this.components[component].dispose();
+      }
     }
   },
 

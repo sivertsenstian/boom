@@ -36,20 +36,22 @@ Boom.EndGoal.prototype = Boom.inherit(Boom.Entity, {
         position: new THREE.Vector3(0, 0, 0), 
         rotation: new THREE.Vector3(0, 2*Math.PI, 0), 
         ms: 2000,
+        repeat: Infinity,
+        yoyo: false,
         owner: this
       }
     );
     this.components[animation.name] = animation;
-    animation.animate( Infinity );
+    animation.animate();
 
     var animation_disappear = new Boom.AnimationComponent( 
       {
         name: "item_endgoal_animation_disappear",
         object: physics.object,
         rotation: new THREE.Vector3(0, -2*Math.PI, 0), 
-        scale: new THREE.Vector3(0, 0, 0),
-        target_scale: new THREE.Vector3(0, 0, 0),
+        scale: physics.object.scale.clone().negate(),
         ms: 1000,
+        yoyo:false,
         owner: this
       }
     );

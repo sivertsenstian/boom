@@ -38,9 +38,9 @@ Boom.Pistol.prototype = Boom.inherit(Boom.Entity, {
       {
         name: "pistol_animation_shoot",
         object: physics.object,
-        position: new THREE.Vector3(0, 0.25, 0.25), 
-        rotation: new THREE.Vector3(0.25, 0, 0), 
-        ms: this.cooldown,
+        rotation: new THREE.Vector3(0.25, 0, 0),
+        position: new THREE.Vector3(0, 0.25, 0.25),
+        ms: 175,
         owner: this
       }
     );
