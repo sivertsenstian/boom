@@ -52,11 +52,11 @@ Boom.HoverBot.prototype = Boom.inherit(Boom.Entity, {
     );
     this.components[ai_controls.name] = ai_controls;
 
-    var basic_movement = new Boom.MovementActionComponent( 
+    var basic_movement = new Boom.AIMovementActionComponent( 
       { 
         name: 'ai_movement', 
         owner: this, 
-        speed: 3.5
+        speed: 2.5
       } 
     );
     this.components[basic_movement.name] = basic_movement;
@@ -123,6 +123,15 @@ Boom.HoverBot.prototype = Boom.inherit(Boom.Entity, {
     );
     this.components[audio_pain.name] = audio_pain;
 
+    var audio_chase = new Boom.AudioComponent(
+      {
+        name: 'AUDIO_CHASE',
+        sound: Boom.Assets.sounds.hostile.hoverbot.chase,
+        owner: this
+      }
+    );
+    this.components[audio_chase.name] = audio_chase;
+
     var audio_death = new Boom.AudioComponent(
       {
         name: 'AUDIO_DEATH',
@@ -142,7 +151,7 @@ Boom.HoverBot.prototype = Boom.inherit(Boom.Entity, {
 
   update: function(){
     //Call super
-    Boom.Entity.prototype.update.call(this);                    
+    Boom.Entity.prototype.update.call(this);  
   },
 
   dispose: function(){
@@ -164,7 +173,10 @@ Boom.HoverBot.prototype = Boom.inherit(Boom.Entity, {
     Boom.Constants.World.STATS.ENEMIES++;
     //Call super
     Boom.Entity.prototype.register.call(this);
-  }
+  },
 
+  wakeup: function(){
+   this.components.AUDIO_CHASE.play(); 
+  }
 
 });

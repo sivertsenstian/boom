@@ -1,4 +1,4 @@
-Boom.MovementActionComponent = function( params ) {
+Boom.PlayerMovementActionComponent = function( params ) {
   params = params || {};
   this.speed = params.speed || 0;
   this.velocity = new THREE.Vector3(0, 0, 0);
@@ -15,8 +15,8 @@ Boom.MovementActionComponent = function( params ) {
   Boom.Component.call(this, params );
 };
 
-Boom.MovementActionComponent.prototype = Boom.inherit(Boom.Component, {
-  constructor: Boom.MovementActionComponent,
+Boom.PlayerMovementActionComponent.prototype = Boom.inherit(Boom.Component, {
+  constructor: Boom.PlayerMovementActionComponent,
 
   init: function() {
     //Call super
@@ -32,7 +32,7 @@ Boom.MovementActionComponent.prototype = Boom.inherit(Boom.Component, {
   update: function(){
     //Call super
     Boom.Component.prototype.update.call(this);
-    if( this.velocity.length() !== 0 ){
+    if( this.velocity.length() > 0){
       this.velocity.multiplyScalar(this.speed);
       this.msg.data = this.velocity;
       this.send( this.msg );

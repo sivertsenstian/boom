@@ -92,7 +92,7 @@ Boom.Player.prototype = Boom.inherit(Boom.Entity, {
     );
     this.components[controls.name] = controls;
 
-    var basic_movement = new Boom.MovementActionComponent( 
+    var basic_movement = new Boom.PlayerMovementActionComponent( 
       { 
         name: 'player_movement', 
         owner: this, 

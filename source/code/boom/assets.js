@@ -7,8 +7,9 @@ Boom.Assets = {
   music: {
     MISSING: new Boom.Audio({url: 'resources/music/missing.mp3', volume: 0.2, loop: true, positional: false }),
     maps:{
-      'c7cc27d8-da16-4c26-bb03-0e2d04de63c8' : new Boom.Audio({url: 'resources/music/simple_action_beat.ogg', volume: 0.1, loop: true, positional: false}),
-      '2edee789-75ae-411e-87a5-f11a049172c2' : new Boom.Audio({url: 'resources/music/bensound-scifi.mp3', volume: 0.1, loop: true, positional: false})
+      'c7cc27d8-da16-4c26-bb03-0e2d04de63c8' : new Boom.Audio({url: 'resources/music/simple_action_beat.ogg', volume: 0.05, loop: true, positional: false}),
+      '2edee789-75ae-411e-87a5-f11a049172c2' : new Boom.Audio({url: 'resources/music/bensound-scifi.mp3', volume: 0.05, loop: true, positional: false}),
+      '38d782f3-3385-4664-81d5-5d9195e0c021' : new Boom.Audio({url: 'resources/music/bensound-scifi.mp3', volume: 0.05, loop: true, positional: false})
     }
   },
   sounds: {
@@ -70,7 +71,8 @@ Boom.Assets = {
     hostile: {
       hoverbot:{
         pain: new Boom.Audio({url: 'resources/sounds/hoverbot_pain.mp3', volume: 0.5}),
-        death: new Boom.Audio({url: 'resources/sounds/hoverbot_death.mp3', volume: 0.5})
+        death: new Boom.Audio({url: 'resources/sounds/hoverbot_death.mp3', volume: 0.5}),
+        chase: new Boom.Audio({url: 'resources/sounds/hoverbot_active.mp3', volume: 1.0}),
       }
     },
     structure: {

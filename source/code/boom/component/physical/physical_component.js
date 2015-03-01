@@ -64,7 +64,7 @@ Boom.PhysicalComponent.prototype = Boom.inherit(Boom.Component, {
     this.object.name = this.name + "_OBJECT";
 
     //Messages
-    this.msg_landed = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, data: Boom.Constants.FALSE, type: Boom.Constants.Message.Action.LAND, sender: this.type });
+    this.msg_landed = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, data: Boom.Constants.TRUE, type: Boom.Constants.Message.Action.LAND, sender: this.type });
 
   },
 

@@ -14,6 +14,7 @@ Boom.Menu = function( game ){
 
   //Maps
   loader.addJSON('/resources/maps/playground.json', ['world', 'MAP', 'PLAYGROUND'] );
+  loader.addJSON('/resources/maps/hallway.json', ['world', 'MAP', 'HALLWAY OF BOOM'] );
   loader.addJSON('/resources/maps/test1.json', ['world', 'MAP', 'TEST'] );
   /*loader.addJSON('/resources/maps/level01.json', ['world', 'MAP', 'L1'] );
   loader.addJSON('/resources/maps/level02.json', ['world', 'MAP', 'L2'] );

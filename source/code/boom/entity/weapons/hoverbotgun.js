@@ -1,6 +1,6 @@
 Boom.HoverBotGun = function( params ){
   this.type = Boom.Assets.world.ENTITY.HOVERBOTGUN; //TODO: THIS SHOULD BE DONE IN A BETTER WAY
-  this.cooldown = 350;
+  this.cooldown = 1000;
   this.last_shot = Boom.getCurrentTime();
   this.hud = {};
   this.position = params.position;

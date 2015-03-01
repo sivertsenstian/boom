@@ -2,7 +2,12 @@ Boom.AIInputActionComponent = function( params ) {
   params = params || {};
   this.object = params.object;
   this.type = params.type || Boom.Constants.Component.TYPE.INPUT;
-  
+
+  this.range = 300;
+  this.minimum_distance = 96;
+  this.cooldown = 500;
+  this.last_update = Boom.getCurrentTime();
+
   //Call super
   Boom.Component.call(this, params );
 };
@@ -26,7 +31,7 @@ Boom.AIInputActionComponent.prototype = Boom.inherit(Boom.Component, {
     this.rightClick = false;
 
     this.started = false;
-    scope.enabled = true; //TODO: NEEDED, MIGHT BE HANDED FOR DEBUG ?
+    this.sleep();
   },
 
   load: function(){
@@ -45,25 +50,26 @@ Boom.AIInputActionComponent.prototype = Boom.inherit(Boom.Component, {
     rotation.set( this.object.rotation.x, this.object.rotation.y, 0 );
     v.copy( direction ).applyEuler( rotation );
     
+    v.y = 0;
     return v;
   },
 
   update: function(){
-    //Call super
-    Boom.Component.prototype.update.call(this);
+    this.inRange();
+
     if ( this.enabled === false ) return;
 
-    this.leftClick = (Math.floor((Math.random() * 500) + 1) <= 5);
+    //AI checks
+    if( (Boom.getCurrentTime() - this.last_update) >= this.cooldown ){
+      this.last_update = Boom.getCurrentTime();
+      this.chase();
+    }
 
-    this.moveForward = (Math.floor((Math.random() *   50) + 1) <= 5);
-    this.moveBackward = (Math.floor((Math.random() * 50) + 1) <= 5);
-    this.moveLeft = (Math.floor((Math.random() * 50) + 1) <= 5);
-    this.moveRight = (Math.floor((Math.random() * 50) + 1) <= 5);
-
+    //AI messages
     if ( this.moveForward ) {
       this.moveBackward = false;
       this.send( new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, 
-                                    data: this.getDirection().normalize(), 
+                                    data: this.getDirection(), 
                                     type: Boom.Constants.Message.Input.FORWARD, 
                                     sender: this.type }));
     }
@@ -112,6 +118,43 @@ Boom.AIInputActionComponent.prototype = Boom.inherit(Boom.Component, {
                               data: this.getDirection().normalize(), 
                               type: Boom.Constants.Message.Action.JUMP, 
                               sender: this.type }));
+    }
+  },
+
+  patrol: function(){
+    
+  },
+
+  chase: function(){
+    var player_pos = Boom.Constants.PLAYER.getObjectComponent().object.position;
+    this.object.lookAt( player_pos );
+    this.moveForward = this.object.position.distanceTo( player_pos ) > this.minimum_distance;
+    this.leftClick = true;
+  },
+
+  sleep: function() {
+    this.enabled = false;
+  },
+
+  wakeup: function() {
+    this.enabled = true;
+    this.owner.wakeup();
+  },
+
+  halt: function(){
+    this.moveForward = false;
+    this.moveBackward = false;
+    this.moveLeft = false;
+    this.moveRight = false;
+  },
+
+  inRange: function(){
+    var player_pos = Boom.Constants.PLAYER.getObjectComponent().object.position;
+    if (this.object.position.distanceTo( player_pos ) <= this.range && !this.enabled){
+      this.wakeup();
+    }
+    else if (this.object.position.distanceTo( player_pos ) > this.range && this.enabled){
+      this.sleep();
     }
   }
 
