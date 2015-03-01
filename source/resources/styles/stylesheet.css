@@ -34,6 +34,19 @@ canvas {
   z-index: 100;
 }
 
+/*** SECRET ***/
+#BoomSecret{
+  position: absolute;
+  top: 25vw;
+  width: 100%;
+  text-align: center;
+  font-size: 5vw;
+  font-family: capture_itregular;
+  color: orange;
+  display: none;
+  z-index: 100;
+}
+
 
 /*** SCORE ***/
 #BoomScore{

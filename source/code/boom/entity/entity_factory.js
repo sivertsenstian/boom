@@ -122,6 +122,10 @@ Boom.EntityFactory.prototype = {
         entity = new Boom.EntitySpawnTrigger(params);
         Boom.GameGrid.addTrigger( entity.id, entity.position );
         break;
+      case Boom.Constants.Triggers.SECRET:
+        entity = new Boom.SecretTrigger(params);
+        Boom.GameGrid.addTrigger( entity.id, entity.position );
+        break;
 
       default:
         console.error( 'Entity of type "' + type + '" does not exist!');

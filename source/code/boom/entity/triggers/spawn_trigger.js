@@ -5,8 +5,6 @@ Boom.EntitySpawnTrigger = function( params ){
   this.triggered = false;
   this.entity = params.entity || Boom.Constants.Actors.HOSTILE.ALIEN;
   this.quantity = params.quantity || 1;
-
-  //this.message = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ANIMATION, data: this.value, type: Boom.Constants.Message.Action.WIN, sender: this.type });
   
   Boom.Entity.call(this, {name: 'TRIGGER_ENTITY_SPAWN', });
 };

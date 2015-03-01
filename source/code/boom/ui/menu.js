@@ -70,6 +70,7 @@ Boom.Menu.prototype = {
     $(Boom.Constants.UI.ELEMENT.PLAYER).hide(this.animation_speed);
     $(Boom.Constants.UI.ELEMENT.SCORE).hide(this.animation_speed);
     $(Boom.Constants.UI.ELEMENT.SELECT_LEVEL).hide(this.animation_speed);
+    $(Boom.Constants.UI.ELEMENT.SECRET).hide(this.animation_speed);
 
     this.in_menu = true;
   },

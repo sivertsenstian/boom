@@ -4,7 +4,7 @@ Boom.HoverBotGunLaser = function( params ){
   this.direction = params.direction;
   this.size = 2;
   this.speed = 10;
-  this.damage = 20;
+  this.damage = 7;
   this.velocity = new THREE.Vector3(0, 0, 0);
   this.msg = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, data: null, type: Boom.Constants.Message.Action.VELOCITY, sender: this.name });
   

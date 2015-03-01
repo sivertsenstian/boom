@@ -1,13 +1,13 @@
-Boom.DoorTrigger = function( params ){
+Boom.SecretTrigger = function( params ){
   this.type = params.type || Boom.Assets.world.ENTITY.MISSING;
   this.position = params.position;
   this.interactable = params.interactable || false;
   this.triggered = false;
   
-  Boom.Entity.call(this, {name: 'TRIGGER_DOOR', });
+  Boom.Entity.call(this, {name: 'TRIGGER_SECRET', });
 };
-Boom.DoorTrigger.prototype = Boom.inherit(Boom.Entity, {
-  constructor: Boom.DoorTrigger,
+Boom.SecretTrigger.prototype = Boom.inherit(Boom.Entity, {
+  constructor: Boom.SecretTrigger,
 
   init: function() {
     //Call super
@@ -34,17 +34,27 @@ Boom.DoorTrigger.prototype = Boom.inherit(Boom.Entity, {
   trigger: function(){
     if(!this.triggered){
       this.triggered = true;
-      //play animation on WALL-object at this position ??
-      Boom.GameGrid.removeCollisionFromPosition( this.position );
+      this.process();
+      
+      $(Boom.Constants.UI.ELEMENT.SECRET).show(200);
+      $(Boom.Constants.UI.ELEMENT.SECRET).hide(5000);
+
       //Check if any entities are on this position - and trigger it if exists
       Boom.GameGrid.triggerEntity( this.triggered, this.position, { open: true } );
     }
-    else{
-      this.triggered = false;
-      //play animation on WALL-object at this position ??
-      Boom.GameGrid.addCollisionToPosition( this.position );
-      //Check if any entities are on this position - and trigger it if exists
-      Boom.GameGrid.triggerEntity( this.triggered, this.position, { open: false } );
-    }
-  }
+  },
+
+  //Registers the entity as a player-used entity
+  process: function(){
+    Boom.Constants.UI.PLAYER.STATS.SECRETS++;
+    //Call super
+    Boom.Entity.prototype.process.call(this);
+  },
+
+  //Adds entity to world-total in statistics
+  register: function(){
+    Boom.Constants.World.STATS.SECRETS++;
+    //Call super
+    Boom.Entity.prototype.register.call(this);
+  },
 });

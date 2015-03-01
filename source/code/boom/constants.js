@@ -37,7 +37,8 @@ Boom.Constants = {
       SCORE: '#BoomScore',
       SCORE_VALUE: '#BoomScoreValue',
       SELECT_LEVEL: '#BoomSelectLevel',
-      POINTER_LOCK: '#BoomPointerLock'
+      POINTER_LOCK: '#BoomPointerLock',
+      SECRET: '#BoomSecret'
     }
   },
 
@@ -95,7 +96,8 @@ Boom.Constants = {
 
   Triggers:{
     DOOR: '94df0126-3382-444e-b179-df17fbfca37d',
-    ENTITY_SPAWN: '203a3744-5658-490c-9b28-fa0ded97cfa0'
+    ENTITY_SPAWN: '203a3744-5658-490c-9b28-fa0ded97cfa0',
+    SECRET: '291ad70f-a3b9-4ade-be8b-33f0e706a028'
   },
 
   Component:{
