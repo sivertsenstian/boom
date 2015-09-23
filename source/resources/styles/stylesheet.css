@@ -47,6 +47,19 @@ canvas {
   z-index: 100;
 }
 
+/*** DOOR INSTRUCTIONS ***/
+#BoomDoorInstructions{
+  position: absolute;
+  top: 25vw;
+  width: 100%;
+  text-align: center;
+  font-size: 5vw;
+  font-family: capture_itregular;
+  color: white;
+  display: none;
+  z-index: 100;
+}
+
 
 /*** SCORE ***/
 #BoomScore{
@@ -82,7 +95,7 @@ canvas {
   font-family: capture_itregular;
   color:white; 
   display:none;
-  z-index:100;
+  z-index:900;
 }
 
 .boom-player-registration-container{
@@ -101,6 +114,7 @@ canvas {
   color: orange;
   border: none;
   text-align: center;
+  width: 500px;
 }
 
 /*** HUD ***/
@@ -240,7 +254,13 @@ canvas {
 
 .boom-table{
   border-collapse: collapse;
-  width: 100%;
+  width: 75%;
+  margin-left: 10vw;
+}
+
+.boom-table-min{
+  border-collapse: collapse;
+  width: 50%;
   margin-left: 10vw;
 }
 

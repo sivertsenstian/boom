@@ -66,7 +66,7 @@ Boom.HoverBotGun.prototype = Boom.inherit(Boom.Entity, {
 
       var spawn = new THREE.Vector3( 0 , 0 , 0 );
       this.getObjectComponent().object.localToWorld(spawn);
-      Boom.GameFactory.spawn(type, {direction: dir, spawn: spawn, faction: this.faction});
+      Boom.GameFactory.spawn(Boom.Constants.Ammunition.HOVERBOTGUNLASER, {direction: dir, spawn: spawn, faction: this.faction});
       this.components['hoverbotgun_audio_shoot'].play();
 
       this.last_shot = Boom.getCurrentTime();

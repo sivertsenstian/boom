@@ -5,6 +5,7 @@
 
   <!-- Vendor -->
   <script type="text/javascript" src="vendor/jquery.min.js"></script>
+  <script type="text/javascript" src="vendor/jquery-ui.min.js"></script>
   <script type="text/javascript" src="vendor/three.min.js"></script>
   <script type="text/javascript" src="vendor/tween.min.js"></script>
   <script type="text/javascript" src="vendor/Stats.js"></script>
@@ -75,12 +76,15 @@
   <script type="text/javascript" src='code/boom/entity/weapons/rifle.js'></script>
   <script type="text/javascript" src='code/boom/entity/weapons/rocketlauncher.js'></script>
   <script type="text/javascript" src='code/boom/entity/weapons/hoverbotgun.js'></script>
+  <script type="text/javascript" src='code/boom/entity/weapons/dragonmouth.js'></script>
   <!-- AMMUNITION -->
   <script type="text/javascript" src='code/boom/entity/ammunition/bullet.js'></script>
   <script type="text/javascript" src='code/boom/entity/ammunition/shell.js'></script>
   <script type="text/javascript" src='code/boom/entity/ammunition/rocket.js'></script>
   <script type="text/javascript" src='code/boom/entity/ammunition/hoverbotgunlaser.js'></script>
+  <script type="text/javascript" src='code/boom/entity/ammunition/dragonfire.js'></script>
   <!-- ITEMS -->
+  <script type="text/javascript" src='code/boom/entity/items/computas_powerup.js'></script>
   <script type="text/javascript" src='code/boom/entity/items/healthpack_powerup.js'></script>
   <script type="text/javascript" src='code/boom/entity/items/bullet_powerup.js'></script>
   <script type="text/javascript" src='code/boom/entity/items/pistol_powerup.js'></script>
@@ -99,6 +103,7 @@
   <!-- ACTORS -->
   <script type="text/javascript" src='code/boom/entity/actors/player.js'></script>
   <script type="text/javascript" src='code/boom/entity/actors/hoverbot.js'></script>
+  <script type="text/javascript" src='code/boom/entity/actors/dragon.js'></script>
   <!-- LIGHT -->
   <script type="text/javascript" src='code/boom/entity/light/ambient.js'></script>
   <script type="text/javascript" src='code/boom/entity/light/directional.js'></script>
@@ -107,6 +112,7 @@
   <!-- TRIGGERS -->
   <script type="text/javascript" src='code/boom/entity/triggers/door_trigger.js'></script>
   <script type="text/javascript" src='code/boom/entity/triggers/spawn_trigger.js'></script>
+  <script type="text/javascript" src='code/boom/entity/triggers/door_instructions_trigger.js'></script>
   <script type="text/javascript" src='code/boom/entity/triggers/secret_trigger.js'></script>
 
   <!-- WORLD -->
@@ -138,8 +144,8 @@
     <br>
     <ul id="BoomStats" class="boom-list boom-shadow-text"></ul>
     <div>
-      <span id="BoomGameWonHighScore" class="boom-button boom-button-red" onclick="Boom.GAME_MENU.highScore()">Menu</span>
-      <span id="BoomGameWonNextLevel" class="boom-button boom-button-green" onclick="Boom.GAME_MENU.nextLevel()">Onwards</span>
+      <span id="BoomGameWonHighScore" class="boom-button boom-button-red" onclick="Boom.GAME_MENU.highScore()">Check your highscore!</span>
+      <!--<span id="BoomGameWonNextLevel" class="boom-button boom-button-green" onclick="Boom.GAME_MENU.nextLevel()">Onwards</span>-->
     </div>
   </div>
 </div>
@@ -163,9 +169,9 @@
     <div class="boom-menu-item-container">
       <span id="BoomNewGame" class="boom-start boom-shadow-text boom-menu-item" onclick="Boom.GAME_MENU.newGame()" >Start New Game</span>
     </div>
-    <div class="boom-menu-item-container">
+    <!--<div class="boom-menu-item-container">
       <span class="boom-shadow-text boom-menu-item" onclick="Boom.GAME_MENU.selectLevel();">Select Level</span>
-    </div>
+    </div>-->
     <div class="boom-menu-item-container">
       <span class="boom-shadow-text boom-menu-item" onclick="Boom.GAME_MENU.highScore();">High Score</span>
     </div>
@@ -174,10 +180,25 @@
   <!-- PLAYER REGISTRATION -->
   <div id="BoomPlayerRegistration">
     <div class="boom-player-registration-container">
-      <span class="boom-shadow-text boom-player-registration-label">Please Register:</span>
+      <span class="boom-shadow-text boom-player-registration-label">Email:</span>
       <input id="BoomPlayerRegistrationInput" type="text" class="boom-player-registration-input">
     </div>
   </div>
+
+  <!-- TOP 5 -->
+  <div id="BoomTop5" style="margin-top: 50px;">
+    <span class="boom-shadow-text boom-menu-item" style="font-size:50px;">TOP 5</span>
+    <table class="boom-table-min" style="margin-top: 20px; margin-left: 25vw;">
+        <thead>
+            <tr>
+                <th class="boom-shadow-text boom-table-header"> RANK </th>
+                <th class="boom-shadow-text boom-table-header"> USERNAME </th>
+                <th class="boom-shadow-text boom-table-header"> SCORE </th>
+            </tr>
+        </thead>
+        <tbody class="boom-top5-body"></tbody>
+    </table>
+</div>
 
   <!-- HIGHSCORE-->
   <div id="BoomHighScore">
@@ -209,11 +230,15 @@
 </div>
 
 <div id="BoomPointerLock">
-  <span class="boom-shadow-text">Right click to lock mouse</span>
+  <span class="boom-shadow-text">Move with W,A,S,D - Right click to lock mouse and start</span>
 </div>
 
 <div id="BoomSecret">
   <span class="boom-shadow-text">Secret Found</span>
+</div>
+
+<div id="BoomDoorInstructions">
+    <span class="boom-shadow-text" style="font-size:30px;">Press 'E' to open the door</span>
 </div>
 
 <!-- HUD -->

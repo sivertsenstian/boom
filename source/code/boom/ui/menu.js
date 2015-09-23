@@ -11,6 +11,7 @@ Boom.Menu = function( game ){
 
   //Enemies
   loader.addObjMtlModel('/resources/models/enemies/boom_hoverbot/BoomHoverBot', ['enemies', 'hoverbot'] );
+  loader.addObjMtlModel('/resources/models/enemies/boom_dragon/dragon', ['enemies', 'dragon']);
 
   //Maps
   loader.addJSON('/resources/maps/playground.json', ['world', 'MAP', 'PLAYGROUND'] );
@@ -61,7 +62,9 @@ Boom.Menu.prototype = {
 
   mainMenu: function(){
     this.menu_down.play();
+    this.top5();    
 
+    $(Boom.Constants.UI.ELEMENT.TOP_5).show(this.animation_speed);
     $(Boom.Constants.UI.ELEMENT.TITLE).show(this.animation_speed);
     $(Boom.Constants.UI.ELEMENT.PLAYER_REGISTRATION).show(this.animation_speed);
     $(Boom.Constants.UI.ELEMENT.TITLE_MENU).show(this.animation_speed);
@@ -75,36 +78,41 @@ Boom.Menu.prototype = {
     this.in_menu = true;
   },
 
-  newGame: function( level ){
-    this.menu_down.play();
-
-    Boom.Constants.UI.PLAYER.SCORE = 0; //Reset score
-
-    this.initGame( level );
-
-    $(Boom.Constants.UI.ELEMENT.HIGH_SCORE).hide();
-    $(Boom.Constants.UI.ELEMENT.TITLE_MENU).hide();
-    $(Boom.Constants.UI.ELEMENT.PLAYER_REGISTRATION).hide();
-    $(Boom.Constants.UI.ELEMENT.PLAYER_REGISTRATION).hide(this.animation_speed);
-    $(Boom.Constants.UI.ELEMENT.TITLE).hide(this.animation_speed*5);
-    $(Boom.Constants.UI.ELEMENT.GAME_WON).hide(this.animation_speed);
-    $(Boom.Constants.UI.ELEMENT.GAME_OVER).hide(this.animation_speed);
-
-
-    $(Boom.Constants.UI.ELEMENT.HUD).show(this.animation_speed*3);
-
-    $(Boom.Constants.UI.ELEMENT.PLAYER).text( Boom.Constants.UI.PLAYER.NAME );
-    $(Boom.Constants.UI.ELEMENT.PLAYER).show(this.animation_speed*3);
-
-    $(Boom.Constants.UI.ELEMENT.SCORE).show(this.animation_speed*3);
-
-    if(Boom.Constants.UI.MOUSE_LOCKED === false){
-      $(Boom.Constants.UI.ELEMENT.POINTER_LOCK).show(this.animation_speed*3);
-    }
-    this.in_menu = false;
-
-    //Start level-timer
-    Boom.Constants.UI.PLAYER.STATS.START_TIME = Boom.getCurrentTime();
+  newGame: function (level){
+        if (Boom.Constants.UI.PLAYER.NAME.length > 0 && Boom.Constants.UI.PLAYER.NAME.toLowerCase() !== 'unregistered') {
+            this.menu_down.play();
+            
+            Boom.Constants.UI.PLAYER.SCORE = 0; //Reset score
+            
+            this.initGame(level);
+            
+            $(Boom.Constants.UI.ELEMENT.HIGH_SCORE).hide();
+            $(Boom.Constants.UI.ELEMENT.TITLE_MENU).hide();
+            $(Boom.Constants.UI.ELEMENT.PLAYER_REGISTRATION).hide();
+            $(Boom.Constants.UI.ELEMENT.PLAYER_REGISTRATION).hide(this.animation_speed);
+            $(Boom.Constants.UI.ELEMENT.TITLE).hide(this.animation_speed * 5);
+            $(Boom.Constants.UI.ELEMENT.GAME_WON).hide(this.animation_speed);
+            $(Boom.Constants.UI.ELEMENT.TOP_5).hide(this.animation_speed);
+            $(Boom.Constants.UI.ELEMENT.GAME_OVER).hide(this.animation_speed);
+            
+            
+            $(Boom.Constants.UI.ELEMENT.HUD).show(this.animation_speed * 3);
+            
+            $(Boom.Constants.UI.ELEMENT.PLAYER).text(Boom.Constants.UI.PLAYER.NAME);
+            $(Boom.Constants.UI.ELEMENT.PLAYER).show(this.animation_speed * 3);
+            
+            $(Boom.Constants.UI.ELEMENT.SCORE).show(this.animation_speed * 3);
+            
+            if (Boom.Constants.UI.MOUSE_LOCKED === false) {
+                $(Boom.Constants.UI.ELEMENT.POINTER_LOCK).show(this.animation_speed * 3);
+            }
+            this.in_menu = false;
+            
+            //Start level-timer
+            Boom.Constants.UI.PLAYER.STATS.START_TIME = Boom.getCurrentTime();
+        } else {
+            $(Boom.Constants.UI.ELEMENT.REGISTRATION_INPUT).fadeIn(100).fadeOut(100).fadeIn(150).fadeOut(150).fadeIn(100);
+        }
   },
 
   nextLevel: function(){
@@ -127,9 +135,31 @@ Boom.Menu.prototype = {
     }
   },
 
-  endLevel: function(){
+  endLevel: function (){
+    Boom.updateScores();
     this.mouseRelease();
     this.highScore();
+  },
+    
+  top5: function (){
+    //Generate Top 5
+    var user, current;
+    $(".boom-top5-body").empty();
+    Boom.Assets.ui.HIGHSCORES.sort(Boom.sortScores).slice(0, 5);
+        
+    for (var i = 0; i < 5; i++) {
+        if(Boom.Assets.ui.HIGHSCORES.length > i) {
+            user = Boom.Assets.ui.HIGHSCORES[i];
+            current = (user.name.toLowerCase() === Boom.Constants.UI.PLAYER.NAME.toLowerCase()) ? 'class="boom-score-current"' : '';
+            $(".boom-top5-body").append(
+                '<tr ' + current + '>' +
+                    '<td class="boom-shadow-text boom-table-cell"># ' + (i + 1) + '</td>' +
+                    '<td class="boom-shadow-text boom-table-cell">' + user.name + '</td>' +
+                    '<td class="boom-shadow-text boom-table-cell">' + Boom.padNumber(user.score, 8) + '</td>' +
+                '</tr>'
+            );
+        }
+    }
   },
 
   highScore: function(){
@@ -155,6 +185,7 @@ Boom.Menu.prototype = {
     $(Boom.Constants.UI.ELEMENT.TITLE).show(this.animation_speed);
     $(Boom.Constants.UI.ELEMENT.HIGH_SCORE).show(this.animation_speed);
 
+
     $(Boom.Constants.UI.ELEMENT.POINTER_LOCK).hide(this.animation_speed);
     $(Boom.Constants.UI.ELEMENT.GAME_WON).hide(this.animation_speed);
     $(Boom.Constants.UI.ELEMENT.GAME_OVER).hide(this.animation_speed);
@@ -164,6 +195,7 @@ Boom.Menu.prototype = {
     $(Boom.Constants.UI.ELEMENT.HUD).hide(this.animation_speed);
     $(Boom.Constants.UI.ELEMENT.PLAYER).hide(this.animation_speed);
     $(Boom.Constants.UI.ELEMENT.SCORE).hide(this.animation_speed);
+    $(Boom.Constants.UI.ELEMENT.TOP_5).hide(this.animation_speed);
 
     this.in_menu = true;
   },
@@ -190,6 +222,7 @@ Boom.Menu.prototype = {
     $(Boom.Constants.UI.ELEMENT.SELECT_LEVEL).show(this.animation_speed);
     $(Boom.Constants.UI.ELEMENT.HUD).hide(this.animation_speed);
     $(Boom.Constants.UI.ELEMENT.PLAYER).hide(this.animation_speed);
+    $(Boom.Constants.UI.ELEMENT.TOP_5).hide(this.animation_speed);
     $(Boom.Constants.UI.ELEMENT.SCORE).hide(this.animation_speed);
 
     this.in_menu = true;
@@ -264,7 +297,7 @@ Boom.Menu.prototype = {
   },
 
   initGame: function(level){
-    level = level || 'L1';
+    level = level || 'HALLWAY OF BOOM';
     this.game.dispose(); //reset before loading game
     this.game.load( level ); //TODO LOAD GAME HERE WITH A BAR?
   }

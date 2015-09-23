@@ -86,6 +86,10 @@ Boom.sortScores = function(a, b) {
   return 0;
 };
 
+Boom.randomIntFromInterval = function(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+};
+
 Boom.msToMS = function( ms ) {
   var minutes = Math.floor(ms / 60000);
   var seconds = ((ms % 60000) / 1000).toFixed(0);
@@ -96,12 +100,14 @@ Boom.updateScores = function(){
   var user;
   for(var i = 0; i < Boom.Assets.ui.HIGHSCORES.length; i++){
       user = Boom.Assets.ui.HIGHSCORES[i];
-      if(user.name.toLowerCase() === Boom.Constants.UI.PLAYER.NAME.toLowerCase() &&
-         Boom.Constants.UI.PLAYER.SCORE > user.score){
-        user.score = Boom.Constants.UI.PLAYER.SCORE;
+      if (user.name.toLowerCase() === Boom.Constants.UI.PLAYER.NAME.toLowerCase())
+        if (Boom.Constants.UI.PLAYER.SCORE > user.score) {
+            user.score = Boom.Constants.UI.PLAYER.SCORE;
+        }
         return;
-      }
   }
+
+
   if(Boom.Constants.UI.PLAYER.NAME.toLowerCase() !== 'UNREGISTERED'.toLowerCase()){
     Boom.Assets.ui.HIGHSCORES.push({
                                     name: Boom.Constants.UI.PLAYER.NAME, 

@@ -7,7 +7,7 @@ Boom.RocketLauncherPowerup = function( params ){
 
   this.message = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.INVENTORY, data: {name:  Boom.Assets.world.ENTITY.ROCKETLAUNCHER, value: this.value}, type: Boom.Constants.Message.Action.ADD_WEAPON, sender: this.type });
 
-  Boom.Entity.call(this, {name: 'POWERUP_ITEM_ROCKETLAUNCHER', is_singular: true});
+  Boom.Entity.call(this, {name: 'POWERUP_ITEM_ROCKETLAUNCHER', is_singular: true, score: 100});
 };
 
 Boom.RocketLauncherPowerup.prototype = Boom.inherit(Boom.Entity, {

@@ -32,7 +32,6 @@ Boom.CollisionGrid.prototype = {
   },
 
   update: function(){
-    
   },
 
   addCollision: function( index ){

@@ -14,12 +14,12 @@ Boom.HoverBot.prototype = Boom.inherit(Boom.Entity, {
   init: function() {
     //Call super
     Boom.Entity.prototype.init.call(this);
-
+        
     var health = new Boom.HealthActionComponent({
       name: 'hoverbot_health',
-      value: 50,
+      value: Boom.randomIntFromInterval(40, 60), 
       owner: this
-    });
+        });
     this.components[health.name] = health;
 
     var death = new Boom.DeathActionComponent({

@@ -4,7 +4,7 @@ Boom.SecretTrigger = function( params ){
   this.interactable = params.interactable || false;
   this.triggered = false;
   
-  Boom.Entity.call(this, {name: 'TRIGGER_SECRET', });
+  Boom.Entity.call(this, {name: 'TRIGGER_SECRET', score: 300 });
 };
 Boom.SecretTrigger.prototype = Boom.inherit(Boom.Entity, {
   constructor: Boom.SecretTrigger,

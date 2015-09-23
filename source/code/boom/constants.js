@@ -31,6 +31,7 @@ Boom.Constants = {
       HUD_INVENTORY: '#BoomHUD_INVENTORY',
       TITLE_MENU: '#BoomTitleMenu',
       HIGH_SCORE: '#BoomHighScore',
+      TOP_5: '#BoomTop5',
       PLAYER: '#BoomPlayer',
       PLAYER_REGISTRATION: '#BoomPlayerRegistration',
       REGISTRATION_INPUT: '#BoomPlayerRegistrationInput',
@@ -38,7 +39,8 @@ Boom.Constants = {
       SCORE_VALUE: '#BoomScoreValue',
       SELECT_LEVEL: '#BoomSelectLevel',
       POINTER_LOCK: '#BoomPointerLock',
-      SECRET: '#BoomSecret'
+      SECRET: '#BoomSecret',
+      DOOR_INSTRUCTIONS: '#BoomDoorInstructions'
     }
   },
 
@@ -73,12 +75,14 @@ Boom.Constants = {
       PLAYER: '44ade206-60e5-43b7-aaa3-045e147a1c88'
     },
     HOSTILE:{
-      HOVERBOT:'0a89b621-e2ed-4618-ad90-57641ba6a563'
+      HOVERBOT:'0a89b621-e2ed-4618-ad90-57641ba6a563',
+      DRAGON: '5d532650-55f1-4a0b-bb16-fd67b8c08b71'
     }
   },
 
   Items:{
     POWERUP: {
+      COMPUTAS: '77ee0e75-8943-40f3-925c-137eb2a8b95b',
       HEALTH: 'db9fdc72-5195-49b2-9327-346919b644df',
       BULLET: '2bccdac5-f515-4926-b203-95334bc240a1',
       BULLET_LARGE: '4e41cb95-3df0-4463-8093-d9b87272ff0e',
@@ -97,7 +101,8 @@ Boom.Constants = {
   Triggers:{
     DOOR: '94df0126-3382-444e-b179-df17fbfca37d',
     ENTITY_SPAWN: '203a3744-5658-490c-9b28-fa0ded97cfa0',
-    SECRET: '291ad70f-a3b9-4ade-be8b-33f0e706a028'
+    SECRET: '291ad70f-a3b9-4ade-be8b-33f0e706a028',
+    DOOR_INSTRUCTIONS: 'd6dbc83d-72f0-4f15-9ff5-db7fec5b4e36'
   },
 
   Component:{
@@ -131,14 +136,16 @@ Boom.Constants = {
     SHOTGUN: '3c8e662c-44e5-4348-b959-ccd74e09dec5',
     RIFLE: '6a57c256-e90c-49d4-b503-fd7b95c28c83',
     ROCKETLAUNCHER: '02dac85e-416e-41bf-a1b6-c835867995a0',
-    HOVERBOTGUN: 'a1e12702-edfd-46b3-868b-9d6b4ad82307'
+    HOVERBOTGUN: 'a1e12702-edfd-46b3-868b-9d6b4ad82307',
+    DRAGONMOUTH: '68b8d005-0ba2-4e1c-a3e9-b4c8d2990a71'
   },
 
   Ammunition:{
     BULLET: '96fc013d-623b-4b0a-86ef-cdb9698d843f',
     SHELL: '02709816-7162-4c37-a9e7-b037cace65e0',
     ROCKET: 'c7f24327-b0f1-41c4-b882-e45d6d4cfe28',
-    HOVERBOTGUNLASER: '454ca313-2962-49ab-90fd-606542f3f55e'
+    HOVERBOTGUNLASER: '454ca313-2962-49ab-90fd-606542f3f55e',
+    DRAGONFIRE: 'dbe59f23-9980-404c-8734-fe9ada246dc5'
   },
 
   Message: {

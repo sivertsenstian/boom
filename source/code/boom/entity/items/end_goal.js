@@ -7,7 +7,7 @@ Boom.EndGoal = function( params ){
   //TODO: SEND TO WIN COMPONENT THEN ? LOAD NEXT LEVEL.. SOMETHING.. SCORESCREEN ?
   this.message = new Boom.Message({ receiver: Boom.Constants.Component.TYPE.ACTION, data: this.value, type: Boom.Constants.Message.Action.WIN, sender: this.type });
   
-  Boom.Entity.call(this, {name: 'ITEM_ENDGOAL', is_singular: true});
+  Boom.Entity.call(this, {name: 'ITEM_ENDGOAL', is_singular: true, score: 500});
 };
 Boom.EndGoal.prototype = Boom.inherit(Boom.Entity, {
   constructor: Boom.EndGoal,

@@ -194,7 +194,8 @@ Boom.World.prototype = {
   build: function(){
   },
 
-  update: function(){
+  update: function (){
+     
   },
 
   dispose: function() {

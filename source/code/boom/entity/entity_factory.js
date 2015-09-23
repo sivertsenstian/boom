@@ -24,12 +24,20 @@ Boom.EntityFactory.prototype = {
         entity = new Boom.HoverBot( params );
         Boom.GameGrid.addActor( entity.id, entity.position );
         break;
+      case Boom.Constants.Actors.HOSTILE.DRAGON:
+        entity = new Boom.Dragon( params );
+        Boom.GameGrid.addActor( entity.id, entity.position );
+        break;
       case Boom.Constants.Actors.FRIENDLY.PLAYER:
         entity = new Boom.Player( params );
         Boom.GameGrid.addActor( entity.id, entity.position );
         break;
 
       ///////////// ITEMS /////////////////////
+      case Boom.Constants.Items.POWERUP.COMPUTAS:
+        entity = new Boom.ComputasPowerup(params);
+        Boom.GameGrid.addItem(entity.id, entity.position);
+        break;
       case Boom.Constants.Items.POWERUP.HEALTH:
         entity = new Boom.HealthpackPowerup( params );
         Boom.GameGrid.addItem( entity.id, entity.position );
@@ -97,7 +105,9 @@ Boom.EntityFactory.prototype = {
       case Boom.Constants.Weapon.ROCKETLAUNCHER:
         return new Boom.RocketLauncher( params );        
       case Boom.Constants.Weapon.HOVERBOTGUN:
-        return new Boom.HoverBotGun( params );
+        return new Boom.HoverBotGun(params);
+      case Boom.Constants.Weapon.DRAGONMOUTH:
+        return new Boom.DragonMouth(params);
 
       ///////////// AMMUNITION /////////////////////
       case Boom.Constants.Ammunition.BULLET:
@@ -106,8 +116,10 @@ Boom.EntityFactory.prototype = {
         return new Boom.Shell( params );
       case Boom.Constants.Ammunition.ROCKET:
         return new Boom.Rocket( params );        
-      case Boom.Constants.Weapon.HOVERBOTGUNLASER:
-        return new Boom.HoverBotGunLaser( params ); 
+      case Boom.Constants.Ammunition.HOVERBOTGUNLASER:
+        return new Boom.HoverBotGunLaser(params);
+      case Boom.Constants.Ammunition.DRAGONFIRE:
+        return new Boom.DragonFire(params); 
 
       ////////////// TRIGGERS /////////////////////
       case Boom.Constants.Triggers.DOOR:
@@ -125,6 +137,10 @@ Boom.EntityFactory.prototype = {
       case Boom.Constants.Triggers.SECRET:
         entity = new Boom.SecretTrigger(params);
         Boom.GameGrid.addTrigger( entity.id, entity.position );
+        break;
+     case Boom.Constants.Triggers.DOOR_INSTRUCTIONS:
+        entity = new Boom.DoorInstructionsTrigger(params);
+        Boom.GameGrid.addTrigger(entity.id, entity.position);
         break;
 
       default:
