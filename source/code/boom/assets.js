@@ -1,7 +1,4 @@
-<html>
-<head>
-  <!- STYLES AND FONTS -->
-  <link rel="stylesheet" href="source/Boom.Assets = {
+Boom.Assets = {
 
   weapons: {
 
