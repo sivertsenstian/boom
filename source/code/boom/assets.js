@@ -98,11 +98,11 @@ Boom.Assets = {
     },
     MAP:{
     },
-    SKYBOX: '/source/resources/DEBUG/missing.jpg'
+    SKYBOX: 'source/resources/DEBUG/missing.jpg'
   },
 
   textures: {
-    'cc3bbbf2-b514-4daf-a9d9-1bd320d612e6': THREE.ImageUtils.loadTexture('/source/resources/DEBUG/missing.jpg')
+    'cc3bbbf2-b514-4daf-a9d9-1bd320d612e6': THREE.ImageUtils.loadTexture('source/resources/DEBUG/missing.jpg')
   },
 
   ui:{
