@@ -4,24 +4,24 @@ Boom.Menu = function( game ){
   var loader = new PxLoader();
   var scope = this;
   //Weapons
-  loader.addObjMtlModel('/source/resources/models/weapons/pistol/pistol', ['weapons', 'pistol'] );
-  loader.addObjMtlModel('/source/resources/models/weapons/shotgun/shotgun', ['weapons', 'shotgun'] );
-  loader.addObjMtlModel('/source/resources/models/weapons/rifle/rifle', ['weapons', 'rifle'] );
-  loader.addObjMtlModel('/source/resources/models/weapons/rocketlauncher/rocketlauncher', ['weapons', 'rocketlauncher'] );
+  loader.addObjMtlModel('/resources/models/weapons/pistol/pistol', ['weapons', 'pistol'] );
+  loader.addObjMtlModel('/resources/models/weapons/shotgun/shotgun', ['weapons', 'shotgun'] );
+  loader.addObjMtlModel('/resources/models/weapons/rifle/rifle', ['weapons', 'rifle'] );
+  loader.addObjMtlModel('/resources/models/weapons/rocketlauncher/rocketlauncher', ['weapons', 'rocketlauncher'] );
 
   //Enemies
-  loader.addObjMtlModel('/source/resources/models/enemies/boom_hoverbot/BoomHoverBot', ['enemies', 'hoverbot'] );
+  loader.addObjMtlModel('/resources/models/enemies/boom_hoverbot/BoomHoverBot', ['enemies', 'hoverbot'] );
 
   //Maps
-  loader.addJSON('/source/resources/maps/playground.json', ['world', 'MAP', 'PLAYGROUND'] );
-  loader.addJSON('/source/resources/maps/hallway.json', ['world', 'MAP', 'HALLWAY OF BOOM'] );
-  loader.addJSON('/source/resources/maps/test1.json', ['world', 'MAP', 'TEST'] );
-  /*loader.addJSON('/source/resources/maps/level01.json', ['world', 'MAP', 'L1'] );
-  loader.addJSON('/source/resources/maps/level02.json', ['world', 'MAP', 'L2'] );
-  loader.addJSON('/source/resources/maps/level03.json', ['world', 'MAP', 'L3'] );*/
+  loader.addJSON('/resources/maps/playground.json', ['world', 'MAP', 'PLAYGROUND'] );
+  loader.addJSON('/resources/maps/hallway.json', ['world', 'MAP', 'HALLWAY OF BOOM'] );
+  loader.addJSON('/resources/maps/test1.json', ['world', 'MAP', 'TEST'] );
+  /*loader.addJSON('/resources/maps/level01.json', ['world', 'MAP', 'L1'] );
+  loader.addJSON('/resources/maps/level02.json', ['world', 'MAP', 'L2'] );
+  loader.addJSON('/resources/maps/level03.json', ['world', 'MAP', 'L3'] );*/
 
   //Scores
-  loader.addJSON('/source/resources/ui/highscores.json', ['ui', 'HIGHSCORES'] );
+  loader.addJSON('/resources/ui/highscores.json', ['ui', 'HIGHSCORES'] );
 
   loader.addCompletionListener(function() { 
     scope.init();
